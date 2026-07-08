@@ -461,24 +461,36 @@
     /* Fullscreen overlay */
     .fs-overlay {
       position: fixed; inset: 0; z-index: 9999;
-      background: rgba(0,0,0,0.92); display: flex;
-      align-items: center; justify-content: center;
-      cursor: zoom-out; animation: fadeIn 0.2s ease;
+      background: rgba(0,0,0,0.95);
+      display: flex; align-items: center; justify-content: center;
+      animation: fadeIn 0.2s ease;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
     }
     .fs-overlay img {
-      max-width: 95vw; max-height: 95vh;
-      object-fit: contain; border-radius: 4px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+      display: block; margin: auto;
+      min-width: 100vw; min-height: 100vh;
+      width: auto; height: auto;
+      max-width: none; max-height: none;
+      object-fit: contain;
+      box-shadow: none;
+      border-radius: 0;
     }
     .fs-overlay .fs-close {
-      position: absolute; top: 16px; right: 20px;
-      width: 40px; height: 40px; border-radius: 50%;
-      background: rgba(255,255,255,0.15); border: none;
-      color: #fff; font-size: 22px; cursor: pointer;
+      position: fixed; top: 12px; right: 16px;
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(255,255,255,0.2); border: none;
+      color: #fff; font-size: 20px; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s;
+      z-index: 10000; transition: background 0.2s;
     }
-    .fs-overlay .fs-close:hover { background: rgba(255,255,255,0.25); }
+    .fs-overlay .fs-close:hover { background: rgba(255,255,255,0.35); }
+    .fs-overlay .fs-hint {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,0.5); font-size: 12px;
+      z-index: 10000; pointer-events: none;
+      animation: fadeIn 0.5s ease 0.3s both;
+    }
 
     /* PDF card active state */
     .pdf-card.active {
@@ -840,12 +852,30 @@
   }
 
   function openFullscreen(src) {
+    history.pushState({ fsOpen: true }, '');
     const ov = document.createElement('div');
     ov.className = 'fs-overlay';
-    ov.innerHTML = '<button class="fs-close" onclick="this.parentElement.remove()">✕</button><img src="' + src + '">';
-    ov.addEventListener('click', function(e) { if (e.target === ov) ov.remove(); });
+    ov.innerHTML = '<button class="fs-close">✕</button><img src="' + src + '"><div class="fs-hint">双指缩放 · 单击关闭</div>';
+    ov.querySelector('.fs-close').addEventListener('click', closeFsOverlay);
+    ov.addEventListener('click', function(e) { if (e.target === ov) closeFsOverlay(); });
+    ov.querySelector('img').addEventListener('click', function() {
+      var h = ov.querySelector('.fs-hint'); if (h) h.style.display = 'none';
+    });
     document.body.appendChild(ov);
+    document.body.style.overflow = 'hidden';
   }
+
+  function closeFsOverlay() {
+    var ov = document.querySelector('.fs-overlay');
+    if (ov) ov.remove();
+    document.body.style.overflow = '';
+    if (history.state && history.state.fsOpen) history.back();
+  }
+
+  window.addEventListener('popstate', function(e) {
+    var ov = document.querySelector('.fs-overlay');
+    if (ov) { ov.remove(); document.body.style.overflow = ''; }
+  });
 
   // ===== NAVIGATION =====
   function navigate(hash) {
