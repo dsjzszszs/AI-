@@ -445,15 +445,30 @@
     .placeholder-content p { color: #888; font-size: 15px; line-height: 1.8; }
 
     /* PDF Viewer */
-    .pdf-viewer-page {
-      display: flex; flex-direction: column; height: 100vh; height: 100dvh; background: #fff;
+    /* PDF Inline Viewer */
+    .pdf-inline-wrap {
+      margin-top: 24px; border-radius: 14px; overflow: hidden;
+      background: #525659; box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
     }
-    .pdf-viewer-page .iframe-wrap {
-      flex: 1; position: relative; background: #525659;
+    .pdf-inline-wrap iframe {
+      width: 100%; height: 70vh; border: none; display: block;
     }
-    .pdf-viewer-page .iframe-wrap iframe {
-      width: 100%; height: 100%; border: none;
+    .pdf-inline-close {
+      display: flex; align-items: center; justify-content: center;
+      gap: 6px; padding: 10px; background: rgba(0,0,0,0.6);
+      color: #fff; font-size: 13px; cursor: pointer;
+      border: none; width: 100%; transition: background 0.2s;
     }
+    .pdf-inline-close:hover { background: rgba(0,0,0,0.75); }
+
+    /* PDF card active state */
+    .pdf-card.active {
+      border-color: rgba(102,126,234,0.3) !important;
+      box-shadow: 0 4px 16px rgba(102,126,234,0.12) !important;
+    }
+    .pdf-card.active .pdf-num { color: #667eea; }
+    .pdf-card.active::before { opacity: 1; }
 
     /* Footer */
     .fs-footer {
@@ -706,6 +721,7 @@
           <div class="cw-count">共 3 份 PDF 文档</div>
         </div>
         <div id="pdfList"></div>
+        <div id="pdfInlineWrap" class="pdf-inline-wrap" style="display:none;"></div>
       </div>
     </div>
   </div>
@@ -720,19 +736,6 @@
       <span class="ph-icon" id="placeholderIcon">🚧</span>
       <h2 id="placeholderHeading"><span>内容施工中</span></h2>
       <p id="placeholderText">课程内容正在上传，请耐心等待哦～<br>我们正在加紧制作，很快就会和你见面 🎉</p>
-    </div>
-  </div>
-
-  <!-- ==================== PDF VIEWER PAGE ==================== -->
-  <div id="page-viewer" class="page">
-    <div class="pdf-viewer-page">
-      <div class="top-bar">
-        <button class="btn-back" onclick="goBack()">‹</button>
-        <span class="page-title" id="viewerTitle">PDF 预览</span>
-      </div>
-      <div class="iframe-wrap">
-        <iframe id="viewerFrame" src="" allowfullscreen></iframe>
-      </div>
     </div>
   </div>
 </div>
@@ -776,23 +779,40 @@
     const icons = ['📘', '📙', '📓'];
     document.getElementById('pdfList').innerHTML = PDF_FILES.map((p, i) => {
       const num = String(i + 1).padStart(2, '0');
-      return `<div class="pdf-card" onclick="openPdf(${i})">
+      return `<div class="pdf-card" onclick="openPdfInline(${i}, this)" id="pdfCard${i}">
         <span class="pdf-num">${num}</span>
         <div class="pdf-icon">${icons[i]}</div>
         <div class="pdf-info">
           <div class="pdf-name">《${p.displayName}》</div>
         </div>
-        <div class="pdf-action">→</div></div>`;
+        <div class="pdf-action">▾</div></div>`;
     }).join('');
   }
 
-  function openPdf(index) {
+  let _activePdfIdx = -1;
+  function openPdfInline(index, el) {
+    const wrap = document.getElementById('pdfInlineWrap');
+    if (_activePdfIdx === index && wrap.style.display !== 'none') {
+      wrap.style.display = 'none';
+      document.querySelectorAll('.pdf-card').forEach(c => c.classList.remove('active'));
+      _activePdfIdx = -1;
+      return;
+    }
     const p = PDF_FILES[index];
     const enc = p.path.split('/').map(s => encodeURIComponent(s)).join('/');
-    // Store for viewer
-    window._pdfUrl = enc;
-    window._pdfName = p.displayName;
-    navigate('#/viewer');
+    wrap.innerHTML = `<button class="pdf-inline-close" onclick="closePdfInline()">✕ 收起预览</button><iframe src="${enc}"></iframe>`;
+    wrap.style.display = 'block';
+    document.querySelectorAll('.pdf-card').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    _activePdfIdx = index;
+    setTimeout(() => wrap.scrollIntoView({ behavior:'smooth', block:'nearest' }), 100);
+  }
+  function closePdfInline() {
+    const wrap = document.getElementById('pdfInlineWrap');
+    wrap.style.display = 'none';
+    wrap.innerHTML = '';
+    document.querySelectorAll('.pdf-card').forEach(c => c.classList.remove('active'));
+    _activePdfIdx = -1;
   }
 
   // ===== NAVIGATION =====
@@ -821,11 +841,8 @@
     const wm = hash.match(/^#\/week\/(\d+)$/);
     const cm = hash.match(/^#\/week\/(\d+)\/courseware$/);
 
-    const vm = hash.match(/^#\/viewer$/);
-
     if (wm) { const w=parseInt(wm[1]); w===1 ? showWeekDetail(w) : showComingSoon(w); return; }
     if (cm) { const w=parseInt(cm[1]); w===1 ? showCourseware() : showComingSoon(w); return; }
-    if (vm) { showViewer(); return; }
 
     document.getElementById('page-home').classList.add('active');
     window.location.hash = '#/';
@@ -844,13 +861,7 @@
   function showCourseware() {
     document.getElementById('page-courseware').classList.add('active');
     renderPdfList();
-    window.scrollTo(0,0);
-  }
-
-  function showViewer() {
-    document.getElementById('page-viewer').classList.add('active');
-    document.getElementById('viewerTitle').textContent = '📄 ' + (window._pdfName || 'PDF 预览');
-    document.getElementById('viewerFrame').src = window._pdfUrl || '';
+    closePdfInline();
     window.scrollTo(0,0);
   }
 
