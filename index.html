@@ -597,7 +597,7 @@
     </section>
 
     <!-- WEEK 1 -->
-    <section class="fs-week fs-w1" onclick="navigate('#/week/1')" id="fs-week-1">
+    <section class="fs-week fs-w1" id="fs-week-1">
       <div class="comic-bg halftone"></div>
       <div class="comic-bg speed-lines" style="opacity:0.4;"></div>
       <div class="week-watermark" style="top:5%; right:5%;">01</div>
@@ -608,7 +608,7 @@
         <div class="fs-title">第一周</div>
         <div class="fs-topic">AI视频基础概念与前期准备</div>
         <div class="fs-outcome">了解AI视频制作全流程，搭建你的创作基础，迈出AI创作第一步</div>
-        <button class="btn-enter" onclick="event.stopPropagation(); navigate('#/week/1')">
+        <button class="btn-enter" id="btn-week1">
           进入学习 <span class="arr">→</span>
         </button>
       </div>
@@ -913,7 +913,6 @@
     document.getElementById('weekPageTitle').textContent = '第' + WEEKS[i].num + '周';
     document.getElementById('wdTitle').innerHTML = '第<span>' + WEEKS[i].num + '</span>周';
     document.getElementById('wdSub').textContent = WEEKS[i].topic;
-    alert('OK - page switched to week ' + n);
     renderCategoryGrid(n);
     window.scrollTo(0,0);
   }
@@ -956,31 +955,17 @@
       renderPage('#/');
     }
 
-    // Mobile: bind touchend for week sections and buttons
-    var wk1 = document.getElementById('fs-week-1');
-    if (wk1) {
-      wk1.addEventListener('touchend', function(e) {
-        e.preventDefault();
-        navigate('#/week/1');
-      });
+    // Week 1 button only: click + touchend
+    var btn = document.getElementById('btn-week1');
+    if (btn) {
+      btn.addEventListener('click', function(e) { e.stopPropagation(); navigate('#/week/1'); });
+      btn.addEventListener('touchend', function(e) { e.preventDefault(); e.stopPropagation(); navigate('#/week/1'); });
     }
-    var wk1btn = document.querySelector('#fs-week-1 .btn-enter');
-    if (wk1btn) {
-      wk1btn.addEventListener('touchend', function(e) {
-        e.preventDefault();
-        navigate('#/week/1');
-      });
-    }
-    // Weeks 2-8
+    // Weeks 2-8: section click shows coming soon
     for (var w = 2; w <= 8; w++) {
       var sec = document.querySelector('.fs-w' + w);
       if (sec) {
-        sec.addEventListener('touchend', function(wn) {
-          return function(e) {
-            e.preventDefault();
-            showComingSoon(wn);
-          };
-        }(w));
+        sec.addEventListener('click', function(wn) { return function() { showComingSoon(wn); }; }(w));
       }
     }
   }
