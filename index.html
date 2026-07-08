@@ -447,25 +447,38 @@
     /* PDF Viewer */
     /* Image Viewer */
     .img-viewer-page {
-      max-width: 900px; margin: 0 auto; padding: 40px 28px 80px;
-    }
-    .img-viewer-page .iv-header {
-      text-align: center; margin-bottom: 32px;
-    }
-    .img-viewer-page .iv-header h2 {
-      font-size: clamp(20px, 3.5vw, 28px); font-weight: 800; margin-bottom: 4px;
-    }
-    .img-viewer-page .iv-header h2 span {
-      background: linear-gradient(135deg, #667eea, #f093fb);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .img-viewer-page .iv-header .iv-count {
-      font-size: 13px; color: #999;
+      max-width: 1000px; margin: 0 auto; padding: 20px 16px 80px;
     }
     .img-viewer-page .iv-pages img {
-      display: block; width: 100%; margin-bottom: 12px;
-      border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      display: block; width: 100%; margin-bottom: 8px;
+      border-radius: 6px; box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      cursor: zoom-in; transition: transform 0.2s;
     }
+    .img-viewer-page .iv-pages img:hover {
+      transform: scale(1.01);
+    }
+
+    /* Fullscreen overlay */
+    .fs-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.92); display: flex;
+      align-items: center; justify-content: center;
+      cursor: zoom-out; animation: fadeIn 0.2s ease;
+    }
+    .fs-overlay img {
+      max-width: 95vw; max-height: 95vh;
+      object-fit: contain; border-radius: 4px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    .fs-overlay .fs-close {
+      position: absolute; top: 16px; right: 20px;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255,255,255,0.15); border: none;
+      color: #fff; font-size: 22px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .fs-overlay .fs-close:hover { background: rgba(255,255,255,0.25); }
 
     /* PDF card active state */
     .pdf-card.active {
@@ -490,6 +503,7 @@
 
     /* ===== Responsive ===== */
     @media (max-width: 768px) {
+      .img-viewer-page { padding: 10px 12px 60px; }
       .fs-hero { padding: 32px 20px; }
       .fs-hero h1 { letter-spacing: 1px; }
       .fs-hero .hero-stats { gap: 20px; }
@@ -514,6 +528,9 @@
     }
 
     @media (max-width: 480px) {
+      .img-viewer-page { padding: 8px 8px 60px; }
+      .img-viewer-page .iv-pages img { border-radius: 3px; margin-bottom: 4px; }
+      .fs-overlay .fs-close { top: 10px; right: 12px; width: 34px; height: 34px; font-size: 18px; }
       .fs-hero { padding: 28px 16px; }
       .fs-hero h1 { letter-spacing: 0; }
       .fs-hero .hero-stats { gap: 14px; }
@@ -737,10 +754,6 @@
       <span class="page-title" id="ivTitle">课件预览</span>
     </div>
     <div class="img-viewer-page">
-      <div class="iv-header">
-        <h2 id="ivName">《<span>课件</span>》</h2>
-        <div class="iv-count" id="ivCount"></div>
-      </div>
       <div class="iv-pages" id="ivPages"></div>
     </div>
   </div>
@@ -816,16 +829,22 @@
     page.classList.add('active');
     const p = PDF_FILES[idx];
     const total = PDF_PAGES[idx];
-    document.getElementById('ivTitle').textContent = '📄 ' + p.displayName;
-    document.getElementById('ivName').innerHTML = '《<span>' + p.displayName + '</span>》';
-    document.getElementById('ivCount').textContent = '共 ' + total + ' 页';
+    document.getElementById('ivTitle').textContent = p.displayName;
     let imgs = '';
     for (let i = 1; i <= total; i++) {
       const src = IMG_BASE + '/pdf' + idx + '/page_' + String(i).padStart(3, '0') + '.jpg';
-      imgs += '<img src="' + src + '" alt="第' + i + '页" loading="lazy">';
+      imgs += '<img src="' + src + '" alt="第' + i + '页" loading="lazy" onclick="openFullscreen(this.src)">';
     }
     document.getElementById('ivPages').innerHTML = imgs;
     window.scrollTo(0, 0);
+  }
+
+  function openFullscreen(src) {
+    const ov = document.createElement('div');
+    ov.className = 'fs-overlay';
+    ov.innerHTML = '<button class="fs-close" onclick="this.parentElement.remove()">✕</button><img src="' + src + '">';
+    ov.addEventListener('click', function(e) { if (e.target === ov) ov.remove(); });
+    document.body.appendChild(ov);
   }
 
   // ===== NAVIGATION =====
