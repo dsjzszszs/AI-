@@ -462,19 +462,18 @@
     .fs-overlay {
       position: fixed; inset: 0; z-index: 9999;
       background: rgba(0,0,0,0.95);
-      display: flex; align-items: center; justify-content: center;
       animation: fadeIn 0.2s ease;
-      overflow: auto;
+      overflow: scroll;
       -webkit-overflow-scrolling: touch;
+      touch-action: pinch-zoom;
     }
     .fs-overlay img {
-      display: block; margin: auto;
-      min-width: 100vw; min-height: 100vh;
+      display: block;
       width: auto; height: auto;
       max-width: none; max-height: none;
-      object-fit: contain;
       box-shadow: none;
       border-radius: 0;
+      touch-action: pinch-zoom;
     }
     .fs-overlay .fs-close {
       position: fixed; top: 12px; right: 16px;
