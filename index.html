@@ -910,9 +910,10 @@
   function showWeekDetail(n) {
     document.getElementById('page-week').classList.add('active');
     const i=n-1;
-    document.getElementById('weekPageTitle').textContent = `第${WEEKS[i].num}周`;
-    document.getElementById('wdTitle').innerHTML = `第<span>${WEEKS[i].num}</span>周`;
+    document.getElementById('weekPageTitle').textContent = '第' + WEEKS[i].num + '周';
+    document.getElementById('wdTitle').innerHTML = '第<span>' + WEEKS[i].num + '</span>周';
     document.getElementById('wdSub').textContent = WEEKS[i].topic;
+    alert('OK - page switched to week ' + n);
     renderCategoryGrid(n);
     window.scrollTo(0,0);
   }
@@ -925,9 +926,9 @@
 
   function showComingSoon(n) {
     document.getElementById('page-placeholder').classList.add('active');
-    document.getElementById('placeholderTitle').textContent = `第${WEEKS[n-1].num}周`;
+    document.getElementById('placeholderTitle').textContent = '第' + WEEKS[n-1].num + '周';
     document.getElementById('placeholderIcon').textContent = '🚧';
-    document.getElementById('placeholderHeading').innerHTML = `<span>第${WEEKS[n-1].num}周 · 筹备中</span>`;
+    document.getElementById('placeholderHeading').innerHTML = '<span>第' + WEEKS[n-1].num + '周 · 筹备中</span>';
     document.getElementById('placeholderText').innerHTML = '课程内容正在上传，请耐心等待哦～<br>我们正在加紧制作，很快就会和你见面 🎉';
     window.scrollTo(0,0);
   }
@@ -936,7 +937,7 @@
     document.getElementById('page-placeholder').classList.add('active');
     document.getElementById('placeholderTitle').textContent = name;
     document.getElementById('placeholderIcon').textContent = '🧠';
-    document.getElementById('placeholderHeading').innerHTML = `<span>${name} · 准备中</span>`;
+    document.getElementById('placeholderHeading').innerHTML = '<span>' + name + ' · 准备中</span>';
     document.getElementById('placeholderText').innerHTML = '该模块内容正在精心筹备中，敬请期待～<br>保持关注，精彩内容即将上线 🚀';
     window.scrollTo(0,0);
   }
