@@ -444,6 +444,17 @@
     }
     .placeholder-content p { color: #888; font-size: 15px; line-height: 1.8; }
 
+    /* PDF Viewer */
+    .pdf-viewer-page {
+      display: flex; flex-direction: column; height: 100vh; height: 100dvh; background: #fff;
+    }
+    .pdf-viewer-page .iframe-wrap {
+      flex: 1; position: relative; background: #525659;
+    }
+    .pdf-viewer-page .iframe-wrap iframe {
+      width: 100%; height: 100%; border: none;
+    }
+
     /* Footer */
     .fs-footer {
       min-height: 30vh; display: flex; align-items: center; justify-content: center;
@@ -711,6 +722,19 @@
       <p id="placeholderText">课程内容正在上传，请耐心等待哦～<br>我们正在加紧制作，很快就会和你见面 🎉</p>
     </div>
   </div>
+
+  <!-- ==================== PDF VIEWER PAGE ==================== -->
+  <div id="page-viewer" class="page">
+    <div class="pdf-viewer-page">
+      <div class="top-bar">
+        <button class="btn-back" onclick="goBack()">‹</button>
+        <span class="page-title" id="viewerTitle">PDF 预览</span>
+      </div>
+      <div class="iframe-wrap">
+        <iframe id="viewerFrame" src="" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -751,16 +775,24 @@
   function renderPdfList() {
     const icons = ['📘', '📙', '📓'];
     document.getElementById('pdfList').innerHTML = PDF_FILES.map((p, i) => {
-      const enc = p.path.split('/').map(s => encodeURIComponent(s)).join('/');
       const num = String(i + 1).padStart(2, '0');
-      return `<a class="pdf-card" href="${enc}" target="_blank" rel="noopener">
+      return `<div class="pdf-card" onclick="openPdf(${i})">
         <span class="pdf-num">${num}</span>
         <div class="pdf-icon">${icons[i]}</div>
         <div class="pdf-info">
           <div class="pdf-name">《${p.displayName}》</div>
         </div>
-        <div class="pdf-action">→</div></a>`;
+        <div class="pdf-action">→</div></div>`;
     }).join('');
+  }
+
+  function openPdf(index) {
+    const p = PDF_FILES[index];
+    const enc = p.path.split('/').map(s => encodeURIComponent(s)).join('/');
+    // Store for viewer
+    window._pdfUrl = enc;
+    window._pdfName = p.displayName;
+    navigate('#/viewer');
   }
 
   // ===== NAVIGATION =====
@@ -789,8 +821,11 @@
     const wm = hash.match(/^#\/week\/(\d+)$/);
     const cm = hash.match(/^#\/week\/(\d+)\/courseware$/);
 
+    const vm = hash.match(/^#\/viewer$/);
+
     if (wm) { const w=parseInt(wm[1]); w===1 ? showWeekDetail(w) : showComingSoon(w); return; }
     if (cm) { const w=parseInt(cm[1]); w===1 ? showCourseware() : showComingSoon(w); return; }
+    if (vm) { showViewer(); return; }
 
     document.getElementById('page-home').classList.add('active');
     window.location.hash = '#/';
@@ -809,6 +844,13 @@
   function showCourseware() {
     document.getElementById('page-courseware').classList.add('active');
     renderPdfList();
+    window.scrollTo(0,0);
+  }
+
+  function showViewer() {
+    document.getElementById('page-viewer').classList.add('active');
+    document.getElementById('viewerTitle').textContent = '📄 ' + (window._pdfName || 'PDF 预览');
+    document.getElementById('viewerFrame').src = window._pdfUrl || '';
     window.scrollTo(0,0);
   }
 
