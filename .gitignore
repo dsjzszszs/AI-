@@ -1,0 +1,13 @@
+# Exclude PPT files (large, not needed for web)
+*.pptx
+
+# Exclude other work files
+FDE复盘分析.html
+4月工作/
+6月工作/
+7月工作/
+__MACOSX/
+学员好评宣传/
+
+# Git files
+.git/

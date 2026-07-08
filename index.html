@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>金牌AI视频剧 - 零基础掌握AI视频创作</title>
+  <style>
+    /* ===== Reset & Base ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-snap-type: y proximity; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      background: #fff;
+      color: #1a1a2e;
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ===== Scrollbar ===== */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 3px; }
+
+    /* ===== Keyframes ===== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 20px rgba(102,126,234,0.15); }
+      50% { box-shadow: 0 0 40px rgba(102,126,234,0.35); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.85); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes dash {
+      to { stroke-dashoffset: -200; }
+    }
+
+    /* ===== Page System ===== */
+    .page { display: none; animation: fadeInUp 0.4s ease; }
+    .page.active { display: block; }
+
+    /* ===== Top Bar (sub pages) ===== */
+    .top-bar {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 24px;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .top-bar .btn-back {
+      display: flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: 10px;
+      background: rgba(102,126,234,0.08); color: #667eea;
+      font-size: 20px; font-weight: 600; cursor: pointer;
+      transition: all 0.25s; border: none; flex-shrink: 0;
+    }
+    .top-bar .btn-back:hover { background: rgba(102,126,234,0.16); }
+    .top-bar .btn-back:active { transform: scale(0.9); }
+    .top-bar .page-title {
+      font-size: 16px; font-weight: 700;
+      background: linear-gradient(135deg, #667eea, #f093fb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ===== HOME PAGE – Full-screen Sections ===== */
+    #page-home {
+      scroll-snap-type: y proximity;
+      height: 100vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    /* === Hero Section === */
+    .fs-hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      padding: 40px 28px;
+      scroll-snap-align: start;
+      background: #fafafe;
+    }
+    .fs-hero .hero-bg-pattern {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(102,126,234,0.06) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(240,147,251,0.06) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(0,210,255,0.03) 0%, transparent 50%);
+    }
+    /* Comic halftone overlay */
+    .fs-hero .hero-halftone {
+      position: absolute; inset: 0; pointer-events: none; opacity: 0.04;
+      background-image: radial-gradient(circle, #1a1a2e 1px, transparent 1px);
+      background-size: 12px 12px;
+    }
+    .fs-hero .hero-badge {
+      display: inline-block; padding: 6px 18px; border-radius: 20px;
+      font-size: 13px; font-weight: 700; letter-spacing: 2px;
+      background: linear-gradient(135deg, #667eea, #764ba2); color: #fff;
+      margin-bottom: 24px; position: relative; z-index: 1;
+      animation: fadeInUp 0.7s ease both;
+    }
+    .fs-hero h1 {
+      font-size: clamp(44px, 10vw, 84px); font-weight: 900; line-height: 1.1;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 35%, #f093fb 65%, #f5576c 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 3px; text-align: center;
+      position: relative; z-index: 1;
+      animation: fadeInUp 0.7s ease 0.1s both;
+    }
+    .fs-hero .hero-sub {
+      font-size: clamp(16px, 2.5vw, 22px); color: #666;
+      margin-top: 10px; position: relative; z-index: 1;
+      animation: fadeInUp 0.7s ease 0.2s both;
+    }
+    .fs-hero .hero-desc {
+      font-size: 15px; color: #999; max-width: 500px; text-align: center;
+      margin-top: 12px; line-height: 1.8; position: relative; z-index: 1;
+      animation: fadeInUp 0.7s ease 0.25s both;
+    }
+    .fs-hero .hero-stats {
+      display: flex; gap: 32px; margin-top: 28px; flex-wrap: wrap; justify-content: center;
+      position: relative; z-index: 1;
+      animation: fadeInUp 0.7s ease 0.3s both;
+    }
+    .fs-hero .hero-stats .st { text-align: center; }
+    .fs-hero .hero-stats .st-num { font-size: 26px; font-weight: 800; color: #667eea; }
+    .fs-hero .hero-stats .st-lbl { font-size: 13px; color: #aaa; }
+    .fs-hero .scroll-hint {
+      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      z-index: 1; color: #ccc; font-size: 12px; animation: float 2s ease-in-out infinite;
+    }
+    .fs-hero .scroll-hint .arrow-down {
+      width: 24px; height: 24px; border-right: 2px solid #ccc; border-bottom: 2px solid #ccc;
+      transform: rotate(45deg); opacity: 0.5;
+    }
+
+    /* === Week Full-Screen Sections === */
+    .fs-week {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      padding: 60px 28px;
+      scroll-snap-align: start;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .fs-week:hover { background: #fcfcfd; }
+    .fs-week:active { background: #f9f9fb; }
+
+    /* Shared comic background patterns */
+    .comic-bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+    .comic-bg.halftone {
+      background-image: radial-gradient(circle, rgba(26,26,46,0.06) 1px, transparent 1px);
+      background-size: 10px 10px;
+    }
+    .comic-bg.speed-lines {
+      background: repeating-linear-gradient(
+        -30deg, transparent, transparent 3px,
+        rgba(102,126,234,0.03) 3px, rgba(102,126,234,0.03) 5px
+      );
+    }
+    .comic-bg.dots-large {
+      background-image: radial-gradient(circle, rgba(240,147,251,0.05) 2px, transparent 2px);
+      background-size: 16px 16px;
+    }
+    .comic-bg.stripes {
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 20px,
+        rgba(0,210,255,0.02) 20px, rgba(0,210,255,0.02) 21px
+      );
+    }
+
+    /* Corner decorations – manga panel style */
+    .comic-corner {
+      position: absolute; z-index: 0; pointer-events: none;
+      border: 2px solid rgba(102,126,234,0.08);
+    }
+    .comic-corner.tl { top: -1px; left: -1px; width: 60px; height: 60px; border-right: none; border-bottom: none; border-radius: 4px 0 0 0; }
+    .comic-corner.tr { top: -1px; right: -1px; width: 60px; height: 60px; border-left: none; border-bottom: none; border-radius: 0 4px 0 0; }
+    .comic-corner.bl { bottom: -1px; left: -1px; width: 60px; height: 60px; border-right: none; border-top: none; border-radius: 0 0 0 4px; }
+    .comic-corner.br { bottom: -1px; right: -1px; width: 60px; height: 60px; border-left: none; border-top: none; border-radius: 0 0 4px 0; }
+
+    /* Giant watermark week number */
+    .week-watermark {
+      position: absolute; z-index: 0; pointer-events: none;
+      font-size: clamp(180px, 35vw, 380px); font-weight: 900;
+      line-height: 1; opacity: 0.03; color: #1a1a2e;
+      user-select: none; letter-spacing: -20px;
+    }
+
+    /* Speech bubble decoration */
+    .speech-bubble {
+      position: absolute; z-index: 0; pointer-events: none;
+      width: 100px; height: 70px; border-radius: 20px;
+      background: rgba(102,126,234,0.04); opacity: 0.6;
+    }
+    .speech-bubble::after {
+      content: ''; position: absolute; bottom: -12px; left: 24px;
+      width: 0; height: 0;
+      border-left: 12px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 14px solid rgba(102,126,234,0.04);
+    }
+
+    /* Action lines burst */
+    .burst-lines {
+      position: absolute; z-index: 0; pointer-events: none;
+      width: 200px; height: 200px; opacity: 0.06;
+      background:
+        conic-gradient(from 0deg, transparent 0deg, #667eea 2deg, transparent 4deg,
+                        transparent 45deg, #667eea 47deg, transparent 50deg,
+                        transparent 90deg, #667eea 92deg, transparent 95deg,
+                        transparent 135deg, #667eea 137deg, transparent 140deg,
+                        transparent 180deg, #667eea 182deg, transparent 185deg,
+                        transparent 225deg, #667eea 227deg, transparent 230deg,
+                        transparent 270deg, #667eea 272deg, transparent 275deg,
+                        transparent 315deg, #667eea 317deg, transparent 320deg);
+    }
+
+    /* Section content */
+    .fs-content {
+      position: relative; z-index: 2; text-align: center;
+      max-width: 700px; animation: zoomIn 0.6s ease both;
+    }
+    .fs-content .fs-week-badge {
+      display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 3px;
+      color: #667eea; margin-bottom: 12px;
+      padding: 4px 14px; border-radius: 10px;
+      background: rgba(102,126,234,0.06);
+    }
+    .fs-content .fs-title {
+      font-size: clamp(28px, 5vw, 48px); font-weight: 900; line-height: 1.2; margin-bottom: 10px;
+    }
+    .fs-content .fs-topic {
+      font-size: clamp(16px, 2.5vw, 24px); font-weight: 600; color: #555; margin-bottom: 8px;
+    }
+    .fs-content .fs-outcome {
+      font-size: 16px; color: #999; max-width: 500px; margin: 0 auto 32px; line-height: 1.6;
+    }
+
+    /* Buttons */
+    .btn-enter {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 36px; border-radius: 50px;
+      font-size: 16px; font-weight: 700; color: #fff;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border: none; cursor: pointer;
+      box-shadow: 0 6px 24px rgba(102,126,234,0.3);
+      transition: all 0.3s ease;
+    }
+    .btn-enter:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(102,126,234,0.4); }
+    .btn-enter:active { transform: scale(0.96); }
+    .btn-enter .arr { transition: transform 0.3s; }
+    .btn-enter:hover .arr { transform: translateX(3px); }
+
+    .btn-coming {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 12px 28px; border-radius: 50px;
+      font-size: 14px; font-weight: 600; color: #aaa;
+      background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.06);
+      cursor: default;
+    }
+
+    /* Week section color themes */
+    .fs-w1 .fs-title { color: #667eea; }
+    .fs-w2 .fs-title { color: #6c5ce7; }
+    .fs-w3 .fs-title { color: #e040a0; }
+    .fs-w4 .fs-title { color: #00b8d4; }
+    .fs-w5 .fs-title { color: #f5576c; }
+    .fs-w6 .fs-title { color: #764ba2; }
+    .fs-w7 .fs-title { color: #ff6d00; }
+    .fs-w8 .fs-title { color: #0d7377; }
+
+    .fs-w1 .fs-week-badge { color: #667eea; background: rgba(102,126,234,0.08); }
+    .fs-w2 .fs-week-badge { color: #6c5ce7; background: rgba(108,92,231,0.08); }
+    .fs-w3 .fs-week-badge { color: #e040a0; background: rgba(224,64,160,0.08); }
+    .fs-w4 .fs-week-badge { color: #00b8d4; background: rgba(0,184,212,0.08); }
+    .fs-w5 .fs-week-badge { color: #f5576c; background: rgba(245,87,108,0.08); }
+    .fs-w6 .fs-week-badge { color: #764ba2; background: rgba(118,75,162,0.08); }
+    .fs-w7 .fs-week-badge { color: #ff6d00; background: rgba(255,109,0,0.08); }
+    .fs-w8 .fs-week-badge { color: #0d7377; background: rgba(13,115,119,0.08); }
+
+    /* ===== SUB PAGES ===== */
+    /* Week Detail */
+    .week-detail {
+      max-width: 700px; margin: 0 auto; padding: 40px 28px 80px;
+    }
+    .week-detail .wd-title {
+      font-size: clamp(22px, 4vw, 34px); font-weight: 800; margin-bottom: 4px;
+    }
+    .week-detail .wd-title span {
+      background: linear-gradient(135deg, #667eea, #f093fb);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .week-detail .wd-sub { color: #888; font-size: 14px; margin-bottom: 36px; }
+    .category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .category-card {
+      padding: 40px 20px; border-radius: 18px; background: #fff;
+      border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      text-align: center; cursor: pointer; user-select: none;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .category-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(102,126,234,0.1);
+      border-color: rgba(102,126,234,0.15);
+    }
+    .category-card:active { transform: scale(0.97); }
+    .category-card .cat-icon { font-size: 44px; margin-bottom: 12px; display: block; }
+    .category-card .cat-name { font-size: 18px; font-weight: 700; color: #1a1a2e; }
+
+    /* Courseware */
+    .courseware-page {
+      position: relative; min-height: 100vh; background: #fafafe; overflow: hidden;
+    }
+    /* Comic BG decorations */
+    .cw-bg-halftone {
+      position: absolute; inset: 0; pointer-events: none; opacity: 0.03;
+      background-image: radial-gradient(circle, #1a1a2e 1px, transparent 1px);
+      background-size: 10px 10px; z-index: 0;
+    }
+    .cw-bg-glow {
+      position: absolute; width: 300px; height: 300px; border-radius: 50%;
+      filter: blur(100px); pointer-events: none; z-index: 0;
+      background: radial-gradient(circle, rgba(102,126,234,0.12), transparent);
+      top: -80px; right: -60px;
+    }
+    .cw-corner {
+      position: absolute; z-index: 0; pointer-events: none;
+      border: 2px solid rgba(102,126,234,0.06);
+    }
+    .cw-corner.tl { top: -1px; left: -1px; width: 50px; height: 50px; border-right: none; border-bottom: none; border-radius: 3px 0 0 0; }
+    .cw-corner.br { bottom: -1px; right: -1px; width: 50px; height: 50px; border-left: none; border-top: none; border-radius: 0 0 3px 0; }
+
+    .courseware-list {
+      max-width: 700px; margin: 0 auto; padding: 48px 28px 80px;
+      position: relative; z-index: 1;
+    }
+    /* Header */
+    .cw-header {
+      text-align: center; margin-bottom: 40px; position: relative;
+    }
+    .cw-header .cw-icon-stack {
+      display: inline-flex; position: relative; margin-bottom: 16px;
+    }
+    .cw-header .cw-icon-main {
+      width: 72px; height: 72px; border-radius: 20px;
+      background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1));
+      display: flex; align-items: center; justify-content: center; font-size: 36px;
+      box-shadow: 0 4px 16px rgba(102,126,234,0.06);
+      position: relative; z-index: 2;
+    }
+    .cw-header .cw-icon-float {
+      position: absolute; font-size: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+    .cw-header .cw-icon-float.f1 { top: -14px; right: -18px; animation-delay: 0s; }
+    .cw-header .cw-icon-float.f2 { bottom: -10px; left: -20px; animation-delay: 1.5s; font-size: 16px; }
+    .cw-header .cw-heading {
+      font-size: clamp(22px, 4vw, 32px); font-weight: 800;
+    }
+    .cw-header .cw-heading span {
+      background: linear-gradient(135deg, #667eea, #f093fb);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .cw-header .cw-count {
+      display: inline-block; margin-top: 8px; padding: 4px 14px;
+      border-radius: 12px; font-size: 13px; font-weight: 600;
+      color: #667eea; background: rgba(102,126,234,0.06);
+      border: 1px solid rgba(102,126,234,0.08);
+    }
+
+    /* PDF Cards */
+    .pdf-card {
+      display: flex; align-items: center; gap: 16px;
+      padding: 22px 24px; border-radius: 16px; background: #fff;
+      border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      margin-bottom: 14px; transition: all 0.3s ease; cursor: pointer;
+      position: relative; overflow: hidden;
+    }
+    .pdf-card::before {
+      content: ''; position: absolute; left: 0; top: 16px; bottom: 16px;
+      width: 3px; border-radius: 0 2px 2px 0;
+      background: linear-gradient(to bottom, #667eea, #f093fb);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .pdf-card:hover::before { opacity: 1; }
+    .pdf-card:hover {
+      border-color: rgba(102,126,234,0.12);
+      box-shadow: 0 8px 24px rgba(102,126,234,0.08);
+      transform: translateX(4px);
+    }
+    .pdf-card:active { transform: scale(0.99); }
+    .pdf-card .pdf-num {
+      flex-shrink: 0; width: 32px; text-align: center;
+      font-size: 12px; font-weight: 800; color: #ccc;
+      letter-spacing: 1px;
+    }
+    .pdf-card .pdf-icon {
+      width: 48px; height: 48px; flex-shrink: 0; border-radius: 12px;
+      background: linear-gradient(135deg, rgba(245,87,108,0.08), rgba(240,147,251,0.08));
+      display: flex; align-items: center; justify-content: center; font-size: 22px;
+    }
+    .pdf-card:nth-child(1) .pdf-icon { background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.08)); }
+    .pdf-card:nth-child(2) .pdf-icon { background: linear-gradient(135deg, rgba(240,147,251,0.1), rgba(245,87,108,0.08)); }
+    .pdf-card:nth-child(3) .pdf-icon { background: linear-gradient(135deg, rgba(0,210,255,0.1), rgba(102,126,234,0.08)); }
+    .pdf-card .pdf-info { flex: 1; min-width: 0; }
+    .pdf-card .pdf-name {
+      font-size: 16px; font-weight: 600;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .pdf-card .pdf-action {
+      flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(102,126,234,0.06); display: flex;
+      align-items: center; justify-content: center; font-size: 15px; color: #667eea;
+      transition: all 0.3s;
+    }
+    .pdf-card:hover .pdf-action { background: rgba(102,126,234,0.15); transform: scale(1.1); }
+
+    /* Placeholder */
+    .placeholder-content {
+      max-width: 520px; margin: 0 auto; padding: 80px 28px; text-align: center;
+    }
+    .placeholder-content .ph-icon { font-size: 72px; margin-bottom: 20px; display: block; animation: float 3.5s ease-in-out infinite; }
+    .placeholder-content h2 { font-size: clamp(20px, 4vw, 28px); font-weight: 800; margin-bottom: 10px; }
+    .placeholder-content h2 span {
+      background: linear-gradient(135deg, #667eea, #f093fb);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .placeholder-content p { color: #888; font-size: 15px; line-height: 1.8; }
+
+    /* Footer */
+    .fs-footer {
+      min-height: 30vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 40px 28px; border-top: 1px solid rgba(0,0,0,0.04);
+      scroll-snap-align: start; background: #fafafe;
+    }
+    .fs-footer p { font-size: 13px; color: #bbb; }
+    .fs-footer .footer-brand {
+      font-size: 18px; font-weight: 700; margin-bottom: 8px;
+      background: linear-gradient(135deg, #667eea, #f093fb);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      .fs-hero { padding: 32px 20px; }
+      .fs-hero h1 { letter-spacing: 1px; }
+      .fs-hero .hero-stats { gap: 20px; }
+      .fs-hero .hero-stats .st-num { font-size: 22px; }
+      .fs-week { padding: 40px 20px; }
+      .fs-content .fs-title { font-size: clamp(24px, 6vw, 36px); }
+      .fs-content .fs-outcome { font-size: 14px; }
+      .week-watermark { font-size: clamp(120px, 28vw, 250px); }
+      .comic-corner { width: 40px; height: 40px; }
+      .category-grid { gap: 12px; }
+      .category-card { padding: 32px 16px; }
+      .category-card .cat-icon { font-size: 36px; }
+      .category-card .cat-name { font-size: 16px; }
+      .week-detail { padding: 24px 20px 60px; }
+      .courseware-list { padding: 32px 20px 60px; }
+      .cw-header .cw-icon-main { width: 56px; height: 56px; font-size: 28px; border-radius: 14px; }
+      .cw-header .cw-heading { font-size: 20px; }
+      .cw-corner { width: 34px; height: 34px; }
+      .top-bar { padding: 10px 16px; }
+      .top-bar .page-title { font-size: 15px; }
+      .btn-enter { padding: 12px 28px; font-size: 14px; }
+    }
+
+    @media (max-width: 480px) {
+      .fs-hero { padding: 28px 16px; }
+      .fs-hero h1 { letter-spacing: 0; }
+      .fs-hero .hero-stats { gap: 14px; }
+      .fs-week { padding: 32px 16px; }
+      .fs-content .fs-title { font-size: clamp(22px, 7vw, 28px); }
+      .fs-content .fs-outcome { font-size: 13px; }
+      .fs-content .fs-topic { font-size: clamp(14px, 3vw, 18px); }
+      .week-watermark { font-size: clamp(100px, 25vw, 200px); }
+      .comic-corner { width: 30px; height: 30px; }
+      .category-grid { grid-template-columns: 1fr; gap: 10px; }
+      .category-card { padding: 28px 16px; }
+      .pdf-card { padding: 16px 18px; }
+      .pdf-card .pdf-name { font-size: 14px; }
+      .pdf-card .pdf-num { width: 24px; font-size: 11px; }
+      .pdf-card .pdf-icon { width: 40px; height: 40px; font-size: 18px; border-radius: 10px; }
+      .placeholder-content .ph-icon { font-size: 56px; }
+      .btn-enter { padding: 10px 24px; font-size: 13px; }
+      .speech-bubble { width: 60px; height: 44px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <!-- ==================== HOME PAGE ==================== -->
+  <div id="page-home" class="page active">
+
+    <!-- HERO -->
+    <section class="fs-hero">
+      <div class="hero-bg-pattern"></div>
+      <div class="hero-halftone"></div>
+      <div class="comic-corner tl"></div>
+      <div class="comic-corner tr"></div>
+      <div class="comic-corner bl"></div>
+      <div class="comic-corner br"></div>
+      <div class="hero-badge">🚀 2025 年轻创作者必修课</div>
+      <h1>金牌AI视频剧</h1>
+      <p class="hero-sub">零基础入门 · 系统化学习 · 实战出师</p>
+      <p class="hero-desc">
+        专为年轻创作者打造的 AI 视频实战课程。<br>八周时间，从剧本到成片，掌握AI视频制作全流程。
+      </p>
+      <div class="hero-stats">
+        <div class="st"><div class="st-num">8</div><div class="st-lbl">周系统课程</div></div>
+        <div class="st"><div class="st-num">20+</div><div class="st-lbl">实战案例</div></div>
+        <div class="st"><div class="st-num">3</div><div class="st-lbl">大核心模块</div></div>
+        <div class="st"><div class="st-num">🔥</div><div class="st-lbl">零基础友好</div></div>
+      </div>
+      <div class="scroll-hint">
+        <span>向下滚动探索课程</span>
+        <div class="arrow-down"></div>
+      </div>
+    </section>
+
+    <!-- WEEK 1 -->
+    <section class="fs-week fs-w1" onclick="navigate('#/week/1')" id="fs-week-1">
+      <div class="comic-bg halftone"></div>
+      <div class="comic-bg speed-lines" style="opacity:0.4;"></div>
+      <div class="week-watermark" style="top:5%; right:5%;">01</div>
+      <div class="speech-bubble" style="top:15%; left:10%;"></div>
+      <div class="speech-bubble" style="bottom:20%; right:8%; transform:scaleX(-1);"></div>
+      <div class="fs-content">
+        <div class="fs-week-badge">🔥 已上线 · 点击进入</div>
+        <div class="fs-title">第一周</div>
+        <div class="fs-topic">AI视频基础概念与前期准备</div>
+        <div class="fs-outcome">了解AI视频制作全流程，搭建你的创作基础，迈出AI创作第一步</div>
+        <button class="btn-enter" onclick="event.stopPropagation(); navigate('#/week/1')">
+          进入学习 <span class="arr">→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- WEEK 2 -->
+    <section class="fs-week fs-w2" onclick="showComingSoon(2)">
+      <div class="comic-bg dots-large"></div>
+      <div class="week-watermark" style="bottom:5%; left:5%;">02</div>
+      <div class="burst-lines" style="top:20%; right:15%;"></div>
+      <div class="fs-content">
+        <div class="fs-week-badge">📌 即将上线</div>
+        <div class="fs-title">第二周</div>
+        <div class="fs-topic">剧本创作与分镜设计</div>
+        <div class="fs-outcome">学会用AI辅助撰写专业剧本，设计出电影级别的分镜脚本</div>
+        <span class="btn-coming">⏳ 课程筹备中，敬请期待</span>
+      </div>
+    </section>
+
+    <!-- WEEK 3 -->
+    <section class="fs-week fs-w3" onclick="showComingSoon(3)">
+      <div class="comic-bg halftone" style="background-size:8px 8px;"></div>
+      <div class="week-watermark" style="top:10%; right:10%;">03</div>
+      <div class="burst-lines" style="bottom:10%; left:10%; transform:rotate(45deg);"></div>
+      <div class="fs-content">
+        <div class="fs-week-badge">📌 即将上线</div>
+        <div class="fs-title">第三周</div>
+        <div class="fs-topic">AI绘画与视觉生成</div>
+        <div class="fs-outcome">掌握AI绘画工具，生成令人惊艳的视觉素材与场景画面</div>
+        <span class="btn-coming">⏳ 课程筹备中，敬请期待</span>
+      </div>
+    </section>
+
+    <!-- WEEK 4 -->
+    <section class="fs-week fs-w4" onclick="showComingSoon(4)">
+      <div class="comic-bg stripes"></div>
+      <div class="week-watermark" style="bottom:10%; right:5%;">04</div>
+      <div class="speech-bubble" style="top:25%; right:12%;"></div>
+      <div class="fs-content">
+        <div class="fs-week-badge">📌 即将上线</div>
+        <div class="fs-title">第四周</div>
+        <div class="fs-topic">动态视频生成技术</div>
+        <div class="fs-outcome">学习将静态画面转化为流畅的动态视频，让画面真正"活"起来</div>
+        <span class="btn-coming">⏳ 课程筹备中，敬请期待</span>
+      </div>
+    </section>
+
+    <!-- WEEK 5 -->
+    <section class="fs-week fs-w5" onclick="showComingSoon(5)">
+      <div class="comic-bg speed-lines" style="opacity:0.5; transform:rotate(15deg);"></div>
+      <div class="week-watermark" style="top:5%; left:5%;">05</div>
+      <div class="burst-lines" style="top:40%; right:20%; transform:rotate(-30deg);"></div>
+      <div class="fs-content">
+        <div class="fs-week-badge">📌 即将上线</div>
+        <div class="fs-title">第五周</div>
+        <div class="fs-topic">配音配乐与音效制作</div>
+        <div class="fs-outcome">AI语音合成+智能配乐，让你的视频有声有色，感染力拉满</div>
+        <span class="btn-coming">⏳ 课程筹备中，敬请期待</span>
+      </div>
+    </section>
+
+    <!-- WEEK 6 -->
+    <section class="fs-week fs-w6" onclick="showComingSoon(6)">
+      <div class="comic-bg dots-large" style="background-size:12px 12px;"></div>
+      <div class="week-watermark" style="bottom:5%; right:8%;">06</div>
+      <div class="fs-content">
+        <div class="fs-week-badge">📌 即将上线</div>
+        <div class="fs-title">第六周</div>
+        <div class="fs-topic">剪辑合成与后期特效</div>
+        <div class="fs-outcome">AI辅助剪辑+一键添加炫酷特效，大幅提升后期制作效率</div>
+        <span class="btn-coming">⏳ 课程筹备中，敬请期待</span>
+      </div>
+    </section>
+
+    <!-- WEEK 7 -->
+    <section class="fs-week fs-w7" onclick="showComingSoon(7)">
+      <div class="comic-bg halftone" style="background-size:14px 14px;"></div>
+      <div class="week-watermark" style="top:8%; right:8%;">07</div>
+      <div class="speech-bubble" style="bottom:30%; left:12%;"></div>
+      <div class="fs-content">
+        <div class="fs-week-badge">📌 即将上线</div>
+        <div class="fs-title">第七周</div>
+        <div class="fs-topic">综合实战项目（上）</div>
+        <div class="fs-outcome">从0到1动手完成一部完整的AI短片，融会贯通所有技能</div>
+        <span class="btn-coming">⏳ 课程筹备中，敬请期待</span>
+      </div>
+    </section>
+
+    <!-- WEEK 8 -->
+    <section class="fs-week fs-w8" onclick="showComingSoon(8)">
+      <div class="comic-bg stripes" style="background:repeating-linear-gradient(0deg,transparent,transparent 16px,rgba(13,115,119,0.03) 16px,rgba(13,115,119,0.03) 17px);"></div>
+      <div class="week-watermark" style="bottom:8%; left:6%;">08</div>
+      <div class="burst-lines" style="top:30%; left:20%; transform:rotate(20deg);"></div>
+      <div class="fs-content">
+        <div class="fs-week-badge">📌 即将上线</div>
+        <div class="fs-title">第八周</div>
+        <div class="fs-topic">综合实战项目（下）</div>
+        <div class="fs-outcome">作品打磨精修与多渠道发布，打造属于你的个人AI创作作品集</div>
+        <span class="btn-coming">⏳ 课程筹备中，敬请期待</span>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <section class="fs-footer">
+      <div>
+        <div class="footer-brand">🎬 金牌AI视频剧</div>
+        <p>© 2025 金牌AI视频剧 · 用AI点亮创作梦想</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== WEEK DETAIL PAGE ==================== -->
+  <div id="page-week" class="page">
+    <div class="top-bar">
+      <button class="btn-back" onclick="navigate('#/')">‹</button>
+      <span class="page-title" id="weekPageTitle">第一周</span>
+    </div>
+    <div class="week-detail">
+      <div class="wd-title" id="wdTitle">第<span>一</span>周</div>
+      <p class="wd-sub" id="wdSub">AI视频基础概念与前期准备</p>
+      <div class="category-grid" id="categoryGrid"></div>
+    </div>
+  </div>
+
+  <!-- ==================== COURSEWARE PAGE ==================== -->
+  <div id="page-courseware" class="page">
+    <div class="top-bar">
+      <button class="btn-back" onclick="goBack()">‹</button>
+      <span class="page-title">📖 课件资料</span>
+    </div>
+    <div class="courseware-page">
+      <div class="cw-bg-halftone"></div>
+      <div class="cw-bg-glow"></div>
+      <div class="cw-corner tl"></div>
+      <div class="cw-corner br"></div>
+      <div class="courseware-list">
+        <div class="cw-header">
+          <div class="cw-icon-stack">
+            <div class="cw-icon-main">📖</div>
+            <span class="cw-icon-float f1">✨</span>
+            <span class="cw-icon-float f2">📄</span>
+          </div>
+          <div class="cw-heading">第一周 · <span>课件资料</span></div>
+          <div class="cw-count">共 3 份 PDF 文档</div>
+        </div>
+        <div id="pdfList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PLACEHOLDER PAGE ==================== -->
+  <div id="page-placeholder" class="page">
+    <div class="top-bar">
+      <button class="btn-back" onclick="goBack()">‹</button>
+      <span class="page-title" id="placeholderTitle">提示</span>
+    </div>
+    <div class="placeholder-content">
+      <span class="ph-icon" id="placeholderIcon">🚧</span>
+      <h2 id="placeholderHeading"><span>内容施工中</span></h2>
+      <p id="placeholderText">课程内容正在上传，请耐心等待哦～<br>我们正在加紧制作，很快就会和你见面 🎉</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ===== DATA =====
+  const WEEKS = [
+    { num:'一', topic:'AI视频基础概念与前期准备', outcome:'了解AI视频全流程，搭建创作基础', icon:'🎬' },
+    { num:'二', topic:'剧本创作与分镜设计', outcome:'学会用AI辅助撰写剧本、设计分镜', icon:'📝' },
+    { num:'三', topic:'AI绘画与视觉生成', outcome:'掌握AI绘画工具，生成惊艳视觉素材', icon:'🎨' },
+    { num:'四', topic:'动态视频生成技术', outcome:'将静态画面转化为流畅动态视频', icon:'🎞️' },
+    { num:'五', topic:'配音配乐与音效制作', outcome:'AI语音合成+配乐，让视频有声有色', icon:'🎵' },
+    { num:'六', topic:'剪辑合成与后期特效', outcome:'AI辅助剪辑，一键添加炫酷特效', icon:'✂️' },
+    { num:'七', topic:'综合实战项目（上）', outcome:'从0到1完成一部AI短片制作', icon:'🚀' },
+    { num:'八', topic:'综合实战项目（下）', outcome:'作品打磨与发布，打造个人作品集', icon:'🏆' }
+  ];
+
+  const PDF_FILES = [
+    { displayName:'AI视频剧的基础概念和前期准备', fullName:'正课《AI视频剧的基础概念和前期准备》', path:'5月工作/八周课——第一周/PPT+PDF/正课《AI视频剧的基础概念和前期准备》.pdf' },
+    { displayName:'AI视频制作《清明》古诗动画制作课件', fullName:'AI视频制作《清明》古诗动画制作课件', path:'5月工作/八周课——第一周/PPT+PDF/AI视频制作《清明》古诗动画制作课件.pdf' },
+    { displayName:'加餐课：AI视频制作背后的底层知识', fullName:'加餐课：AI视频制作背后的底层知识', path:'5月工作/八周课——第一周/PPT+PDF/加餐课：AI视频制作背后的底层知识.pdf' }
+  ];
+
+  let historyStack = ['#/'];
+
+  // ===== RENDER =====
+  function renderCategoryGrid(wk) {
+    const cats = [
+      { icon:'📖', name:'课件', link:`#/week/${wk}/courseware` },
+      { icon:'🧠', name:'思维导图', ph:true },
+      { icon:'🎬', name:'视频', ph:true }
+    ];
+    document.getElementById('categoryGrid').innerHTML = cats.map(c =>
+      c.ph
+        ? `<div class="category-card" onclick="showPlaceholder('${c.name}')"><span class="cat-icon">${c.icon}</span><div class="cat-name">${c.name}</div></div>`
+        : `<div class="category-card" onclick="navigate('${c.link}')"><span class="cat-icon">${c.icon}</span><div class="cat-name">${c.name}</div></div>`
+    ).join('');
+  }
+
+  function renderPdfList() {
+    const icons = ['📘', '📙', '📓'];
+    document.getElementById('pdfList').innerHTML = PDF_FILES.map((p, i) => {
+      const enc = p.path.split('/').map(s => encodeURIComponent(s)).join('/');
+      const num = String(i + 1).padStart(2, '0');
+      return `<a class="pdf-card" href="${enc}" target="_blank" rel="noopener">
+        <span class="pdf-num">${num}</span>
+        <div class="pdf-icon">${icons[i]}</div>
+        <div class="pdf-info">
+          <div class="pdf-name">《${p.displayName}》</div>
+        </div>
+        <div class="pdf-action">→</div></a>`;
+    }).join('');
+  }
+
+  // ===== NAVIGATION =====
+  function navigate(hash) {
+    if (hash !== historyStack[historyStack.length - 1]) historyStack.push(hash);
+    window.location.hash = hash;
+    renderPage(hash);
+    // Scroll to top for sub-pages
+    document.getElementById('page-home')?.classList.contains('active') || window.scrollTo(0, 0);
+  }
+
+  function goBack() {
+    if (historyStack.length > 1) historyStack.pop();
+    const prev = historyStack[historyStack.length - 1] || '#/';
+    window.location.hash = prev;
+    renderPage(prev);
+    if (prev === '#/') {
+      setTimeout(() => document.getElementById('page-home')?.scrollTo(0, 0), 50);
+    }
+  }
+
+  function renderPage(hash) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    if (!hash || hash === '#/') { document.getElementById('page-home').classList.add('active'); return; }
+
+    const wm = hash.match(/^#\/week\/(\d+)$/);
+    const cm = hash.match(/^#\/week\/(\d+)\/courseware$/);
+
+    if (wm) { const w=parseInt(wm[1]); w===1 ? showWeekDetail(w) : showComingSoon(w); return; }
+    if (cm) { const w=parseInt(cm[1]); w===1 ? showCourseware() : showComingSoon(w); return; }
+
+    document.getElementById('page-home').classList.add('active');
+    window.location.hash = '#/';
+  }
+
+  function showWeekDetail(n) {
+    document.getElementById('page-week').classList.add('active');
+    const i=n-1;
+    document.getElementById('weekPageTitle').textContent = `第${WEEKS[i].num}周`;
+    document.getElementById('wdTitle').innerHTML = `第<span>${WEEKS[i].num}</span>周`;
+    document.getElementById('wdSub').textContent = WEEKS[i].topic;
+    renderCategoryGrid(n);
+    window.scrollTo(0,0);
+  }
+
+  function showCourseware() {
+    document.getElementById('page-courseware').classList.add('active');
+    renderPdfList();
+    window.scrollTo(0,0);
+  }
+
+  function showComingSoon(n) {
+    document.getElementById('page-placeholder').classList.add('active');
+    document.getElementById('placeholderTitle').textContent = `第${WEEKS[n-1].num}周`;
+    document.getElementById('placeholderIcon').textContent = '🚧';
+    document.getElementById('placeholderHeading').innerHTML = `<span>第${WEEKS[n-1].num}周 · 筹备中</span>`;
+    document.getElementById('placeholderText').innerHTML = '课程内容正在上传，请耐心等待哦～<br>我们正在加紧制作，很快就会和你见面 🎉';
+    window.scrollTo(0,0);
+  }
+
+  function showPlaceholder(name) {
+    document.getElementById('page-placeholder').classList.add('active');
+    document.getElementById('placeholderTitle').textContent = name;
+    document.getElementById('placeholderIcon').textContent = '🧠';
+    document.getElementById('placeholderHeading').innerHTML = `<span>${name} · 准备中</span>`;
+    document.getElementById('placeholderText').innerHTML = '该模块内容正在精心筹备中，敬请期待～<br>保持关注，精彩内容即将上线 🚀';
+    window.scrollTo(0,0);
+  }
+
+  // ===== EVENTS =====
+  window.addEventListener('hashchange', () => {
+    const hash = window.location.hash || '#/';
+    if (historyStack[historyStack.length - 1] !== hash) historyStack.push(hash);
+    renderPage(hash);
+  });
+
+  // ===== INIT =====
+  function init() {
+    const hash = window.location.hash || '#/';
+    if (hash !== '#/' && hash) {
+      historyStack = ['#/', hash];
+      renderPage(hash);
+    } else {
+      window.location.hash = '#/';
+      renderPage('#/');
+    }
+  }
+  init();
+</script>
+</body>
+</html>
