@@ -946,13 +946,41 @@
 
   // ===== INIT =====
   function init() {
-    const hash = window.location.hash || '#/';
+    var hash = window.location.hash || '#/';
     if (hash !== '#/' && hash) {
       historyStack = ['#/', hash];
       renderPage(hash);
     } else {
       history.replaceState(null, '', '#/');
       renderPage('#/');
+    }
+
+    // Mobile: bind touchend for week sections and buttons
+    var wk1 = document.getElementById('fs-week-1');
+    if (wk1) {
+      wk1.addEventListener('touchend', function(e) {
+        e.preventDefault();
+        navigate('#/week/1');
+      });
+    }
+    var wk1btn = document.querySelector('#fs-week-1 .btn-enter');
+    if (wk1btn) {
+      wk1btn.addEventListener('touchend', function(e) {
+        e.preventDefault();
+        navigate('#/week/1');
+      });
+    }
+    // Weeks 2-8
+    for (var w = 2; w <= 8; w++) {
+      var sec = document.querySelector('.fs-w' + w);
+      if (sec) {
+        sec.addEventListener('touchend', function(wn) {
+          return function(e) {
+            e.preventDefault();
+            showComingSoon(wn);
+          };
+        }(w));
+      }
     }
   }
   init();
