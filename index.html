@@ -882,18 +882,13 @@
     if (hash !== historyStack[historyStack.length - 1]) historyStack.push(hash);
     window.location.hash = hash;
     renderPage(hash);
-    // Scroll to top for sub-pages
-    document.getElementById('page-home')?.classList.contains('active') || window.scrollTo(0, 0);
   }
 
   function goBack() {
     if (historyStack.length > 1) historyStack.pop();
-    const prev = historyStack[historyStack.length - 1] || '#/';
-    window.location.hash = prev;
+    var prev = historyStack[historyStack.length - 1] || '#/';
     renderPage(prev);
-    if (prev === '#/') {
-      setTimeout(() => document.getElementById('page-home')?.scrollTo(0, 0), 50);
-    }
+    window.location.hash = prev;
   }
 
   function renderPage(hash) {
@@ -947,11 +942,7 @@
   }
 
   // ===== EVENTS =====
-  window.addEventListener('hashchange', () => {
-    const hash = window.location.hash || '#/';
-    if (historyStack[historyStack.length - 1] !== hash) historyStack.push(hash);
-    renderPage(hash);
-  });
+  // hashchange removed - renderPage is called directly from navigate/goBack
 
   // ===== INIT =====
   function init() {
@@ -960,7 +951,7 @@
       historyStack = ['#/', hash];
       renderPage(hash);
     } else {
-      window.location.hash = '#/';
+      history.replaceState(null, '', '#/');
       renderPage('#/');
     }
   }
