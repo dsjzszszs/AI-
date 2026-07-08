@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewportMeta">
   <title>金牌AI视频剧 - 零基础掌握AI视频创作</title>
   <style>
     /* ===== Reset & Base ===== */
@@ -378,12 +378,6 @@
       background: linear-gradient(135deg, #667eea, #f093fb);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-    .cw-header .cw-count {
-      display: inline-block; margin-top: 8px; padding: 4px 14px;
-      border-radius: 12px; font-size: 13px; font-weight: 600;
-      color: #667eea; background: rgba(102,126,234,0.06);
-      border: 1px solid rgba(102,126,234,0.08);
-    }
 
     /* PDF Cards */
     .pdf-card {
@@ -751,7 +745,6 @@
             <span class="cw-icon-float f2">📄</span>
           </div>
           <div class="cw-heading">第一周 · <span>课件资料</span></div>
-          <div class="cw-count">共 3 份 PDF 文档</div>
         </div>
         <div id="pdfList"></div>
       </div>
@@ -852,7 +845,10 @@
 
   function openFullscreen(src) {
     history.pushState({ fsOpen: true }, '');
-    const ov = document.createElement('div');
+    // Enable pinch zoom for fullscreen
+    var vp = document.getElementById('viewportMeta');
+    if (vp) vp.content = 'width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes';
+    var ov = document.createElement('div');
     ov.className = 'fs-overlay';
     ov.innerHTML = '<button class="fs-close">✕</button><img src="' + src + '"><div class="fs-hint">双指缩放 · 单击关闭</div>';
     ov.querySelector('.fs-close').addEventListener('click', closeFsOverlay);
@@ -868,6 +864,9 @@
     var ov = document.querySelector('.fs-overlay');
     if (ov) ov.remove();
     document.body.style.overflow = '';
+    // Disable zoom again
+    var vp = document.getElementById('viewportMeta');
+    if (vp) vp.content = 'width=device-width, initial-scale=1.0';
     if (history.state && history.state.fsOpen) history.back();
   }
 
