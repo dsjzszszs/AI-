@@ -763,6 +763,17 @@
     </div>
   </div>
 
+  <!-- ==================== MINDMAP VIEWER ==================== -->
+  <div id="page-mindmap" class="page">
+    <div class="top-bar">
+      <button class="btn-back" onclick="goBack()">‹</button>
+      <span class="page-title" id="mmTitle">思维导图</span>
+    </div>
+    <div class="img-viewer-page">
+      <div class="iv-pages" id="mmPages"></div>
+    </div>
+  </div>
+
   <!-- ==================== PLACEHOLDER PAGE ==================== -->
   <div id="page-placeholder" class="page">
     <div class="top-bar">
@@ -799,20 +810,30 @@
   const PDF_PAGES = [17, 22, 19]; // page counts for each PDF
   const IMG_BASE = '5月工作/八周课——第一周/PPT+PDF/images';
 
+  const MINDMAP_FILES = [
+    { name:'5月11日思维导图' },
+    { name:'5月12日思维导图' },
+    { name:'5月14日思维导图' },
+    { name:'整体课程思维导图' },
+    { name:'树帆教育水印' }
+  ];
+  const MM_IMG_BASE = '5月工作/八周课——第一周/思维导图/images';
+
   let historyStack = ['#/'];
 
   // ===== RENDER =====
   function renderCategoryGrid(wk) {
     const cats = [
-      { icon:'📖', name:'课件', link:`#/week/${wk}/courseware` },
-      { icon:'🧠', name:'思维导图', ph:true },
+      { icon:'📖', name:'课件', link:'#/week/' + wk + '/courseware' },
+      { icon:'🧠', name:'思维导图', link:'#/mindmap' },
       { icon:'🎬', name:'视频', ph:true }
     ];
-    document.getElementById('categoryGrid').innerHTML = cats.map(c =>
-      c.ph
-        ? `<div class="category-card" onclick="showPlaceholder('${c.name}')"><span class="cat-icon">${c.icon}</span><div class="cat-name">${c.name}</div></div>`
-        : `<div class="category-card" onclick="navigate('${c.link}')"><span class="cat-icon">${c.icon}</span><div class="cat-name">${c.name}</div></div>`
-    ).join('');
+    document.getElementById('categoryGrid').innerHTML = cats.map(function(cat) {
+      if (cat.ph) {
+        return '<div class="category-card" onclick="showPlaceholder(\'' + cat.name + '\')"><span class="cat-icon">' + cat.icon + '</span><div class="cat-name">' + cat.name + '</div></div>';
+      }
+      return '<div class="category-card" onclick="navigate(\'' + cat.link + '\')"><span class="cat-icon">' + cat.icon + '</span><div class="cat-name">' + cat.name + '</div></div>';
+    }).join('');
   }
 
   function renderPdfList() {
@@ -897,8 +918,10 @@
     const wm = hash.match(/^#\/week\/(\d+)$/);
     const cm = hash.match(/^#\/week\/(\d+)\/courseware$/);
     const vm = hash.match(/^#\/viewer\/(\d+)$/);
+    const mm = hash.match(/^#\/mindmap$/);
 
     if (vm) { showImgViewer(parseInt(vm[1])); return; }
+    if (mm) { showMindmapViewer(); return; }
     if (wm) { const w=parseInt(wm[1]); w===1 ? showWeekDetail(w) : showComingSoon(w); return; }
     if (cm) { const w=parseInt(cm[1]); w===1 ? showCourseware() : showComingSoon(w); return; }
 
@@ -914,6 +937,19 @@
     document.getElementById('wdSub').textContent = WEEKS[i].topic;
     renderCategoryGrid(n);
     window.scrollTo(0,0);
+  }
+
+  function showMindmapViewer() {
+    var page = document.getElementById('page-mindmap');
+    page.classList.add('active');
+    document.getElementById('mmTitle').textContent = '🧠 思维导图';
+    var imgs = '';
+    for (var i = 0; i < MINDMAP_FILES.length; i++) {
+      var src = MM_IMG_BASE + '/page_' + String(i + 1).padStart(3, '0') + '.jpg';
+      imgs += '<img src="' + src + '" alt="' + MINDMAP_FILES[i].name + '" loading="lazy" onclick="openFullscreen(this.src)">';
+    }
+    document.getElementById('mmPages').innerHTML = imgs;
+    window.scrollTo(0, 0);
   }
 
   function showCourseware() {
