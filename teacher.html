@@ -9,124 +9,122 @@
     html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
-      background: #fafafe; color: #1a1a2e;
+      background: #0a0a14; color: #e0e0f0;
       overflow-x: hidden; line-height: 1.6;
-      padding-top: 60px;
+      padding-top: 72px;
     }
     a { color: inherit; text-decoration: none; }
     ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 3px; }
+    ::-webkit-scrollbar-track { background: #0a0a14; }
+    ::-webkit-scrollbar-thumb { background: rgba(102,126,234,0.25); border-radius: 3px; }
 
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 5px rgba(102,126,234,0.3); } 50% { box-shadow: 0 0 20px rgba(102,126,234,0.6); } }
 
     /* Nav Bar */
     .nav-bar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      height: 60px; display: flex; align-items: center; justify-content: space-between;
-      padding: 0 28px;
-      background: rgba(255,255,255,0.88);
-      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(0,0,0,0.05);
+      height: 72px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px;
+      background: rgba(10,10,20,0.92);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border-bottom: 2px solid transparent;
+      border-image: linear-gradient(90deg, transparent, #667eea, #f093fb, #00d4ff, transparent) 1;
     }
-    .nav-bar.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+    .nav-bar.scrolled { box-shadow: 0 0 30px rgba(102,126,234,0.15); }
     .nav-brand {
-      font-size: 17px; font-weight: 800; letter-spacing: 1px;
-      background: linear-gradient(135deg, #667eea, #f093fb);
+      font-size: 19px; font-weight: 800; letter-spacing: 2px;
+      background: linear-gradient(135deg, #667eea, #f093fb, #00d4ff);
+      background-size: 200% 200%;
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      animation: gradientShift 4s ease infinite;
       white-space: nowrap;
     }
-    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-links { display: flex; gap: 8px; align-items: center; }
     .nav-links a {
-      display: inline-block; padding: 8px 14px; border-radius: 10px;
-      font-size: 13px; font-weight: 600; color: #666;
-      transition: all 0.25s; white-space: nowrap;
+      display: inline-block; padding: 10px 18px; border-radius: 12px;
+      font-size: 14px; font-weight: 600; color: #8888bb;
+      transition: all 0.3s; white-space: nowrap; position: relative;
     }
-    .nav-links a:hover { color: #667eea; background: rgba(102,126,234,0.06); }
-    .nav-links a.active { color: #667eea; background: rgba(102,126,234,0.1); }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
+      width: 0; height: 2px; border-radius: 1px;
+      background: linear-gradient(90deg, #667eea, #00d4ff);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: #c0c0ff; background: rgba(102,126,234,0.1); text-shadow: 0 0 8px rgba(102,126,234,0.5); }
+    .nav-links a:hover::after { width: 60%; }
+    .nav-links a.active { color: #fff; background: rgba(102,126,234,0.15); text-shadow: 0 0 12px rgba(102,126,234,0.6); }
+    .nav-links a.active::after { width: 80%; }
     .nav-toggle {
-      display: none; width: 36px; height: 36px; border-radius: 10px;
-      background: rgba(102,126,234,0.08); border: none; cursor: pointer;
-      flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+      display: none; width: 40px; height: 40px; border-radius: 12px;
+      background: rgba(102,126,234,0.12); border: 1px solid rgba(102,126,234,0.2);
+      cursor: pointer; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
     }
-    .nav-toggle span { display: block; width: 18px; height: 2px; border-radius: 2px; background: #667eea; }
+    .nav-toggle span { display: block; width: 20px; height: 2px; border-radius: 2px; background: #667eea; box-shadow: 0 0 4px rgba(102,126,234,0.5); }
 
-    /* Page Content */
-    .page-section {
-      max-width: 800px; margin: 0 auto; padding: 80px 28px;
-      animation: fadeInUp 0.6s ease;
-    }
+    /* Page */
+    .page-section { max-width: 800px; margin: 0 auto; padding: 80px 28px; animation: fadeInUp 0.6s ease; }
     .page-section h1 {
       font-size: clamp(28px, 5vw, 42px); font-weight: 900;
-      background: linear-gradient(135deg, #667eea, #f093fb);
+      background: linear-gradient(135deg, #667eea, #00d4ff);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 10px rgba(102,126,234,0.3));
       margin-bottom: 8px;
     }
-    .page-section .subtitle { color: #888; font-size: 15px; margin-bottom: 48px; }
+    .page-section .subtitle { color: #7777aa; font-size: 15px; margin-bottom: 48px; }
 
-    /* Teacher Card */
     .teacher-card {
       display: flex; gap: 32px; align-items: flex-start;
-      background: #fff; border-radius: 20px; padding: 40px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.05);
-      margin-bottom: 24px;
+      background: rgba(20,20,40,0.7); border-radius: 20px; padding: 40px;
+      border: 1px solid rgba(102,126,234,0.15);
+      backdrop-filter: blur(6px); margin-bottom: 24px;
+      transition: all 0.3s;
     }
+    .teacher-card:hover { border-color: rgba(102,126,234,0.35); box-shadow: 0 0 30px rgba(102,126,234,0.1); }
     .teacher-avatar {
       width: 120px; height: 120px; border-radius: 50%; flex-shrink: 0;
-      background: linear-gradient(135deg, #667eea20, #f093fb20);
+      background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(240,147,251,0.1));
       display: flex; align-items: center; justify-content: center; font-size: 56px;
+      border: 2px solid rgba(102,126,234,0.2);
     }
-    .teacher-info h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    .teacher-info h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; color: #d0d0f0; }
     .teacher-info .tag {
-      display: inline-block; padding: 3px 12px; border-radius: 10px;
-      font-size: 12px; font-weight: 600; color: #667eea;
-      background: rgba(102,126,234,0.08); margin-bottom: 12px;
+      display: inline-block; padding: 4px 14px; border-radius: 10px;
+      font-size: 12px; font-weight: 600; color: #a0b0ff;
+      background: rgba(102,126,234,0.1); border: 1px solid rgba(102,126,234,0.2);
+      margin-bottom: 12px;
     }
-    .teacher-info p { color: #888; font-size: 14px; line-height: 1.8; }
-
-    /* Highlight list */
+    .teacher-info p { color: #8888bb; font-size: 14px; line-height: 1.8; }
     .highlight-list { margin-top: 48px; }
-    .highlight-list h2 {
-      font-size: 22px; font-weight: 800; margin-bottom: 20px;
-    }
+    .highlight-list h2 { font-size: 22px; font-weight: 800; margin-bottom: 20px; color: #d0d0f0; }
     .highlight-list .hl-item {
-      display: flex; gap: 14px; align-items: flex-start;
-      padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.04);
+      display: flex; gap: 14px; align-items: flex-start; padding: 16px 0;
+      border-bottom: 1px solid rgba(102,126,234,0.08);
     }
     .highlight-list .hl-icon {
-      width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
-      background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1));
+      width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+      background: rgba(102,126,234,0.1); border: 1px solid rgba(102,126,234,0.15);
       display: flex; align-items: center; justify-content: center; font-size: 20px;
     }
-    .highlight-list .hl-text h4 { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
-    .highlight-list .hl-text p { font-size: 13px; color: #999; }
+    .highlight-list .hl-text h4 { font-size: 15px; font-weight: 700; margin-bottom: 2px; color: #d0d0f0; }
+    .highlight-list .hl-text p { font-size: 13px; color: #7777aa; }
 
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .nav-links.open {
         display: flex; flex-direction: column; position: absolute;
-        top: 60px; left: 0; right: 0;
-        background: rgba(255,255,255,0.96);
-        backdrop-filter: blur(20px);
-        padding: 12px 20px; gap: 4px;
-        border-bottom: 1px solid rgba(0,0,0,0.06);
+        top: 72px; left: 0; right: 0;
+        background: rgba(10,10,20,0.96); backdrop-filter: blur(24px);
+        padding: 16px 24px; gap: 4px;
+        border-bottom: 1px solid rgba(102,126,234,0.15);
       }
-      .nav-links.open a { padding: 12px 16px; font-size: 15px; }
+      .nav-links.open a { padding: 14px 18px; font-size: 15px; }
       .nav-toggle { display: flex; }
       .teacher-card { flex-direction: column; align-items: center; text-align: center; padding: 28px 20px; }
     }
-    @media (max-width: 480px) {
-      .nav-bar { padding: 0 16px; }
-      .page-section { padding: 48px 20px; }
-    }
+    @media (max-width: 480px) { .nav-bar { padding: 0 18px; } .page-section { padding: 48px 20px; } }
   </style>
 </head>
 <body>
@@ -141,41 +139,24 @@
       <a href="audience.html">适合人群</a>
       <a href="faq.html">常见问题</a>
     </div>
-    <button class="nav-toggle" id="navToggle" aria-label="菜单">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="nav-toggle" id="navToggle" aria-label="菜单"><span></span><span></span><span></span></button>
   </nav>
 
   <section class="page-section">
     <h1>主讲老师</h1>
     <p class="subtitle">行业一线创作者，手把手带你入门AI视频</p>
-
-    <!-- 老师信息卡片（待用户填写真实信息） -->
     <div class="teacher-card">
       <div class="teacher-avatar">👨‍🏫</div>
       <div class="teacher-info">
-        <h3>老师姓名</h3>
-        <span class="tag">AI视频创作导师</span>
-        <p>
-          这里是老师的个人简介。请在此填写您的教育背景、行业经验、代表作品以及教学理念。让学员了解您的专业背景，建立信任感。
-        </p>
+        <h3>老师姓名</h3><span class="tag">AI视频创作导师</span>
+        <p>这里是老师的个人简介。请在此填写您的教育背景、行业经验、代表作品以及教学理念。</p>
       </div>
     </div>
-
     <div class="highlight-list">
       <h2>教学亮点</h2>
-      <div class="hl-item">
-        <div class="hl-icon">🏆</div>
-        <div class="hl-text"><h4>丰富实战经验</h4><p>请在此填写相关经验，例如：多年AI视频创作经验，主导过XX个项目</p></div>
-      </div>
-      <div class="hl-item">
-        <div class="hl-icon">🎓</div>
-        <div class="hl-text"><h4>系统教学方法</h4><p>请在此描述教学特色，例如：独创的"从0到1"教学法，让零基础学员也能快速上手</p></div>
-      </div>
-      <div class="hl-item">
-        <div class="hl-icon">💡</div>
-        <div class="hl-text"><h4>持续跟踪辅导</h4><p>请在此说明课后支持，例如：作业一对一点评，学习群随时答疑</p></div>
-      </div>
+      <div class="hl-item"><div class="hl-icon">🏆</div><div class="hl-text"><h4>丰富实战经验</h4><p>多年AI视频创作经验，主导过多项大型项目</p></div></div>
+      <div class="hl-item"><div class="hl-icon">🎓</div><div class="hl-text"><h4>系统教学方法</h4><p>独创"从0到1"教学法，零基础也能快速上手</p></div></div>
+      <div class="hl-item"><div class="hl-icon">💡</div><div class="hl-text"><h4>持续跟踪辅导</h4><p>作业一对一点评，学习群随时答疑</p></div></div>
     </div>
   </section>
 
@@ -183,12 +164,8 @@
   var navToggle = document.getElementById('navToggle');
   var navLinks = document.getElementById('navLinks');
   navToggle.addEventListener('click', function() { navLinks.classList.toggle('open'); });
-  navLinks.querySelectorAll('a').forEach(function(a) {
-    a.addEventListener('click', function() { navLinks.classList.remove('open'); });
-  });
-  window.addEventListener('scroll', function() {
-    document.getElementById('navBar').classList.toggle('scrolled', window.scrollY > 10);
-  });
+  navLinks.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', function() { navLinks.classList.remove('open'); }); });
+  window.addEventListener('scroll', function() { document.getElementById('navBar').classList.toggle('scrolled', window.scrollY > 10); });
 </script>
 </body>
 </html>

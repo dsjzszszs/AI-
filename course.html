@@ -5,252 +5,176 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewportMeta">
   <title>课程内容 - 金牌AI视频剧</title>
   <style>
-    /* ===== Reset & Base ===== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
-      background: #fff;
-      color: #1a1a2e;
-      overflow-x: hidden;
-      line-height: 1.6;
-      padding-top: 60px;
+      background: #0a0a14; color: #e0e0f0;
+      overflow-x: hidden; line-height: 1.6;
+      padding-top: 72px;
     }
     a { color: inherit; text-decoration: none; }
-    ul { list-style: none; }
-
-    /* ===== Scrollbar ===== */
     ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 3px; }
+    ::-webkit-scrollbar-track { background: #0a0a14; }
+    ::-webkit-scrollbar-thumb { background: rgba(102,126,234,0.25); border-radius: 3px; }
 
-    /* ===== Nav Bar ===== */
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    @keyframes zoomIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+    @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 5px rgba(102,126,234,0.3), 0 0 20px rgba(102,126,234,0.1); } 50% { box-shadow: 0 0 15px rgba(102,126,234,0.6), 0 0 40px rgba(240,147,251,0.25); } }
+
+    /* Nav Bar */
     .nav-bar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      height: 60px; display: flex; align-items: center; justify-content: space-between;
-      padding: 0 28px;
-      background: rgba(255,255,255,0.88);
-      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(0,0,0,0.05);
-      transition: all 0.3s;
+      height: 72px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px;
+      background: rgba(10,10,20,0.92);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border-bottom: 2px solid transparent;
+      border-image: linear-gradient(90deg, transparent, #667eea, #f093fb, #00d4ff, transparent) 1;
     }
-    .nav-bar.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+    .nav-bar.scrolled { box-shadow: 0 0 30px rgba(102,126,234,0.15); }
     .nav-brand {
-      font-size: 17px; font-weight: 800; letter-spacing: 1px;
-      background: linear-gradient(135deg, #667eea, #f093fb);
+      font-size: 19px; font-weight: 800; letter-spacing: 2px;
+      background: linear-gradient(135deg, #667eea, #f093fb, #00d4ff);
+      background-size: 200% 200%;
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      animation: gradientShift 4s ease infinite;
       white-space: nowrap;
     }
-    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-links { display: flex; gap: 8px; align-items: center; }
     .nav-links a {
-      display: inline-block; padding: 8px 14px; border-radius: 10px;
-      font-size: 13px; font-weight: 600; color: #666;
-      transition: all 0.25s; white-space: nowrap;
+      display: inline-block; padding: 10px 18px; border-radius: 12px;
+      font-size: 14px; font-weight: 600; color: #8888bb;
+      transition: all 0.3s; white-space: nowrap; position: relative;
     }
-    .nav-links a:hover { color: #667eea; background: rgba(102,126,234,0.06); }
-    .nav-links a.active { color: #667eea; background: rgba(102,126,234,0.1); }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
+      width: 0; height: 2px; border-radius: 1px;
+      background: linear-gradient(90deg, #667eea, #00d4ff);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: #c0c0ff; background: rgba(102,126,234,0.1); text-shadow: 0 0 8px rgba(102,126,234,0.5); }
+    .nav-links a:hover::after { width: 60%; }
+    .nav-links a.active { color: #fff; background: rgba(102,126,234,0.15); text-shadow: 0 0 12px rgba(102,126,234,0.6); }
+    .nav-links a.active::after { width: 80%; }
     .nav-toggle {
-      display: none; width: 36px; height: 36px; border-radius: 10px;
-      background: rgba(102,126,234,0.08); border: none; cursor: pointer;
-      flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+      display: none; width: 40px; height: 40px; border-radius: 12px;
+      background: rgba(102,126,234,0.12); border: 1px solid rgba(102,126,234,0.2);
+      cursor: pointer; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
     }
-    .nav-toggle span {
-      display: block; width: 18px; height: 2px; border-radius: 2px;
-      background: #667eea; transition: all 0.3s;
-    }
+    .nav-toggle span { display: block; width: 20px; height: 2px; border-radius: 2px; background: #667eea; box-shadow: 0 0 4px rgba(102,126,234,0.5); }
 
-    /* ===== Keyframes ===== */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-12px); }
-    }
-    @keyframes zoomIn {
-      from { opacity: 0; transform: scale(0.85); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    /* ===== Hero Section ===== */
+    /* Hero */
     .fs-hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      position: relative; overflow: hidden;
-      padding: 40px 28px;
-      background: #fafafe;
+      min-height: 90vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      position: relative; overflow: hidden; padding: 40px 28px;
+      background: radial-gradient(ellipse at 50% 0%, rgba(102,126,234,0.06) 0%, transparent 60%),
+                  radial-gradient(ellipse at 30% 80%, rgba(240,147,251,0.04) 0%, transparent 50%);
     }
-    .fs-hero .hero-bg-pattern {
-      position: absolute; inset: 0; pointer-events: none;
-      background:
-        radial-gradient(circle at 20% 80%, rgba(102,126,234,0.06) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(240,147,251,0.06) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(0,210,255,0.03) 0%, transparent 50%);
-    }
-    .fs-hero .hero-halftone {
-      position: absolute; inset: 0; pointer-events: none; opacity: 0.04;
-      background-image: radial-gradient(circle, #1a1a2e 1px, transparent 1px);
-      background-size: 12px 12px;
+    .fs-hero::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,212,255,0.01) 2px, rgba(0,212,255,0.01) 4px);
     }
     .fs-hero .hero-badge {
-      display: inline-block; padding: 6px 18px; border-radius: 20px;
-      font-size: 13px; font-weight: 700; letter-spacing: 2px;
-      background: linear-gradient(135deg, #667eea, #764ba2); color: #fff;
+      display: inline-block; padding: 7px 22px; border-radius: 22px;
+      font-size: 13px; font-weight: 700; letter-spacing: 3px;
+      background: rgba(102,126,234,0.12); color: #a0b0ff;
+      border: 1px solid rgba(102,126,234,0.25);
       margin-bottom: 24px; position: relative; z-index: 1;
-      animation: fadeInUp 0.7s ease both;
+      animation: pulseGlow 3s ease infinite;
     }
     .fs-hero h1 {
       font-size: clamp(44px, 10vw, 84px); font-weight: 900; line-height: 1.1;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 35%, #f093fb 65%, #f5576c 100%);
+      background: linear-gradient(135deg, #667eea 0%, #00d4ff 35%, #f093fb 65%, #667eea 100%);
+      background-size: 300% 300%;
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
-      letter-spacing: 3px; text-align: center;
+      animation: gradientShift 4s ease infinite;
+      letter-spacing: 4px; text-align: center;
       position: relative; z-index: 1;
-      animation: fadeInUp 0.7s ease 0.1s both;
+      filter: drop-shadow(0 0 20px rgba(102,126,234,0.4));
     }
-    .fs-hero .hero-sub {
-      font-size: clamp(16px, 2.5vw, 22px); color: #666;
-      margin-top: 10px; position: relative; z-index: 1;
-      animation: fadeInUp 0.7s ease 0.2s both;
-    }
-    .fs-hero .hero-desc {
-      font-size: 15px; color: #999; max-width: 500px; text-align: center;
-      margin-top: 12px; line-height: 1.8; position: relative; z-index: 1;
-      animation: fadeInUp 0.7s ease 0.25s both;
-    }
-    .fs-hero .hero-stats {
-      display: flex; gap: 32px; margin-top: 28px; flex-wrap: wrap; justify-content: center;
-      position: relative; z-index: 1;
-      animation: fadeInUp 0.7s ease 0.3s both;
-    }
+    .fs-hero .hero-sub { font-size: clamp(16px, 2.5vw, 22px); color: #8888bb; margin-top: 10px; position: relative; z-index: 1; }
+    .fs-hero .hero-desc { font-size: 15px; color: #7777aa; max-width: 500px; text-align: center; margin-top: 12px; line-height: 1.8; position: relative; z-index: 1; }
+    .fs-hero .hero-stats { display: flex; gap: 32px; margin-top: 28px; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; }
     .fs-hero .hero-stats .st { text-align: center; }
-    .fs-hero .hero-stats .st-num { font-size: 26px; font-weight: 800; color: #667eea; }
-    .fs-hero .hero-stats .st-lbl { font-size: 13px; color: #aaa; }
+    .fs-hero .hero-stats .st-num { font-size: 26px; font-weight: 800; }
+    .fs-hero .hero-stats .st-num { background: linear-gradient(135deg, #667eea, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .fs-hero .hero-stats .st-lbl { font-size: 13px; color: #6666aa; }
     .fs-hero .scroll-hint {
       position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
       display: flex; flex-direction: column; align-items: center; gap: 6px;
-      z-index: 1; color: #ccc; font-size: 12px; animation: float 2s ease-in-out infinite;
+      z-index: 1; color: #5555aa; font-size: 12px; animation: float 2s ease-in-out infinite;
     }
     .fs-hero .scroll-hint .arrow-down {
-      width: 24px; height: 24px; border-right: 2px solid #ccc; border-bottom: 2px solid #ccc;
+      width: 24px; height: 24px; border-right: 2px solid #5555aa; border-bottom: 2px solid #5555aa;
       transform: rotate(45deg); opacity: 0.5;
     }
 
-    /* ===== Week Full-Screen Sections ===== */
+    /* Week Sections */
     .fs-week {
-      min-height: 100vh;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      position: relative; overflow: hidden;
-      padding: 60px 28px;
-      cursor: pointer;
+      min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      position: relative; overflow: hidden; padding: 60px 28px; cursor: pointer;
       transition: background 0.3s;
     }
-    .fs-week:hover { background: #fcfcfd; }
-    .fs-week:active { background: #f9f9fb; }
-
-    /* Comic background patterns */
+    .fs-week:hover { background: rgba(102,126,234,0.03); }
     .comic-bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
-    .comic-bg.halftone {
-      background-image: radial-gradient(circle, rgba(26,26,46,0.06) 1px, transparent 1px);
-      background-size: 10px 10px;
-    }
-    .comic-bg.speed-lines {
-      background: repeating-linear-gradient(
-        -30deg, transparent, transparent 3px,
-        rgba(102,126,234,0.03) 3px, rgba(102,126,234,0.03) 5px
-      );
-    }
-    .comic-bg.dots-large {
-      background-image: radial-gradient(circle, rgba(240,147,251,0.05) 2px, transparent 2px);
-      background-size: 16px 16px;
-    }
-    .comic-bg.stripes {
-      background: repeating-linear-gradient(
-        0deg, transparent, transparent 20px,
-        rgba(0,210,255,0.02) 20px, rgba(0,210,255,0.02) 21px
-      );
-    }
-
-    /* Corner decorations */
-    .comic-corner {
-      position: absolute; z-index: 0; pointer-events: none;
-      border: 2px solid rgba(102,126,234,0.08);
-    }
-    .comic-corner.tl { top: -1px; left: -1px; width: 60px; height: 60px; border-right: none; border-bottom: none; border-radius: 4px 0 0 0; }
-    .comic-corner.tr { top: -1px; right: -1px; width: 60px; height: 60px; border-left: none; border-bottom: none; border-radius: 0 4px 0 0; }
-    .comic-corner.bl { bottom: -1px; left: -1px; width: 60px; height: 60px; border-right: none; border-top: none; border-radius: 0 0 0 4px; }
-    .comic-corner.br { bottom: -1px; right: -1px; width: 60px; height: 60px; border-left: none; border-top: none; border-radius: 0 0 4px 0; }
-
-    /* Giant watermark week number */
+    .comic-bg.halftone { background-image: radial-gradient(circle, rgba(102,126,234,0.06) 1px, transparent 1px); background-size: 10px 10px; }
+    .comic-bg.dots-large { background-image: radial-gradient(circle, rgba(240,147,251,0.05) 2px, transparent 2px); background-size: 16px 16px; }
+    .comic-bg.stripes { background: repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(0,212,255,0.02) 20px, rgba(0,212,255,0.02) 21px); }
+    .comic-bg.speed-lines { background: repeating-linear-gradient(-30deg, transparent, transparent 3px, rgba(102,126,234,0.03) 3px, rgba(102,126,234,0.03) 5px); }
     .week-watermark {
       position: absolute; z-index: 0; pointer-events: none;
       font-size: clamp(180px, 35vw, 380px); font-weight: 900;
-      line-height: 1; opacity: 0.03; color: #1a1a2e;
+      line-height: 1; opacity: 0.02; color: #667eea;
       user-select: none; letter-spacing: -20px;
     }
-
-    /* Speech bubble decoration */
     .speech-bubble {
       position: absolute; z-index: 0; pointer-events: none;
       width: 100px; height: 70px; border-radius: 20px;
-      background: rgba(102,126,234,0.04); opacity: 0.6;
+      background: rgba(102,126,234,0.03); opacity: 0.4;
     }
-    .speech-bubble::after {
-      content: ''; position: absolute; bottom: -12px; left: 24px;
-      width: 0; height: 0;
-      border-left: 12px solid transparent;
-      border-right: 6px solid transparent;
-      border-top: 14px solid rgba(102,126,234,0.04);
-    }
-
-    /* Action lines burst */
     .burst-lines {
       position: absolute; z-index: 0; pointer-events: none;
-      width: 200px; height: 200px; opacity: 0.06;
-      background:
-        conic-gradient(from 0deg, transparent 0deg, #667eea 2deg, transparent 4deg,
-                        transparent 45deg, #667eea 47deg, transparent 50deg,
-                        transparent 90deg, #667eea 92deg, transparent 95deg,
-                        transparent 135deg, #667eea 137deg, transparent 140deg,
-                        transparent 180deg, #667eea 182deg, transparent 185deg,
-                        transparent 225deg, #667eea 227deg, transparent 230deg,
-                        transparent 270deg, #667eea 272deg, transparent 275deg,
-                        transparent 315deg, #667eea 317deg, transparent 320deg);
+      width: 200px; height: 200px; opacity: 0.04;
+      background: conic-gradient(from 0deg, transparent 0deg, #667eea 2deg, transparent 4deg,
+        transparent 45deg, #667eea 47deg, transparent 50deg,
+        transparent 90deg, #667eea 92deg, transparent 95deg,
+        transparent 135deg, #667eea 137deg, transparent 140deg,
+        transparent 180deg, #667eea 182deg, transparent 185deg,
+        transparent 225deg, #667eea 227deg, transparent 230deg,
+        transparent 270deg, #667eea 272deg, transparent 275deg,
+        transparent 315deg, #667eea 317deg, transparent 320deg);
     }
-
-    /* Section content */
-    .fs-content {
-      position: relative; z-index: 2; text-align: center;
-      max-width: 700px; animation: zoomIn 0.6s ease both;
-    }
+    .fs-content { position: relative; z-index: 2; text-align: center; max-width: 700px; animation: zoomIn 0.6s ease both; }
     .fs-content .fs-week-badge {
       display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 3px;
-      color: #667eea; margin-bottom: 12px;
-      padding: 4px 14px; border-radius: 10px;
-      background: rgba(102,126,234,0.06);
+      color: #a0b0ff; margin-bottom: 12px;
+      padding: 5px 16px; border-radius: 10px;
+      background: rgba(102,126,234,0.08); border: 1px solid rgba(102,126,234,0.15);
     }
-    .fs-content .fs-title {
-      font-size: clamp(28px, 5vw, 48px); font-weight: 900; line-height: 1.2; margin-bottom: 10px;
-    }
-    .fs-content .fs-topic {
-      font-size: clamp(16px, 2.5vw, 24px); font-weight: 600; color: #555; margin-bottom: 8px;
-    }
-    .fs-content .fs-outcome {
-      font-size: 16px; color: #999; max-width: 500px; margin: 0 auto 32px; line-height: 1.6;
-    }
+    .fs-content .fs-title { font-size: clamp(28px, 5vw, 48px); font-weight: 900; line-height: 1.2; margin-bottom: 10px; }
+    .fs-content .fs-topic { font-size: clamp(16px, 2.5vw, 24px); font-weight: 600; color: #8888bb; margin-bottom: 8px; }
+    .fs-content .fs-outcome { font-size: 16px; color: #7777aa; max-width: 500px; margin: 0 auto 32px; line-height: 1.6; }
 
-    /* Buttons */
     .btn-enter {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 14px 36px; border-radius: 50px;
+      padding: 16px 38px; border-radius: 50px;
       font-size: 16px; font-weight: 700; color: #fff;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      border: none; cursor: pointer;
-      box-shadow: 0 6px 24px rgba(102,126,234,0.3);
-      transition: all 0.3s ease;
+      background: linear-gradient(135deg, #667eea, #4a3fd4);
+      border: 1px solid rgba(102,126,234,0.4); cursor: pointer;
+      box-shadow: 0 0 20px rgba(102,126,234,0.3);
+      transition: all 0.3s; position: relative; overflow: hidden;
     }
-    .btn-enter:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(102,126,234,0.4); }
+    .btn-enter::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+      transform: translateX(-100%); transition: transform 0.5s;
+    }
+    .btn-enter:hover::before { transform: translateX(100%); }
+    .btn-enter:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(102,126,234,0.5); }
     .btn-enter:active { transform: scale(0.96); }
     .btn-enter .arr { transition: transform 0.3s; }
     .btn-enter:hover .arr { transform: translateX(3px); }
@@ -258,55 +182,47 @@
     .btn-coming {
       display: inline-flex; align-items: center; gap: 6px;
       padding: 12px 28px; border-radius: 50px;
-      font-size: 14px; font-weight: 600; color: #aaa;
-      background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.06);
+      font-size: 14px; font-weight: 600; color: #6666aa;
+      background: rgba(102,126,234,0.05); border: 1px solid rgba(102,126,234,0.1);
       cursor: default;
     }
 
-    /* Week section color themes */
-    .fs-w1 .fs-title { color: #667eea; }
-    .fs-w2 .fs-title { color: #6c5ce7; }
-    .fs-w3 .fs-title { color: #e040a0; }
-    .fs-w4 .fs-title { color: #00b8d4; }
-    .fs-w5 .fs-title { color: #f5576c; }
-    .fs-w6 .fs-title { color: #764ba2; }
-    .fs-w7 .fs-title { color: #ff6d00; }
-    .fs-w8 .fs-title { color: #0d7377; }
+    .fs-w1 .fs-title { color: #667eea; } .fs-w2 .fs-title { color: #6c5ce7; }
+    .fs-w3 .fs-title { color: #e040a0; } .fs-w4 .fs-title { color: #00b8d4; }
+    .fs-w5 .fs-title { color: #f5576c; } .fs-w6 .fs-title { color: #764ba2; }
+    .fs-w7 .fs-title { color: #ff6d00; } .fs-w8 .fs-title { color: #0d7377; }
 
-    .fs-w1 .fs-week-badge { color: #667eea; background: rgba(102,126,234,0.08); }
-    .fs-w2 .fs-week-badge { color: #6c5ce7; background: rgba(108,92,231,0.08); }
-    .fs-w3 .fs-week-badge { color: #e040a0; background: rgba(224,64,160,0.08); }
-    .fs-w4 .fs-week-badge { color: #00b8d4; background: rgba(0,184,212,0.08); }
-    .fs-w5 .fs-week-badge { color: #f5576c; background: rgba(245,87,108,0.08); }
-    .fs-w6 .fs-week-badge { color: #764ba2; background: rgba(118,75,162,0.08); }
-    .fs-w7 .fs-week-badge { color: #ff6d00; background: rgba(255,109,0,0.08); }
-    .fs-w8 .fs-week-badge { color: #0d7377; background: rgba(13,115,119,0.08); }
+    .fs-w1 .fs-week-badge { color: #667eea; background: rgba(102,126,234,0.1); border-color: rgba(102,126,234,0.2); }
+    .fs-w2 .fs-week-badge { color: #6c5ce7; background: rgba(108,92,231,0.1); border-color: rgba(108,92,231,0.2); }
+    .fs-w3 .fs-week-badge { color: #e040a0; background: rgba(224,64,160,0.1); border-color: rgba(224,64,160,0.2); }
+    .fs-w4 .fs-week-badge { color: #00b8d4; background: rgba(0,184,212,0.1); border-color: rgba(0,184,212,0.2); }
+    .fs-w5 .fs-week-badge { color: #f5576c; background: rgba(245,87,108,0.1); border-color: rgba(245,87,108,0.2); }
+    .fs-w6 .fs-week-badge { color: #764ba2; background: rgba(118,75,162,0.1); border-color: rgba(118,75,162,0.2); }
+    .fs-w7 .fs-week-badge { color: #ff6d00; background: rgba(255,109,0,0.1); border-color: rgba(255,109,0,0.2); }
+    .fs-w8 .fs-week-badge { color: #0d7377; background: rgba(13,115,119,0.1); border-color: rgba(13,115,119,0.2); }
 
-    /* ===== Footer ===== */
     .fs-footer {
       min-height: 30vh; display: flex; align-items: center; justify-content: center;
-      text-align: center; padding: 40px 28px; border-top: 1px solid rgba(0,0,0,0.04);
-      background: #fafafe;
+      text-align: center; padding: 40px 28px;
+      border-top: 1px solid rgba(102,126,234,0.08);
     }
-    .fs-footer p { font-size: 13px; color: #bbb; }
+    .fs-footer p { font-size: 13px; color: #5555aa; }
     .fs-footer .footer-brand {
       font-size: 18px; font-weight: 700; margin-bottom: 8px;
-      background: linear-gradient(135deg, #667eea, #f093fb);
+      background: linear-gradient(135deg, #667eea, #00d4ff);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
 
-    /* ===== Responsive ===== */
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .nav-links.open {
         display: flex; flex-direction: column; position: absolute;
-        top: 60px; left: 0; right: 0;
-        background: rgba(255,255,255,0.96);
-        backdrop-filter: blur(20px);
-        padding: 12px 20px; gap: 4px;
-        border-bottom: 1px solid rgba(0,0,0,0.06);
+        top: 72px; left: 0; right: 0;
+        background: rgba(10,10,20,0.96); backdrop-filter: blur(24px);
+        padding: 16px 24px; gap: 4px;
+        border-bottom: 1px solid rgba(102,126,234,0.15);
       }
-      .nav-links.open a { padding: 12px 16px; font-size: 15px; }
+      .nav-links.open a { padding: 14px 18px; font-size: 15px; }
       .nav-toggle { display: flex; }
       .fs-hero { padding: 32px 20px; }
       .fs-hero h1 { letter-spacing: 1px; }
@@ -316,29 +232,21 @@
       .fs-content .fs-title { font-size: clamp(24px, 6vw, 36px); }
       .fs-content .fs-outcome { font-size: 14px; }
       .week-watermark { font-size: clamp(120px, 28vw, 250px); }
-      .comic-corner { width: 40px; height: 40px; }
       .btn-enter { padding: 12px 28px; font-size: 14px; }
     }
-
     @media (max-width: 480px) {
-      .nav-bar { padding: 0 16px; }
+      .nav-bar { padding: 0 18px; }
       .fs-hero { padding: 28px 16px; }
       .fs-hero h1 { letter-spacing: 0; }
       .fs-hero .hero-stats { gap: 14px; }
       .fs-week { padding: 32px 16px; }
       .fs-content .fs-title { font-size: clamp(22px, 7vw, 28px); }
-      .fs-content .fs-outcome { font-size: 13px; }
-      .fs-content .fs-topic { font-size: clamp(14px, 3vw, 18px); }
-      .week-watermark { font-size: clamp(100px, 25vw, 200px); }
-      .comic-corner { width: 30px; height: 30px; }
-      .speech-bubble { width: 60px; height: 44px; }
       .btn-enter { padding: 10px 24px; font-size: 13px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== NAV BAR ===== -->
   <nav class="nav-bar" id="navBar">
     <a href="index.html" class="nav-brand">🎬 金牌AI视频剧</a>
     <div class="nav-links" id="navLinks">
@@ -349,56 +257,37 @@
       <a href="audience.html">适合人群</a>
       <a href="faq.html">常见问题</a>
     </div>
-    <button class="nav-toggle" id="navToggle" aria-label="菜单">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="nav-toggle" id="navToggle" aria-label="菜单"><span></span><span></span><span></span></button>
   </nav>
 
-  <!-- ===== HERO ===== -->
   <section class="fs-hero">
-    <div class="hero-bg-pattern"></div>
-    <div class="hero-halftone"></div>
-    <div class="comic-corner tl"></div>
-    <div class="comic-corner tr"></div>
-    <div class="comic-corner bl"></div>
-    <div class="comic-corner br"></div>
     <div class="hero-badge">🚀 2025 年轻创作者必修课</div>
     <h1>金牌AI视频剧</h1>
     <p class="hero-sub">零基础入门 · 系统化学习 · 实战出师</p>
-    <p class="hero-desc">
-      专为年轻创作者打造的 AI 视频实战课程。<br>八周时间，从剧本到成片，掌握AI视频制作全流程。
-    </p>
+    <p class="hero-desc">专为年轻创作者打造的 AI 视频实战课程。<br>八周时间，从剧本到成片，掌握AI视频制作全流程。</p>
     <div class="hero-stats">
       <div class="st"><div class="st-num">8</div><div class="st-lbl">周系统课程</div></div>
       <div class="st"><div class="st-num">20+</div><div class="st-lbl">实战案例</div></div>
       <div class="st"><div class="st-num">3</div><div class="st-lbl">大核心模块</div></div>
       <div class="st"><div class="st-num">🔥</div><div class="st-lbl">零基础友好</div></div>
     </div>
-    <div class="scroll-hint">
-      <span>向下滚动探索课程</span>
-      <div class="arrow-down"></div>
-    </div>
+    <div class="scroll-hint"><span>向下滚动探索课程</span><div class="arrow-down"></div></div>
   </section>
 
-  <!-- ===== WEEK 1 ===== -->
   <section class="fs-week fs-w1" onclick="goWeek(1)">
     <div class="comic-bg halftone"></div>
     <div class="comic-bg speed-lines" style="opacity:0.4;"></div>
     <div class="week-watermark" style="top:5%; right:5%;">01</div>
     <div class="speech-bubble" style="top:15%; left:10%;"></div>
-    <div class="speech-bubble" style="bottom:20%; right:8%; transform:scaleX(-1);"></div>
     <div class="fs-content">
       <div class="fs-week-badge">🔥 已上线 · 点击进入</div>
       <div class="fs-title">第一周</div>
       <div class="fs-topic">AI视频基础概念与前期准备</div>
-      <div class="fs-outcome">了解AI视频制作全流程，搭建你的创作基础，迈出AI创作第一步</div>
-      <button class="btn-enter" onclick="event.stopPropagation(); goWeek(1);">
-        进入学习 <span class="arr">→</span>
-      </button>
+      <div class="fs-outcome">了解AI视频制作全流程，搭建你的创作基础</div>
+      <button class="btn-enter" onclick="event.stopPropagation(); goWeek(1);">进入学习 <span class="arr">→</span></button>
     </div>
   </section>
 
-  <!-- ===== WEEK 2 ===== -->
   <section class="fs-week fs-w2" onclick="goWeek(2)">
     <div class="comic-bg dots-large"></div>
     <div class="week-watermark" style="bottom:5%; left:5%;">02</div>
@@ -407,97 +296,80 @@
       <div class="fs-week-badge">🔥 已上线 · 点击进入</div>
       <div class="fs-title">第二周</div>
       <div class="fs-topic">剧本创作与分镜设计</div>
-      <div class="fs-outcome">学会用AI辅助撰写专业剧本，设计出电影级别的分镜脚本</div>
-      <button class="btn-enter" onclick="event.stopPropagation(); goWeek(2);">
-        进入学习 <span class="arr">→</span>
-      </button>
+      <div class="fs-outcome">学会用AI辅助撰写专业剧本，设计电影级分镜脚本</div>
+      <button class="btn-enter" onclick="event.stopPropagation(); goWeek(2);">进入学习 <span class="arr">→</span></button>
     </div>
   </section>
 
-  <!-- ===== WEEK 3 ===== -->
   <section class="fs-week fs-w3" onclick="goWeek(3)">
     <div class="comic-bg halftone" style="background-size:8px 8px;"></div>
     <div class="week-watermark" style="top:10%; right:10%;">03</div>
     <div class="burst-lines" style="bottom:10%; left:10%; transform:rotate(45deg);"></div>
     <div class="fs-content">
-      <div class="fs-week-badge">📌 即将上线</div>
-      <div class="fs-title">第三周</div>
+      <div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第三周</div>
       <div class="fs-topic">AI绘画与视觉生成</div>
-      <div class="fs-outcome">掌握AI绘画工具，生成令人惊艳的视觉素材与场景画面</div>
+      <div class="fs-outcome">掌握AI绘画工具，生成惊艳视觉素材</div>
       <span class="btn-coming">⏳ 课程筹备中，敬请期待</span>
     </div>
   </section>
 
-  <!-- ===== WEEK 4 ===== -->
   <section class="fs-week fs-w4" onclick="goWeek(4)">
     <div class="comic-bg stripes"></div>
     <div class="week-watermark" style="bottom:10%; right:5%;">04</div>
-    <div class="speech-bubble" style="top:25%; right:12%;"></div>
     <div class="fs-content">
-      <div class="fs-week-badge">📌 即将上线</div>
-      <div class="fs-title">第四周</div>
+      <div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第四周</div>
       <div class="fs-topic">动态视频生成技术</div>
-      <div class="fs-outcome">学习将静态画面转化为流畅的动态视频，让画面真正"活"起来</div>
+      <div class="fs-outcome">将静态画面转化为流畅动态视频</div>
       <span class="btn-coming">⏳ 课程筹备中，敬请期待</span>
     </div>
   </section>
 
-  <!-- ===== WEEK 5 ===== -->
   <section class="fs-week fs-w5" onclick="goWeek(5)">
-    <div class="comic-bg speed-lines" style="opacity:0.5; transform:rotate(15deg);"></div>
+    <div class="comic-bg speed-lines" style="opacity:0.5;"></div>
     <div class="week-watermark" style="top:5%; left:5%;">05</div>
     <div class="burst-lines" style="top:40%; right:20%; transform:rotate(-30deg);"></div>
     <div class="fs-content">
-      <div class="fs-week-badge">📌 即将上线</div>
-      <div class="fs-title">第五周</div>
+      <div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第五周</div>
       <div class="fs-topic">配音配乐与音效制作</div>
-      <div class="fs-outcome">AI语音合成+智能配乐，让你的视频有声有色，感染力拉满</div>
+      <div class="fs-outcome">AI语音合成+智能配乐，让视频有声有色</div>
       <span class="btn-coming">⏳ 课程筹备中，敬请期待</span>
     </div>
   </section>
 
-  <!-- ===== WEEK 6 ===== -->
   <section class="fs-week fs-w6" onclick="goWeek(6)">
     <div class="comic-bg dots-large" style="background-size:12px 12px;"></div>
     <div class="week-watermark" style="bottom:5%; right:8%;">06</div>
     <div class="fs-content">
-      <div class="fs-week-badge">📌 即将上线</div>
-      <div class="fs-title">第六周</div>
+      <div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第六周</div>
       <div class="fs-topic">剪辑合成与后期特效</div>
-      <div class="fs-outcome">AI辅助剪辑+一键添加炫酷特效，大幅提升后期制作效率</div>
+      <div class="fs-outcome">AI辅助剪辑+一键添加炫酷特效</div>
       <span class="btn-coming">⏳ 课程筹备中，敬请期待</span>
     </div>
   </section>
 
-  <!-- ===== WEEK 7 ===== -->
   <section class="fs-week fs-w7" onclick="goWeek(7)">
     <div class="comic-bg halftone" style="background-size:14px 14px;"></div>
     <div class="week-watermark" style="top:8%; right:8%;">07</div>
-    <div class="speech-bubble" style="bottom:30%; left:12%;"></div>
     <div class="fs-content">
-      <div class="fs-week-badge">📌 即将上线</div>
-      <div class="fs-title">第七周</div>
+      <div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第七周</div>
       <div class="fs-topic">综合实战项目（上）</div>
-      <div class="fs-outcome">从0到1动手完成一部完整的AI短片，融会贯通所有技能</div>
+      <div class="fs-outcome">从0到1完成一部AI短片制作</div>
       <span class="btn-coming">⏳ 课程筹备中，敬请期待</span>
     </div>
   </section>
 
-  <!-- ===== WEEK 8 ===== -->
   <section class="fs-week fs-w8" onclick="goWeek(8)">
-    <div class="comic-bg stripes" style="background:repeating-linear-gradient(0deg,transparent,transparent 16px,rgba(13,115,119,0.03) 16px,rgba(13,115,119,0.03) 17px);"></div>
+    <div class="comic-bg stripes"></div>
     <div class="week-watermark" style="bottom:8%; left:6%;">08</div>
     <div class="burst-lines" style="top:30%; left:20%; transform:rotate(20deg);"></div>
     <div class="fs-content">
-      <div class="fs-week-badge">📌 即将上线</div>
-      <div class="fs-title">第八周</div>
+      <div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第八周</div>
       <div class="fs-topic">综合实战项目（下）</div>
-      <div class="fs-outcome">作品打磨精修与多渠道发布，打造属于你的个人AI创作作品集</div>
+      <div class="fs-outcome">作品打磨精修，打造个人作品集</div>
       <span class="btn-coming">⏳ 课程筹备中，敬请期待</span>
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
   <section class="fs-footer">
     <div>
       <div class="footer-brand">🎬 金牌AI视频剧</div>
@@ -506,20 +378,12 @@
   </section>
 
 <script>
-  // ===== 导航栏 =====
   var navToggle = document.getElementById('navToggle');
   var navLinks = document.getElementById('navLinks');
   navToggle.addEventListener('click', function() { navLinks.classList.toggle('open'); });
-  navLinks.querySelectorAll('a').forEach(function(a) {
-    a.addEventListener('click', function() { navLinks.classList.remove('open'); });
-  });
-  var navBar = document.getElementById('navBar');
-  window.addEventListener('scroll', function() { navBar.classList.toggle('scrolled', window.scrollY > 10); });
-
-  // 导航到周详情页
-  function goWeek(n) {
-    window.location.href = 'week.html?w=' + n;
-  }
+  navLinks.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', function() { navLinks.classList.remove('open'); }); });
+  window.addEventListener('scroll', function() { document.getElementById('navBar').classList.toggle('scrolled', window.scrollY > 10); });
+  function goWeek(n) { window.location.href = 'week.html?w=' + n; }
 </script>
 </body>
 </html>
