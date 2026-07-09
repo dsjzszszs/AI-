@@ -75,7 +75,7 @@
     .week-detail .wd-sub { color: #888; font-size: 14px; margin-bottom: 36px; }
 
     /* ===== Category Grid ===== */
-    .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .category-card {
       padding: 40px 20px; border-radius: 18px; background: #fff;
       border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 2px 12px rgba(0,0,0,0.04);
@@ -117,7 +117,7 @@
     }
 
     @media (max-width: 480px) {
-      .category-grid { grid-template-columns: 1fr; gap: 10px; }
+      .category-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
       .category-card { padding: 28px 16px; }
       .placeholder-content .ph-icon { font-size: 56px; }
     }
@@ -180,7 +180,13 @@
         { name:'整体课程思维导图' },
         { name:'树帆教育水印' }
       ],
-      mmBase: '5月工作/八周课——第一周/思维导图/images'
+      mmBase: '5月工作/八周课——第一周/思维导图/images',
+      videos: [
+        { name:'正课《AI视频剧的基础概念和前期准备》', src:'5月工作/八周课——第一周/正课《AI视频剧的基础概念和前期准备》.mp4' },
+        { name:'正课《古诗词AI视频短片制作》', src:'5月工作/八周课——第一周/正课《古诗词AI视频短片制作》.mp4' },
+        { name:'加餐课《AI基础知识解析》', src:'5月工作/八周课——第一周/正课《加餐课-AI基础知识解析》.mp4' },
+        { name:'正课《AI视频剧课程作业点评》', src:'5月工作/八周课——第一周/正课《AI视频剧课程作业点评》.mp4' }
+      ]
     },
     2: {
       topic: 'AI动画剧的前期设计',
@@ -196,7 +202,13 @@
         { name:'用AI制作视频剧：图生视频与剪映实战课件-思维导图' },
         { name:'视频段的跑动和视频编辑初步介绍' }
       ],
-      mmBase: '5月工作/八周课——第二周/mm_images'
+      mmBase: '5月工作/八周课——第二周/mm_images',
+      videos: [
+        { name:'正课《AI动画剧的前期设计》', src:'5月工作/八周课——第二周/正课《AI动画剧的前期设计》.mp4' },
+        { name:'正课《加餐课-AI视频剧常见知识解析》', src:'5月工作/八周课——第二周/正课《加餐课-AI视频剧常见知识解析》.mp4' },
+        { name:'正课《如何合理的使用AI算力》', src:'5月工作/八周课——第二周/正课《如何合理的使用AI算力》.mp4' },
+        { name:'正课《如何用视频讲故事》', src:'5月工作/八周课——第二周/正课《如何用视频讲故事》.mp4' }
+      ]
     }
   };
 
@@ -223,7 +235,8 @@
       // 渲染分类卡片
       var cats = [
         { icon:'📖', name:'课件', href:'courseware.html?w=' + w },
-        { icon:'🧠', name:'思维导图', href:'mindmap.html?w=' + w }
+        { icon:'🧠', name:'思维导图', href:'mindmap.html?w=' + w },
+        { icon:'🎬', name:'视频课程', href:'video.html?w=' + w }
       ];
       document.getElementById('categoryGrid').innerHTML = cats.map(function(cat) {
         return '<a class="category-card" href="' + cat.href + '"><span class="cat-icon">' + cat.icon + '</span><div class="cat-name">' + cat.name + '</div></a>';
