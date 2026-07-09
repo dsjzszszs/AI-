@@ -1,62 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>主讲老师 - 金牌AI视频剧</title>
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif; background: #060d1a; color: #d0e0f0; overflow-x: hidden; line-height: 1.6; padding-top: 72px; }
-    a { color: inherit; text-decoration: none; }
-    ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: #060d1a; } ::-webkit-scrollbar-thumb { background: rgba(59,130,246,0.25); border-radius: 3px; }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-
-    .nav-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; background: rgba(6,13,26,0.94); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-bottom: 2px solid transparent; border-image: linear-gradient(90deg, transparent, #3b82f6, #06b6d4, #38bdf8, transparent) 1; }
-    .nav-bar.scrolled { box-shadow: 0 0 30px rgba(59,130,246,0.15); }
-    .nav-brand { font-size: 19px; font-weight: 800; letter-spacing: 2px; background: linear-gradient(135deg, #3b82f6, #06b6d4, #38bdf8); background-size: 200% 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 4s ease infinite; white-space: nowrap; }
-    .nav-links { display: flex; gap: 8px; align-items: center; }
-    .nav-links a { display: inline-block; padding: 10px 18px; border-radius: 12px; font-size: 14px; font-weight: 600; color: #6b8aaa; transition: all 0.3s; white-space: nowrap; position: relative; }
-    .nav-links a::after { content: ''; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); width: 0; height: 2px; border-radius: 1px; background: linear-gradient(90deg, #3b82f6, #38bdf8); transition: width 0.3s; }
-    .nav-links a:hover { color: #a0d0f0; background: rgba(59,130,246,0.1); text-shadow: 0 0 8px rgba(59,130,246,0.5); }
-    .nav-links a:hover::after { width: 60%; }
-    .nav-links a.active { color: #fff; background: rgba(59,130,246,0.15); text-shadow: 0 0 12px rgba(59,130,246,0.6); }
-    .nav-links a.active::after { width: 80%; }
-    .nav-toggle { display: none; width: 40px; height: 40px; border-radius: 12px; background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.2); cursor: pointer; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
-    .nav-toggle span { display: block; width: 20px; height: 2px; border-radius: 2px; background: #3b82f6; box-shadow: 0 0 4px rgba(59,130,246,0.5); }
-
-    .page-section { max-width: 800px; margin: 0 auto; padding: 80px 28px; animation: fadeInUp 0.6s ease; }
-    .page-section h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 900; background: linear-gradient(135deg, #3b82f6, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 10px rgba(59,130,246,0.3)); margin-bottom: 8px; }
-    .page-section .subtitle { color: #6b8aaa; font-size: 15px; margin-bottom: 48px; }
-    .teacher-card { display: flex; gap: 32px; align-items: flex-start; background: rgba(10,22,40,0.7); border-radius: 20px; padding: 40px; border: 1px solid rgba(59,130,246,0.12); backdrop-filter: blur(6px); margin-bottom: 24px; transition: all 0.3s; }
-    .teacher-card:hover { border-color: rgba(59,130,246,0.35); box-shadow: 0 0 30px rgba(59,130,246,0.1); }
-    .teacher-avatar { width: 120px; height: 120px; border-radius: 50%; flex-shrink: 0; background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(6,182,212,0.1)); display: flex; align-items: center; justify-content: center; font-size: 56px; border: 2px solid rgba(59,130,246,0.2); }
-    .teacher-info h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; color: #c0d8f0; }
-    .teacher-info .tag { display: inline-block; padding: 4px 14px; border-radius: 10px; font-size: 12px; font-weight: 600; color: #7ab8f0; background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2); margin-bottom: 12px; }
-    .teacher-info p { color: #6b8aaa; font-size: 14px; line-height: 1.8; }
-    .highlight-list { margin-top: 48px; }
-    .highlight-list h2 { font-size: 22px; font-weight: 800; margin-bottom: 20px; color: #c0d8f0; }
-    .highlight-list .hl-item { display: flex; gap: 14px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid rgba(59,130,246,0.08); }
-    .highlight-list .hl-icon { width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0; background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.15); display: flex; align-items: center; justify-content: center; font-size: 20px; }
-    .highlight-list .hl-text h4 { font-size: 15px; font-weight: 700; margin-bottom: 2px; color: #c0d8f0; }
-    .highlight-list .hl-text p { font-size: 13px; color: #6b8aaa; }
-
-    @media (max-width: 768px) { .nav-links { display: none; } .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: rgba(6,13,26,0.96); backdrop-filter: blur(24px); padding: 16px 24px; gap: 4px; border-bottom: 1px solid rgba(59,130,246,0.15); } .nav-links.open a { padding: 14px 18px; font-size: 15px; } .nav-toggle { display: flex; } .teacher-card { flex-direction: column; align-items: center; text-align: center; padding: 28px 20px; } }
-    @media (max-width: 480px) { .nav-bar { padding: 0 18px; } .page-section { padding: 48px 20px; } }
-  </style>
-</head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>主讲老师 - 金牌AI视频剧</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:linear-gradient(135deg,#dbeafe 0%,#ede9fe 35%,#fce4ec 70%,#e0f2fe 100%);background-attachment:fixed;color:#1a1a2e;overflow-x:hidden;line-height:1.6;padding-top:72px;min-height:100vh}a{color:inherit;text-decoration:none}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(59,130,246,0.2);border-radius:3px}@keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.nav-bar{position:fixed;top:0;left:0;right:0;z-index:1000;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(255,255,255,0.82);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:2px solid transparent;border-image:linear-gradient(90deg,transparent,#3b82f6,#06b6d4,#8b5cf6,transparent) 1}.nav-bar.scrolled{box-shadow:0 2px 30px rgba(59,130,246,0.1)}.nav-brand{font-size:19px;font-weight:800;letter-spacing:2px;background:linear-gradient(135deg,#2563eb,#06b6d4,#8b5cf6);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientShift 4s ease infinite;white-space:nowrap}.nav-links{display:flex;gap:8px;align-items:center}.nav-links a{display:inline-block;padding:10px 18px;border-radius:12px;font-size:14px;font-weight:600;color:#64748b;transition:all 0.3s;white-space:nowrap;position:relative}.nav-links a::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:0;height:2px;border-radius:1px;background:linear-gradient(90deg,#3b82f6,#06b6d4);transition:width 0.3s}.nav-links a:hover{color:#2563eb;background:rgba(59,130,246,0.06)}.nav-links a:hover::after{width:60%}.nav-links a.active{color:#2563eb;background:rgba(59,130,246,0.1);font-weight:700}.nav-links a.active::after{width:80%}.nav-toggle{display:none;width:40px;height:40px;border-radius:12px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.15);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}.nav-toggle span{display:block;width:20px;height:2px;border-radius:2px;background:#3b82f6}
+.page-section{max-width:800px;margin:0 auto;padding:80px 28px;animation:fadeInUp 0.6s ease}.page-section h1{font-size:clamp(28px,5vw,42px);font-weight:900;background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}.page-section .subtitle{color:#64748b;font-size:15px;margin-bottom:48px}
+.teacher-card{display:flex;gap:32px;align-items:flex-start;background:rgba(255,255,255,0.7);backdrop-filter:blur(8px);border-radius:20px;padding:40px;border:1px solid rgba(59,130,246,0.1);margin-bottom:24px;transition:all 0.3s}.teacher-card:hover{border-color:rgba(59,130,246,0.25);box-shadow:0 12px 40px rgba(59,130,246,0.08)}.teacher-avatar{width:120px;height:120px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,rgba(59,130,246,0.1),rgba(6,182,212,0.08));display:flex;align-items:center;justify-content:center;font-size:56px;border:2px solid rgba(59,130,246,0.15)}.teacher-info h3{font-size:22px;font-weight:800;margin-bottom:8px}.teacher-info .tag{display:inline-block;padding:4px 14px;border-radius:10px;font-size:12px;font-weight:600;color:#2563eb;background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.15);margin-bottom:12px}.teacher-info p{color:#64748b;font-size:14px;line-height:1.8}.highlight-list{margin-top:48px}.highlight-list h2{font-size:22px;font-weight:800;margin-bottom:20px}.highlight-list .hl-item{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid rgba(0,0,0,0.04)}.highlight-list .hl-icon{width:44px;height:44px;border-radius:12px;flex-shrink:0;background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.1);display:flex;align-items:center;justify-content:center;font-size:20px}.highlight-list .hl-text h4{font-size:15px;font-weight:700;margin-bottom:2px}.highlight-list .hl-text p{font-size:13px;color:#94a3b8}
+@media(max-width:768px){.nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:absolute;top:72px;left:0;right:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);padding:16px 24px;gap:4px;border-bottom:1px solid rgba(59,130,246,0.1);box-shadow:0 8px 30px rgba(0,0,0,0.06)}.nav-links.open a{padding:14px 18px;font-size:15px}.nav-toggle{display:flex}.teacher-card{flex-direction:column;align-items:center;text-align:center;padding:28px 20px}}@media(max-width:480px){.nav-bar{padding:0 18px}.page-section{padding:48px 20px}}
+</style></head>
 <body>
-  <nav class="nav-bar" id="navBar"><a href="index.html" class="nav-brand">🎬 金牌AI视频剧</a><div class="nav-links" id="navLinks"><a href="index.html">课程介绍</a><a href="teacher.html" class="active">主讲老师</a><a href="course.html">课程内容</a><a href="cases.html">学员案例</a><a href="audience.html">适合人群</a><a href="faq.html">常见问题</a></div><button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button></nav>
-  <section class="page-section">
-    <h1>主讲老师</h1><p class="subtitle">行业一线创作者，手把手带你入门AI视频</p>
-    <div class="teacher-card"><div class="teacher-avatar">👨‍🏫</div><div class="teacher-info"><h3>老师姓名</h3><span class="tag">AI视频创作导师</span><p>这里是老师的个人简介。请在此填写您的教育背景、行业经验、代表作品以及教学理念。</p></div></div>
-    <div class="highlight-list"><h2>教学亮点</h2>
-      <div class="hl-item"><div class="hl-icon">🏆</div><div class="hl-text"><h4>丰富实战经验</h4><p>多年AI视频创作经验，主导过多项大型项目</p></div></div>
-      <div class="hl-item"><div class="hl-icon">🎓</div><div class="hl-text"><h4>系统教学方法</h4><p>独创"从0到1"教学法，零基础也能快速上手</p></div></div>
-      <div class="hl-item"><div class="hl-icon">💡</div><div class="hl-text"><h4>持续跟踪辅导</h4><p>作业一对一点评，学习群随时答疑</p></div></div>
-    </div>
-  </section>
+<nav class="nav-bar" id="navBar"><a href="index.html" class="nav-brand">🎬 金牌AI视频剧</a><div class="nav-links" id="navLinks"><a href="index.html">课程介绍</a><a href="teacher.html" class="active">主讲老师</a><a href="course.html">课程内容</a><a href="cases.html">学员案例</a><a href="audience.html">适合人群</a><a href="faq.html">常见问题</a></div><button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button></nav>
+<section class="page-section"><h1>主讲老师</h1><p class="subtitle">行业一线创作者，手把手带你入门AI视频</p><div class="teacher-card"><div class="teacher-avatar">👨‍🏫</div><div class="teacher-info"><h3>老师姓名</h3><span class="tag">AI视频创作导师</span><p>这里是老师的个人简介。请在此填写您的教育背景、行业经验、代表作品以及教学理念。</p></div></div><div class="highlight-list"><h2>教学亮点</h2><div class="hl-item"><div class="hl-icon">🏆</div><div class="hl-text"><h4>丰富实战经验</h4><p>多年AI视频创作经验，主导过多项大型项目</p></div></div><div class="hl-item"><div class="hl-icon">🎓</div><div class="hl-text"><h4>系统教学方法</h4><p>独创"从0到1"教学法，零基础也能快速上手</p></div></div><div class="hl-item"><div class="hl-icon">💡</div><div class="hl-text"><h4>持续跟踪辅导</h4><p>作业一对一点评，学习群随时答疑</p></div></div></div></section>
 <script>var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');t.addEventListener('click',function(){l.classList.toggle('open')});l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open')})});window.addEventListener('scroll',function(){document.getElementById('navBar').classList.toggle('scrolled',window.scrollY>10)});</script>
-</body>
-</html>
+</body></html>

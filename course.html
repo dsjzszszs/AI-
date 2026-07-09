@@ -1,180 +1,79 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewportMeta">
-  <title>课程内容 - 金牌AI视频剧</title>
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
-      background: #060d1a; color: #d0e0f0;
-      overflow-x: hidden; line-height: 1.6;
-      padding-top: 72px;
-    }
-    a { color: inherit; text-decoration: none; }
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: #060d1a; }
-    ::-webkit-scrollbar-thumb { background: rgba(59,130,246,0.25); border-radius: 3px; }
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewportMeta"><title>课程内容 - 金牌AI视频剧</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:linear-gradient(135deg,#dbeafe 0%,#ede9fe 35%,#fce4ec 70%,#e0f2fe 100%);background-attachment:fixed;color:#1a1a2e;overflow-x:hidden;line-height:1.6;padding-top:72px;min-height:100vh}
+a{color:inherit;text-decoration:none}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(59,130,246,0.2);border-radius:3px}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes zoomIn{from{opacity:0;transform:scale(0.85)}to{opacity:1;transform:scale(1)}}
+@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes pulseGlow{0%,100%{box-shadow:0 0 5px rgba(59,130,246,0.2)}50%{box-shadow:0 0 15px rgba(59,130,246,0.4)}}
+.nav-bar{position:fixed;top:0;left:0;right:0;z-index:1000;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(255,255,255,0.82);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:2px solid transparent;border-image:linear-gradient(90deg,transparent,#3b82f6,#06b6d4,#8b5cf6,transparent) 1}
+.nav-bar.scrolled{box-shadow:0 2px 30px rgba(59,130,246,0.1)}
+.nav-brand{font-size:19px;font-weight:800;letter-spacing:2px;background:linear-gradient(135deg,#2563eb,#06b6d4,#8b5cf6);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientShift 4s ease infinite;white-space:nowrap}
+.nav-links{display:flex;gap:8px;align-items:center}
+.nav-links a{display:inline-block;padding:10px 18px;border-radius:12px;font-size:14px;font-weight:600;color:#64748b;transition:all 0.3s;white-space:nowrap;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:0;height:2px;border-radius:1px;background:linear-gradient(90deg,#3b82f6,#06b6d4);transition:width 0.3s}
+.nav-links a:hover{color:#2563eb;background:rgba(59,130,246,0.06)}.nav-links a:hover::after{width:60%}
+.nav-links a.active{color:#2563eb;background:rgba(59,130,246,0.1);font-weight:700}.nav-links a.active::after{width:80%}
+.nav-toggle{display:none;width:40px;height:40px;border-radius:12px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.15);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.nav-toggle span{display:block;width:20px;height:2px;border-radius:2px;background:#3b82f6}
 
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
-    @keyframes zoomIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
-    @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-    @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 5px rgba(59,130,246,0.3), 0 0 20px rgba(59,130,246,0.1); } 50% { box-shadow: 0 0 15px rgba(59,130,246,0.6), 0 0 40px rgba(6,182,212,0.25); } }
+.fs-hero{min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:40px 28px}
+.fs-hero .hero-badge{display:inline-block;padding:7px 22px;border-radius:22px;font-size:13px;font-weight:700;letter-spacing:3px;background:rgba(255,255,255,0.7);color:#2563eb;border:1px solid rgba(59,130,246,0.2);margin-bottom:24px;position:relative;z-index:1;animation:pulseGlow 3s ease infinite;backdrop-filter:blur(4px)}
+.fs-hero h1{font-size:clamp(44px,10vw,84px);font-weight:900;line-height:1.15;background:linear-gradient(135deg,#2563eb 0%,#06b6d4 35%,#8b5cf6 65%,#2563eb 100%);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradientShift 4s ease infinite;letter-spacing:6px;text-align:center;position:relative;z-index:1;filter:drop-shadow(0 2px 8px rgba(37,99,235,0.2))}
+.fs-hero .hero-sub{font-size:clamp(16px,2.5vw,22px);color:#64748b;margin-top:10px;position:relative;z-index:1}
+.fs-hero .hero-desc{font-size:15px;color:#94a3b8;max-width:500px;text-align:center;margin-top:12px;line-height:1.8;position:relative;z-index:1}
+.fs-hero .hero-stats{display:flex;gap:32px;margin-top:28px;flex-wrap:wrap;justify-content:center;position:relative;z-index:1}
+.fs-hero .hero-stats .st{text-align:center}.fs-hero .hero-stats .st-num{font-size:26px;font-weight:800;background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.fs-hero .hero-stats .st-lbl{font-size:13px;color:#94a3b8}
+.fs-hero .scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;z-index:1;color:#94a3b8;font-size:12px;animation:float 2s ease-in-out infinite}
+.fs-hero .scroll-hint .arrow-down{width:24px;height:24px;border-right:2px solid #94a3b8;border-bottom:2px solid #94a3b8;transform:rotate(45deg);opacity:0.5}
 
-    .nav-bar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      height: 72px; display: flex; align-items: center; justify-content: space-between;
-      padding: 0 32px;
-      background: rgba(6,13,26,0.94);
-      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-      border-bottom: 2px solid transparent;
-      border-image: linear-gradient(90deg, transparent, #3b82f6, #06b6d4, #38bdf8, transparent) 1;
-    }
-    .nav-bar.scrolled { box-shadow: 0 0 30px rgba(59,130,246,0.15); }
-    .nav-brand {
-      font-size: 19px; font-weight: 800; letter-spacing: 2px;
-      background: linear-gradient(135deg, #3b82f6, #06b6d4, #38bdf8);
-      background-size: 200% 200%;
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      animation: gradientShift 4s ease infinite; white-space: nowrap;
-    }
-    .nav-links { display: flex; gap: 8px; align-items: center; }
-    .nav-links a {
-      display: inline-block; padding: 10px 18px; border-radius: 12px;
-      font-size: 14px; font-weight: 600; color: #6b8aaa;
-      transition: all 0.3s; white-space: nowrap; position: relative;
-    }
-    .nav-links a::after { content: ''; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); width: 0; height: 2px; border-radius: 1px; background: linear-gradient(90deg, #3b82f6, #38bdf8); transition: width 0.3s; }
-    .nav-links a:hover { color: #a0d0f0; background: rgba(59,130,246,0.1); text-shadow: 0 0 8px rgba(59,130,246,0.5); }
-    .nav-links a:hover::after { width: 60%; }
-    .nav-links a.active { color: #fff; background: rgba(59,130,246,0.15); text-shadow: 0 0 12px rgba(59,130,246,0.6); }
-    .nav-links a.active::after { width: 80%; }
-    .nav-toggle {
-      display: none; width: 40px; height: 40px; border-radius: 12px;
-      background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.2);
-      cursor: pointer; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
-    }
-    .nav-toggle span { display: block; width: 20px; height: 2px; border-radius: 2px; background: #3b82f6; box-shadow: 0 0 4px rgba(59,130,246,0.5); }
+.fs-week{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:60px 28px;cursor:pointer;transition:background 0.3s}
+.fs-week:hover{background:rgba(255,255,255,0.3)}
+.comic-bg{position:absolute;inset:0;pointer-events:none;z-index:0}
+.comic-bg.halftone{background-image:radial-gradient(circle,rgba(59,130,246,0.06) 1px,transparent 1px);background-size:10px 10px}
+.comic-bg.dots-large{background-image:radial-gradient(circle,rgba(6,182,212,0.05) 2px,transparent 2px);background-size:16px 16px}
+.comic-bg.stripes{background:repeating-linear-gradient(0deg,transparent,transparent 20px,rgba(59,130,246,0.02) 20px,rgba(59,130,246,0.02) 21px)}
+.comic-bg.speed-lines{background:repeating-linear-gradient(-30deg,transparent,transparent 3px,rgba(59,130,246,0.03) 3px,rgba(59,130,246,0.03) 5px)}
+.week-watermark{position:absolute;z-index:0;pointer-events:none;font-size:clamp(180px,35vw,380px);font-weight:900;line-height:1;opacity:0.025;color:#3b82f6;user-select:none;letter-spacing:-20px}
+.speech-bubble{position:absolute;z-index:0;pointer-events:none;width:100px;height:70px;border-radius:20px;background:rgba(59,130,246,0.03);opacity:0.4}
+.burst-lines{position:absolute;z-index:0;pointer-events:none;width:200px;height:200px;opacity:0.04;background:conic-gradient(from 0deg,transparent 0deg,#3b82f6 2deg,transparent 4deg,transparent 45deg,#3b82f6 47deg,transparent 50deg,transparent 90deg,#3b82f6 92deg,transparent 95deg,transparent 135deg,#3b82f6 137deg,transparent 140deg,transparent 180deg,#3b82f6 182deg,transparent 185deg,transparent 225deg,#3b82f6 227deg,transparent 230deg,transparent 270deg,#3b82f6 272deg,transparent 275deg,transparent 315deg,#3b82f6 317deg,transparent 320deg)}
+.fs-content{position:relative;z-index:2;text-align:center;max-width:700px;animation:zoomIn 0.6s ease both}
+.fs-content .fs-week-badge{display:inline-block;font-size:12px;font-weight:700;letter-spacing:3px;color:#2563eb;margin-bottom:12px;padding:5px 16px;border-radius:10px;background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.12)}
+.fs-content .fs-title{font-size:clamp(28px,5vw,48px);font-weight:900;line-height:1.2;margin-bottom:10px}
+.fs-content .fs-topic{font-size:clamp(16px,2.5vw,24px);font-weight:600;color:#64748b;margin-bottom:8px}
+.fs-content .fs-outcome{font-size:16px;color:#94a3b8;max-width:500px;margin:0 auto 32px;line-height:1.6}
 
-    .fs-hero {
-      min-height: 90vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      position: relative; overflow: hidden; padding: 40px 28px;
-      background: radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.06) 0%, transparent 60%);
-    }
-    .fs-hero::before { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(56,189,248,0.008) 2px, rgba(56,189,248,0.008) 4px); }
-    .fs-hero .hero-badge {
-      display: inline-block; padding: 7px 22px; border-radius: 22px; font-size: 13px; font-weight: 700; letter-spacing: 3px;
-      background: rgba(59,130,246,0.12); color: #7ab8f0; border: 1px solid rgba(59,130,246,0.25);
-      margin-bottom: 24px; position: relative; z-index: 1; animation: pulseGlow 3s ease infinite;
-    }
-    .fs-hero h1 {
-      font-size: clamp(44px, 10vw, 84px); font-weight: 900; line-height: 1.15;
-      background: linear-gradient(135deg, #3b82f6 0%, #38bdf8 35%, #06b6d4 65%, #3b82f6 100%);
-      background-size: 300% 300%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text; animation: gradientShift 4s ease infinite;
-      letter-spacing: 6px; text-align: center; position: relative; z-index: 1;
-      filter: drop-shadow(0 0 20px rgba(59,130,246,0.4));
-    }
-    .fs-hero .hero-sub { font-size: clamp(16px, 2.5vw, 22px); color: #6b8aaa; margin-top: 10px; position: relative; z-index: 1; }
-    .fs-hero .hero-desc { font-size: 15px; color: #5a7a9a; max-width: 500px; text-align: center; margin-top: 12px; line-height: 1.8; position: relative; z-index: 1; }
-    .fs-hero .hero-stats { display: flex; gap: 32px; margin-top: 28px; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; }
-    .fs-hero .hero-stats .st { text-align: center; }
-    .fs-hero .hero-stats .st-num { font-size: 26px; font-weight: 800; background: linear-gradient(135deg, #3b82f6, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .fs-hero .hero-stats .st-lbl { font-size: 13px; color: #5a7a9a; }
-    .fs-hero .scroll-hint { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; z-index: 1; color: #4a6a8a; font-size: 12px; animation: float 2s ease-in-out infinite; }
-    .fs-hero .scroll-hint .arrow-down { width: 24px; height: 24px; border-right: 2px solid #4a6a8a; border-bottom: 2px solid #4a6a8a; transform: rotate(45deg); opacity: 0.5; }
+.btn-enter{display:inline-flex;align-items:center;gap:8px;padding:16px 38px;border-radius:50px;font-size:16px;font-weight:700;color:#fff;background:linear-gradient(135deg,#2563eb,#1d4ed8);border:none;cursor:pointer;box-shadow:0 4px 20px rgba(37,99,235,0.3);transition:all 0.3s;position:relative;overflow:hidden}
+.btn-enter::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,0.15) 50%,transparent 70%);transform:translateX(-100%);transition:transform 0.5s}
+.btn-enter:hover::before{transform:translateX(100%)}.btn-enter:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(37,99,235,0.4)}.btn-enter:active{transform:scale(0.96)}
+.btn-enter .arr{transition:transform 0.3s}.btn-enter:hover .arr{transform:translateX(3px)}
+.btn-coming{display:inline-flex;align-items:center;gap:6px;padding:12px 28px;border-radius:50px;font-size:14px;font-weight:600;color:#94a3b8;background:rgba(255,255,255,0.5);border:1px solid rgba(0,0,0,0.06);cursor:default}
 
-    .fs-week { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 60px 28px; cursor: pointer; transition: background 0.3s; }
-    .fs-week:hover { background: rgba(59,130,246,0.03); }
-    .comic-bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
-    .comic-bg.halftone { background-image: radial-gradient(circle, rgba(59,130,246,0.05) 1px, transparent 1px); background-size: 10px 10px; }
-    .comic-bg.dots-large { background-image: radial-gradient(circle, rgba(6,182,212,0.04) 2px, transparent 2px); background-size: 16px 16px; }
-    .comic-bg.stripes { background: repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(56,189,248,0.015) 20px, rgba(56,189,248,0.015) 21px); }
-    .comic-bg.speed-lines { background: repeating-linear-gradient(-30deg, transparent, transparent 3px, rgba(59,130,246,0.025) 3px, rgba(59,130,246,0.025) 5px); }
-    .week-watermark { position: absolute; z-index: 0; pointer-events: none; font-size: clamp(180px, 35vw, 380px); font-weight: 900; line-height: 1; opacity: 0.02; color: #3b82f6; user-select: none; letter-spacing: -20px; }
-    .speech-bubble { position: absolute; z-index: 0; pointer-events: none; width: 100px; height: 70px; border-radius: 20px; background: rgba(59,130,246,0.025); opacity: 0.4; }
-    .burst-lines { position: absolute; z-index: 0; pointer-events: none; width: 200px; height: 200px; opacity: 0.03; background: conic-gradient(from 0deg, transparent 0deg, #3b82f6 2deg, transparent 4deg, transparent 45deg, #3b82f6 47deg, transparent 50deg, transparent 90deg, #3b82f6 92deg, transparent 95deg, transparent 135deg, #3b82f6 137deg, transparent 140deg, transparent 180deg, #3b82f6 182deg, transparent 185deg, transparent 225deg, #3b82f6 227deg, transparent 230deg, transparent 270deg, #3b82f6 272deg, transparent 275deg, transparent 315deg, #3b82f6 317deg, transparent 320deg); }
-    .fs-content { position: relative; z-index: 2; text-align: center; max-width: 700px; animation: zoomIn 0.6s ease both; }
-    .fs-content .fs-week-badge { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 3px; color: #7ab8f0; margin-bottom: 12px; padding: 5px 16px; border-radius: 10px; background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.15); }
-    .fs-content .fs-title { font-size: clamp(28px, 5vw, 48px); font-weight: 900; line-height: 1.2; margin-bottom: 10px; }
-    .fs-content .fs-topic { font-size: clamp(16px, 2.5vw, 24px); font-weight: 600; color: #6b8aaa; margin-bottom: 8px; }
-    .fs-content .fs-outcome { font-size: 16px; color: #5a7a9a; max-width: 500px; margin: 0 auto 32px; line-height: 1.6; }
+.fs-w1 .fs-title{color:#2563eb}.fs-w2 .fs-title{color:#3b82f6}.fs-w3 .fs-title{color:#06b6d4}.fs-w4 .fs-title{color:#8b5cf6}.fs-w5 .fs-title{color:#7c3aed}.fs-w6 .fs-title{color:#2563eb}.fs-w7 .fs-title{color:#0891b2}.fs-w8 .fs-title{color:#4f46e5}
 
-    .btn-enter { display: inline-flex; align-items: center; gap: 8px; padding: 16px 38px; border-radius: 50px; font-size: 16px; font-weight: 700; color: #fff; background: linear-gradient(135deg, #2563eb, #1d4ed8); border: 1px solid rgba(59,130,246,0.4); cursor: pointer; box-shadow: 0 0 20px rgba(59,130,246,0.3); transition: all 0.3s; position: relative; overflow: hidden; }
-    .btn-enter::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%); transform: translateX(-100%); transition: transform 0.5s; }
-    .btn-enter:hover::before { transform: translateX(100%); }
-    .btn-enter:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(59,130,246,0.5); }
-    .btn-enter:active { transform: scale(0.96); }
-    .btn-enter .arr { transition: transform 0.3s; }
-    .btn-enter:hover .arr { transform: translateX(3px); }
-    .btn-coming { display: inline-flex; align-items: center; gap: 6px; padding: 12px 28px; border-radius: 50px; font-size: 14px; font-weight: 600; color: #5a7a9a; background: rgba(59,130,246,0.05); border: 1px solid rgba(59,130,246,0.1); cursor: default; }
+.fs-footer{min-height:30vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 28px;border-top:1px solid rgba(59,130,246,0.06);background:rgba(255,255,255,0.3)}
+.fs-footer p{font-size:13px;color:#94a3b8}.fs-footer .footer-brand{font-size:18px;font-weight:700;margin-bottom:8px;background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 
-    .fs-w1 .fs-title { color: #3b82f6; } .fs-w2 .fs-title { color: #60a5fa; }
-    .fs-w3 .fs-title { color: #38bdf8; } .fs-w4 .fs-title { color: #06b6d4; }
-    .fs-w5 .fs-title { color: #22d3ee; } .fs-w6 .fs-title { color: #3b82f6; }
-    .fs-w7 .fs-title { color: #2563eb; } .fs-w8 .fs-title { color: #1d4ed8; }
-
-    .fs-footer { min-height: 30vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 40px 28px; border-top: 1px solid rgba(59,130,246,0.08); }
-    .fs-footer p { font-size: 13px; color: #4a6a8a; }
-    .fs-footer .footer-brand { font-size: 18px; font-weight: 700; margin-bottom: 8px; background: linear-gradient(135deg, #3b82f6, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: rgba(6,13,26,0.96); backdrop-filter: blur(24px); padding: 16px 24px; gap: 4px; border-bottom: 1px solid rgba(59,130,246,0.15); }
-      .nav-links.open a { padding: 14px 18px; font-size: 15px; }
-      .nav-toggle { display: flex; }
-      .fs-hero { padding: 32px 20px; } .fs-hero h1 { letter-spacing: 2px; }
-      .fs-hero .hero-stats { gap: 20px; } .fs-hero .hero-stats .st-num { font-size: 22px; }
-      .fs-week { padding: 40px 20px; } .fs-content .fs-title { font-size: clamp(24px, 6vw, 36px); }
-      .btn-enter { padding: 12px 28px; font-size: 14px; }
-    }
-    @media (max-width: 480px) {
-      .nav-bar { padding: 0 18px; } .fs-hero { padding: 28px 16px; }
-      .fs-hero h1 { letter-spacing: 1px; } .fs-week { padding: 32px 16px; }
-      .btn-enter { padding: 10px 24px; font-size: 13px; }
-    }
-  </style>
-</head>
+@media(max-width:768px){.nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:absolute;top:72px;left:0;right:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);padding:16px 24px;gap:4px;border-bottom:1px solid rgba(59,130,246,0.1);box-shadow:0 8px 30px rgba(0,0,0,0.06)}.nav-links.open a{padding:14px 18px;font-size:15px}.nav-toggle{display:flex}.fs-hero{padding:32px 20px}.fs-hero h1{letter-spacing:2px}.fs-week{padding:40px 20px}.fs-content .fs-title{font-size:clamp(24px,6vw,36px)}.btn-enter{padding:12px 28px;font-size:14px}}
+@media(max-width:480px){.nav-bar{padding:0 18px}.fs-hero{padding:28px 16px}.fs-hero h1{letter-spacing:1px}.fs-week{padding:32px 16px}.btn-enter{padding:10px 24px;font-size:13px}}
+</style></head>
 <body>
-  <nav class="nav-bar" id="navBar">
-    <a href="index.html" class="nav-brand">🎬 金牌AI视频剧</a>
-    <div class="nav-links" id="navLinks">
-      <a href="index.html">课程介绍</a><a href="teacher.html">主讲老师</a>
-      <a href="course.html" class="active">课程内容</a><a href="cases.html">学员案例</a>
-      <a href="audience.html">适合人群</a><a href="faq.html">常见问题</a>
-    </div>
-    <button class="nav-toggle" id="navToggle" aria-label="菜单"><span></span><span></span><span></span></button>
-  </nav>
-
-  <section class="fs-hero">
-    <div class="hero-badge">🚀 2025 年轻创作者必修课</div>
-    <h1>金牌AI视频剧</h1>
-    <p class="hero-sub">零基础入门 · 系统化学习 · 实战出师</p>
-    <p class="hero-desc">专为年轻创作者打造的 AI 视频实战课程。<br>八周时间，从剧本到成片，掌握AI视频制作全流程。</p>
-    <div class="hero-stats"><div class="st"><div class="st-num">8</div><div class="st-lbl">周系统课程</div></div><div class="st"><div class="st-num">20+</div><div class="st-lbl">实战案例</div></div><div class="st"><div class="st-num">3</div><div class="st-lbl">大核心模块</div></div><div class="st"><div class="st-num">🔥</div><div class="st-lbl">零基础友好</div></div></div>
-    <div class="scroll-hint"><span>向下滚动探索课程</span><div class="arrow-down"></div></div>
-  </section>
-
-  <section class="fs-week fs-w1" onclick="goWeek(1)"><div class="comic-bg halftone"></div><div class="comic-bg speed-lines" style="opacity:0.4;"></div><div class="week-watermark" style="top:5%;right:5%;">01</div><div class="speech-bubble" style="top:15%;left:10%;"></div><div class="fs-content"><div class="fs-week-badge">🔥 已上线 · 点击进入</div><div class="fs-title">第一周</div><div class="fs-topic">AI视频基础概念与前期准备</div><div class="fs-outcome">了解AI视频制作全流程，搭建你的创作基础</div><button class="btn-enter" onclick="event.stopPropagation();goWeek(1);">进入学习 <span class="arr">→</span></button></div></section>
-  <section class="fs-week fs-w2" onclick="goWeek(2)"><div class="comic-bg dots-large"></div><div class="week-watermark" style="bottom:5%;left:5%;">02</div><div class="burst-lines" style="top:20%;right:15%;"></div><div class="fs-content"><div class="fs-week-badge">🔥 已上线 · 点击进入</div><div class="fs-title">第二周</div><div class="fs-topic">剧本创作与分镜设计</div><div class="fs-outcome">学会用AI辅助撰写专业剧本，设计电影级分镜脚本</div><button class="btn-enter" onclick="event.stopPropagation();goWeek(2);">进入学习 <span class="arr">→</span></button></div></section>
-  <section class="fs-week fs-w3" onclick="goWeek(3)"><div class="comic-bg halftone" style="background-size:8px 8px;"></div><div class="week-watermark" style="top:10%;right:10%;">03</div><div class="burst-lines" style="bottom:10%;left:10%;transform:rotate(45deg);"></div><div class="fs-content"><div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第三周</div><div class="fs-topic">AI绘画与视觉生成</div><div class="fs-outcome">掌握AI绘画工具，生成惊艳视觉素材</div><span class="btn-coming">⏳ 课程筹备中，敬请期待</span></div></section>
-  <section class="fs-week fs-w4" onclick="goWeek(4)"><div class="comic-bg stripes"></div><div class="week-watermark" style="bottom:10%;right:5%;">04</div><div class="fs-content"><div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第四周</div><div class="fs-topic">动态视频生成技术</div><div class="fs-outcome">将静态画面转化为流畅动态视频</div><span class="btn-coming">⏳ 课程筹备中，敬请期待</span></div></section>
-  <section class="fs-week fs-w5" onclick="goWeek(5)"><div class="comic-bg speed-lines" style="opacity:0.5;"></div><div class="week-watermark" style="top:5%;left:5%;">05</div><div class="burst-lines" style="top:40%;right:20%;transform:rotate(-30deg);"></div><div class="fs-content"><div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第五周</div><div class="fs-topic">配音配乐与音效制作</div><div class="fs-outcome">AI语音合成+智能配乐，让视频有声有色</div><span class="btn-coming">⏳ 课程筹备中，敬请期待</span></div></section>
-  <section class="fs-week fs-w6" onclick="goWeek(6)"><div class="comic-bg dots-large" style="background-size:12px 12px;"></div><div class="week-watermark" style="bottom:5%;right:8%;">06</div><div class="fs-content"><div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第六周</div><div class="fs-topic">剪辑合成与后期特效</div><div class="fs-outcome">AI辅助剪辑+一键添加炫酷特效</div><span class="btn-coming">⏳ 课程筹备中，敬请期待</span></div></section>
-  <section class="fs-week fs-w7" onclick="goWeek(7)"><div class="comic-bg halftone" style="background-size:14px 14px;"></div><div class="week-watermark" style="top:8%;right:8%;">07</div><div class="fs-content"><div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第七周</div><div class="fs-topic">综合实战项目（上）</div><div class="fs-outcome">从0到1完成一部AI短片制作</div><span class="btn-coming">⏳ 课程筹备中，敬请期待</span></div></section>
-  <section class="fs-week fs-w8" onclick="goWeek(8)"><div class="comic-bg stripes"></div><div class="week-watermark" style="bottom:8%;left:6%;">08</div><div class="burst-lines" style="top:30%;left:20%;transform:rotate(20deg);"></div><div class="fs-content"><div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第八周</div><div class="fs-topic">综合实战项目（下）</div><div class="fs-outcome">作品打磨精修，打造个人作品集</div><span class="btn-coming">⏳ 课程筹备中，敬请期待</span></div></section>
-
-  <section class="fs-footer"><div><div class="footer-brand">🎬 金牌AI视频剧</div><p>© 2025 金牌AI视频剧 · 用AI点亮创作梦想</p></div></section>
-
+<nav class="nav-bar" id="navBar"><a href="index.html" class="nav-brand">🎬 金牌AI视频剧</a><div class="nav-links" id="navLinks"><a href="index.html">课程介绍</a><a href="teacher.html">主讲老师</a><a href="course.html" class="active">课程内容</a><a href="cases.html">学员案例</a><a href="audience.html">适合人群</a><a href="faq.html">常见问题</a></div><button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button></nav>
+<section class="fs-hero"><div class="hero-badge">🚀 2025 年轻创作者必修课</div><h1>金牌AI视频剧</h1><p class="hero-sub">零基础入门 · 系统化学习 · 实战出师</p><p class="hero-desc">专为年轻创作者打造的 AI 视频实战课程。<br>八周时间，从剧本到成片，掌握AI视频制作全流程。</p><div class="hero-stats"><div class="st"><div class="st-num">8</div><div class="st-lbl">周系统课程</div></div><div class="st"><div class="st-num">20+</div><div class="st-lbl">实战案例</div></div><div class="st"><div class="st-num">3</div><div class="st-lbl">大核心模块</div></div><div class="st"><div class="st-num">🔥</div><div class="st-lbl">零基础友好</div></div></div><div class="scroll-hint"><span>向下滚动探索课程</span><div class="arrow-down"></div></div></section>
+<section class="fs-week fs-w1" onclick="goWeek(1)"><div class="comic-bg halftone"></div><div class="comic-bg speed-lines" style="opacity:0.4"></div><div class="week-watermark" style="top:5%;right:5%">01</div><div class="speech-bubble" style="top:15%;left:10%"></div><div class="fs-content"><div class="fs-week-badge">🔥 已上线 · 点击进入</div><div class="fs-title">第一周</div><div class="fs-topic">AI视频基础概念与前期准备</div><div class="fs-outcome">了解AI视频制作全流程，搭建你的创作基础</div><button class="btn-enter" onclick="event.stopPropagation();goWeek(1)">进入学习 <span class="arr">→</span></button></div></section>
+<section class="fs-week fs-w2" onclick="goWeek(2)"><div class="comic-bg dots-large"></div><div class="week-watermark" style="bottom:5%;left:5%">02</div><div class="burst-lines" style="top:20%;right:15%"></div><div class="fs-content"><div class="fs-week-badge">🔥 已上线 · 点击进入</div><div class="fs-title">第二周</div><div class="fs-topic">剧本创作与分镜设计</div><div class="fs-outcome">学会用AI辅助撰写专业剧本，设计电影级分镜脚本</div><button class="btn-enter" onclick="event.stopPropagation();goWeek(2)">进入学习 <span class="arr">→</span></button></div></section>
+<section class="fs-week fs-w3" onclick="goWeek(3)"><div class="comic-bg halftone" style="background-size:8px 8px"></div><div class="week-watermark" style="top:10%;right:10%">03</div><div class="burst-lines" style="bottom:10%;left:10%;transform:rotate(45deg)"></div><div class="fs-content"><div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第三周</div><div class="fs-topic">AI绘画与视觉生成</div><div class="fs-outcome">掌握AI绘画工具，生成惊艳视觉素材</div><span class="btn-coming">⏳ 课程筹备中，敬请期待</span></div></section>
+<section class="fs-week fs-w4" onclick="goWeek(4)"><div class="comic-bg stripes"></div><div class="week-watermark" style="bottom:10%;right:5%">04</div><div class="fs-content"><div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第四周</div><div class="fs-topic">动态视频生成技术</div><div class="fs-outcome">将静态画面转化为流畅动态视频</div><span class="btn-coming">⏳ 课程筹备中，敬请期待</span></div></section>
+<section class="fs-week fs-w5" onclick="goWeek(5)"><div class="comic-bg speed-lines" style="opacity:0.5"></div><div class="week-watermark" style="top:5%;left:5%">05</div><div class="burst-lines" style="top:40%;right:20%;transform:rotate(-30deg)"></div><div class="fs-content"><div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第五周</div><div class="fs-topic">配音配乐与音效制作</div><div class="fs-outcome">AI语音合成+智能配乐，让视频有声有色</div><span class="btn-coming">⏳ 课程筹备中，敬请期待</span></div></section>
+<section class="fs-week fs-w6" onclick="goWeek(6)"><div class="comic-bg dots-large" style="background-size:12px 12px"></div><div class="week-watermark" style="bottom:5%;right:8%">06</div><div class="fs-content"><div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第六周</div><div class="fs-topic">剪辑合成与后期特效</div><div class="fs-outcome">AI辅助剪辑+一键添加炫酷特效</div><span class="btn-coming">⏳ 课程筹备中，敬请期待</span></div></section>
+<section class="fs-week fs-w7" onclick="goWeek(7)"><div class="comic-bg halftone" style="background-size:14px 14px"></div><div class="week-watermark" style="top:8%;right:8%">07</div><div class="fs-content"><div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第七周</div><div class="fs-topic">综合实战项目（上）</div><div class="fs-outcome">从0到1完成一部AI短片制作</div><span class="btn-coming">⏳ 课程筹备中，敬请期待</span></div></section>
+<section class="fs-week fs-w8" onclick="goWeek(8)"><div class="comic-bg stripes"></div><div class="week-watermark" style="bottom:8%;left:6%">08</div><div class="burst-lines" style="top:30%;left:20%;transform:rotate(20deg)"></div><div class="fs-content"><div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第八周</div><div class="fs-topic">综合实战项目（下）</div><div class="fs-outcome">作品打磨精修，打造个人作品集</div><span class="btn-coming">⏳ 课程筹备中，敬请期待</span></div></section>
+<section class="fs-footer"><div><div class="footer-brand">🎬 金牌AI视频剧</div><p>© 2025 金牌AI视频剧 · 用AI点亮创作梦想</p></div></section>
 <script>
-  var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');
-  t.addEventListener('click',function(){l.classList.toggle('open')});
-  l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open')})});
-  window.addEventListener('scroll',function(){document.getElementById('navBar').classList.toggle('scrolled',window.scrollY>10)});
-  function goWeek(n){window.location.href='week.html?w='+n;}
-</script>
-</body>
-</html>
+var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');t.addEventListener('click',function(){l.classList.toggle('open')});l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open')})});window.addEventListener('scroll',function(){document.getElementById('navBar').classList.toggle('scrolled',window.scrollY>10)});function goWeek(n){window.location.href='week.html?w='+n}
+</script></body></html>
