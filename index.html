@@ -609,16 +609,16 @@
     </section>
 
     <!-- WEEK 2 -->
-    <section class="fs-week fs-w2" onclick="showComingSoon(2)">
+    <section class="fs-week fs-w2" onclick="navigate('#/week/2')">
       <div class="comic-bg dots-large"></div>
       <div class="week-watermark" style="bottom:5%; left:5%;">02</div>
       <div class="burst-lines" style="top:20%; right:15%;"></div>
       <div class="fs-content">
-        <div class="fs-week-badge">📌 即将上线</div>
+        <div class="fs-week-badge">🔥 已上线 · 点击进入</div>
         <div class="fs-title">第二周</div>
         <div class="fs-topic">剧本创作与分镜设计</div>
         <div class="fs-outcome">学会用AI辅助撰写专业剧本，设计出电影级别的分镜脚本</div>
-        <span class="btn-coming">⏳ 课程筹备中，敬请期待</span>
+        <button class="btn-enter" id="btn-week2">进入学习 <span class="arr">→</span></button>
       </div>
     </section>
 
@@ -801,38 +801,57 @@
     { num:'八', topic:'综合实战项目（下）', outcome:'作品打磨与发布，打造个人作品集', icon:'🏆' }
   ];
 
-  const PDF_FILES = [
-    { displayName:'AI视频剧的基础概念和前期准备', fullName:'正课《AI视频剧的基础概念和前期准备》', path:'5月工作/八周课——第一周/PPT+PDF/正课《AI视频剧的基础概念和前期准备》.pdf' },
-    { displayName:'AI视频制作《清明》古诗动画制作课件', fullName:'AI视频制作《清明》古诗动画制作课件', path:'5月工作/八周课——第一周/PPT+PDF/AI视频制作《清明》古诗动画制作课件.pdf' },
-    { displayName:'加餐课：AI视频制作背后的底层知识', fullName:'加餐课：AI视频制作背后的底层知识', path:'5月工作/八周课——第一周/PPT+PDF/加餐课：AI视频制作背后的底层知识.pdf' }
-  ];
-
-  const PDF_PAGES = [17, 22, 19]; // page counts for each PDF
-  const IMG_BASE = '5月工作/八周课——第一周/PPT+PDF/images';
-
-  const MINDMAP_FILES = [
-    { name:'5月11日思维导图' },
-    { name:'5月12日思维导图' },
-    { name:'5月14日思维导图' },
-    { name:'整体课程思维导图' },
-    { name:'树帆教育水印' }
-  ];
-  const MM_IMG_BASE = '5月工作/八周课——第一周/思维导图/images';
+  const WEEK_DATA = {
+    1: {
+      topic: 'AI视频基础概念与前期准备',
+      courseware: [
+        { displayName:'AI视频剧的基础概念和前期准备' },
+        { displayName:'AI视频制作《清明》古诗动画制作课件' },
+        { displayName:'加餐课：AI视频制作背后的底层知识' }
+      ],
+      cwPages: [17, 22, 19],
+      cwBase: '5月工作/八周课——第一周/PPT+PDF/images',
+      mindmap: [
+        { name:'5月11日思维导图' },
+        { name:'5月12日思维导图' },
+        { name:'5月14日思维导图' },
+        { name:'整体课程思维导图' },
+        { name:'树帆教育水印' }
+      ],
+      mmBase: '5月工作/八周课——第一周/思维导图/images'
+    },
+    2: {
+      topic: 'AI动画剧的前期设计',
+      courseware: [
+        { displayName:'AI制作分镜头画面和编辑图片技巧' },
+        { displayName:'用AI制作视频剧：图生视频与剪映实战课件' },
+        { displayName:'视频段的跑动和视频编辑初步介绍' }
+      ],
+      cwPages: [17, 15, 19],
+      cwBase: '5月工作/八周课——第二周/pdf_images',
+      mindmap: [
+        { name:'5月18号和19号思维导图' },
+        { name:'用AI制作视频剧：图生视频与剪映实战课件-思维导图' },
+        { name:'视频段的跑动和视频编辑初步介绍' }
+      ],
+      mmBase: '5月工作/八周课——第二周/mm_images'
+    }
+  };
 
   let historyStack = ['#/'];
 
   // ===== RENDER =====
   function renderCategoryGrid(wk) {
-    const cats = [
+    var cats = [
       { icon:'📖', name:'课件', link:'#/week/' + wk + '/courseware' },
-      { icon:'🧠', name:'思维导图', link:'#/mindmap' }
+      { icon:'🧠', name:'思维导图', link:'#/week/' + wk + '/mindmap' }
     ];
     document.getElementById('categoryGrid').innerHTML = cats.map(function(cat) {
       return '<div class="category-card" onclick="navigate(\'' + cat.link + '\')"><span class="cat-icon">' + cat.icon + '</span><div class="cat-name">' + cat.name + '</div></div>';
     }).join('');
   }
 
-  function renderPdfList() {
+  function _unused_renderPdfList() {
     const icons = ['📘', '📙', '📓'];
     document.getElementById('pdfList').innerHTML = PDF_FILES.map((p, i) => {
       const num = String(i + 1).padStart(2, '0');
@@ -846,15 +865,16 @@
     }).join('');
   }
 
-  function showImgViewer(idx) {
-    const page = document.getElementById('page-imgviewer');
+  function showImgViewer(idx, wk) {
+    var data = WEEK_DATA[wk];
+    var page = document.getElementById('page-imgviewer');
     page.classList.add('active');
-    const p = PDF_FILES[idx];
-    const total = PDF_PAGES[idx];
+    var p = data.courseware[idx];
+    var total = data.cwPages[idx];
     document.getElementById('ivTitle').textContent = p.displayName;
-    let imgs = '';
-    for (let i = 1; i <= total; i++) {
-      const src = IMG_BASE + '/pdf' + idx + '/page_' + String(i).padStart(3, '0') + '.jpg';
+    var imgs = '';
+    for (var i = 1; i <= total; i++) {
+      var src = data.cwBase + '/pdf' + idx + '/page_' + String(i).padStart(3, '0') + '.jpg';
       imgs += '<img src="' + src + '" alt="第' + i + '页" loading="lazy" onclick="openFullscreen(this.src)">';
     }
     document.getElementById('ivPages').innerHTML = imgs;
@@ -913,14 +933,13 @@
 
     const wm = hash.match(/^#\/week\/(\d+)$/);
     const cm = hash.match(/^#\/week\/(\d+)\/courseware$/);
-    const vm = hash.match(/^#\/viewer\/(\d+)$/);
-    const mm = hash.match(/^#\/mindmap$/);
+    const vm = hash.match(/^#\/viewer\/(\d+)\/wk(\d+)$/);
+    const mm = hash.match(/^#\/week\/(\d+)\/mindmap$/);
 
-    if (vm) { showImgViewer(parseInt(vm[1])); return; }
-    if (mm) { showMindmapViewer(); return; }
-    if (wm) { const w=parseInt(wm[1]); w===1 ? showWeekDetail(w) : showComingSoon(w); return; }
-    if (cm) { const w=parseInt(cm[1]); w===1 ? showCourseware() : showComingSoon(w); return; }
-
+    if (vm) { showImgViewer(parseInt(vm[1]), parseInt(vm[2])); return; }
+    if (mm) { showWeekMindmap(parseInt(mm[1])); return; }
+    if (wm) { var w=parseInt(wm[1]); WEEK_DATA[w] ? showWeekDetail(w) : showComingSoon(w); return; }
+    if (cm) { var w=parseInt(cm[1]); WEEK_DATA[w] ? showWeekCourseware(w) : showComingSoon(w); return; }
     document.getElementById('page-home').classList.add('active');
     window.location.hash = '#/';
   }
@@ -935,22 +954,28 @@
     window.scrollTo(0,0);
   }
 
-  function showMindmapViewer() {
+  function showWeekMindmap(wk) {
+    var data = WEEK_DATA[wk];
     var page = document.getElementById('page-mindmap');
     page.classList.add('active');
     document.getElementById('mmTitle').textContent = '🧠 思维导图';
     var imgs = '';
-    for (var i = 0; i < MINDMAP_FILES.length; i++) {
-      var src = MM_IMG_BASE + '/page_' + String(i + 1).padStart(3, '0') + '.jpg';
-      imgs += '<img src="' + src + '" alt="' + MINDMAP_FILES[i].name + '" loading="lazy" onclick="openFullscreen(this.src)">';
+    for (var i = 0; i < data.mindmap.length; i++) {
+      var src = data.mmBase + '/page_' + String(i + 1).padStart(3, '0') + '.jpg';
+      imgs += '<img src="' + src + '" alt="' + data.mindmap[i].name + '" loading="lazy" onclick="openFullscreen(this.src)">';
     }
     document.getElementById('mmPages').innerHTML = imgs;
     window.scrollTo(0, 0);
   }
 
-  function showCourseware() {
+  function showWeekCourseware(wk) {
+    var data = WEEK_DATA[wk];
     document.getElementById('page-courseware').classList.add('active');
-    renderPdfList();
+    var icons = ['📘', '📙', '📓'];
+    document.getElementById('pdfList').innerHTML = data.courseware.map(function(p, i) {
+      var num = String(i + 1).padStart(2, '0');
+      return '<div class="pdf-card" onclick="navigate(\'#/viewer/' + i + '/wk' + wk + '\')"><span class="pdf-num">' + num + '</span><div class="pdf-icon">' + icons[i] + '</div><div class="pdf-info"><div class="pdf-name">《' + p.displayName + '》</div></div><div class="pdf-action">→</div></div>';
+    }).join('');
     window.scrollTo(0,0);
   }
 
@@ -986,12 +1011,16 @@
       renderPage('#/');
     }
 
-    // Week 1 button only: click + touchend
-    var btn = document.getElementById('btn-week1');
-    if (btn) {
-      btn.addEventListener('click', function(e) { e.stopPropagation(); navigate('#/week/1'); });
-      btn.addEventListener('touchend', function(e) { e.preventDefault(); e.stopPropagation(); navigate('#/week/1'); });
+    // Week buttons: click + touchend
+    function bindWeekBtn(id, hash) {
+      var btn = document.getElementById(id);
+      if (btn) {
+        btn.addEventListener('click', function(e) { e.stopPropagation(); navigate(hash); });
+        btn.addEventListener('touchend', function(e) { e.preventDefault(); e.stopPropagation(); navigate(hash); });
+      }
     }
+    bindWeekBtn('btn-week1', '#/week/1');
+    bindWeekBtn('btn-week2', '#/week/2');
     // Weeks 2-8: section click shows coming soon
     for (var w = 2; w <= 8; w++) {
       var sec = document.querySelector('.fs-w' + w);
