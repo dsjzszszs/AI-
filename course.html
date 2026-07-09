@@ -1,79 +1,432 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewportMeta"><title>课程内容 - 金牌AI视频剧</title>
-<style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:linear-gradient(135deg,#dbeafe 0%,#ede9fe 35%,#fce4ec 70%,#e0f2fe 100%);background-attachment:fixed;color:#1a1a2e;overflow-x:hidden;line-height:1.6;padding-top:72px;min-height:100vh}
-a{color:inherit;text-decoration:none}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(59,130,246,0.2);border-radius:3px}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-@keyframes zoomIn{from{opacity:0;transform:scale(0.85)}to{opacity:1;transform:scale(1)}}
-@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-@keyframes pulseGlow{0%,100%{box-shadow:0 0 5px rgba(59,130,246,0.2)}50%{box-shadow:0 0 15px rgba(59,130,246,0.4)}}
-.nav-bar{position:fixed;top:0;left:0;right:0;z-index:1000;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(255,255,255,0.82);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:2px solid transparent;border-image:linear-gradient(90deg,transparent,#3b82f6,#06b6d4,#8b5cf6,transparent) 1}
-.nav-bar.scrolled{box-shadow:0 2px 30px rgba(59,130,246,0.1)}
-.nav-brand{font-size:19px;font-weight:800;letter-spacing:2px;background:linear-gradient(135deg,#2563eb,#06b6d4,#8b5cf6);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientShift 4s ease infinite;white-space:nowrap}
-.nav-links{display:flex;gap:8px;align-items:center}
-.nav-links a{display:inline-block;padding:10px 18px;border-radius:12px;font-size:14px;font-weight:600;color:#64748b;transition:all 0.3s;white-space:nowrap;position:relative}
-.nav-links a::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:0;height:2px;border-radius:1px;background:linear-gradient(90deg,#3b82f6,#06b6d4);transition:width 0.3s}
-.nav-links a:hover{color:#2563eb;background:rgba(59,130,246,0.06)}.nav-links a:hover::after{width:60%}
-.nav-links a.active{color:#2563eb;background:rgba(59,130,246,0.1);font-weight:700}.nav-links a.active::after{width:80%}
-.nav-toggle{display:none;width:40px;height:40px;border-radius:12px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.15);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}
-.nav-toggle span{display:block;width:20px;height:2px;border-radius:2px;background:#3b82f6}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>课程内容 - 金牌AI视频剧</title>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{-webkit-tap-highlight-color:transparent}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+      background:#0a0e1a;color:#d0e0f0;overflow-x:hidden;line-height:1.5;
+      padding-top:72px;min-height:100vh;
+    }
+    a{color:inherit;text-decoration:none}
+    ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(0,200,255,0.2);border-radius:2px}
 
-.fs-hero{min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:40px 28px}
-.fs-hero .hero-badge{display:inline-block;padding:7px 22px;border-radius:22px;font-size:13px;font-weight:700;letter-spacing:3px;background:rgba(255,255,255,0.7);color:#2563eb;border:1px solid rgba(59,130,246,0.2);margin-bottom:24px;position:relative;z-index:1;animation:pulseGlow 3s ease infinite;backdrop-filter:blur(4px)}
-.fs-hero h1{font-size:clamp(44px,10vw,84px);font-weight:900;line-height:1.15;background:linear-gradient(135deg,#2563eb 0%,#06b6d4 35%,#8b5cf6 65%,#2563eb 100%);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradientShift 4s ease infinite;letter-spacing:6px;text-align:center;position:relative;z-index:1;filter:drop-shadow(0 2px 8px rgba(37,99,235,0.2))}
-.fs-hero .hero-sub{font-size:clamp(16px,2.5vw,22px);color:#64748b;margin-top:10px;position:relative;z-index:1}
-.fs-hero .hero-desc{font-size:15px;color:#94a3b8;max-width:500px;text-align:center;margin-top:12px;line-height:1.8;position:relative;z-index:1}
-.fs-hero .hero-stats{display:flex;gap:32px;margin-top:28px;flex-wrap:wrap;justify-content:center;position:relative;z-index:1}
-.fs-hero .hero-stats .st{text-align:center}.fs-hero .hero-stats .st-num{font-size:26px;font-weight:800;background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.fs-hero .hero-stats .st-lbl{font-size:13px;color:#94a3b8}
-.fs-hero .scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;z-index:1;color:#94a3b8;font-size:12px;animation:float 2s ease-in-out infinite}
-.fs-hero .scroll-hint .arrow-down{width:24px;height:24px;border-right:2px solid #94a3b8;border-bottom:2px solid #94a3b8;transform:rotate(45deg);opacity:0.5}
+    /* Keyframes */
+    @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    @keyframes pulseGlow{0%,100%{box-shadow:0 0 8px rgba(0,200,255,0.3),0 0 25px rgba(0,200,255,0.08)}50%{box-shadow:0 0 18px rgba(0,200,255,0.6),0 0 50px rgba(0,200,255,0.2)}}
+    @keyframes pulseUnlocked{0%,100%{box-shadow:0 0 6px rgba(0,255,180,0.2),0 0 18px rgba(0,255,180,0.06),inset 0 0 6px rgba(0,255,180,0.04)}50%{box-shadow:0 0 14px rgba(0,255,180,0.5),0 0 35px rgba(0,255,180,0.15),inset 0 0 14px rgba(0,255,180,0.08)}}
+    @keyframes glitch1{0%,100%{transform:translate(0)}20%{transform:translate(-2px,1px)}40%{transform:translate(2px,-1px)}60%{transform:translate(-1px,-1px)}80%{transform:translate(1px,1px)}}
+    @keyframes particleBurst{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0}}
+    @keyframes scanLine{0%{transform:translateY(-100%)}100%{transform:translateY(100vh)}}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
 
-.fs-week{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:60px 28px;cursor:pointer;transition:background 0.3s}
-.fs-week:hover{background:rgba(255,255,255,0.3)}
-.comic-bg{position:absolute;inset:0;pointer-events:none;z-index:0}
-.comic-bg.halftone{background-image:radial-gradient(circle,rgba(59,130,246,0.06) 1px,transparent 1px);background-size:10px 10px}
-.comic-bg.dots-large{background-image:radial-gradient(circle,rgba(6,182,212,0.05) 2px,transparent 2px);background-size:16px 16px}
-.comic-bg.stripes{background:repeating-linear-gradient(0deg,transparent,transparent 20px,rgba(59,130,246,0.02) 20px,rgba(59,130,246,0.02) 21px)}
-.comic-bg.speed-lines{background:repeating-linear-gradient(-30deg,transparent,transparent 3px,rgba(59,130,246,0.03) 3px,rgba(59,130,246,0.03) 5px)}
-.week-watermark{position:absolute;z-index:0;pointer-events:none;font-size:clamp(180px,35vw,380px);font-weight:900;line-height:1;opacity:0.025;color:#3b82f6;user-select:none;letter-spacing:-20px}
-.speech-bubble{position:absolute;z-index:0;pointer-events:none;width:100px;height:70px;border-radius:20px;background:rgba(59,130,246,0.03);opacity:0.4}
-.burst-lines{position:absolute;z-index:0;pointer-events:none;width:200px;height:200px;opacity:0.04;background:conic-gradient(from 0deg,transparent 0deg,#3b82f6 2deg,transparent 4deg,transparent 45deg,#3b82f6 47deg,transparent 50deg,transparent 90deg,#3b82f6 92deg,transparent 95deg,transparent 135deg,#3b82f6 137deg,transparent 140deg,transparent 180deg,#3b82f6 182deg,transparent 185deg,transparent 225deg,#3b82f6 227deg,transparent 230deg,transparent 270deg,#3b82f6 272deg,transparent 275deg,transparent 315deg,#3b82f6 317deg,transparent 320deg)}
-.fs-content{position:relative;z-index:2;text-align:center;max-width:700px;animation:zoomIn 0.6s ease both}
-.fs-content .fs-week-badge{display:inline-block;font-size:12px;font-weight:700;letter-spacing:3px;color:#2563eb;margin-bottom:12px;padding:5px 16px;border-radius:10px;background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.12)}
-.fs-content .fs-title{font-size:clamp(28px,5vw,48px);font-weight:900;line-height:1.2;margin-bottom:10px}
-.fs-content .fs-topic{font-size:clamp(16px,2.5vw,24px);font-weight:600;color:#64748b;margin-bottom:8px}
-.fs-content .fs-outcome{font-size:16px;color:#94a3b8;max-width:500px;margin:0 auto 32px;line-height:1.6}
+    /* Nav */
+    .nav-bar{
+      position:fixed;top:0;left:0;right:0;z-index:1000;
+      height:72px;display:flex;align-items:center;justify-content:space-between;
+      padding:0 32px;
+      background:rgba(10,14,26,0.92);backdrop-filter:blur(20px);
+      border-bottom:1px solid rgba(0,200,255,0.12);
+    }
+    .nav-bar.scrolled{box-shadow:0 0 40px rgba(0,200,255,0.1)}
+    .nav-brand{
+      font-size:19px;font-weight:800;letter-spacing:2px;
+      background:linear-gradient(135deg,#00c8ff,#7b2fff,#00ffb4);
+      background-size:200% 200%;
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      animation:gradientShift 4s ease infinite;white-space:nowrap;
+    }
+    .nav-links{display:flex;gap:8px;align-items:center}
+    .nav-links a{
+      display:inline-block;padding:10px 18px;border-radius:12px;
+      font-size:14px;font-weight:600;color:#6688aa;transition:all 0.3s;position:relative;
+    }
+    .nav-links a::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:0;height:2px;border-radius:1px;background:linear-gradient(90deg,#00c8ff,#00ffb4);transition:width 0.3s}
+    .nav-links a:hover{color:#a0e0ff;background:rgba(0,200,255,0.08);text-shadow:0 0 10px rgba(0,200,255,0.4)}
+    .nav-links a:hover::after{width:60%}
+    .nav-links a.active{color:#fff;background:rgba(0,200,255,0.12);text-shadow:0 0 14px rgba(0,200,255,0.5)}
+    .nav-links a.active::after{width:80%}
+    .nav-toggle{display:none;width:40px;height:40px;border-radius:12px;background:rgba(0,200,255,0.08);border:1px solid rgba(0,200,255,0.15);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+    .nav-toggle span{display:block;width:20px;height:2px;border-radius:2px;background:#00c8ff;box-shadow:0 0 4px rgba(0,200,255,0.5)}
 
-.btn-enter{display:inline-flex;align-items:center;gap:8px;padding:16px 38px;border-radius:50px;font-size:16px;font-weight:700;color:#fff;background:linear-gradient(135deg,#2563eb,#1d4ed8);border:none;cursor:pointer;box-shadow:0 4px 20px rgba(37,99,235,0.3);transition:all 0.3s;position:relative;overflow:hidden}
-.btn-enter::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,0.15) 50%,transparent 70%);transform:translateX(-100%);transition:transform 0.5s}
-.btn-enter:hover::before{transform:translateX(100%)}.btn-enter:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(37,99,235,0.4)}.btn-enter:active{transform:scale(0.96)}
-.btn-enter .arr{transition:transform 0.3s}.btn-enter:hover .arr{transform:translateX(3px)}
-.btn-coming{display:inline-flex;align-items:center;gap:6px;padding:12px 28px;border-radius:50px;font-size:14px;font-weight:600;color:#94a3b8;background:rgba(255,255,255,0.5);border:1px solid rgba(0,0,0,0.06);cursor:default}
+    /* Canvas layers */
+    #bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+    #lineCanvas{position:fixed;inset:0;z-index:1;pointer-events:none}
 
-.fs-w1 .fs-title{color:#2563eb}.fs-w2 .fs-title{color:#3b82f6}.fs-w3 .fs-title{color:#06b6d4}.fs-w4 .fs-title{color:#8b5cf6}.fs-w5 .fs-title{color:#7c3aed}.fs-w6 .fs-title{color:#2563eb}.fs-w7 .fs-title{color:#0891b2}.fs-w8 .fs-title{color:#4f46e5}
+    /* Main content */
+    .main-wrap{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:40px 28px 80px}
+    .page-header{text-align:center;margin-bottom:60px;animation:fadeInUp 0.6s ease}
+    .page-header .badge{
+      display:inline-block;padding:5px 18px;border-radius:16px;
+      font-size:11px;font-weight:700;letter-spacing:4px;color:#00ffb4;
+      background:rgba(0,255,180,0.06);border:1px solid rgba(0,255,180,0.2);
+      margin-bottom:16px;
+    }
+    .page-header h1{
+      font-size:clamp(28px,5vw,44px);font-weight:900;letter-spacing:6px;
+      background:linear-gradient(135deg,#00c8ff,#7b2fff,#00ffb4);
+      background-size:300% 300%;
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      animation:gradientShift 4s ease infinite;
+      filter:drop-shadow(0 0 20px rgba(0,200,255,0.3));
+    }
 
-.fs-footer{min-height:30vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 28px;border-top:1px solid rgba(59,130,246,0.06);background:rgba(255,255,255,0.3)}
-.fs-footer p{font-size:13px;color:#94a3b8}.fs-footer .footer-brand{font-size:18px;font-weight:700;margin-bottom:8px;background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    /* Week Nodes Grid */
+    .nodes-grid{
+      display:grid;
+      grid-template-columns:repeat(6,1fr);
+      gap:24px 20px;
+      align-items:start;
+    }
+    /* Custom placement for 8 nodes in 6-col grid */
+    .node-wrap:nth-child(1){grid-column:3 / 5; margin-top:0}    /* W1 - center top */
+    .node-wrap:nth-child(2){grid-column:1 / 3; margin-top:40px}  /* W2 - left */
+    .node-wrap:nth-child(3){grid-column:5 / 7; margin-top:40px}  /* W3 - right */
+    .node-wrap:nth-child(4){grid-column:2 / 4; margin-top:20px}  /* W4 */
+    .node-wrap:nth-child(5){grid-column:4 / 6; margin-top:20px}  /* W5 */
+    .node-wrap:nth-child(6){grid-column:1 / 3; margin-top:20px}  /* W6 */
+    .node-wrap:nth-child(7){grid-column:5 / 7; margin-top:20px}  /* W7 */
+    .node-wrap:nth-child(8){grid-column:3 / 5; margin-top:20px}  /* W8 - center bottom */
 
-@media(max-width:768px){.nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:absolute;top:72px;left:0;right:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);padding:16px 24px;gap:4px;border-bottom:1px solid rgba(59,130,246,0.1);box-shadow:0 8px 30px rgba(0,0,0,0.06)}.nav-links.open a{padding:14px 18px;font-size:15px}.nav-toggle{display:flex}.fs-hero{padding:32px 20px}.fs-hero h1{letter-spacing:2px}.fs-week{padding:40px 20px}.fs-content .fs-title{font-size:clamp(24px,6vw,36px)}.btn-enter{padding:12px 28px;font-size:14px}}
-@media(max-width:480px){.nav-bar{padding:0 18px}.fs-hero{padding:28px 16px}.fs-hero h1{letter-spacing:1px}.fs-week{padding:32px 16px}.btn-enter{padding:10px 24px;font-size:13px}}
-</style></head>
+    /* Node card */
+    .node-card{
+      position:relative;display:block;
+      background:rgba(10,15,30,0.85);
+      border:1px solid rgba(0,200,255,0.15);
+      border-radius:14px;padding:28px 20px;text-align:center;
+      cursor:pointer;transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+      overflow:visible;backdrop-filter:blur(4px);
+      text-decoration:none;
+    }
+    .node-card::before{
+      content:'';position:absolute;inset:-1px;border-radius:14px;z-index:-1;
+      background:linear-gradient(135deg,transparent 40%,rgba(0,200,255,0.4),transparent 60%);
+      opacity:0;transition:opacity 0.4s;
+    }
+    .node-card:hover::before{opacity:1}
+    .node-card:hover{
+      transform:translateY(-6px) scale(1.03);
+      border-color:rgba(0,200,255,0.5);
+      box-shadow:0 0 40px rgba(0,200,255,0.25),0 8px 30px rgba(0,0,0,0.4);
+    }
+    .node-card:active{transform:scale(0.94);transition:transform 0.1s}
+
+    /* Unlocked glow */
+    .node-card.unlocked{
+      border-color:rgba(0,255,180,0.25);
+      animation:pulseUnlocked 3s ease infinite;
+    }
+    .node-card.unlocked .node-num{color:#00ffb4;text-shadow:0 0 12px rgba(0,255,180,0.6)}
+    .node-card.unlocked .node-status{color:#00ffb4}
+
+    /* Locked */
+    .node-card.locked{opacity:0.65;cursor:default}
+    .node-card.locked:hover{opacity:0.85;transform:translateY(-4px) scale(1.02)}
+
+    /* Node elements */
+    .node-num{
+      font-size:36px;font-weight:900;letter-spacing:2px;
+      background:linear-gradient(135deg,#00c8ff,#7b2fff);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      margin-bottom:4px;
+    }
+    .node-title{font-size:16px;font-weight:700;color:#c0d8f0;margin-bottom:6px}
+    .node-topic{font-size:12px;color:#6688aa;margin-bottom:12px;line-height:1.5}
+    .node-status{
+      display:inline-block;padding:3px 14px;border-radius:10px;
+      font-size:11px;font-weight:600;letter-spacing:2px;
+      border:1px solid;
+    }
+    .node-status.go{color:#00ffb4;border-color:rgba(0,255,180,0.3);background:rgba(0,255,180,0.04)}
+    .node-status.wait{color:#6688aa;border-color:rgba(100,130,170,0.2);background:rgba(100,130,170,0.03)}
+
+    /* Glitch on hover */
+    .node-card .glitch-overlay{
+      position:absolute;inset:0;border-radius:14px;pointer-events:none;opacity:0;
+      background:linear-gradient(transparent 40%,rgba(0,200,255,0.06) 41%,transparent 42%,transparent 58%,rgba(123,47,255,0.06) 59%,transparent 60%);
+      transition:opacity 0.2s;
+    }
+    .node-card:hover .glitch-overlay{opacity:1;animation:glitch1 0.3s ease infinite}
+    .node-card:hover .node-title{animation:glitch1 0.25s ease infinite}
+
+    /* Particle burst container */
+    .particle-burst{position:absolute;inset:0;pointer-events:none;z-index:10}
+
+    /* Footer */
+    .page-footer{text-align:center;padding:40px 28px;position:relative;z-index:2;border-top:1px solid rgba(0,200,255,0.06);color:#556688;font-size:12px}
+    .page-footer .ft-brand{font-size:15px;font-weight:700;background:linear-gradient(135deg,#00c8ff,#7b2fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
+
+    @media(max-width:768px){
+      .nav-links{display:none}
+      .nav-links.open{display:flex;flex-direction:column;position:absolute;top:72px;left:0;right:0;background:rgba(10,14,26,0.96);backdrop-filter:blur(20px);padding:16px 24px;gap:4px;border-bottom:1px solid rgba(0,200,255,0.1)}
+      .nav-links.open a{padding:14px 18px;font-size:15px}
+      .nav-toggle{display:flex}
+      .nodes-grid{grid-template-columns:repeat(2,1fr);gap:16px}
+      .node-wrap:nth-child(1){grid-column:1/3}
+      .node-wrap:nth-child(2){grid-column:1/2;margin-top:0}
+      .node-wrap:nth-child(3){grid-column:2/3;margin-top:0}
+      .node-wrap:nth-child(4){grid-column:1/2;margin-top:0}
+      .node-wrap:nth-child(5){grid-column:2/3;margin-top:0}
+      .node-wrap:nth-child(6){grid-column:1/2;margin-top:0}
+      .node-wrap:nth-child(7){grid-column:2/3;margin-top:0}
+      .node-wrap:nth-child(8){grid-column:1/3;margin-top:0}
+      .main-wrap{padding:30px 16px 60px}
+      .node-card{padding:22px 16px}
+    }
+    @media(max-width:480px){
+      .nav-bar{padding:0 18px}
+      .page-header h1{letter-spacing:2px}
+    }
+  </style>
+</head>
 <body>
-<nav class="nav-bar" id="navBar"><a href="index.html" class="nav-brand">🎬 金牌AI视频剧</a><div class="nav-links" id="navLinks"><a href="index.html">课程介绍</a><a href="teacher.html">主讲老师</a><a href="course.html" class="active">课程内容</a><a href="cases.html">学员案例</a><a href="audience.html">适合人群</a><a href="faq.html">常见问题</a></div><button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button></nav>
-<section class="fs-hero"><div class="hero-badge">🚀 2025 年轻创作者必修课</div><h1>金牌AI视频剧</h1><p class="hero-sub">零基础入门 · 系统化学习 · 实战出师</p><p class="hero-desc">专为年轻创作者打造的 AI 视频实战课程。<br>八周时间，从剧本到成片，掌握AI视频制作全流程。</p><div class="hero-stats"><div class="st"><div class="st-num">8</div><div class="st-lbl">周系统课程</div></div><div class="st"><div class="st-num">20+</div><div class="st-lbl">实战案例</div></div><div class="st"><div class="st-num">3</div><div class="st-lbl">大核心模块</div></div><div class="st"><div class="st-num">🔥</div><div class="st-lbl">零基础友好</div></div></div><div class="scroll-hint"><span>向下滚动探索课程</span><div class="arrow-down"></div></div></section>
-<section class="fs-week fs-w1" onclick="goWeek(1)"><div class="comic-bg halftone"></div><div class="comic-bg speed-lines" style="opacity:0.4"></div><div class="week-watermark" style="top:5%;right:5%">01</div><div class="speech-bubble" style="top:15%;left:10%"></div><div class="fs-content"><div class="fs-week-badge">🔥 已上线 · 点击进入</div><div class="fs-title">第一周</div><div class="fs-topic">AI视频基础概念与前期准备</div><div class="fs-outcome">了解AI视频制作全流程，搭建你的创作基础</div><button class="btn-enter" onclick="event.stopPropagation();goWeek(1)">进入学习 <span class="arr">→</span></button></div></section>
-<section class="fs-week fs-w2" onclick="goWeek(2)"><div class="comic-bg dots-large"></div><div class="week-watermark" style="bottom:5%;left:5%">02</div><div class="burst-lines" style="top:20%;right:15%"></div><div class="fs-content"><div class="fs-week-badge">🔥 已上线 · 点击进入</div><div class="fs-title">第二周</div><div class="fs-topic">剧本创作与分镜设计</div><div class="fs-outcome">学会用AI辅助撰写专业剧本，设计电影级分镜脚本</div><button class="btn-enter" onclick="event.stopPropagation();goWeek(2)">进入学习 <span class="arr">→</span></button></div></section>
-<section class="fs-week fs-w3" onclick="goWeek(3)"><div class="comic-bg halftone" style="background-size:8px 8px"></div><div class="week-watermark" style="top:10%;right:10%">03</div><div class="burst-lines" style="bottom:10%;left:10%;transform:rotate(45deg)"></div><div class="fs-content"><div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第三周</div><div class="fs-topic">AI绘画与视觉生成</div><div class="fs-outcome">掌握AI绘画工具，生成惊艳视觉素材</div><span class="btn-coming">⏳ 课程筹备中，敬请期待</span></div></section>
-<section class="fs-week fs-w4" onclick="goWeek(4)"><div class="comic-bg stripes"></div><div class="week-watermark" style="bottom:10%;right:5%">04</div><div class="fs-content"><div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第四周</div><div class="fs-topic">动态视频生成技术</div><div class="fs-outcome">将静态画面转化为流畅动态视频</div><span class="btn-coming">⏳ 课程筹备中，敬请期待</span></div></section>
-<section class="fs-week fs-w5" onclick="goWeek(5)"><div class="comic-bg speed-lines" style="opacity:0.5"></div><div class="week-watermark" style="top:5%;left:5%">05</div><div class="burst-lines" style="top:40%;right:20%;transform:rotate(-30deg)"></div><div class="fs-content"><div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第五周</div><div class="fs-topic">配音配乐与音效制作</div><div class="fs-outcome">AI语音合成+智能配乐，让视频有声有色</div><span class="btn-coming">⏳ 课程筹备中，敬请期待</span></div></section>
-<section class="fs-week fs-w6" onclick="goWeek(6)"><div class="comic-bg dots-large" style="background-size:12px 12px"></div><div class="week-watermark" style="bottom:5%;right:8%">06</div><div class="fs-content"><div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第六周</div><div class="fs-topic">剪辑合成与后期特效</div><div class="fs-outcome">AI辅助剪辑+一键添加炫酷特效</div><span class="btn-coming">⏳ 课程筹备中，敬请期待</span></div></section>
-<section class="fs-week fs-w7" onclick="goWeek(7)"><div class="comic-bg halftone" style="background-size:14px 14px"></div><div class="week-watermark" style="top:8%;right:8%">07</div><div class="fs-content"><div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第七周</div><div class="fs-topic">综合实战项目（上）</div><div class="fs-outcome">从0到1完成一部AI短片制作</div><span class="btn-coming">⏳ 课程筹备中，敬请期待</span></div></section>
-<section class="fs-week fs-w8" onclick="goWeek(8)"><div class="comic-bg stripes"></div><div class="week-watermark" style="bottom:8%;left:6%">08</div><div class="burst-lines" style="top:30%;left:20%;transform:rotate(20deg)"></div><div class="fs-content"><div class="fs-week-badge">📌 即将上线</div><div class="fs-title">第八周</div><div class="fs-topic">综合实战项目（下）</div><div class="fs-outcome">作品打磨精修，打造个人作品集</div><span class="btn-coming">⏳ 课程筹备中，敬请期待</span></div></section>
-<section class="fs-footer"><div><div class="footer-brand">🎬 金牌AI视频剧</div><p>© 2025 金牌AI视频剧 · 用AI点亮创作梦想</p></div></section>
+
+  <canvas id="bgCanvas"></canvas>
+  <canvas id="lineCanvas"></canvas>
+
+  <nav class="nav-bar" id="navBar">
+    <a href="index.html" class="nav-brand">🎬 金牌AI视频剧</a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">课程介绍</a><a href="teacher.html">主讲老师</a>
+      <a href="course.html" class="active">课程内容</a><a href="cases.html">学员案例</a>
+      <a href="audience.html">适合人群</a><a href="faq.html">常见问题</a>
+    </div>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </nav>
+
+  <div class="main-wrap">
+    <div class="page-header">
+      <div class="badge">▸ MISSION NODES</div>
+      <h1>课程任务节点</h1>
+    </div>
+
+    <div class="nodes-grid" id="nodesGrid">
+      <div class="node-wrap"><a class="node-card unlocked" href="week.html?w=1" data-wk="1">
+        <div class="glitch-overlay"></div>
+        <div class="particle-burst"></div>
+        <div class="node-num">01</div>
+        <div class="node-title">第一周</div>
+        <div class="node-topic">AI视频基础概念与前期准备</div>
+        <div class="node-status go">⚡ 已解锁</div>
+      </a></div>
+      <div class="node-wrap"><a class="node-card unlocked" href="week.html?w=2" data-wk="2">
+        <div class="glitch-overlay"></div>
+        <div class="particle-burst"></div>
+        <div class="node-num">02</div>
+        <div class="node-title">第二周</div>
+        <div class="node-topic">剧本创作与分镜设计</div>
+        <div class="node-status go">⚡ 已解锁</div>
+      </a></div>
+      <div class="node-wrap"><div class="node-card locked" data-wk="3">
+        <div class="glitch-overlay"></div>
+        <div class="particle-burst"></div>
+        <div class="node-num">03</div>
+        <div class="node-title">第三周</div>
+        <div class="node-topic">AI绘画与视觉生成</div>
+        <div class="node-status wait">🔒 即将解锁</div>
+      </div></div>
+      <div class="node-wrap"><div class="node-card locked" data-wk="4">
+        <div class="glitch-overlay"></div>
+        <div class="particle-burst"></div>
+        <div class="node-num">04</div>
+        <div class="node-title">第四周</div>
+        <div class="node-topic">动态视频生成技术</div>
+        <div class="node-status wait">🔒 即将解锁</div>
+      </div></div>
+      <div class="node-wrap"><div class="node-card locked" data-wk="5">
+        <div class="glitch-overlay"></div>
+        <div class="particle-burst"></div>
+        <div class="node-num">05</div>
+        <div class="node-title">第五周</div>
+        <div class="node-topic">配音配乐与音效制作</div>
+        <div class="node-status wait">🔒 即将解锁</div>
+      </div></div>
+      <div class="node-wrap"><div class="node-card locked" data-wk="6">
+        <div class="glitch-overlay"></div>
+        <div class="particle-burst"></div>
+        <div class="node-num">06</div>
+        <div class="node-title">第六周</div>
+        <div class="node-topic">剪辑合成与后期特效</div>
+        <div class="node-status wait">🔒 即将解锁</div>
+      </div></div>
+      <div class="node-wrap"><div class="node-card locked" data-wk="7">
+        <div class="glitch-overlay"></div>
+        <div class="particle-burst"></div>
+        <div class="node-num">07</div>
+        <div class="node-title">第七周</div>
+        <div class="node-topic">综合实战项目（上）</div>
+        <div class="node-status wait">🔒 即将解锁</div>
+      </div></div>
+      <div class="node-wrap"><div class="node-card locked" data-wk="8">
+        <div class="glitch-overlay"></div>
+        <div class="particle-burst"></div>
+        <div class="node-num">08</div>
+        <div class="node-title">第八周</div>
+        <div class="node-topic">综合实战项目（下）</div>
+        <div class="node-status wait">🔒 即将解锁</div>
+      </div></div>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <div class="ft-brand">🎬 金牌AI视频剧</div>
+    <p>© 2025 金牌AI视频剧 · 用AI点亮创作梦想</p>
+  </footer>
+
 <script>
-var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');t.addEventListener('click',function(){l.classList.toggle('open')});l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open')})});window.addEventListener('scroll',function(){document.getElementById('navBar').classList.toggle('scrolled',window.scrollY>10)});function goWeek(n){window.location.href='week.html?w='+n}
-</script></body></html>
+// ===== Nav bar =====
+var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');
+t.addEventListener('click',function(){l.classList.toggle('open')});
+l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open')})});
+window.addEventListener('scroll',function(){document.getElementById('navBar').classList.toggle('scrolled',window.scrollY>10)});
+
+// ===== Background Canvas: flowing neon lines + particles =====
+(function(){
+  var c=document.getElementById('bgCanvas'),x=c.getContext('2d'),w,h;
+  function rs(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}rs();window.addEventListener('resize',rs);
+
+  var lines=[],particles=[];
+  // Create flowing neon lines
+  for(var i=0;i<12;i++){
+    lines.push({
+      x1:Math.random()*w,y1:Math.random()*h,
+      x2:Math.random()*w,y2:Math.random()*h,
+      vx:(Math.random()-0.5)*0.5,vy:(Math.random()-0.5)*0.5,
+      vx2:(Math.random()-0.5)*0.5,vy2:(Math.random()-0.5)*0.5,
+      hue:Math.random()<0.5?195:280,alpha:Math.random()*0.15+0.04
+    });
+  }
+  // Background particles
+  for(var i=0;i<50;i++){
+    particles.push({
+      x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.2+0.3,
+      vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,
+      alpha:Math.random()*0.4+0.1,pulse:Math.random()*Math.PI*2
+    });
+  }
+
+  function draw(){
+    x.clearRect(0,0,w,h);
+    // Draw flowing lines
+    for(var i=0;i<lines.length;i++){
+      var ln=lines[i];
+      ln.x1+=ln.vx;ln.y1+=ln.vy;ln.x2+=ln.vx2;ln.y2+=ln.vy2;
+      if(ln.x1<0||ln.x1>w)ln.vx*=-1;if(ln.y1<0||ln.y1>h)ln.vy*=-1;
+      if(ln.x2<0||ln.x2>w)ln.vx2*=-1;if(ln.y2<0||ln.y2>h)ln.vy2*=-1;
+      var grad=x.createLinearGradient(ln.x1,ln.y1,ln.x2,ln.y2);
+      grad.addColorStop(0,'hsla('+ln.hue+',80%,60%,0)');
+      grad.addColorStop(0.5,'hsla('+ln.hue+',80%,60%,'+ln.alpha+')');
+      grad.addColorStop(1,'hsla('+ln.hue+',80%,60%,0)');
+      x.strokeStyle=grad;x.lineWidth=1;
+      x.beginPath();x.moveTo(ln.x1,ln.y1);x.lineTo(ln.x2,ln.y2);x.stroke();
+    }
+    // Draw particles
+    for(var i=0;i<particles.length;i++){
+      var p=particles[i];p.pulse+=0.015;
+      var a=p.alpha+Math.sin(p.pulse)*0.08;
+      x.fillStyle='rgba(0,200,255,'+a+')';x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fill();
+      p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ===== Circuit line connections between nodes =====
+(function(){
+  var cv=document.getElementById('lineCanvas'),ct=cv.getContext('2d');
+  function resize(){cv.width=window.innerWidth;cv.height=window.innerHeight}resize();window.addEventListener('resize',resize);
+
+  function drawLines(){
+    ct.clearRect(0,0,cv.width,cv.height);
+    var nodes=document.querySelectorAll('.node-card');
+    var positions=[];
+    nodes.forEach(function(n){
+      var r=n.getBoundingClientRect();
+      positions.push({x:r.left+r.width/2,y:r.top+r.height/2,w:n.dataset.wk});
+    });
+    // Draw circuit connections between adjacent unlocked nodes
+    for(var i=0;i<positions.length;i++){
+      for(var j=i+1;j<positions.length;j++){
+        var dx=positions[i].x-positions[j].x,dy=positions[i].y-positions[j].y;
+        var dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<350){
+          var iUnlocked=nodes[i].classList.contains('unlocked');
+          var jUnlocked=nodes[j].classList.contains('unlocked');
+          var alpha=iUnlocked&&jUnlocked?0.12:0.03;
+          var hue=iUnlocked&&jUnlocked?'195,90%,55%':'195,60%,40%';
+          ct.strokeStyle='hsla('+hue+','+alpha+')';
+          ct.lineWidth=iUnlocked&&jUnlocked?1.2:0.5;
+          ct.setLineDash([4,8]);
+          ct.beginPath();
+          // Circuit-style L-shaped path
+          var mx=(positions[i].x+positions[j].x)/2;
+          ct.moveTo(positions[i].x,positions[i].y);
+          ct.lineTo(mx,positions[i].y);
+          ct.lineTo(mx,positions[j].y);
+          ct.lineTo(positions[j].x,positions[j].y);
+          ct.stroke();
+          ct.setLineDash([]);
+          // Node dot at midpoint
+          if(iUnlocked&&jUnlocked){
+            ct.fillStyle='rgba(0,200,255,0.6)';
+            ct.beginPath();ct.arc(mx,positions[j].y,3,0,Math.PI*2);ct.fill();
+          }
+        }
+      }
+    }
+    requestAnimationFrame(drawLines);
+  }
+  drawLines();
+  window.addEventListener('scroll',drawLines);
+})();
+
+// ===== Particle burst on hover =====
+document.querySelectorAll('.node-card').forEach(function(card){
+  card.addEventListener('mouseenter',function(e){
+    var burst=card.querySelector('.particle-burst');
+    if(!burst)return;
+    burst.innerHTML='';
+    var rect=card.getBoundingClientRect();
+    var cx=rect.width/2,cy=rect.height/2;
+    for(var i=0;i<14;i++){
+      var dot=document.createElement('div');
+      var angle=(Math.PI*2*i)/14;
+      var dist=30+Math.random()*50;
+      dot.style.cssText='position:absolute;width:3px;height:3px;border-radius:50%;'+
+        'background:hsl('+(195+Math.random()*30)+',80%,'+(50+Math.random()*30)+'%);'+
+        'left:'+cx+'px;top:'+cy+'px;'+
+        '--dx:'+(Math.cos(angle)*dist)+'px;--dy:'+(Math.sin(angle)*dist)+'px;'+
+        'animation:particleBurst 0.6s ease forwards';
+      burst.appendChild(dot);
+    }
+  });
+  card.addEventListener('mouseleave',function(){
+    var burst=card.querySelector('.particle-burst');
+    if(burst)burst.innerHTML='';
+  });
+  // Click pulse
+  card.addEventListener('click',function(e){
+    card.style.transform='scale(0.92)';
+    card.style.boxShadow='0 0 50px rgba(0,200,255,0.5), 0 0 100px rgba(0,255,180,0.3)';
+    setTimeout(function(){
+      card.style.transform='';card.style.boxShadow='';
+    },200);
+  });
+});
+
+// Locked cards: navigate to week page with coming soon
+document.querySelectorAll('.node-card.locked').forEach(function(card){
+  card.addEventListener('click',function(){
+    var wk=card.dataset.wk;
+    window.location.href='week.html?w='+wk;
+  });
+});
+</script>
+</body>
+</html>
