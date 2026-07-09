@@ -308,7 +308,7 @@
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
     .week-detail .wd-sub { color: #888; font-size: 14px; margin-bottom: 36px; }
-    .category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
     .category-card {
       padding: 40px 20px; border-radius: 18px; background: #fff;
       border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 2px 12px rgba(0,0,0,0.04);
@@ -825,13 +825,9 @@
   function renderCategoryGrid(wk) {
     const cats = [
       { icon:'📖', name:'课件', link:'#/week/' + wk + '/courseware' },
-      { icon:'🧠', name:'思维导图', link:'#/mindmap' },
-      { icon:'🎬', name:'视频', ph:true }
+      { icon:'🧠', name:'思维导图', link:'#/mindmap' }
     ];
     document.getElementById('categoryGrid').innerHTML = cats.map(function(cat) {
-      if (cat.ph) {
-        return '<div class="category-card" onclick="showPlaceholder(\'' + cat.name + '\')"><span class="cat-icon">' + cat.icon + '</span><div class="cat-name">' + cat.name + '</div></div>';
-      }
       return '<div class="category-card" onclick="navigate(\'' + cat.link + '\')"><span class="cat-icon">' + cat.icon + '</span><div class="cat-name">' + cat.name + '</div></div>';
     }).join('');
   }
