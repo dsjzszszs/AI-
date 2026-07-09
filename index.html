@@ -745,7 +745,7 @@
             <span class="cw-icon-float f1">✨</span>
             <span class="cw-icon-float f2">📄</span>
           </div>
-          <div class="cw-heading">第一周 · <span>课件资料</span></div>
+          <div class="cw-heading" id="cwHeading">第<span>一</span>周 · 课件资料</div>
         </div>
         <div id="pdfList"></div>
       </div>
@@ -770,6 +770,12 @@
       <span class="page-title" id="mmTitle">思维导图</span>
     </div>
     <div class="img-viewer-page">
+      <div class="iv-header" style="text-align:center;margin-bottom:24px;">
+        <h2 id="mmHeading" style="font-size:clamp(20px,3.5vw,28px);font-weight:800;margin-bottom:4px;">
+          第<span style="background:linear-gradient(135deg,#667eea,#f093fb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">一</span>周 · 思维导图
+        </h2>
+        <div id="mmCount" style="font-size:13px;color:#999;"></div>
+      </div>
       <div class="iv-pages" id="mmPages"></div>
     </div>
   </div>
@@ -958,7 +964,10 @@
     var data = WEEK_DATA[wk];
     var page = document.getElementById('page-mindmap');
     page.classList.add('active');
+    var w = WEEKS[wk-1];
     document.getElementById('mmTitle').textContent = '🧠 思维导图';
+    document.getElementById('mmHeading').innerHTML = '第<span style="background:linear-gradient(135deg,#667eea,#f093fb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">' + w.num + '</span>周 · 思维导图';
+    document.getElementById('mmCount').textContent = '共 ' + data.mindmap.length + ' 份';
     var imgs = '';
     for (var i = 0; i < data.mindmap.length; i++) {
       var src = data.mmBase + '/page_' + String(i + 1).padStart(3, '0') + '.jpg';
@@ -971,6 +980,8 @@
   function showWeekCourseware(wk) {
     var data = WEEK_DATA[wk];
     document.getElementById('page-courseware').classList.add('active');
+    var w = WEEKS[wk-1];
+    document.getElementById('cwHeading').innerHTML = '第<span>' + w.num + '</span>周 · 课件资料';
     var icons = ['📘', '📙', '📓'];
     document.getElementById('pdfList').innerHTML = data.courseware.map(function(p, i) {
       var num = String(i + 1).padStart(2, '0');
