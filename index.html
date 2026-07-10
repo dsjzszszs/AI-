@@ -53,6 +53,17 @@
       100%{transform:translate(-50%,-50%) scale(1)}
     }
 
+    /* Hide page content during splash, only h1 is visible */
+    body.splash-active .nav-bar,
+    body.splash-active .hero-badge,
+    body.splash-active .hero-sub,
+    body.splash-active .hero-desc,
+    body.splash-active .hero-btns,
+    body.splash-active .stats-strip,
+    body.splash-active .section,
+    body.splash-active .cta-strip,
+    body.splash-active .footer{opacity:0;pointer-events:none}
+
     #particleCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 
     /* ── Nav ── */
@@ -185,7 +196,7 @@
     }
   </style>
 </head>
-<body>
+<body class="splash-active">
 <div class="splash-bg" id="splashBg"></div><div class="splash-glow" id="splashGlow"></div>
   <canvas id="particleCanvas"></canvas>
 
@@ -267,8 +278,9 @@
 
   // After bounce animation (1.2s), slide from center to hero position
   setTimeout(function(){
-    // Remove CSS class, immediately lock current position with inline styles
     h1.classList.remove('splash-fixed');
+    // Remove splash-active to reveal hidden page content
+    document.body.classList.remove('splash-active');
     h1.style.position='fixed';h1.style.top='50%';h1.style.left='50%';
     h1.style.transform='translate(-50%,-50%) scale(1)';
     h1.style.zIndex='9999';h1.style.margin='0';
