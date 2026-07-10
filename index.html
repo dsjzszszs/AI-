@@ -25,11 +25,25 @@
       position:fixed!important;top:50%!important;left:50%!important;
       transform:translate(-50%,-50%) scale(0.5);
       z-index:9999;margin:0!important;
-      animation:splashBounce 1.2s cubic-bezier(0.34,1.56,0.64,1) forwards,gradientShift 4s ease infinite;
+      animation:splashBounce 0.8s cubic-bezier(0.34,1.56,0.64,1) forwards,gradientShift 4s ease infinite;
     }
     @keyframes splashBounce{
       0%{transform:translate(-50%,-50%) scale(0.5)}
       100%{transform:translate(-50%,-50%) scale(1)}
+    }
+
+    /* Hide content during splash, fade in as title slides back */
+    body.splash-active .nav-bar,
+    body.splash-active .hero-badge,
+    body.splash-active .hero-sub,
+    body.splash-active .hero-desc,
+    body.splash-active .hero-btns,
+    body.splash-active .stats-strip,
+    body.splash-active .section,
+    body.splash-active .cta-strip,
+    body.splash-active .footer{
+      opacity:0;pointer-events:none;
+      transition:opacity 2.2s ease;
     }
 
     #particleCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
@@ -164,7 +178,7 @@
     }
   </style>
 </head>
-<body>
+<body class="splash-active">
   <canvas id="particleCanvas"></canvas>
 
   <nav class="nav-bar" id="navBar">
@@ -248,14 +262,15 @@
     h1.offsetHeight;
     var hr=document.querySelector('.hero').getBoundingClientRect();
     var tt=hr.top+80,tl=hr.left+hr.width/2;
-    h1.style.transition='all 2.8s cubic-bezier(0.34,1.56,0.64,1)';
+    h1.style.transition='all 2.2s cubic-bezier(0.34,1.56,0.64,1)';
     h1.style.top=tt+'px';h1.style.left=tl+'px';
     h1.style.transform='translate(-50%,0) scale(1)';
+    document.body.classList.remove('splash-active');
     setTimeout(function(){
       h1.style.position='';h1.style.top='';h1.style.left='';
       h1.style.transform='';h1.style.zIndex='';h1.style.transition='';h1.style.margin='';
-    },2900);
-  },1200);
+    },2300);
+  },800);
 })();
 
 (function(){
