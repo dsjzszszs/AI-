@@ -178,6 +178,7 @@
 </head>
 <body>
 <div class="splash-bg" id="splashBg"></div><div class="splash-glow" id="splashGlow"></div>
+<div id="pageWrap" style="opacity:0">
   <canvas id="particleCanvas"></canvas>
 
   <nav class="nav-bar" id="navBar">
@@ -265,6 +266,8 @@
   h1.style.opacity='1';h1.style.filter='blur(0)';
   h1.style.zIndex='9999';h1.style.position='relative';
   h1.offsetHeight;
+  // Show page content now that h1 is positioned at center
+  document.getElementById('pageWrap').style.opacity='1';
 
   // Step 2: bounce to full size at center (1.2s)
   h1.style.transition='transform 1.2s cubic-bezier(0.34,1.56,0.64,1)';
@@ -299,5 +302,6 @@ document.querySelectorAll('.tl-item').forEach(function(o,i){setTimeout(function(
 document.querySelectorAll('.feature-card').forEach(function(c,i){c.style.opacity='0';c.style.animation='fadeInUp 0.5s ease '+(0.08*i)+'s forwards'});
 </script>
 <script>(function(){var l=localStorage.getItem("sv");fetch("version.txt?t="+Date.now()).then(function(r){return r.text()}).then(function(t){t=t.trim();if(l&&l!==t){localStorage.setItem("sv",t);location.reload(true)}else{localStorage.setItem("sv",t)}}).catch(function(){})})();</script>
+</div>
 </body>
 </html>
