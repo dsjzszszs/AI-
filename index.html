@@ -24,7 +24,7 @@
     .splash-bg{
       position:fixed;inset:0;z-index:9998;
       background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 50%,#0f172a 100%);
-      transition:opacity 0.5s ease;pointer-events:none;
+      transition:opacity 2.5s ease;pointer-events:none;
     }
     .splash-bg.hide{opacity:0}
     .splash-glow{
@@ -259,19 +259,18 @@
   var dx=window.innerWidth/2-(rect.left+rect.width/2);
   var dy=window.innerHeight/2-(rect.top+rect.height/2);
 
-  // Step 1: initial state (center, tiny, blurred, above overlay)
+  // Step 1: title at center, fully visible from the start
   h1.style.transition='none';
   h1.style.transform='translate('+dx+'px,'+dy+'px) scale(0.3)';
-  h1.style.opacity='0';h1.style.filter='blur(8px)';
-  h1.style.zIndex='9999';h1.style.position='relative';
-  h1.offsetHeight; // force reflow
-
-  // Step 2: bounce in at center (1.2s)
-  h1.style.transition='transform 1.2s cubic-bezier(0.34,1.56,0.64,1),opacity 0.6s,filter 0.6s';
-  h1.style.transform='translate('+dx+'px,'+dy+'px) scale(1)';
   h1.style.opacity='1';h1.style.filter='blur(0)';
+  h1.style.zIndex='9999';h1.style.position='relative';
+  h1.offsetHeight;
 
-  // Step 3: slide to final hero position (2.8s)
+  // Step 2: bounce to full size at center (1.2s)
+  h1.style.transition='transform 1.2s cubic-bezier(0.34,1.56,0.64,1)';
+  h1.style.transform='translate('+dx+'px,'+dy+'px) scale(1)';
+
+  // Step 3: dark bg fades out while title slides to hero position (2.8s)
   setTimeout(function(){
     h1.style.transition='transform 2.8s cubic-bezier(0.34,1.56,0.64,1)';
     h1.style.transform='translate(0,0) scale(1)';
