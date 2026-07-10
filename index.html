@@ -41,8 +41,17 @@
       100%{transform:translate(-50%,-50%) scale(2.8);opacity:0}
     }
 
-    /* Hero h1: splash + slide via JS transition */
-    .hero h1{will-change:transform}
+    /* Hero h1: starts fixed at center, bounces, then slides to hero position */
+    .hero h1.splash-fixed{
+      position:fixed!important;top:50%!important;left:50%!important;
+      transform:translate(-50%,-50%) scale(0.3);
+      z-index:9999;margin:0!important;
+      animation:splashBounce 1.2s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    }
+    @keyframes splashBounce{
+      0%{transform:translate(-50%,-50%) scale(0.3)}
+      100%{transform:translate(-50%,-50%) scale(1)}
+    }
 
     #particleCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 
@@ -178,7 +187,6 @@
 </head>
 <body>
 <div class="splash-bg" id="splashBg"></div><div class="splash-glow" id="splashGlow"></div>
-<div id="pageWrap" style="opacity:0">
   <canvas id="particleCanvas"></canvas>
 
   <nav class="nav-bar" id="navBar">
@@ -193,7 +201,7 @@
 
   <section class="hero">
     <div class="hero-badge">🚀 2025 年轻创作者必修课</div>
-    <h1 id="heroTitle">金牌AI视频剧</h1>
+    <h1 id="heroTitle" class="splash-fixed">金牌AI视频剧</h1>
     <p class="hero-sub">八周时间 · 零基础到实战 · 掌握AI视频创作全流程</p>
     <p class="hero-desc">专为年轻创作者打造的系统化AI视频课程。<br>从剧本撰写到成片发布，AI工具赋能每一步创作。</p>
     <div class="hero-btns">
@@ -251,34 +259,37 @@
   </footer>
 
 <script>
-// ===== Splash Screen: JS-driven bounce + slide =====
+// ===== Splash: CSS bounce at center, JS slides h1 to hero position =====
 (function(){
   var h1=document.getElementById('heroTitle');
   var bg=document.getElementById('splashBg');
   var glow=document.getElementById('splashGlow');
-  var rect=h1.getBoundingClientRect();
-  var dx=window.innerWidth/2-(rect.left+rect.width/2);
-  var dy=window.innerHeight/2-(rect.top+rect.height/2);
 
-  // Step 1: title at center, fully visible from the start
-  h1.style.transition='none';
-  h1.style.transform='translate('+dx+'px,'+dy+'px) scale(0.3)';
-  h1.style.opacity='1';h1.style.filter='blur(0)';
-  h1.style.zIndex='9999';h1.style.position='relative';
-  h1.offsetHeight;
-  // Show page content now that h1 is positioned at center
-  document.getElementById('pageWrap').style.opacity='1';
-
-  // Step 2: bounce to full size at center (1.2s)
-  h1.style.transition='transform 1.2s cubic-bezier(0.34,1.56,0.64,1)';
-  h1.style.transform='translate('+dx+'px,'+dy+'px) scale(1)';
-
-  // Step 3: dark bg fades out while title slides to hero position (2.8s)
+  // After bounce animation (1.2s), slide from center to hero position
   setTimeout(function(){
-    h1.style.transition='transform 2.8s cubic-bezier(0.34,1.56,0.64,1)';
-    h1.style.transform='translate(0,0) scale(1)';
+    // Remove CSS class, immediately lock current position with inline styles
+    h1.classList.remove('splash-fixed');
+    h1.style.position='fixed';h1.style.top='50%';h1.style.left='50%';
+    h1.style.transform='translate(-50%,-50%) scale(1)';
+    h1.style.zIndex='9999';h1.style.margin='0';
+    h1.offsetHeight; // force reflow with new inline styles
+
+    // Calculate where hero title sits
+    var hr=document.querySelector('.hero').getBoundingClientRect();
+    var tt=hr.top+80,tl=hr.left+hr.width/2;
+
+    // Transition to hero position
+    h1.style.transition='all 2.8s cubic-bezier(0.34,1.56,0.64,1)';
+    h1.style.top=tt+'px';h1.style.left=tl+'px';
+    h1.style.transform='translate(-50%,0) scale(1)';
     bg.classList.add('hide');glow.style.display='none';
-    setTimeout(function(){bg.remove();glow.remove();h1.style.zIndex='';h1.style.position=''},600);
+
+    // Cleanup after slide completes
+    setTimeout(function(){
+      bg.remove();glow.remove();
+      h1.style.position='';h1.style.top='';h1.style.left='';
+      h1.style.transform='';h1.style.zIndex='';h1.style.transition='';h1.style.margin='';
+    },2900);
   },1200);
 })();
 
@@ -302,6 +313,5 @@ document.querySelectorAll('.tl-item').forEach(function(o,i){setTimeout(function(
 document.querySelectorAll('.feature-card').forEach(function(c,i){c.style.opacity='0';c.style.animation='fadeInUp 0.5s ease '+(0.08*i)+'s forwards'});
 </script>
 <script>(function(){var l=localStorage.getItem("sv");fetch("version.txt?t="+Date.now()).then(function(r){return r.text()}).then(function(t){t=t.trim();if(l&&l!==t){localStorage.setItem("sv",t);location.reload(true)}else{localStorage.setItem("sv",t)}}).catch(function(){})})();</script>
-</div>
 </body>
 </html>
