@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-v="ed221a4">
+<html lang="zh-CN" data-v="FIX">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -433,6 +433,7 @@ document.querySelectorAll('.node-card.locked').forEach(function(card){
   });
 });
 </script>
-<script>(function(){var l=localStorage.getItem("sv");fetch("version.txt?t="+Date.now()).then(function(r){return r.text()}).then(function(t){t=t.trim();if(l</body></body>l!==t){localStorage.setItem("sv",t);location.reload(true)}else{localStorage.setItem("sv",t)}}).catch(function(){})})();</script>
+
+<script>(function(){var l=localStorage.getItem("sv");fetch("version.txt?t="+Date.now()).then(function(r){return r.text()}).then(function(t){t=t.trim();if(l&&l!==t){localStorage.setItem("sv",t);location.reload(true)}else{localStorage.setItem("sv",t)}}).catch(function(){})})();</script>
 </body>
 </html>
