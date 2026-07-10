@@ -80,87 +80,172 @@
       filter:drop-shadow(0 2px 8px rgba(37,99,235,0.2));
     }
 
-    /* Week Nodes Grid */
-    .nodes-grid{
-      display:grid;
-      grid-template-columns:repeat(6,1fr);
-      gap:24px 20px;
-      align-items:start;
+    /* ── Vertical Timeline ── */
+    .timeline{
+      position:relative;max-width:800px;margin:0 auto;padding:20px 0 60px;
     }
-    /* Custom placement for 8 nodes in 6-col grid */
-    .node-wrap:nth-child(1){grid-column:3 / 5; margin-top:0}    /* W1 - center top */
-    .node-wrap:nth-child(2){grid-column:1 / 3; margin-top:40px}  /* W2 - left */
-    .node-wrap:nth-child(3){grid-column:5 / 7; margin-top:40px}  /* W3 - right */
-    .node-wrap:nth-child(4){grid-column:2 / 4; margin-top:20px}  /* W4 */
-    .node-wrap:nth-child(5){grid-column:4 / 6; margin-top:20px}  /* W5 */
-    .node-wrap:nth-child(6){grid-column:1 / 3; margin-top:20px}  /* W6 */
-    .node-wrap:nth-child(7){grid-column:5 / 7; margin-top:20px}  /* W7 */
-    .node-wrap:nth-child(8){grid-column:3 / 5; margin-top:20px}  /* W8 - center bottom */
+    /* The central line */
+    .tl-line{
+      position:absolute;left:50%;top:0;bottom:0;width:2px;
+      background:linear-gradient(to bottom,
+        transparent 0%,
+        rgba(59,130,246,0.15) 5%,
+        rgba(6,182,212,0.4) 20%,
+        rgba(139,92,246,0.3) 50%,
+        rgba(6,182,212,0.4) 80%,
+        rgba(59,130,246,0.15) 95%,
+        transparent 100%
+      );
+      transform:translateX(-50%);
+      z-index:0;
+    }
+    .tl-line::after{
+      content:'';position:absolute;left:0;top:0;width:100%;height:100%;
+      background:linear-gradient(to bottom,transparent,rgba(6,182,212,0.6),transparent);
+      background-size:100% 200%;animation:tlLineFlow 4s ease-in-out infinite;
+    }
+    @keyframes tlLineFlow{
+      0%,100%{background-position:0 -100%}
+      50%{background-position:0 200%}
+    }
 
-    /* Node card */
-    .node-card{
-      position:relative;display:block;
-      background:rgba(255,255,255,0.62);
-      backdrop-filter:blur(8px);
-      border:1px solid rgba(59,130,246,0.12);
-      border-radius:16px;padding:28px 20px;text-align:center;
-      cursor:pointer;transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    /* Timeline item */
+    .tl-item{
+      position:relative;z-index:1;display:flex;align-items:center;
+      margin-bottom:40px;opacity:0;transform:translateY(30px);
+      animation:fadeInUp 0.5s ease forwards;
+    }
+    .tl-item:nth-child(1){animation-delay:0.05s}
+    .tl-item:nth-child(2){animation-delay:0.15s}
+    .tl-item:nth-child(3){animation-delay:0.25s}
+    .tl-item:nth-child(4){animation-delay:0.35s}
+    .tl-item:nth-child(5){animation-delay:0.45s}
+    .tl-item:nth-child(6){animation-delay:0.55s}
+    .tl-item:nth-child(7){animation-delay:0.65s}
+    .tl-item:nth-child(8){animation-delay:0.75s}
+
+    /* Odd items: card on left, dot centered */
+    .tl-item:nth-child(odd){justify-content:flex-start;padding-right:calc(50% + 28px)}
+    /* Even items: card on right, dot centered */
+    .tl-item:nth-child(even){justify-content:flex-end;padding-left:calc(50% + 28px)}
+
+    /* Timeline dot */
+    .tl-dot{
+      position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+      width:16px;height:16px;border-radius:50%;
+      background:linear-gradient(135deg,#2563eb,#06b6d4);
+      box-shadow:0 0 10px rgba(6,182,212,0.5),0 0 28px rgba(6,182,212,0.2);
+      z-index:2;transition:all 0.4s;
+    }
+    .tl-dot::after{
+      content:'';position:absolute;inset:-4px;border-radius:50%;
+      border:2px solid rgba(6,182,212,0.3);
+      animation:tlDotPulse 2.5s ease-in-out infinite;
+    }
+    @keyframes tlDotPulse{
+      0%,100%{transform:scale(1);opacity:0.6}
+      50%{transform:scale(1.8);opacity:0}
+    }
+
+    /* Card */
+    .tl-card{
+      position:relative;display:block;width:100%;max-width:320px;
+      background:rgba(255,255,255,0.45);
+      backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+      border:1px solid rgba(255,255,255,0.5);
+      border-radius:18px;padding:28px 22px;
+      cursor:pointer;text-decoration:none;
+      transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);
       overflow:visible;
-      text-decoration:none;
     }
-    .node-card::before{
-      content:'';position:absolute;inset:-1px;border-radius:16px;z-index:-1;
-      background:linear-gradient(135deg,transparent 40%,rgba(0,200,255,0.4),transparent 60%);
-      opacity:0;transition:opacity 0.4s;
+    /* Card hover glow ring */
+    .tl-card::before{
+      content:'';position:absolute;inset:-2px;border-radius:20px;z-index:-1;
+      background:linear-gradient(135deg,#2563eb,#06b6d4,#8b5cf6,#06b6d4);
+      background-size:300% 300%;opacity:0;transition:opacity 0.5s;
+      animation:gradientShift 4s ease infinite;
     }
-    .node-card:hover::before{opacity:1}
-    .node-card:hover{
-      transform:translateY(-6px) scale(1.03);
-      border-color:rgba(59,130,246,0.5);
-      box-shadow:0 8px 40px rgba(59,130,246,0.18),0 2px 12px rgba(0,0,0,0.06);
+    .tl-card:hover::before{opacity:1}
+    .tl-card:hover{
+      transform:translateY(-4px) scale(1.04);
+      border-color:transparent;
+      box-shadow:0 12px 48px rgba(59,130,246,0.22),0 4px 16px rgba(6,182,212,0.12);
     }
-    .node-card:active{transform:scale(0.94);transition:transform 0.1s}
+    .tl-card:hover .tl-dot{
+      box-shadow:0 0 18px rgba(6,182,212,0.8),0 0 48px rgba(6,182,212,0.35);
+      transform:translate(-50%,-50%) scale(1.3);
+    }
+    .tl-card:active{transform:scale(0.96);transition:transform 0.1s}
 
-    /* Unlocked glow */
-    .node-card.unlocked{
-      border-color:rgba(6,182,212,0.35);
-      animation:pulseUnlocked 3s ease infinite;
+    /* Unlocked card */
+    .tl-card.unlocked{
+      border-color:rgba(6,182,212,0.2);
+      animation:tlCardGlow 4s ease-in-out infinite;
     }
-    .node-card.unlocked .node-num{color:#06b6d4;text-shadow:0 0 10px rgba(6,182,212,0.3)}
-    .node-card.unlocked .node-status{color:#06b6d4}
+    @keyframes tlCardGlow{
+      0%,100%{box-shadow:0 0 0 rgba(6,182,212,0)}
+      50%{box-shadow:0 0 24px rgba(6,182,212,0.1),inset 0 0 18px rgba(6,182,212,0.03)}
+    }
 
-    /* Locked */
-    .node-card.locked{opacity:0.55;cursor:pointer}
-    .node-card.locked:hover{opacity:0.8;transform:translateY(-4px) scale(1.02)}
+    /* Unlocked dot brighter */
+    .tl-card.unlocked ~ .tl-dot,
+    .tl-item:has(.tl-card.unlocked) .tl-dot{
+      background:linear-gradient(135deg,#06b6d4,#8b5cf6);
+      box-shadow:0 0 14px rgba(6,182,212,0.6),0 0 36px rgba(6,182,212,0.25);
+    }
 
-    /* Node elements */
-    .node-num{
-      font-size:36px;font-weight:900;letter-spacing:2px;
+    /* Locked card */
+    .tl-card.locked{opacity:0.45;cursor:pointer}
+    .tl-card.locked:hover{opacity:0.75;transform:translateY(-3px) scale(1.02)}
+
+    /* Card inner elements */
+    .tl-week-badge{
+      display:inline-block;padding:3px 12px;border-radius:8px;
+      font-size:10px;font-weight:700;letter-spacing:3px;
+      background:rgba(6,182,212,0.08);color:#06b6d4;
+      border:1px solid rgba(6,182,212,0.18);margin-bottom:10px;
+    }
+    .tl-title{
+      font-size:18px;font-weight:700;color:#1a1a2e;margin-bottom:6px;
+      transition:all 0.3s;
+    }
+    .tl-card:hover .tl-title{
       background:linear-gradient(135deg,#2563eb,#06b6d4);
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-      margin-bottom:4px;
     }
-    .node-title{font-size:16px;font-weight:700;color:#1a1a2e;margin-bottom:6px}
-    .node-topic{font-size:12px;color:#64748b;margin-bottom:12px;line-height:1.5}
-    .node-status{
-      display:inline-block;padding:3px 14px;border-radius:10px;
-      font-size:11px;font-weight:600;letter-spacing:2px;
+    .tl-topic{
+      font-size:13px;color:#64748b;line-height:1.5;margin-bottom:14px;
+    }
+    .tl-status{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:4px 14px;border-radius:10px;
+      font-size:11px;font-weight:600;letter-spacing:1px;
       border:1px solid;
     }
-    .node-status.go{color:#06b6d4;border-color:rgba(6,182,212,0.3);background:rgba(6,182,212,0.04)}
-    .node-status.wait{color:#94a3b8;border-color:rgba(148,163,184,0.2);background:rgba(148,163,184,0.03)}
+    .tl-status.go{color:#06b6d4;border-color:rgba(6,182,212,0.3);background:rgba(6,182,212,0.04)}
+    .tl-status.wait{color:#94a3b8;border-color:rgba(148,163,184,0.2);background:rgba(148,163,184,0.03)}
 
-    /* Glitch on hover */
-    .node-card .glitch-overlay{
-      position:absolute;inset:0;border-radius:16px;pointer-events:none;opacity:0;
-      background:linear-gradient(transparent 40%,rgba(0,200,255,0.06) 41%,transparent 42%,transparent 58%,rgba(123,47,255,0.06) 59%,transparent 60%);
+    /* Hover: status glow */
+    .tl-card:hover .tl-status.go{
+      border-color:rgba(6,182,212,0.6);box-shadow:0 0 12px rgba(6,182,212,0.2);
+    }
+
+    /* Glitch overlay on hover */
+    .tl-card .glitch-overlay{
+      position:absolute;inset:0;border-radius:18px;pointer-events:none;opacity:0;
+      background:linear-gradient(transparent 35%,rgba(0,200,255,0.05) 36%,transparent 38%,transparent 62%,rgba(139,92,246,0.05) 63%,transparent 65%);
       transition:opacity 0.2s;
     }
-    .node-card:hover .glitch-overlay{opacity:1;animation:glitch1 0.3s ease infinite}
-    .node-card:hover .node-title{animation:glitch1 0.25s ease infinite}
+    .tl-card:hover .glitch-overlay{opacity:1;animation:glitch1 0.3s ease infinite}
 
-    /* Particle burst container */
-    .particle-burst{position:absolute;inset:0;pointer-events:none;z-index:10}
+    /* Connector arrow (desktop: from card to timeline) */
+    .tl-connector{
+      position:absolute;top:50%;width:30px;height:1px;
+      background:linear-gradient(90deg,rgba(6,182,212,0.3),rgba(6,182,212,0.05));
+      z-index:0;pointer-events:none;
+    }
+    .tl-item:nth-child(odd) .tl-connector{right:-1px;left:auto}
+    .tl-item:nth-child(even) .tl-connector{left:-1px;right:auto;background:linear-gradient(90deg,rgba(6,182,212,0.05),rgba(6,182,212,0.3))}
 
     /* Footer */
     .page-footer{text-align:center;padding:40px 28px;position:relative;z-index:2;border-top:1px solid rgba(59,130,246,0.08);color:#94a3b8;font-size:12px}
@@ -171,17 +256,16 @@
       .nav-links.open{display:flex;flex-direction:column;position:fixed;top:88px;left:20px;right:20px;background:rgba(255,255,255,0.95);backdrop-filter:blur(24px);padding:20px 24px;gap:4px;border-radius:20px;border:1px solid rgba(255,255,255,0.5);box-shadow:0 8px 40px rgba(0,0,0,0.08)}
       .nav-links.open a{padding:14px 18px;font-size:15px}
       .nav-toggle{display:flex}
-      .nodes-grid{grid-template-columns:repeat(2,1fr);gap:16px}
-      .node-wrap:nth-child(1){grid-column:1/3}
-      .node-wrap:nth-child(2){grid-column:1/2;margin-top:0}
-      .node-wrap:nth-child(3){grid-column:2/3;margin-top:0}
-      .node-wrap:nth-child(4){grid-column:1/2;margin-top:0}
-      .node-wrap:nth-child(5){grid-column:2/3;margin-top:0}
-      .node-wrap:nth-child(6){grid-column:1/2;margin-top:0}
-      .node-wrap:nth-child(7){grid-column:2/3;margin-top:0}
-      .node-wrap:nth-child(8){grid-column:1/3;margin-top:0}
+      /* Mobile: all cards on right, line on left */
+      .tl-line{left:20px;transform:none}
+      .tl-item:nth-child(odd),
+      .tl-item:nth-child(even){justify-content:flex-end;padding-right:0;padding-left:48px}
+      .tl-dot{left:20px}
+      .tl-connector{left:-1px!important;right:auto!important;
+        background:linear-gradient(90deg,rgba(6,182,212,0.05),rgba(6,182,212,0.3))!important}
+      .tl-card{max-width:100%}
       .main-wrap{padding:30px 16px 60px}
-      .node-card{padding:22px 16px}
+      .tl-item{margin-bottom:32px}
     }
     @media(max-width:480px){
       .nav-bar{padding:0 18px;width:calc(100% - 24px)}
@@ -192,7 +276,6 @@
 <body>
 
   <canvas id="bgCanvas"></canvas>
-  <canvas id="lineCanvas"></canvas>
 
   <nav class="nav-bar" id="navBar">
     <a href="index.html" class="nav-brand">🎬 金牌AI视频剧</a>
@@ -210,71 +293,16 @@
       <h1>课程任务节点</h1>
     </div>
 
-    <div class="nodes-grid" id="nodesGrid">
-      <div class="node-wrap"><a class="node-card unlocked" href="week.html?w=1" data-wk="1">
-        <div class="glitch-overlay"></div>
-        <div class="particle-burst"></div>
-        <div class="node-num">01</div>
-        <div class="node-title">第一周</div>
-        <div class="node-topic">AI视频基础概念与前期准备</div>
-        <div class="node-status go">⚡ 已解锁</div>
-      </a></div>
-      <div class="node-wrap"><a class="node-card unlocked" href="week.html?w=2" data-wk="2">
-        <div class="glitch-overlay"></div>
-        <div class="particle-burst"></div>
-        <div class="node-num">02</div>
-        <div class="node-title">第二周</div>
-        <div class="node-topic">剧本创作与分镜设计</div>
-        <div class="node-status go">⚡ 已解锁</div>
-      </a></div>
-      <div class="node-wrap"><a class="node-card unlocked" href="week.html?w=3" data-wk="3">
-        <div class="glitch-overlay"></div>
-        <div class="particle-burst"></div>
-        <div class="node-num">03</div>
-        <div class="node-title">第三周</div>
-        <div class="node-topic">AI绘画与视觉生成</div>
-        <div class="node-status go">⚡ 已解锁</div>
-      </a></div>
-      <div class="node-wrap"><a class="node-card unlocked" href="week.html?w=4" data-wk="4">
-        <div class="glitch-overlay"></div>
-        <div class="particle-burst"></div>
-        <div class="node-num">04</div>
-        <div class="node-title">第四周</div>
-        <div class="node-topic">动态视频生成技术</div>
-        <div class="node-status go">⚡ 已解锁</div>
-      </a></div>
-      <div class="node-wrap"><a class="node-card unlocked" href="week.html?w=5" data-wk="5">
-        <div class="glitch-overlay"></div>
-        <div class="particle-burst"></div>
-        <div class="node-num">05</div>
-        <div class="node-title">第五周</div>
-        <div class="node-topic">配音配乐与音效制作</div>
-        <div class="node-status go">⚡ 已解锁</div>
-      </a></div>
-      <div class="node-wrap"><a class="node-card unlocked" href="week.html?w=6" data-wk="6">
-        <div class="glitch-overlay"></div>
-        <div class="particle-burst"></div>
-        <div class="node-num">06</div>
-        <div class="node-title">第六周</div>
-        <div class="node-topic">剪辑合成与后期特效</div>
-        <div class="node-status go">⚡ 已解锁</div>
-      </a></div>
-      <div class="node-wrap"><a class="node-card unlocked" href="week.html?w=7" data-wk="7">
-        <div class="glitch-overlay"></div>
-        <div class="particle-burst"></div>
-        <div class="node-num">07</div>
-        <div class="node-title">第七周</div>
-        <div class="node-topic">综合实战项目（上）</div>
-        <div class="node-status go">⚡ 已解锁</div>
-      </a></div>
-      <div class="node-wrap"><a class="node-card unlocked" href="week.html?w=8" data-wk="8">
-        <div class="glitch-overlay"></div>
-        <div class="particle-burst"></div>
-        <div class="node-num">08</div>
-        <div class="node-title">第八周</div>
-        <div class="node-topic">综合实战项目（下）</div>
-        <div class="node-status go">⚡ 已解锁</div>
-      </a></div>
+    <div class="timeline" id="nodesGrid">
+      <div class="tl-line"></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=1" data-wk="1"><div class="glitch-overlay"></div><div class="tl-week-badge">WEEK 01</div><div class="tl-title">第一周</div><div class="tl-topic">AI视频基础概念与前期准备</div><div class="tl-status go">⚡ 已解锁</div></a></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=2" data-wk="2"><div class="glitch-overlay"></div><div class="tl-week-badge">WEEK 02</div><div class="tl-title">第二周</div><div class="tl-topic">剧本创作与分镜设计</div><div class="tl-status go">⚡ 已解锁</div></a></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=3" data-wk="3"><div class="glitch-overlay"></div><div class="tl-week-badge">WEEK 03</div><div class="tl-title">第三周</div><div class="tl-topic">AI绘画与视觉生成</div><div class="tl-status go">⚡ 已解锁</div></a></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=4" data-wk="4"><div class="glitch-overlay"></div><div class="tl-week-badge">WEEK 04</div><div class="tl-title">第四周</div><div class="tl-topic">动态视频生成技术</div><div class="tl-status go">⚡ 已解锁</div></a></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=5" data-wk="5"><div class="glitch-overlay"></div><div class="tl-week-badge">WEEK 05</div><div class="tl-title">第五周</div><div class="tl-topic">配音配乐与音效制作</div><div class="tl-status go">⚡ 已解锁</div></a></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=6" data-wk="6"><div class="glitch-overlay"></div><div class="tl-week-badge">WEEK 06</div><div class="tl-title">第六周</div><div class="tl-topic">剪辑合成与后期特效</div><div class="tl-status go">⚡ 已解锁</div></a></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=7" data-wk="7"><div class="glitch-overlay"></div><div class="tl-week-badge">WEEK 07</div><div class="tl-title">第七周</div><div class="tl-topic">综合实战项目（上）</div><div class="tl-status go">⚡ 已解锁</div></a></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=8" data-wk="8"><div class="glitch-overlay"></div><div class="tl-week-badge">WEEK 08</div><div class="tl-title">第八周</div><div class="tl-topic">综合实战项目（下）</div><div class="tl-status go">⚡ 已解锁</div></a></div>
     </div>
   </div>
 
@@ -290,13 +318,11 @@ t.addEventListener('click',function(){l.classList.toggle('open')});
 l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open')})});
 window.addEventListener('scroll',function(){document.getElementById('navBar').classList.toggle('scrolled',window.scrollY>10)});
 
-// ===== Background Canvas: flowing neon lines + particles =====
+// ===== Background Canvas =====
 (function(){
   var c=document.getElementById('bgCanvas'),x=c.getContext('2d'),w,h;
   function rs(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}rs();window.addEventListener('resize',rs);
-
   var lines=[],particles=[];
-  // Create flowing neon lines
   for(var i=0;i<12;i++){
     lines.push({
       x1:Math.random()*w,y1:Math.random()*h,
@@ -306,7 +332,6 @@ window.addEventListener('scroll',function(){document.getElementById('navBar').cl
       hue:Math.random()<0.5?210:250,alpha:Math.random()*0.18+0.06
     });
   }
-  // Background particles
   for(var i=0;i<50;i++){
     particles.push({
       x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.2+0.3,
@@ -314,10 +339,8 @@ window.addEventListener('scroll',function(){document.getElementById('navBar').cl
       alpha:Math.random()*0.4+0.1,pulse:Math.random()*Math.PI*2
     });
   }
-
   function draw(){
     x.clearRect(0,0,w,h);
-    // Draw flowing lines
     for(var i=0;i<lines.length;i++){
       var ln=lines[i];
       ln.x1+=ln.vx;ln.y1+=ln.vy;ln.x2+=ln.vx2;ln.y2+=ln.vy2;
@@ -330,7 +353,6 @@ window.addEventListener('scroll',function(){document.getElementById('navBar').cl
       x.strokeStyle=grad;x.lineWidth=1;
       x.beginPath();x.moveTo(ln.x1,ln.y1);x.lineTo(ln.x2,ln.y2);x.stroke();
     }
-    // Draw particles
     for(var i=0;i<particles.length;i++){
       var p=particles[i];p.pulse+=0.015;
       var a=p.alpha+Math.sin(p.pulse)*0.08;
@@ -342,94 +364,28 @@ window.addEventListener('scroll',function(){document.getElementById('navBar').cl
   draw();
 })();
 
-// ===== Circuit line connections between nodes =====
-(function(){
-  var cv=document.getElementById('lineCanvas'),ct=cv.getContext('2d');
-  function resize(){cv.width=window.innerWidth;cv.height=window.innerHeight}resize();window.addEventListener('resize',resize);
-
-  function drawLines(){
-    ct.clearRect(0,0,cv.width,cv.height);
-    var nodes=document.querySelectorAll('.node-card');
-    var positions=[];
-    nodes.forEach(function(n){
-      var r=n.getBoundingClientRect();
-      positions.push({x:r.left+r.width/2,y:r.top+r.height/2,w:n.dataset.wk});
-    });
-    // Draw circuit connections between adjacent unlocked nodes
-    for(var i=0;i<positions.length;i++){
-      for(var j=i+1;j<positions.length;j++){
-        var dx=positions[i].x-positions[j].x,dy=positions[i].y-positions[j].y;
-        var dist=Math.sqrt(dx*dx+dy*dy);
-        if(dist<350){
-          var iUnlocked=nodes[i].classList.contains('unlocked');
-          var jUnlocked=nodes[j].classList.contains('unlocked');
-          var alpha=iUnlocked&&jUnlocked?0.18:0.05;
-          var hue=iUnlocked&&jUnlocked?'210,90%,50%':'210,60%,60%';
-          ct.strokeStyle='hsla('+hue+','+alpha+')';
-          ct.lineWidth=iUnlocked&&jUnlocked?1.2:0.5;
-          ct.setLineDash([4,8]);
-          ct.beginPath();
-          // Circuit-style L-shaped path
-          var mx=(positions[i].x+positions[j].x)/2;
-          ct.moveTo(positions[i].x,positions[i].y);
-          ct.lineTo(mx,positions[i].y);
-          ct.lineTo(mx,positions[j].y);
-          ct.lineTo(positions[j].x,positions[j].y);
-          ct.stroke();
-          ct.setLineDash([]);
-          // Node dot at midpoint
-          if(iUnlocked&&jUnlocked){
-            ct.fillStyle='rgba(59,130,246,0.7)';
-            ct.beginPath();ct.arc(mx,positions[j].y,3,0,Math.PI*2);ct.fill();
-          }
-        }
-      }
-    }
-    requestAnimationFrame(drawLines);
-  }
-  drawLines();
-  window.addEventListener('scroll',drawLines);
-})();
-
-// ===== Particle burst on hover =====
-document.querySelectorAll('.node-card').forEach(function(card){
+// ===== Hover particle burst =====
+document.querySelectorAll('.tl-card').forEach(function(card){
   card.addEventListener('mouseenter',function(e){
-    var burst=card.querySelector('.particle-burst');
-    if(!burst)return;
-    burst.innerHTML='';
     var rect=card.getBoundingClientRect();
-    var cx=rect.width/2,cy=rect.height/2;
-    for(var i=0;i<14;i++){
+    var cx=e.clientX-rect.left,cy=e.clientY-rect.top;
+    for(var i=0;i<10;i++){
       var dot=document.createElement('div');
-      var angle=(Math.PI*2*i)/14;
-      var dist=30+Math.random()*50;
+      var angle=(Math.PI*2*i)/10;
+      var dist=25+Math.random()*35;
       dot.style.cssText='position:absolute;width:3px;height:3px;border-radius:50%;'+
-        'background:hsl('+(210+Math.random()*30)+',70%,'+(40+Math.random()*30)+'%);'+
-        'left:'+cx+'px;top:'+cy+'px;'+
-        '--dx:'+(Math.cos(angle)*dist)+'px;--dy:'+(Math.sin(angle)*dist)+'px;'+
-        'animation:particleBurst 0.6s ease forwards';
-      burst.appendChild(dot);
+        'background:hsl('+(200+Math.random()*40)+',70%,50%);pointer-events:none;z-index:20;'+
+        'left:'+cx+'px;top:'+cy+'px;opacity:1;transition:all 0.5s ease-out;';
+      card.appendChild(dot);
+      requestAnimationFrame(function(d,a,dx,dy){d.style.transform='translate('+dx+'px,'+dy+'px) scale(0)';d.style.opacity='0'}.
+        bind(null,dot,angle,Math.cos(angle)*dist,Math.sin(angle)*dist));
+      setTimeout(function(d){d.remove()},600,dot);
     }
   });
-  card.addEventListener('mouseleave',function(){
-    var burst=card.querySelector('.particle-burst');
-    if(burst)burst.innerHTML='';
-  });
-  // Click pulse
-  card.addEventListener('click',function(e){
-    card.style.transform='scale(0.92)';
-    card.style.boxShadow='0 0 40px rgba(59,130,246,0.4), 0 0 80px rgba(6,182,212,0.2)';
-    setTimeout(function(){
-      card.style.transform='';card.style.boxShadow='';
-    },200);
-  });
-});
-
-// Locked cards: navigate to week page with coming soon
-document.querySelectorAll('.node-card.locked').forEach(function(card){
   card.addEventListener('click',function(){
-    var wk=card.dataset.wk;
-    window.location.href='week.html?w='+wk;
+    card.style.transform='scale(0.94)';
+    card.style.boxShadow='0 0 40px rgba(59,130,246,0.4),0 0 80px rgba(6,182,212,0.3)';
+    setTimeout(function(){card.style.transform='';card.style.boxShadow=''},200);
   });
 });
 </script>
