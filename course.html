@@ -147,7 +147,8 @@
       50%{transform:scale(1.8);opacity:0}
     }
 
-    /* Card */
+    /* 3D Card container */
+    .tl-item{perspective:800px}
     .tl-card{
       position:relative;display:block;width:100%;max-width:320px;
       background:rgba(255,255,255,0.45);
@@ -155,27 +156,44 @@
       border:1px solid rgba(255,255,255,0.5);
       border-radius:18px;padding:28px 22px;
       cursor:pointer;text-decoration:none;
-      transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);
-      overflow:visible;
+      transition:box-shadow 0.4s,border-color 0.4s;
+      transform-style:preserve-3d;overflow:hidden;
+      will-change:transform;
     }
-    /* Card hover glow ring */
+    /* Glow ring */
     .tl-card::before{
       content:'';position:absolute;inset:-2px;border-radius:20px;z-index:-1;
       background:linear-gradient(135deg,#2563eb,#06b6d4,#8b5cf6,#06b6d4);
       background-size:300% 300%;opacity:0;transition:opacity 0.5s;
       animation:gradientShift 4s ease infinite;
     }
-    .tl-card:hover::before{opacity:1}
-    .tl-card:hover{
-      transform:translateY(-4px) scale(1.04);
+    .tl-card.glowing::before{opacity:1}
+    .tl-card.glowing{
       border-color:transparent;
-      box-shadow:0 12px 48px rgba(59,130,246,0.22),0 4px 16px rgba(6,182,212,0.12);
+      box-shadow:0 20px 60px rgba(59,130,246,0.28),0 8px 24px rgba(6,182,212,0.16);
     }
-    .tl-card:hover .tl-dot{
-      box-shadow:0 0 18px rgba(6,182,212,0.8),0 0 48px rgba(6,182,212,0.35);
-      transform:translate(-50%,-50%) scale(1.3);
+    /* 3D shine layer */
+    .tl-card .card-shine{
+      position:absolute;inset:0;border-radius:18px;pointer-events:none;z-index:5;
+      background:radial-gradient(circle at 50% 50%,rgba(255,255,255,0.5) 0%,transparent 70%);
+      opacity:0;transition:opacity 0.3s;
     }
-    .tl-card:active{transform:scale(0.96);transition:transform 0.1s}
+    .tl-card.glowing .card-shine{opacity:1}
+    /* Dynamic shadow layer */
+    .tl-card .card-shadow-layer{
+      position:absolute;inset:-10px;border-radius:28px;pointer-events:none;z-index:-2;
+      background:transparent;transition:all 0.15s ease-out;
+    }
+    /* Ripple for mobile */
+    .tl-card .card-ripple{
+      position:absolute;border-radius:50%;pointer-events:none;z-index:10;
+      background:rgba(59,130,246,0.25);transform:scale(0);opacity:1;
+      animation:rippleBurst 0.7s ease-out forwards;
+    }
+    @keyframes rippleBurst{
+      to{transform:scale(4);opacity:0}
+    }
+    .tl-card:active{transform:scale(0.97)!important;transition:transform 0.1s!important}
 
     /* Unlocked card */
     .tl-card.unlocked{
@@ -209,7 +227,7 @@
       font-size:18px;font-weight:700;color:#1a1a2e;margin-bottom:6px;
       transition:all 0.3s;
     }
-    .tl-card:hover .tl-title{
+    .tl-card.glowing .tl-title{
       background:linear-gradient(135deg,#2563eb,#06b6d4);
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;
     }
@@ -226,17 +244,17 @@
     .tl-status.wait{color:#94a3b8;border-color:rgba(148,163,184,0.2);background:rgba(148,163,184,0.03)}
 
     /* Hover: status glow */
-    .tl-card:hover .tl-status.go{
+    .tl-card.glowing .tl-status.go{
       border-color:rgba(6,182,212,0.6);box-shadow:0 0 12px rgba(6,182,212,0.2);
     }
 
-    /* Glitch overlay on hover */
+    /* Glitch overlay - active on glow */
     .tl-card .glitch-overlay{
       position:absolute;inset:0;border-radius:18px;pointer-events:none;opacity:0;
       background:linear-gradient(transparent 35%,rgba(0,200,255,0.05) 36%,transparent 38%,transparent 62%,rgba(139,92,246,0.05) 63%,transparent 65%);
       transition:opacity 0.2s;
     }
-    .tl-card:hover .glitch-overlay{opacity:1;animation:glitch1 0.3s ease infinite}
+    .tl-card.glowing .glitch-overlay{opacity:1;animation:glitch1 0.3s ease infinite}
 
     /* Connector arrow (desktop: from card to timeline) */
     .tl-connector{
@@ -295,14 +313,14 @@
 
     <div class="timeline" id="nodesGrid">
       <div class="tl-line"></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=1" data-wk="1"><div class="glitch-overlay"></div><div class="tl-week-badge">WEEK 01</div><div class="tl-title">第一周</div><div class="tl-topic">AI视频基础概念与前期准备</div><div class="tl-status go">⚡ 已解锁</div></a></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=2" data-wk="2"><div class="glitch-overlay"></div><div class="tl-week-badge">WEEK 02</div><div class="tl-title">第二周</div><div class="tl-topic">剧本创作与分镜设计</div><div class="tl-status go">⚡ 已解锁</div></a></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=3" data-wk="3"><div class="glitch-overlay"></div><div class="tl-week-badge">WEEK 03</div><div class="tl-title">第三周</div><div class="tl-topic">AI绘画与视觉生成</div><div class="tl-status go">⚡ 已解锁</div></a></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=4" data-wk="4"><div class="glitch-overlay"></div><div class="tl-week-badge">WEEK 04</div><div class="tl-title">第四周</div><div class="tl-topic">动态视频生成技术</div><div class="tl-status go">⚡ 已解锁</div></a></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=5" data-wk="5"><div class="glitch-overlay"></div><div class="tl-week-badge">WEEK 05</div><div class="tl-title">第五周</div><div class="tl-topic">配音配乐与音效制作</div><div class="tl-status go">⚡ 已解锁</div></a></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=6" data-wk="6"><div class="glitch-overlay"></div><div class="tl-week-badge">WEEK 06</div><div class="tl-title">第六周</div><div class="tl-topic">剪辑合成与后期特效</div><div class="tl-status go">⚡ 已解锁</div></a></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=7" data-wk="7"><div class="glitch-overlay"></div><div class="tl-week-badge">WEEK 07</div><div class="tl-title">第七周</div><div class="tl-topic">综合实战项目（上）</div><div class="tl-status go">⚡ 已解锁</div></a></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=8" data-wk="8"><div class="glitch-overlay"></div><div class="tl-week-badge">WEEK 08</div><div class="tl-title">第八周</div><div class="tl-topic">综合实战项目（下）</div><div class="tl-status go">⚡ 已解锁</div></a></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=1" data-wk="1"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 01</div><div class="tl-title">第一周</div><div class="tl-topic">AI视频基础概念与前期准备</div><div class="tl-status go">⚡ 已解锁</div></a></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=2" data-wk="2"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 02</div><div class="tl-title">第二周</div><div class="tl-topic">剧本创作与分镜设计</div><div class="tl-status go">⚡ 已解锁</div></a></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=3" data-wk="3"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 03</div><div class="tl-title">第三周</div><div class="tl-topic">AI绘画与视觉生成</div><div class="tl-status go">⚡ 已解锁</div></a></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=4" data-wk="4"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 04</div><div class="tl-title">第四周</div><div class="tl-topic">动态视频生成技术</div><div class="tl-status go">⚡ 已解锁</div></a></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=5" data-wk="5"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 05</div><div class="tl-title">第五周</div><div class="tl-topic">配音配乐与音效制作</div><div class="tl-status go">⚡ 已解锁</div></a></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=6" data-wk="6"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 06</div><div class="tl-title">第六周</div><div class="tl-topic">剪辑合成与后期特效</div><div class="tl-status go">⚡ 已解锁</div></a></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=7" data-wk="7"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 07</div><div class="tl-title">第七周</div><div class="tl-topic">综合实战项目（上）</div><div class="tl-status go">⚡ 已解锁</div></a></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=8" data-wk="8"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 08</div><div class="tl-title">第八周</div><div class="tl-topic">综合实战项目（下）</div><div class="tl-status go">⚡ 已解锁</div></a></div>
     </div>
   </div>
 
@@ -364,27 +382,44 @@ window.addEventListener('scroll',function(){document.getElementById('navBar').cl
   draw();
 })();
 
-// ===== Hover particle burst =====
+// ===== 3D Tilt + Ripple Effect =====
 document.querySelectorAll('.tl-card').forEach(function(card){
-  card.addEventListener('mouseenter',function(e){
+  var shine=card.querySelector('.card-shine');
+  var shadow=card.querySelector('.card-shadow-layer');
+
+  card.addEventListener('mousemove',function(e){
+    if(window.innerWidth<768)return;
+    var rect=card.getBoundingClientRect();
+    var x=(e.clientX-rect.left)/rect.width-0.5;
+    var y=(e.clientY-rect.top)/rect.height-0.5;
+    card.style.transform='rotateX('+(y*-10)+'deg) rotateY('+(x*10)+'deg) scale(1.03)';
+    card.classList.add('glowing');
+    if(shine)shine.style.background='radial-gradient(circle at '+(50+x*60)+'% '+(50+y*60)+'%,rgba(255,255,255,0.5) 0%,transparent 70%)';
+    if(shadow)shadow.style.boxShadow=(x*-15)+'px '+(y*10+8)+'px 40px rgba(59,130,246,'+(0.15+Math.abs(x)*0.15)+'),'+(x*-5)+'px '+(y*5+2)+'px 10px rgba(6,182,212,'+(0.05+Math.abs(y)*0.08)+')';
+  });
+  card.addEventListener('mouseleave',function(){
+    card.style.transform='rotateX(0deg) rotateY(0deg) scale(1)';
+    card.classList.remove('glowing');
+    if(shine)shine.style.background='radial-gradient(circle at 50% 50%,rgba(255,255,255,0.5) 0%,transparent 70%)';
+    if(shadow)shadow.style.boxShadow='none';
+  });
+
+  card.addEventListener('pointerdown',function(e){
     var rect=card.getBoundingClientRect();
     var cx=e.clientX-rect.left,cy=e.clientY-rect.top;
-    for(var i=0;i<10;i++){
-      var dot=document.createElement('div');
-      var angle=(Math.PI*2*i)/10;
-      var dist=25+Math.random()*35;
-      dot.style.cssText='position:absolute;width:3px;height:3px;border-radius:50%;'+
-        'background:hsl('+(200+Math.random()*40)+',70%,50%);pointer-events:none;z-index:20;'+
-        'left:'+cx+'px;top:'+cy+'px;opacity:1;transition:all 0.5s ease-out;';
-      card.appendChild(dot);
-      requestAnimationFrame(function(d,a,dx,dy){d.style.transform='translate('+dx+'px,'+dy+'px) scale(0)';d.style.opacity='0'}.
-        bind(null,dot,angle,Math.cos(angle)*dist,Math.sin(angle)*dist));
-      setTimeout(function(d){d.remove()},600,dot);
-    }
+    var size=Math.max(rect.width,rect.height);
+    var ripple=document.createElement('div');
+    ripple.className='card-ripple';
+    ripple.style.left=cx+'px';ripple.style.top=cy+'px';
+    ripple.style.width=size+'px';ripple.style.height=size+'px';
+    ripple.style.marginLeft=(-size/2)+'px';ripple.style.marginTop=(-size/2)+'px';
+    card.appendChild(ripple);
+    setTimeout(function(){ripple.remove()},700);
   });
+
   card.addEventListener('click',function(){
     card.style.transform='scale(0.94)';
-    card.style.boxShadow='0 0 40px rgba(59,130,246,0.4),0 0 80px rgba(6,182,212,0.3)';
+    card.style.boxShadow='0 0 50px rgba(59,130,246,0.4),0 0 100px rgba(6,182,212,0.3)';
     setTimeout(function(){card.style.transform='';card.style.boxShadow=''},200);
   });
 });
