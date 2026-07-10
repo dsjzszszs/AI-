@@ -167,18 +167,18 @@
       background-size:300% 300%;opacity:0;transition:opacity 0.5s;
       animation:gradientShift 4s ease infinite;
     }
-    .tl-card.glowing::before{opacity:1}
+    .tl-card.glowing::before{opacity:0.55}
     .tl-card.glowing{
       border-color:transparent;
-      box-shadow:0 20px 60px rgba(59,130,246,0.28),0 8px 24px rgba(6,182,212,0.16);
+      box-shadow:0 16px 48px rgba(59,130,246,0.18),0 6px 18px rgba(6,182,212,0.1);
     }
     /* 3D shine layer */
     .tl-card .card-shine{
       position:absolute;inset:0;border-radius:18px;pointer-events:none;z-index:5;
-      background:radial-gradient(circle at 50% 50%,rgba(255,255,255,0.5) 0%,transparent 70%);
+      background:radial-gradient(circle at 50% 50%,rgba(255,255,255,0.35) 0%,transparent 70%);
       opacity:0;transition:opacity 0.3s;
     }
-    .tl-card.glowing .card-shine{opacity:1}
+    .tl-card.glowing .card-shine{opacity:0.7}
     /* Dynamic shadow layer */
     .tl-card .card-shadow-layer{
       position:absolute;inset:-10px;border-radius:28px;pointer-events:none;z-index:-2;
@@ -254,7 +254,7 @@
       background:linear-gradient(transparent 35%,rgba(0,200,255,0.05) 36%,transparent 38%,transparent 62%,rgba(139,92,246,0.05) 63%,transparent 65%);
       transition:opacity 0.2s;
     }
-    .tl-card.glowing .glitch-overlay{opacity:1;animation:glitch1 0.3s ease infinite}
+    .tl-card.glowing .glitch-overlay{opacity:0.5;animation:glitch1 0.3s ease infinite}
 
     /* Connector arrow (desktop: from card to timeline) */
     .tl-connector{
@@ -394,8 +394,8 @@ document.querySelectorAll('.tl-card').forEach(function(card){
     var y=(e.clientY-rect.top)/rect.height-0.5;
     card.style.transform='rotateX('+(y*-10)+'deg) rotateY('+(x*10)+'deg) scale(1.03)';
     card.classList.add('glowing');
-    if(shine)shine.style.background='radial-gradient(circle at '+(50+x*60)+'% '+(50+y*60)+'%,rgba(255,255,255,0.5) 0%,transparent 70%)';
-    if(shadow)shadow.style.boxShadow=(x*-15)+'px '+(y*10+8)+'px 40px rgba(59,130,246,'+(0.15+Math.abs(x)*0.15)+'),'+(x*-5)+'px '+(y*5+2)+'px 10px rgba(6,182,212,'+(0.05+Math.abs(y)*0.08)+')';
+    if(shine)shine.style.background='radial-gradient(circle at '+(50+x*50)+'% '+(50+y*50)+'%,rgba(255,255,255,0.28) 0%,transparent 70%)';
+    if(shadow)shadow.style.boxShadow=(x*-10)+'px '+(y*8+6)+'px 30px rgba(59,130,246,'+(0.08+Math.abs(x)*0.1)+'),'+(x*-3)+'px '+(y*3+1)+'px 8px rgba(6,182,212,'+(0.03+Math.abs(y)*0.05)+')';
   });
   card.addEventListener('mouseleave',function(){
     card.style.transform='rotateX(0deg) rotateY(0deg) scale(1)';
@@ -419,7 +419,7 @@ document.querySelectorAll('.tl-card').forEach(function(card){
 
   card.addEventListener('click',function(){
     card.style.transform='scale(0.94)';
-    card.style.boxShadow='0 0 50px rgba(59,130,246,0.4),0 0 100px rgba(6,182,212,0.3)';
+    card.style.boxShadow='0 0 30px rgba(59,130,246,0.25),0 0 60px rgba(6,182,212,0.15)';
     setTimeout(function(){card.style.transform='';card.style.boxShadow=''},200);
   });
 });
