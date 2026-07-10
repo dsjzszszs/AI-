@@ -33,7 +33,7 @@
       transform:translate(-50%,-50%);
       background:radial-gradient(circle,rgba(6,182,212,0.3),transparent);
       filter:blur(40px);
-      animation:splashGlowBurst 0.8s ease-out forwards;
+      animation:splashGlowBurst 1.2s ease-out forwards;
     }
     @keyframes splashGlowBurst{
       0%{transform:translate(-50%,-50%) scale(0);opacity:0}
@@ -259,24 +259,25 @@
   var dx=window.innerWidth/2-(rect.left+rect.width/2);
   var dy=window.innerHeight/2-(rect.top+rect.height/2);
 
-  // Step 1: initial state (center, tiny, blurred)
+  // Step 1: initial state (center, tiny, blurred, above overlay)
   h1.style.transition='none';
   h1.style.transform='translate('+dx+'px,'+dy+'px) scale(0.3)';
   h1.style.opacity='0';h1.style.filter='blur(8px)';
+  h1.style.zIndex='9999';h1.style.position='relative';
   h1.offsetHeight; // force reflow
 
-  // Step 2: bounce in at center (0.8s)
-  h1.style.transition='transform 0.8s cubic-bezier(0.34,1.56,0.64,1),opacity 0.4s,filter 0.4s';
+  // Step 2: bounce in at center (1.2s)
+  h1.style.transition='transform 1.2s cubic-bezier(0.34,1.56,0.64,1),opacity 0.6s,filter 0.6s';
   h1.style.transform='translate('+dx+'px,'+dy+'px) scale(1)';
   h1.style.opacity='1';h1.style.filter='blur(0)';
 
-  // Step 3: slide to final hero position (1.2s)
+  // Step 3: slide to final hero position (2.8s)
   setTimeout(function(){
-    h1.style.transition='transform 1.2s cubic-bezier(0.34,1.56,0.64,1)';
+    h1.style.transition='transform 2.8s cubic-bezier(0.34,1.56,0.64,1)';
     h1.style.transform='translate(0,0) scale(1)';
     bg.classList.add('hide');glow.style.display='none';
-    setTimeout(function(){bg.remove();glow.remove()},600);
-  },800);
+    setTimeout(function(){bg.remove();glow.remove();h1.style.zIndex='';h1.style.position=''},600);
+  },1200);
 })();
 
 (function(){
