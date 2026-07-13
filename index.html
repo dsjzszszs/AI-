@@ -19,10 +19,15 @@
     @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
     @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
     @keyframes softPulse{0%,100%{box-shadow:0 0 0 0 rgba(59,130,246,0.15)}50%{box-shadow:0 0 0 12px rgba(59,130,246,0)}}
+    @keyframes shine{
+      0%,100%{left:-120%}
+      40%{left:120%}
+      60%{left:120%}
+    }
 
     #particleCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 
-    /* ── Nav ── */
+    /* Nav */
     .nav-bar{
       position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:1000;
       width:calc(100% - 40px);max-width:1100px;height:64px;
@@ -32,7 +37,8 @@
       box-shadow:0 4px 24px rgba(59,130,246,0.06),0 1px 3px rgba(0,0,0,0.03);
     }
     .nav-bar.scrolled{box-shadow:0 8px 40px rgba(59,130,246,0.1),0 2px 8px rgba(0,0,0,0.04)}
-    .nav-brand{font-size:18px;font-weight:800;letter-spacing:1.5px;background:linear-gradient(135deg,#2563eb,#06b6d4,#8b5cf6);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientShift 4s ease infinite;white-space:nowrap}
+    .nav-brand{font-size:18px;font-weight:800;letter-spacing:1.5px;background:linear-gradient(135deg,#2563eb,#06b6d4,#8b5cf6);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientShift 4s ease infinite;white-space:nowrap;display:flex;align-items:center;gap:8px}
+    .nav-brand::before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#06b6d4);flex-shrink:0}
     .nav-links{display:flex;gap:4px;align-items:center}
     .nav-links a{display:inline-block;padding:9px 16px;border-radius:14px;font-size:13.5px;font-weight:600;color:#64748b;transition:all 0.3s;position:relative}
     .nav-links a:hover{color:#2563eb;background:rgba(59,130,246,0.05)}
@@ -45,29 +51,44 @@
     .nav-toggle.active span:nth-child(2){opacity:0;transform:scaleX(0)}
     .nav-toggle.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-    /* ── Hero ── */
+    /* Hero */
     .hero{position:relative;overflow:hidden;z-index:1;padding:80px 28px 100px;text-align:center}
     .hero-badge{
-      display:inline-block;padding:6px 20px;border-radius:20px;
+      display:inline-flex;align-items:center;gap:6px;padding:6px 20px;border-radius:20px;
       font-size:12.5px;font-weight:700;letter-spacing:2.5px;
       background:rgba(255,255,255,0.15);color:#2563eb;
       border:1px solid rgba(59,130,246,0.18);backdrop-filter:blur(14px);
       margin-bottom:28px;position:relative;z-index:1;
       animation:softPulse 3s ease infinite;
     }
+    .hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:#3b82f6;display:inline-block}
     .hero h1{
-      font-size:clamp(40px,9vw,80px);font-weight:900;line-height:1.12;
+      font-size:clamp(40px,9vw,80px);font-weight:900;line-height:1.1;
       background:linear-gradient(135deg,#2563eb 0%,#06b6d4 35%,#8b5cf6 65%,#2563eb 100%);
       background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
       background-clip:text;animation:gradientShift 4s ease infinite;
-      filter:drop-shadow(0 2px 6px rgba(37,99,235,0.15));
-      letter-spacing:5px;margin-bottom:16px;position:relative;z-index:1;
+      filter:drop-shadow(0 2px 10px rgba(37,99,235,0.2));
+      letter-spacing:5px;margin-bottom:20px;position:relative;z-index:1;
+      overflow:hidden;
     }
-    .hero-sub{font-size:clamp(15px,2.5vw,19px);color:#64748b;position:relative;z-index:1;margin-bottom:10px}
+    .hero h1::after{
+      content:'';position:absolute;top:0;left:-120%;width:50%;height:100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,0.35),transparent);
+      transform:skewX(-20deg);
+      animation:shine 4s ease-in-out infinite;
+      pointer-events:none;
+    }
+    .hero-divider{
+      width:60px;height:2px;border-radius:1px;margin:0 auto 18px;
+      background:linear-gradient(90deg,#3b82f6,#06b6d4,#8b5cf6);
+      background-size:200% 100%;animation:gradientShift 4s ease infinite;
+      position:relative;z-index:1;
+    }
+    .hero-sub{font-size:clamp(15px,2.5vw,19px);color:#64748b;position:relative;z-index:1;margin-bottom:10px;font-weight:500}
     .hero-desc{font-size:14px;color:#94a3b8;max-width:460px;margin:0 auto 32px;line-height:1.8;position:relative;z-index:1}
     .hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
     .btn-primary{
-      display:inline-flex;align-items:center;gap:8px;padding:15px 34px;border-radius:50px;
+      display:inline-flex;align-items:center;gap:6px;padding:15px 34px;border-radius:50px;
       font-size:15px;font-weight:700;color:#fff;
       background:linear-gradient(135deg,#2563eb,#1d4ed8);
       border:none;cursor:pointer;transition:all 0.3s;
@@ -76,15 +97,177 @@
     .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,99,235,0.35)}
     .btn-primary:active{transform:scale(0.96)}
     .btn-outline{
-      display:inline-flex;align-items:center;gap:8px;padding:15px 34px;border-radius:50px;
+      display:inline-flex;align-items:center;gap:6px;padding:15px 34px;border-radius:50px;
       font-size:15px;font-weight:700;color:#2563eb;
       background:rgba(255,255,255,0.12);border:1.5px solid rgba(59,130,246,0.2);
       backdrop-filter:blur(14px);cursor:pointer;transition:all 0.3s;
     }
     .btn-outline:hover{background:rgba(255,255,255,0.2);border-color:rgba(59,130,246,0.4);box-shadow:0 4px 16px rgba(59,130,246,0.1)}
 
-    /* ── Brand Logo (tree帆 icon) ── */
-    .brand-logo{display:inline-block;width:26px;height:30px;background:url("data:image/png;base64,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") no-repeat center/contain;flex-shrink:0}
+    /* Stats */
+    .stats-strip{
+      display:flex;justify-content:center;gap:0;flex-wrap:wrap;
+      padding:52px 28px;position:relative;z-index:1;
+      background:rgba(255,255,255,0.06);backdrop-filter:blur(16px);
+      border-top:1px solid rgba(255,255,255,0.12);border-bottom:1px solid rgba(255,255,255,0.12);
+    }
+    .stat-item{
+      text-align:center;position:relative;
+      padding:0 40px;
+    }
+    .stat-item+.stat-item::before{
+      content:'';position:absolute;left:0;top:10%;height:80%;width:1px;
+      background:rgba(59,130,246,0.12);
+    }
+    .stat-item .st-num{
+      font-size:44px;font-weight:800;line-height:1;
+      background:linear-gradient(135deg,#2563eb,#06b6d4);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      letter-spacing:-1px;
+      font-family:"Georgia","Times New Roman","Songti SC",serif;
+    }
+    .stat-item .st-num .st-unit{
+      font-size:20px;font-weight:600;color:#94a3b8;margin-left:2px;
+    }
+    .stat-item .st-lbl{
+      font-size:13px;color:#64748b;margin-top:6px;letter-spacing:2px;
+      font-weight:500;
+    }
+
+    /* Section */
+    .section{max-width:1000px;margin:0 auto;padding:80px 28px;position:relative;z-index:1}
+    .section-label{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:4px;color:#3b82f6;margin-bottom:12px;padding:4px 14px;border-radius:10px;background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.1);text-transform:uppercase}
+    .section-title{font-size:clamp(24px,4vw,36px);font-weight:900;margin-bottom:10px;color:#1e293b;letter-spacing:-0.5px}
+    .section-title span{background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .section-desc{font-size:14.5px;color:#64748b;max-width:540px;line-height:1.8;margin-bottom:48px}
+
+    /* Feature Accordion */
+    .feature-accordion{
+      display:flex;gap:14px;height:320px;max-width:860px;margin:0 auto;
+      justify-content:center;
+    }
+    .f-card{
+      position:relative;width:80px;border-radius:20px;
+      background:rgba(255,255,255,0.3);backdrop-filter:blur(12px);
+      border:1px solid rgba(255,255,255,0.4);
+      cursor:pointer;overflow:hidden;flex-shrink:0;
+      transition:width 0.55s cubic-bezier(0.22,0.61,0.36,1),background 0.5s ease,border-color 0.5s ease,box-shadow 0.5s ease;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+    }
+    .f-card .f-bg{
+      position:absolute;inset:0;border-radius:20px;opacity:0;transition:opacity 0.5s ease;
+      background:linear-gradient(135deg,rgba(59,130,246,0.12),rgba(147,51,234,0.08));
+    }
+    .f-card.active .f-bg{opacity:1}
+    .f-card .f-icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;transition:all 0.5s ease;flex-shrink:0}
+    .f-card .f-icon img{width:30px;height:30px;transition:all 0.5s ease}
+    .f-card .f-title{
+      font-size:15px;font-weight:700;color:#64748b;letter-spacing:2px;
+      white-space:nowrap;transition:all 0.5s ease;
+      writing-mode:vertical-rl;text-orientation:mixed;
+    }
+    .f-card .f-desc{
+      position:absolute;bottom:32px;left:0;right:0;text-align:center;
+      font-size:14px;color:#64748b;line-height:1.7;padding:0 20px;
+      opacity:0;visibility:hidden;transform:translateY(8px);
+      transition:opacity 0.15s ease 0s,visibility 0s 0.15s,transform 0.15s ease 0s;
+    }
+    .f-card .f-number{
+      position:absolute;top:24px;left:50%;transform:translateX(-50%);
+      font-size:12px;font-weight:700;letter-spacing:3px;color:#3b82f6;
+      opacity:0;visibility:hidden;
+      transition:opacity 0.15s ease 0s,visibility 0s 0.15s;
+    }
+    /* Active state */
+    .f-card.active{
+      width:320px;flex-shrink:0;cursor:default;
+      background:rgba(255,255,255,0.6);
+      border-color:rgba(59,130,246,0.15);
+      box-shadow:0 8px 32px rgba(59,130,246,0.08);
+    }
+    .f-card.active .f-icon{margin-top:48px;margin-bottom:10px}
+    .f-card.active .f-icon img{width:40px;height:40px}
+    .f-card.active .f-title{
+      writing-mode:horizontal-tb;font-size:22px;color:#1e293b;letter-spacing:0;
+    }
+    .f-card.active .f-desc{opacity:1;visibility:visible;transform:translateY(0);transition:opacity 0.35s ease 0.4s,visibility 0s 0.4s,transform 0.35s ease 0.4s}
+    .f-card.active .f-number{opacity:0.5;visibility:visible;transition:opacity 0.3s ease 0.4s,visibility 0s 0.4s}
+
+    @media(max-width:768px){
+      .feature-accordion{flex-direction:column;height:auto;gap:10px;max-width:100%}
+      .f-card{width:100%!important;flex:0 0 auto!important;height:58px;flex-direction:row;justify-content:flex-start;padding:0 20px;align-items:center;border-radius:16px}
+      .f-card .f-title{writing-mode:horizontal-tb;font-size:14px;letter-spacing:1px;margin-left:12px}
+      .f-card .f-icon{margin-bottom:0;margin-top:0!important;width:30px;height:30px}
+      .f-card .f-icon img{width:24px;height:24px}
+      .f-card .f-desc{position:relative;bottom:auto;opacity:0;visibility:hidden;max-height:0;transform:none;font-size:13px;padding:0;text-align:left;margin-left:12px;transition:opacity 0.3s ease,max-height 0.3s ease,visibility 0.3s ease}
+      .f-card .f-number{display:none}
+      .f-card .f-bg{border-radius:16px}
+      .f-card.active{width:100%!important;flex:0 0 auto!important;height:auto;padding:20px 20px 16px;flex-direction:column;align-items:flex-start}
+      .f-card.active .f-title{margin-left:0;font-size:18px}
+      .f-card.active .f-desc{opacity:1;visibility:visible;max-height:60px;margin-top:8px;margin-left:0}
+    }
+
+    /* Timeline - Snaking */
+    .timeline{
+      position:relative;max-width:800px;margin:0 auto;
+      padding:10px 0 40px;
+    }
+    .tl-svg{position:absolute;top:0;left:50%;transform:translateX(-50%);width:60px;height:100%;z-index:0;pointer-events:none}
+    .tl-svg path{fill:none;stroke:url(#tlGrad);stroke-width:2;stroke-linecap:round}
+    .tl-item{
+      position:relative;z-index:1;
+      display:flex;align-items:flex-start;
+      margin-bottom:24px;padding:16px 20px;border-radius:16px;
+      cursor:pointer;opacity:0;transform:translateY(30px);
+      transition:opacity 0.55s ease,transform 0.55s ease,background 0.3s ease,box-shadow 0.3s ease;
+      width:calc(50% - 46px);
+    }
+    .tl-item.visible{opacity:1;transform:translateY(0)}
+    .tl-item:nth-child(odd){margin-left:0;margin-right:auto;text-align:right;flex-direction:row-reverse}
+    .tl-item:nth-child(even){margin-left:auto;margin-right:0;text-align:left}
+    .tl-item .tl-dot{
+      flex-shrink:0;width:14px;height:14px;border-radius:50%;
+      background:#fff;border:3px solid #3b82f6;
+      box-shadow:0 0 0 5px rgba(59,130,246,0.08);
+      transition:all 0.3s ease;
+      margin-top:6px;
+    }
+    .tl-item:nth-child(odd) .tl-dot{margin-left:16px}
+    .tl-item:nth-child(even) .tl-dot{margin-right:16px}
+    .tl-item .tl-content{flex:1;min-width:0}
+    .tl-item .tl-week{font-size:11.5px;font-weight:700;color:#3b82f6;letter-spacing:3px;margin-bottom:2px;transition:color 0.3s}
+    .tl-item .tl-title{font-size:16px;font-weight:700;color:#1e293b;margin-bottom:2px;transition:color 0.3s}
+    .tl-item .tl-desc{font-size:13px;color:#94a3b8}
+    .tl-item .tl-go{position:absolute;top:50%;transform:translateY(-50%);opacity:0;width:18px;height:18px;transition:all 0.3s ease}
+    .tl-item:nth-child(odd) .tl-go{left:-28px}
+    .tl-item:nth-child(even) .tl-go{right:-28px}
+    .tl-item .tl-go img{width:18px;height:18px}
+    .tl-item:hover{background:rgba(59,130,246,0.04);box-shadow:0 6px 28px rgba(59,130,246,0.06)}
+    .tl-item:hover .tl-dot{border-color:#06b6d4;box-shadow:0 0 0 7px rgba(6,182,212,0.12);transform:scale(1.25)}
+    .tl-item:hover .tl-week{color:#06b6d4}
+    .tl-item:hover .tl-title{color:#2563eb}
+    .tl-item:hover .tl-go{opacity:1}
+    .tl-item:nth-child(odd):hover .tl-go{left:-36px}
+    .tl-item:nth-child(even):hover .tl-go{right:-36px}
+    @media(max-width:768px){
+      .tl-item{width:calc(100% - 60px);margin-left:60px!important;margin-right:0!important;text-align:left!important;flex-direction:row!important}
+      .tl-item:nth-child(odd) .tl-dot{margin-left:0;margin-right:16px}
+      .tl-svg{left:30px;transform:none}
+      .tl-item .tl-go{right:-4px!important;left:auto!important}
+      .tl-item:hover .tl-go{right:-12px!important}
+    }
+
+    /* CTA */
+    .cta-strip{text-align:center;padding:80px 28px;position:relative;z-index:1;background:rgba(255,255,255,0.06);backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.12);border-bottom:1px solid rgba(255,255,255,0.12)}
+    .cta-strip .cta-label{font-size:11px;font-weight:700;letter-spacing:4px;color:#3b82f6;margin-bottom:16px;text-transform:uppercase}
+    .cta-strip .cta-desc{color:#64748b;margin-bottom:28px;font-size:15px}
+
+    /* Footer */
+    .footer{text-align:center;padding:32px 28px;position:relative;z-index:1;background:rgba(255,255,255,0.06);border-top:1px solid rgba(255,255,255,0.5)}
+    .footer .ft-brand{font-size:15px;font-weight:700;background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
+    .footer p{font-size:11.5px;color:#94a3b8}
+
+    /* Corner Brand */
     .sf-corner-brand{position:fixed;top:0;right:0;z-index:1001;display:flex;align-items:center;gap:8px;padding:8px 16px 8px 12px;background:linear-gradient(135deg,rgba(255,255,255,0.25),rgba(255,255,255,0.1));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom-left-radius:16px;border:1px solid rgba(255,255,255,0.2);border-right:none;border-top:none;box-shadow:0 2px 16px rgba(59,130,246,0.06);opacity:0;transform:translateY(-100%);transition:all 0.5s ease 0.3s}
     body.intro-done .sf-corner-brand{opacity:1;transform:translateY(0)}
     .sf-corner-brand .brand-logo{width:22px;height:25px}
@@ -92,77 +275,8 @@
     .sf-corner-brand .sf-en{font-size:8px;color:#94a3b8;letter-spacing:2px;line-height:1.2}
     .sf-corner-brand .sf-brand-text{display:flex;flex-direction:column;align-items:flex-start}
     @media(max-width:480px){.sf-corner-brand .sf-brand-text{display:none}.sf-corner-brand{padding:6px 10px}}
-    .intro-brand{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:24px;opacity:0;transform:translateY(10px);animation:introFadeUp 0.7s ease 0.2s forwards}
-    .intro-brand .brand-logo{width:38px;height:44px}
-    .intro-brand .sf-name{font-size:15px;font-weight:700;color:#fff;letter-spacing:2px}
-    .intro-brand .sf-en{font-size:9px;color:rgba(255,255,255,0.55);letter-spacing:3px}
-    .intro-brand .sf-brand-text{display:flex;flex-direction:column;align-items:flex-start;line-height:1.25}
 
-    /* ── Stats ── */
-    .stats-strip{
-      display:flex;justify-content:center;gap:44px;flex-wrap:wrap;
-      padding:40px 28px;position:relative;z-index:1;
-      background:rgba(255,255,255,0.06);backdrop-filter:blur(16px);
-      border-top:1px solid rgba(255,255,255,0.12);border-bottom:1px solid rgba(255,255,255,0.12);
-    }
-    .stat-item{text-align:center}
-    .stat-item .st-num{font-size:32px;font-weight:900;background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    .stat-item .st-lbl{font-size:12.5px;color:#94a3b8;margin-top:3px;letter-spacing:1px}
-
-    /* ── Section ── */
-    .section{max-width:960px;margin:0 auto;padding:80px 28px;position:relative;z-index:1}
-    .section-label{display:inline-block;font-size:11px;font-weight:700;letter-spacing:4px;color:#3b82f6;margin-bottom:10px;padding:4px 14px;border-radius:10px;background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.1)}
-    .section-title{font-size:clamp(24px,4vw,36px);font-weight:900;margin-bottom:10px;color:#1e293b}
-    .section-title span{background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    .section-desc{font-size:14.5px;color:#64748b;max-width:540px;line-height:1.8;margin-bottom:44px}
-
-    /* ── Feature Cards ── */
-    .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .feature-card{
-      padding:38px 22px;border-radius:22px;
-      background:rgba(59,130,246,0.04);backdrop-filter:blur(16px);
-      border:1px solid rgba(255,255,255,0.18);
-      text-align:center;transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);
-      position:relative;overflow:hidden;
-    }
-    .feature-card::after{
-      content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
-      width:0;height:3px;border-radius:2px;
-      background:linear-gradient(90deg,transparent,#3b82f6,#06b6d4,#8b5cf6,transparent);
-      transition:width 0.5s ease;
-    }
-    .feature-card:hover::after{width:70%}
-    .feature-card:hover{transform:translateY(-5px);border-color:rgba(59,130,246,0.3);box-shadow:0 12px 36px rgba(59,130,246,0.08)}
-    .feature-card .fc-icon{font-size:42px;margin-bottom:16px;display:block;transition:transform 0.35s}
-    .feature-card:hover .fc-icon{transform:scale(1.15)}
-    .feature-card .fc-title{font-size:17px;font-weight:700;margin-bottom:8px;color:#1e293b}
-    .feature-card .fc-desc{font-size:13px;color:#94a3b8;line-height:1.7}
-
-    /* ── Timeline ── */
-    .timeline{position:relative;padding-left:40px}
-    .timeline::before{content:'';position:absolute;left:18.75px;top:6px;bottom:6px;width:2.5px;border-radius:2px;background:linear-gradient(to bottom,#3b82f6,#06b6d4,#8b5cf6,transparent)}
-    .tl-item{position:relative;margin-bottom:16px;padding:14px 20px 14px 34px;border-radius:16px;cursor:pointer;opacity:0;transform:translateX(-16px);transition:opacity 0.55s ease,transform 0.55s ease}
-    .tl-item.visible{opacity:1;transform:translateX(0)}
-    .tl-item::before{content:'';position:absolute;left:-27px;top:20px;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid #3b82f6;box-shadow:0 0 0 5px rgba(59,130,246,0.08);transition:all 0.3s ease}
-    .tl-item .tl-week{font-size:11.5px;font-weight:700;color:#3b82f6;letter-spacing:3px;margin-bottom:2px;transition:color 0.3s}
-    .tl-item .tl-title{font-size:17px;font-weight:700;color:#1e293b;margin-bottom:2px;transition:color 0.3s}
-    .tl-item .tl-desc{font-size:13px;color:#94a3b8}
-    .tl-item .tl-go{position:absolute;right:18px;top:50%;transform:translateY(-50%) translateX(8px);opacity:0;font-size:16px;color:#3b82f6;transition:all 0.3s ease}
-    .tl-item:hover{background:rgba(59,130,246,0.06);box-shadow:0 6px 28px rgba(59,130,246,0.1)}
-    .tl-item:hover::before{border-color:#06b6d4;box-shadow:0 0 0 7px rgba(6,182,212,0.15);transform:scale(1.25)}
-    .tl-item:hover .tl-week{color:#06b6d4}
-    .tl-item:hover .tl-title{color:#2563eb}
-    .tl-item:hover .tl-go{opacity:1;transform:translateY(-50%) translateX(0)}
-
-    /* ── CTA ── */
-    .cta-strip{text-align:center;padding:72px 28px;position:relative;z-index:1;background:rgba(255,255,255,0.06);backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.12);border-bottom:1px solid rgba(255,255,255,0.12)}
-
-    /* ── Footer ── */
-    .footer{text-align:center;padding:28px;position:relative;z-index:1;background:rgba(255,255,255,0.06);border-top:1px solid rgba(255,255,255,0.5)}
-    .footer .ft-brand{font-size:15px;font-weight:700;background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:2px}
-    .footer p{font-size:11.5px;color:#94a3b8}
-
-    /* ── Intro Entrance Animation (3s) ── */
+    /* Intro Overlay */
     body.intro-active{overflow:hidden}
     .intro-overlay{
       position:fixed;inset:0;z-index:9999;
@@ -181,7 +295,8 @@
     .intro-icon-wrap{position:relative;width:100px;height:100px;margin:0 auto 30px;display:flex;align-items:center;justify-content:center}
     .intro-icon-wrap::before{content:'';position:absolute;inset:-12px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,0.25),rgba(139,92,246,0.1),transparent);animation:softPulse 2s ease infinite}
     .intro-icon-wrap::after{content:'';position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(96,165,250,0.12);border-top-color:rgba(96,165,250,0.5);border-right-color:rgba(6,182,212,0.3);animation:spin 1.5s linear infinite}
-    .intro-icon{font-size:48px;position:relative;z-index:1;opacity:0;transform:scale(0) rotate(-180deg);animation:introIconIn 0.8s cubic-bezier(0.34,1.56,0.64,1) 0.4s forwards}
+    .intro-icon{position:relative;z-index:1;opacity:0;transform:scale(0) rotate(-180deg);animation:introIconIn 0.8s cubic-bezier(0.34,1.56,0.64,1) 0.4s forwards}
+    .intro-icon img{width:52px;height:52px;display:block}
     @keyframes introIconIn{to{opacity:1;transform:scale(1) rotate(0)}}
     @keyframes spin{to{transform:rotate(360deg)}}
     .intro-title{font-size:clamp(32px,7vw,52px);font-weight:900;letter-spacing:8px;margin-bottom:10px;background:linear-gradient(135deg,#60a5fa,#22d3ee,#a78bfa,#60a5fa);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0;filter:blur(16px);transform:translateY(20px);animation:introTitleIn 0.9s ease 0.7s forwards,gradientShift 3s ease 0.7s infinite}
@@ -192,6 +307,7 @@
     .intro-progress-bar{height:100%;width:0;border-radius:1px;background:linear-gradient(90deg,#3b82f6,#06b6d4,#8b5cf6);background-size:200% 100%;animation:progressFill 1.7s cubic-bezier(0.4,0,0.2,1) 1.1s forwards,gradientShift 2s ease 1.1s infinite}
     @keyframes progressFill{from{width:0}to{width:100%}}
     .intro-hint{margin-top:18px;font-size:11.5px;color:rgba(148,163,184,0.4);letter-spacing:3px;opacity:0;animation:introFadeUp 0.5s ease 1.3s forwards}
+
     /* Content reveal after intro */
     .nav-bar,.hero-badge,.hero h1,.hero-sub,.hero-desc,.hero-btns,.stats-strip{transition:opacity 0.55s ease,transform 0.55s ease}
     body.intro-active .nav-bar{opacity:0}
@@ -208,6 +324,13 @@
     body.intro-done .hero-desc{transition-delay:0.65s}
     body.intro-done .hero-btns{transition-delay:0.8s}
     body.intro-done .stats-strip{transition-delay:0.95s}
+
+    /* Intro Brand */
+    .intro-brand{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:24px;opacity:0;transform:translateY(10px);animation:introFadeUp 0.7s ease 0.2s forwards}
+    .intro-brand .brand-logo{width:38px;height:44px}
+    .intro-brand .sf-name{font-size:15px;font-weight:700;color:#fff;letter-spacing:2px}
+    .intro-brand .sf-en{font-size:9px;color:rgba(255,255,255,0.55);letter-spacing:3px}
+    .intro-brand .sf-brand-text{display:flex;flex-direction:column;align-items:flex-start;line-height:1.25}
 
     @media(max-width:768px){
       .nav-links{
@@ -227,7 +350,7 @@
       }
       .nav-links.open a{padding:12px 16px;font-size:15px;border-radius:12px;white-space:nowrap}
       .nav-toggle{display:flex}
-      .feature-grid{grid-template-columns:1fr}
+      .stats-strip{gap:28px}.stat-item{padding:0 20px}.stat-item+.stat-item::before{display:none}
       .hero{padding:56px 20px 72px}.section{padding:56px 20px}
     }
     @media(max-width:480px){
@@ -235,7 +358,7 @@
       .nav-links{right:26px}
       .hero h1{letter-spacing:1px}.hero-btns{flex-direction:column;align-items:center}
       .btn-primary,.btn-outline{width:100%;justify-content:center}
-      .stats-strip{gap:24px}.stat-item .st-num{font-size:26px}
+      .stats-strip{gap:22px}.stat-item{padding:0 20px}.stat-item .st-num{font-size:32px}.stat-item .st-num .st-unit{font-size:16px}.stat-item+.stat-item::before{display:none}
       .intro-title{letter-spacing:4px}
       .intro-orb{width:300px;height:300px;margin-top:-150px;margin-left:-150px}
     }
@@ -248,13 +371,14 @@
     <div class="intro-particles" id="introParticles"></div>
     <div class="intro-content">
       <div class="intro-brand">
-        <span class="brand-logo"></span>
-        <div class="sf-brand-text">
+        <div class="sf-brand-text" style="align-items:center">
           <div class="sf-name">树帆教育</div>
           <div class="sf-en">SHUFAN EDUCATION</div>
         </div>
       </div>
-      <div class="intro-icon-wrap"><span class="intro-icon">🎬</span></div>
+      <div class="intro-icon-wrap">
+        <span class="intro-icon"><img src="一些icon/影视板.svg" alt=""></span>
+      </div>
       <div class="intro-title">金牌AI视频剧</div>
       <div class="intro-subtitle">零基础掌握AI视频创作</div>
       <div class="intro-progress"><div class="intro-progress-bar"></div></div>
@@ -264,7 +388,7 @@
   <canvas id="particleCanvas"></canvas>
 
   <nav class="nav-bar" id="navBar">
-    <a href="index.html" class="nav-brand">🎬 金牌AI视频剧</a>
+    <a href="index.html" class="nav-brand">金牌AI视频剧</a>
     <div class="nav-links" id="navLinks">
       <a href="index.html" class="active">课程介绍</a><a href="teacher.html">主讲老师</a>
       <a href="course.html">课程内容</a><a href="cases.html">学员案例</a>
@@ -274,71 +398,183 @@
   </nav>
 
   <section class="hero">
-    <div class="hero-badge">🚀 2025 年轻创作者必修课</div>
+    <div class="hero-badge">2025 年轻创作者必修课</div>
     <h1>金牌AI视频剧</h1>
+    <div class="hero-divider"></div>
     <p class="hero-sub">八周时间 · 零基础到实战 · 掌握AI视频创作全流程</p>
     <p class="hero-desc">专为年轻创作者打造的系统化AI视频课程。<br>从剧本撰写到成片发布，AI工具赋能每一步创作。</p>
     <div class="hero-btns">
-      <a href="course.html" class="btn-primary">📖 查看课程内容</a>
-      <a href="faq.html" class="btn-outline">💬 了解更多</a>
+      <a href="course.html" class="btn-primary">查看课程内容</a>
+      <a href="faq.html" class="btn-outline">了解更多</a>
     </div>
   </section>
 
   <div class="stats-strip">
     <div class="stat-item"><div class="st-num">8</div><div class="st-lbl">周系统课程</div></div>
-    <div class="stat-item"><div class="st-num">24+</div><div class="st-lbl">节正课视频</div></div>
+    <div class="stat-item"><div class="st-num">24<span class="st-unit">+</span></div><div class="st-lbl">节正课视频</div></div>
     <div class="stat-item"><div class="st-num">3</div><div class="st-lbl">大核心模块</div></div>
-    <div class="stat-item"><div class="st-num">🔥</div><div class="st-lbl">零基础友好</div></div>
+    <div class="stat-item"><div class="st-num">0</div><div class="st-lbl">基础友好</div></div>
   </div>
 
   <section class="section">
-    <div class="section-label">WHY THIS COURSE</div>
-    <div class="section-title">为什么选择<span>这门课</span>？</div>
+    <div class="section-label">Why This Course</div>
+    <div class="section-title">为什么选择<span>这门课</span></div>
     <p class="section-desc">AI正在重塑视频创作的方式。与其被动观望，不如主动掌握。</p>
-    <div class="feature-grid" id="featureGrid">
-      <div class="feature-card"><span class="fc-icon">🎯</span><div class="fc-title">系统化路径</div><div class="fc-desc">从概念到实战，八周循序渐进</div></div>
-      <div class="feature-card"><span class="fc-icon">🛠️</span><div class="fc-title">工具全覆盖</div><div class="fc-desc">AI绘画、视频生成、语音合成</div></div>
-      <div class="feature-card"><span class="fc-icon">🎬</span><div class="fc-title">实战出作品</div><div class="fc-desc">课程结束拥有一部AI短片作品</div></div>
-      <div class="feature-card"><span class="fc-icon">🧑‍🏫</span><div class="fc-title">专业指导</div><div class="fc-desc">老师全程带练，一对一作业点评</div></div>
-      <div class="feature-card"><span class="fc-icon">📱</span><div class="fc-title">随时随地学习</div><div class="fc-desc">课件视频全在线，手机电脑都能看</div></div>
-      <div class="feature-card"><span class="fc-icon">🌟</span><div class="fc-title">紧跟趋势</div><div class="fc-desc">课程持续更新，站在创作前沿</div></div>
+    <div class="feature-accordion" id="featureAccordion">
+      <div class="f-card active" data-index="0">
+        <div class="f-bg"></div>
+        <div class="f-number">01</div>
+        <div class="f-icon"><img src="一些icon/靶子.svg" alt=""></div>
+        <div class="f-title">系统化路径</div>
+        <div class="f-desc">从概念到实战，八周循序渐进，构建完整知识体系</div>
+      </div>
+      <div class="f-card" data-index="1">
+        <div class="f-bg"></div>
+        <div class="f-number">02</div>
+        <div class="f-icon"><img src="一些icon/订书机.svg" alt=""></div>
+        <div class="f-title">工具全覆盖</div>
+        <div class="f-desc">AI绘画、视频生成、语音合成，主流工具一网打尽</div>
+      </div>
+      <div class="f-card" data-index="2">
+        <div class="f-bg"></div>
+        <div class="f-number">03</div>
+        <div class="f-icon"><img src="一些icon/影视板.svg" alt=""></div>
+        <div class="f-title">实战出作品</div>
+        <div class="f-desc">课程结束拥有一部完整AI短片作品，学完即交付</div>
+      </div>
+      <div class="f-card" data-index="3">
+        <div class="f-bg"></div>
+        <div class="f-number">04</div>
+        <div class="f-icon"><img src="一些icon/举手.svg" alt=""></div>
+        <div class="f-title">专业指导</div>
+        <div class="f-desc">老师全程带练，一对一作业点评，学习群随时答疑</div>
+      </div>
+      <div class="f-card" data-index="4">
+        <div class="f-bg"></div>
+        <div class="f-number">05</div>
+        <div class="f-icon"><img src="一些icon/设备.svg" alt=""></div>
+        <div class="f-title">随时随地学</div>
+        <div class="f-desc">课件视频全在线，手机电脑都能看，进度自由掌控</div>
+      </div>
+      <div class="f-card" data-index="5">
+        <div class="f-bg"></div>
+        <div class="f-number">06</div>
+        <div class="f-icon"><img src="一些icon/趋势.svg" alt=""></div>
+        <div class="f-title">紧跟趋势</div>
+        <div class="f-desc">课程持续更新，始终站在AI视频创作的最前沿</div>
+      </div>
     </div>
   </section>
 
   <section class="section">
-    <div class="section-label">CURRICULUM</div>
+    <div class="section-label">Curriculum</div>
     <div class="section-title">八周<span>学习路径</span></div>
-    <p class="section-desc">每周聚焦一个核心主题，环环相扣。</p>
+    <p class="section-desc">每周聚焦一个核心主题，由浅入深，环环相扣。</p>
     <div class="timeline" id="timeline">
-      <div class="tl-item" onclick="location.href='week.html?w=1'"><div class="tl-week">第一周</div><div class="tl-title">AI视频基础概念与前期准备</div><div class="tl-desc">了解AI视频制作全流程，搭建创作环境</div><span class="tl-go">→</span></div>
-      <div class="tl-item" onclick="location.href='week.html?w=2'"><div class="tl-week">第二周</div><div class="tl-title">剧本创作与分镜设计</div><div class="tl-desc">AI辅助撰写专业剧本，设计电影级分镜脚本</div><span class="tl-go">→</span></div>
-      <div class="tl-item" onclick="location.href='week.html?w=3'"><div class="tl-week">第三周</div><div class="tl-title">AI绘画与视觉生成</div><div class="tl-desc">掌握AI绘画工具，生成惊艳视觉素材</div><span class="tl-go">→</span></div>
-      <div class="tl-item" onclick="location.href='week.html?w=4'"><div class="tl-week">第四周</div><div class="tl-title">动态视频生成技术</div><div class="tl-desc">将静态画面转化为流畅动态视频</div><span class="tl-go">→</span></div>
-      <div class="tl-item" onclick="location.href='week.html?w=5'"><div class="tl-week">第五周</div><div class="tl-title">配音配乐与音效制作</div><div class="tl-desc">AI语音合成+智能配乐</div><span class="tl-go">→</span></div>
-      <div class="tl-item" onclick="location.href='week.html?w=6'"><div class="tl-week">第六周</div><div class="tl-title">剪辑合成与后期特效</div><div class="tl-desc">AI辅助剪辑，一键添加炫酷特效</div><span class="tl-go">→</span></div>
-      <div class="tl-item" onclick="location.href='week.html?w=7'"><div class="tl-week">第七周</div><div class="tl-title">综合实战项目（上）</div><div class="tl-desc">从0到1完成一部AI短片制作</div><span class="tl-go">→</span></div>
-      <div class="tl-item" onclick="location.href='week.html?w=8'"><div class="tl-week">第八周</div><div class="tl-title">综合实战项目（下）</div><div class="tl-desc">作品打磨精修，打造个人作品集</div><span class="tl-go">→</span></div>
+      <svg class="tl-svg" viewBox="0 0 60 660" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="tlGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#3b82f6"/>
+            <stop offset="40%" stop-color="#06b6d4"/>
+            <stop offset="70%" stop-color="#8b5cf6"/>
+            <stop offset="100%" stop-color="transparent"/>
+          </linearGradient>
+        </defs>
+        <path d="M30,30 C70,60 70,110 30,120 C-10,130 -10,180 30,190 C70,200 70,250 30,260 C-10,270 -10,320 30,330 C70,340 70,390 30,400 C-10,410 -10,460 30,470 C70,480 70,530 30,540 C-10,550 -10,600 30,610"/>
+      </svg>
+      <div class="tl-item" onclick="location.href='week.html?w=1'">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-week">第一周</div>
+          <div class="tl-title">AI视频基础概念与前期准备</div>
+          <div class="tl-desc">了解AI视频制作全流程，搭建创作环境</div>
+        </div>
+        <span class="tl-go"><img src="一些icon/箭头右.svg" alt=""></span>
+      </div>
+      <div class="tl-item" onclick="location.href='week.html?w=2'">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-week">第二周</div>
+          <div class="tl-title">剧本创作与分镜设计</div>
+          <div class="tl-desc">AI辅助撰写专业剧本，设计电影级分镜脚本</div>
+        </div>
+        <span class="tl-go"><img src="一些icon/箭头右.svg" alt=""></span>
+      </div>
+      <div class="tl-item" onclick="location.href='week.html?w=3'">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-week">第三周</div>
+          <div class="tl-title">AI绘画与视觉生成</div>
+          <div class="tl-desc">掌握AI绘画工具，生成惊艳视觉素材</div>
+        </div>
+        <span class="tl-go"><img src="一些icon/箭头右.svg" alt=""></span>
+      </div>
+      <div class="tl-item" onclick="location.href='week.html?w=4'">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-week">第四周</div>
+          <div class="tl-title">动态视频生成技术</div>
+          <div class="tl-desc">将静态画面转化为流畅动态视频</div>
+        </div>
+        <span class="tl-go"><img src="一些icon/箭头右.svg" alt=""></span>
+      </div>
+      <div class="tl-item" onclick="location.href='week.html?w=5'">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-week">第五周</div>
+          <div class="tl-title">配音配乐与音效制作</div>
+          <div class="tl-desc">AI语音合成 + 智能配乐，打造专业级音轨</div>
+        </div>
+        <span class="tl-go"><img src="一些icon/箭头右.svg" alt=""></span>
+      </div>
+      <div class="tl-item" onclick="location.href='week.html?w=6'">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-week">第六周</div>
+          <div class="tl-title">剪辑合成与后期特效</div>
+          <div class="tl-desc">AI辅助剪辑，一键添加炫酷特效</div>
+        </div>
+        <span class="tl-go"><img src="一些icon/箭头右.svg" alt=""></span>
+      </div>
+      <div class="tl-item" onclick="location.href='week.html?w=7'">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-week">第七周</div>
+          <div class="tl-title">综合实战项目（上）</div>
+          <div class="tl-desc">从0到1完成一部AI短片制作</div>
+        </div>
+        <span class="tl-go"><img src="一些icon/箭头右.svg" alt=""></span>
+      </div>
+      <div class="tl-item" onclick="location.href='week.html?w=8'">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-week">第八周</div>
+          <div class="tl-title">综合实战项目（下）</div>
+          <div class="tl-desc">作品打磨精修，打造个人作品集</div>
+        </div>
+        <span class="tl-go"><img src="一些icon/箭头右.svg" alt=""></span>
+      </div>
     </div>
   </section>
 
   <section class="cta-strip">
-    <div class="section-title"><span>准备好进入未来创作了吗？</span></div>
-    <p style="color:#64748b;margin-bottom:24px">零基础也能学，现在就开启你的AI创作之旅</p>
-    <a href="course.html" class="btn-primary">🚀 开始学习</a>
+    <div class="cta-label">Get Started</div>
+    <div class="section-title"><span>准备好进入未来创作了吗</span></div>
+    <p class="cta-desc">零基础也能学，现在就开启你的AI创作之旅</p>
+    <a href="course.html" class="btn-primary">开始学习</a>
   </section>
 
   <footer class="footer">
-    <div class="ft-brand"><span class="brand-logo" style="vertical-align:middle;margin-right:8px;width:22px;height:25px"></span>树帆教育 · 金牌AI视频剧</div>
-    <p>© 2025 树帆教育 · 用AI点亮创作梦想</p>
+    <div class="ft-brand">树帆教育 · 金牌AI视频剧</div>
+    <p>2025 树帆教育 · 用AI点亮创作梦想</p>
   </footer>
 
 <script>
-// ── Intro entrance animation (3s) — once per session ──
+// Intro entrance animation
 (function(){
   var body=document.body;
   var ov=document.getElementById('introOverlay');
   if(sessionStorage.getItem('_intro_shown')){
-    // Already shown this session — skip entirely
     body.classList.remove('intro-active');
     body.classList.add('intro-done');
     if(ov)ov.style.display='none';
@@ -361,6 +597,8 @@
     setTimeout(function(){if(ov)ov.style.display='none'},900);
   },3000);
 })();
+
+// Particle canvas
 (function(){
   var c=document.getElementById('particleCanvas'),x=c.getContext('2d'),p=[],w,h;
   function rs(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}rs();window.addEventListener('resize',rs);
@@ -373,6 +611,8 @@
       o.x+=o.vx;o.y+=o.vy;if(o.x<0||o.x>w)o.vx*=-1;if(o.y<0||o.y>h)o.vy*=-1;
     }requestAnimationFrame(dr);}dr();
 })();
+
+// Nav
 var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');
 function setMenu(open){l.classList.toggle('open',open);t.classList.toggle('active',open);}
 t.addEventListener('click',function(){setMenu(!l.classList.contains('open'))});
@@ -380,7 +620,20 @@ l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(
 l.addEventListener('touchmove',function(e){e.stopPropagation()},{passive:true});
 window.addEventListener('scroll',function(){document.getElementById('navBar').classList.toggle('scrolled',window.scrollY>10)});
 document.querySelectorAll('.tl-item').forEach(function(o,i){setTimeout(function(){o.classList.add('visible')},i*100)});
-document.querySelectorAll('.feature-card').forEach(function(c,i){c.style.opacity='0';c.style.animation='fadeInUp 0.5s ease '+(0.08*i)+'s forwards'});
+// Accordion - click + hover
+var cards=document.querySelectorAll('.f-card');
+cards.forEach(function(card){
+  card.addEventListener('click',function(){
+    cards.forEach(function(c){c.classList.remove('active')});
+    card.classList.add('active');
+  });
+  card.addEventListener('mouseenter',function(){
+    cards.forEach(function(c){c.classList.remove('active')});
+    card.classList.add('active');
+  });
+});
+// Animate cards in
+cards.forEach(function(c,i){c.style.opacity='0';c.style.animation='fadeInUp 0.5s ease '+(0.08*i)+'s forwards'});
 </script>
 <script>(function(){var l=localStorage.getItem("sv");fetch("version.txt?t="+Date.now()).then(function(r){return r.text()}).then(function(t){t=t.trim();if(l&&l!==t){localStorage.setItem("sv",t);location.reload(true)}else{localStorage.setItem("sv",t)}}).catch(function(){})})();</script>
 </body>

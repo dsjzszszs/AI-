@@ -2,17 +2,131 @@
 <html lang="zh-CN" data-v="FIX">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>课程周详情 - 金牌AI视频剧</title>
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{-webkit-tap-highlight-color:transparent}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:linear-gradient(135deg,#dbeafe 0%,#ede9fe 35%,#fce4ec 70%,#e0f2fe 100%);background-attachment:fixed;color:#1a1a2e;min-height:100vh;overflow-x:hidden;line-height:1.6}a{color:inherit;text-decoration:none}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(59,130,246,0.2);border-radius:3px}@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}@keyframes zoomIn{from{opacity:0;transform:scale(0.85)}to{opacity:1;transform:scale(1)}}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{-webkit-tap-highlight-color:transparent}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:linear-gradient(135deg,#dbeafe 0%,#ede9fe 35%,#fce4ec 70%,#e0f2fe 100%);background-attachment:fixed;color:#1a1a2e;min-height:100vh;overflow-x:hidden;line-height:1.6}a{color:inherit;text-decoration:none}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(59,130,246,0.2);border-radius:3px}@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 .top-bar{display:flex;align-items:center;gap:12px;padding:14px 24px;background:rgba(255,255,255,0.82);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(59,130,246,0.08);position:sticky;top:0;z-index:100}.top-bar .btn-back{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:rgba(59,130,246,0.06);color:#3b82f6;font-size:20px;font-weight:600;cursor:pointer;transition:all 0.25s;border:none;flex-shrink:0}.top-bar .btn-back:hover{background:rgba(59,130,246,0.12)}.top-bar .page-title{font-size:16px;font-weight:700;background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.week-detail{max-width:700px;margin:0 auto;padding:40px 28px 80px;animation:fadeInUp 0.4s ease}.week-detail .wd-title{font-size:clamp(22px,4vw,34px);font-weight:800;margin-bottom:4px}.week-detail .wd-title span{background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.week-detail .wd-sub{color:#64748b;font-size:14px;margin-bottom:36px}
-.category-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.category-card{padding:40px 20px;border-radius:20px;background:rgba(255,255,255,0.62);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.5);box-shadow:0 2px 12px rgba(0,0,0,0.03);text-align:center;cursor:pointer;user-select:none;transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);display:block}.category-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.15)}.category-card:active{transform:scale(0.97)}.category-card .cat-icon{font-size:44px;margin-bottom:12px;display:block}.category-card .cat-name{font-size:18px;font-weight:700;color:#1a1a2e}
-.placeholder-content{max-width:520px;margin:0 auto;padding:80px 28px;text-align:center;animation:fadeInUp 0.4s ease}.placeholder-content .ph-icon{font-size:72px;margin-bottom:20px;display:block}.placeholder-content h2{font-size:clamp(20px,4vw,28px);font-weight:800;margin-bottom:10px}.placeholder-content h2 span{background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.placeholder-content p{color:#64748b;font-size:15px;line-height:1.8}
-@media(max-width:768px){.category-grid{gap:12px}.category-card{padding:32px 16px}.category-card .cat-icon{font-size:36px}.category-card .cat-name{font-size:16px}.week-detail{padding:24px 20px 60px}.top-bar{padding:10px 16px}}@media(max-width:480px){.category-grid{grid-template-columns:1fr;gap:10px}.category-card{padding:28px 16px}.placeholder-content .ph-icon{font-size:56px}}
+
+/* Screen Theater */
+.screen-container{max-width:750px;margin:36px auto;padding:0 28px;animation:fadeInUp 0.6s ease;position:relative}
+
+/* Screen frame */
+.screen-frame{
+  position:relative;border-radius:10px;z-index:1;
+  background:linear-gradient(180deg,#e8ecf1 0%,#e2e6ec 100%);
+  border:1.5px solid #b0b8c4;
+  box-shadow:
+    0 0 0 3px #c8d0d8,
+    0 4px 18px rgba(0,0,0,0.12);
+  padding:28px 28px 38px;
+  overflow:hidden;
+}
+/* Screen surface */
+.screen-surface{
+  position:relative;z-index:2;
+  background:rgba(255,255,255,0.92);
+  border-radius:6px;padding:40px 32px 44px;
+  box-shadow:inset 0 0 40px rgba(59,130,246,0.04);
+}
+/* Screen scanlines */
+.screen-surface::after{
+  content:'';position:absolute;inset:0;border-radius:6px;pointer-events:none;z-index:5;opacity:0.03;
+  background:repeating-linear-gradient(to bottom,transparent,transparent 2px,rgba(0,0,0,0.3) 2px,rgba(0,0,0,0.3) 4px);
+}
+/* Projector light */
+.screen-beam{
+  position:absolute;top:-120px;left:50%;transform:translateX(-50%);
+  width:55%;height:120px;z-index:0;
+  background:linear-gradient(to bottom,rgba(59,130,246,0.08),transparent);
+  clip-path:polygon(25% 0%,75% 0%,100% 100%,0% 100%);
+  pointer-events:none;
+}
+
+/* Screen content */
+.screen-content{position:relative;z-index:4}
+.screen-content .wd-title{
+  font-size:clamp(22px,4vw,34px);font-weight:800;margin-bottom:4px;text-align:center;color:#1e293b;
+}
+.screen-content .wd-title span{
+  background:linear-gradient(135deg,#2563eb,#06b6d4);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.screen-content .wd-sub{color:#64748b;font-size:14px;margin-bottom:36px;text-align:center}
+
+/* Category cards */
+.category-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;position:relative;z-index:4}
+.category-card{
+  padding:40px 20px;border-radius:16px;
+  background:rgba(255,255,255,0.7);backdrop-filter:blur(8px);
+  border:1px solid rgba(59,130,246,0.12);
+  box-shadow:0 2px 12px rgba(0,0,0,0.03);
+  text-align:center;cursor:pointer;user-select:none;
+  transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);display:block;
+}
+.category-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 32px rgba(59,130,246,0.12);
+  border-color:rgba(59,130,246,0.3);
+}
+.category-card:active{transform:scale(0.97)}
+.category-card .cat-icon{margin-bottom:12px;display:block;line-height:0}
+.category-card .cat-icon img{width:48px;height:48px}
+.category-card .cat-name{font-size:18px;font-weight:700;color:#1e293b}
+
+/* Coming soon */
+.placeholder-content{text-align:center;padding:40px 28px;position:relative;z-index:4}
+.placeholder-content .ph-icon{margin-bottom:20px;display:block;line-height:0}
+.placeholder-content h2{font-size:clamp(20px,4vw,28px);font-weight:800;margin-bottom:10px;color:#1e293b}
+.placeholder-content h2 span{background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.placeholder-content p{color:#64748b;font-size:15px;line-height:1.8}
+
+@media(max-width:768px){
+  .category-grid{gap:12px}.category-card{padding:32px 16px}
+  .category-card .cat-name{font-size:16px}
+  .screen-container{padding:0 16px;margin:24px auto}
+  .screen-frame{padding:16px 14px 24px;border-width:1px;box-shadow:0 0 0 2px #c8d0d8,0 4px 12px rgba(0,0,0,0.08)}
+  .screen-surface{padding:24px 18px 28px}
+  .top-bar{padding:10px 16px}
+}
+@media(max-width:480px){
+  .category-grid{grid-template-columns:1fr;gap:10px}
+  .category-card{padding:28px 16px}
+  .screen-container{padding:0 8px;margin:12px auto}
+  .screen-frame{padding:12px 8px 18px;border-width:1px;box-shadow:0 0 0 2px #c8d0d8,0 3px 8px rgba(0,0,0,0.06)}
+  .screen-surface{padding:18px 12px 20px}
+}
 </style></head>
 <body>
-<div class="top-bar"><button class="btn-back" onclick="history.back()">‹</button><span class="page-title" id="pageTitle">课程详情</span></div>
-<div id="detailView" style="display:none"><div class="week-detail"><div class="wd-title" id="wdTitle">第<span></span>周</div><p class="wd-sub" id="wdSub"></p><div class="category-grid" id="categoryGrid"></div></div></div>
-<div id="comingSoonView" style="display:none"><div class="placeholder-content"><span class="ph-icon">🚧</span><h2><span id="csHeading">内容施工中</span></h2><p>课程内容正在上传，请耐心等待哦～<br>我们正在加紧制作，很快就会和你见面 🎉</p></div></div>
+<div class="top-bar"><button class="btn-back" onclick="history.back()">&#8249;</button><span class="page-title" id="pageTitle">课程详情</span></div>
+
+<div id="detailView" style="display:none">
+  <div class="screen-container">
+    <div class="screen-frame">
+      <div class="screen-beam"></div>
+      <div class="screen-surface">
+        <div class="screen-content">
+          <div class="wd-title" id="wdTitle">第<span></span>周</div>
+          <p class="wd-sub" id="wdSub"></p>
+          <div class="category-grid" id="categoryGrid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="comingSoonView" style="display:none">
+  <div class="screen-container">
+    <div class="screen-frame">
+      <div class="screen-beam"></div>
+      <div class="screen-surface">
+        <div class="placeholder-content">
+          <span class="ph-icon"><img src="一些icon/影视板.svg" alt="" style="width:64px;height:64px"></span>
+          <h2><span id="csHeading">内容施工中</span></h2>
+          <p>课程内容正在上传，请耐心等待<br>我们正在加紧制作，很快就会和你见面</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 var WEEKS=[{num:'一',topic:'AI视频基础概念与前期准备'},{num:'二',topic:'剧本创作与分镜设计'},{num:'三',topic:'AI绘画与视觉生成'},{num:'四',topic:'动态视频生成技术'},{num:'五',topic:'配音配乐与音效制作'},{num:'六',topic:'剪辑合成与后期特效'},{num:'七',topic:'综合实战项目（上）'},{num:'八',topic:'综合实战项目（下）'}];
 var WEEK_DATA={
@@ -26,8 +140,7 @@ var WEEK_DATA={
 8:{topic:'综合实战项目（下）',courseware:[{displayName:'让AI从聊天工具到智能体执行'},{displayName:'智能体（Agent）应用解析'},{displayName:'FDE工程师必备的AI知识'},{displayName:'AI时代的风口与机遇'}],cwPages:[44,44,40,43],cwBase:'7月工作/第八周/pdf_images',mindmap:[{name:'思维导图（一）',src:'7月工作/第八周/exported_image (1).jpg'},{name:'思维导图（二）',src:'7月工作/第八周/exported_image (2).jpg'},{name:'思维导图（三）',src:'7月工作/第八周/exported_image (3).jpg'},{name:'思维导图（四）',src:'7月工作/第八周/exported_image (4).jpg'}]}
 };
 function getParam(n){var m=location.search.match(new RegExp('[?&]'+n+'=([^&]*)'));return m?decodeURIComponent(m[1]):null}
-(function(){var w=parseInt(getParam('w'))||1,data=WEEK_DATA[w],wk=WEEKS[w-1];document.getElementById('pageTitle').textContent='第'+wk.num+'周';if(data){document.getElementById('detailView').style.display='block';document.getElementById('wdTitle').querySelector('span').textContent=wk.num;document.getElementById('wdSub').textContent=data.topic;document.getElementById('categoryGrid').innerHTML=[{icon:'📖',name:'课件',href:'courseware.html?w='+w},{icon:'🧠',name:'思维导图',href:'mindmap.html?w='+w}].map(function(c){return'<a class="category-card" href="'+c.href+'"><span class="cat-icon">'+c.icon+'</span><div class="cat-name">'+c.name+'</div></a>'}).join('')}else{document.getElementById('comingSoonView').style.display='block';document.getElementById('csHeading').textContent='第'+wk.num+'周 · 筹备中'}})();</script>
-
-
+(function(){var w=parseInt(getParam('w'))||1,data=WEEK_DATA[w],wk=WEEKS[w-1];document.getElementById('pageTitle').textContent='第'+wk.num+'周';if(data){document.getElementById('detailView').style.display='block';document.getElementById('wdTitle').querySelector('span').textContent=wk.num;document.getElementById('wdSub').textContent=data.topic;document.getElementById('categoryGrid').innerHTML=[{icon:'<img src="一些icon/书籍.svg" alt="" style="width:48px;height:48px">',name:'课件',href:'courseware.html?w='+w},{icon:'<img src="一些icon/脑图.svg" alt="" style="width:48px;height:48px">',name:'思维导图',href:'mindmap.html?w='+w}].map(function(c){return'<a class="category-card" href="'+c.href+'"><span class="cat-icon">'+c.icon+'</span><div class="cat-name">'+c.name+'</div></a>'}).join('')}else{document.getElementById('comingSoonView').style.display='block';document.getElementById('csHeading').textContent='第'+wk.num+'周 · 筹备中'}})();
+</script>
 <script>(function(){var l=localStorage.getItem("sv");fetch("version.txt?t="+Date.now()).then(function(r){return r.text()}).then(function(t){t=t.trim();if(l&&l!==t){localStorage.setItem("sv",t);location.reload(true)}else{localStorage.setItem("sv",t)}}).catch(function(){})})();</script>
 </body></html>

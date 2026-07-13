@@ -39,12 +39,13 @@
     }
     .nav-bar.scrolled{box-shadow:0 8px 40px rgba(59,130,246,0.12),0 2px 8px rgba(0,0,0,0.06)}
     .nav-brand{
-      font-size:19px;font-weight:800;letter-spacing:2px;
+      font-size:18px;font-weight:800;letter-spacing:1.5px;display:flex;align-items:center;gap:8px;
       background:linear-gradient(135deg,#2563eb,#06b6d4,#8b5cf6);
       background-size:200% 200%;
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;
       animation:gradientShift 4s ease infinite;white-space:nowrap;
     }
+    .nav-brand::before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#06b6d4);flex-shrink:0;margin-right:0}
     .nav-links{display:flex;gap:8px;align-items:center}
     .nav-links a{
       display:inline-block;padding:10px 18px;border-radius:12px;
@@ -80,39 +81,46 @@
       filter:drop-shadow(0 2px 8px rgba(37,99,235,0.2));
     }
 
-    /* ── Vertical Timeline ── */
-    .timeline{
-      position:relative;max-width:800px;margin:0 auto;padding:20px 0 60px;
-    }
-    /* The central line */
-    .tl-line{
-      position:absolute;left:50%;top:0;bottom:0;width:2px;
-      background:linear-gradient(to bottom,
-        transparent 0%,
-        rgba(59,130,246,0.15) 5%,
-        rgba(6,182,212,0.4) 20%,
-        rgba(139,92,246,0.3) 50%,
-        rgba(6,182,212,0.4) 80%,
-        rgba(59,130,246,0.15) 95%,
-        transparent 100%
+    /* Film Strip */
+    .film-strip{
+      position:relative;max-width:460px;margin:0 auto;padding:30px 36px;
+      background:linear-gradient(180deg,
+        rgba(30,41,59,0.02) 0%,
+        rgba(30,41,59,0.08) 20%,
+        rgba(59,130,246,0.05) 50%,
+        rgba(30,41,59,0.08) 80%,
+        rgba(30,41,59,0.02) 100%
       );
-      transform:translateX(-50%);
-      z-index:0;
+      border-left:1px solid rgba(59,130,246,0.12);
+      border-right:1px solid rgba(59,130,246,0.12);
+      border-radius:4px;
     }
-    .tl-line::after{
-      content:'';position:absolute;left:0;top:0;width:100%;height:100%;
-      background:linear-gradient(to bottom,transparent,rgba(6,182,212,0.6),transparent);
-      background-size:100% 200%;animation:tlLineFlow 4s ease-in-out infinite;
+    /* Sprocket holes - left */
+    .film-strip::before{
+      content:'';position:absolute;left:-8px;top:0;bottom:0;width:8px;
+      background:radial-gradient(circle 2.5px at 4px center,transparent 2.5px,rgba(30,41,59,0.15) 2.5px);
+      background-size:8px 16px;background-repeat:repeat-y;
+      z-index:0;pointer-events:none;
     }
-    @keyframes tlLineFlow{
-      0%,100%{background-position:0 -100%}
-      50%{background-position:0 200%}
+    /* Sprocket holes - right */
+    .film-strip::after{
+      content:'';position:absolute;right:-8px;top:0;bottom:0;width:8px;
+      background:radial-gradient(circle 2.5px at 4px center,transparent 2.5px,rgba(30,41,59,0.15) 2.5px);
+      background-size:8px 16px;background-repeat:repeat-y;
+      z-index:0;pointer-events:none;
+    }
+    /* Film grain overlay - subtle */
+    .film-strip .film-grain{
+      position:absolute;inset:0;pointer-events:none;z-index:0;opacity:0.03;
+      background:linear-gradient(180deg,
+        rgba(59,130,246,0.5) 0%,transparent 3%,transparent 97%,rgba(59,130,246,0.5) 100%
+      );
     }
 
-    /* Timeline item */
+    /* Film strip items (cards) */
     .tl-item{
-      position:relative;z-index:1;display:flex;align-items:center;
-      margin-bottom:40px;opacity:0;transform:translateY(30px);
+      position:relative;z-index:1;display:flex;justify-content:center;align-items:center;
+      margin-bottom:36px;opacity:0;transform:translateY(30px);
       animation:fadeInUp 0.5s ease forwards;
     }
     .tl-item:nth-child(1){animation-delay:0.05s}
@@ -124,33 +132,10 @@
     .tl-item:nth-child(7){animation-delay:0.65s}
     .tl-item:nth-child(8){animation-delay:0.75s}
 
-    /* Odd items: card on left, dot centered */
-    .tl-item:nth-child(odd){justify-content:flex-start;padding-right:calc(50% + 28px)}
-    /* Even items: card on right, dot centered */
-    .tl-item:nth-child(even){justify-content:flex-end;padding-left:calc(50% + 28px)}
-
-    /* Timeline dot */
-    .tl-dot{
-      position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-      width:16px;height:16px;border-radius:50%;
-      background:linear-gradient(135deg,#2563eb,#06b6d4);
-      box-shadow:0 0 10px rgba(6,182,212,0.5),0 0 28px rgba(6,182,212,0.2);
-      z-index:2;transition:all 0.4s;
-    }
-    .tl-dot::after{
-      content:'';position:absolute;inset:-4px;border-radius:50%;
-      border:2px solid rgba(6,182,212,0.3);
-      animation:tlDotPulse 2.5s ease-in-out infinite;
-    }
-    @keyframes tlDotPulse{
-      0%,100%{transform:scale(1);opacity:0.6}
-      50%{transform:scale(1.8);opacity:0}
-    }
-
     /* 3D Card container */
     .tl-item{perspective:800px}
     .tl-card{
-      position:relative;display:block;width:100%;max-width:320px;
+      position:relative;display:block;width:100%;max-width:340px;
       background:rgba(255,255,255,0.45);
       backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
       border:1px solid rgba(255,255,255,0.5);
@@ -205,17 +190,6 @@
       50%{box-shadow:0 0 24px rgba(6,182,212,0.1),inset 0 0 18px rgba(6,182,212,0.03)}
     }
 
-    /* Unlocked dot brighter */
-    .tl-card.unlocked ~ .tl-dot,
-    .tl-item:has(.tl-card.unlocked) .tl-dot{
-      background:linear-gradient(135deg,#06b6d4,#8b5cf6);
-      box-shadow:0 0 14px rgba(6,182,212,0.6),0 0 36px rgba(6,182,212,0.25);
-    }
-
-    /* Locked card */
-    .tl-card.locked{opacity:0.45;cursor:pointer}
-    .tl-card.locked:hover{opacity:0.75;transform:translateY(-3px) scale(1.02)}
-
     /* Card inner elements */
     .tl-week-badge{
       display:inline-block;padding:3px 12px;border-radius:8px;
@@ -256,15 +230,6 @@
     }
     .tl-card.glowing .glitch-overlay{opacity:0.5;animation:glitch1 0.3s ease infinite}
 
-    /* Connector arrow (desktop: from card to timeline) */
-    .tl-connector{
-      position:absolute;top:50%;width:30px;height:1px;
-      background:linear-gradient(90deg,rgba(6,182,212,0.3),rgba(6,182,212,0.05));
-      z-index:0;pointer-events:none;
-    }
-    .tl-item:nth-child(odd) .tl-connector{right:-1px;left:auto}
-    .tl-item:nth-child(even) .tl-connector{left:-1px;right:auto;background:linear-gradient(90deg,rgba(6,182,212,0.05),rgba(6,182,212,0.3))}
-
     /* Footer */
     .page-footer{text-align:center;padding:40px 28px;position:relative;z-index:2;border-top:1px solid rgba(59,130,246,0.08);color:#94a3b8;font-size:12px}
     .page-footer .ft-brand{font-size:15px;font-weight:700;background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
@@ -274,16 +239,12 @@
       .nav-links.open{display:flex;flex-direction:column;position:fixed;top:88px;left:20px;right:20px;background:rgba(255,255,255,0.95);backdrop-filter:blur(24px);padding:20px 24px;gap:4px;border-radius:20px;border:1px solid rgba(255,255,255,0.5);box-shadow:0 8px 40px rgba(0,0,0,0.08)}
       .nav-links.open a{padding:14px 18px;font-size:15px}
       .nav-toggle{display:flex}
-      /* Mobile: all cards on right, line on left */
-      .tl-line{left:20px;transform:none}
-      .tl-item:nth-child(odd),
-      .tl-item:nth-child(even){justify-content:flex-end;padding-right:0;padding-left:48px}
-      .tl-dot{left:20px}
-      .tl-connector{left:-1px!important;right:auto!important;
-        background:linear-gradient(90deg,rgba(6,182,212,0.05),rgba(6,182,212,0.3))!important}
+      .film-strip{max-width:100%;padding:20px 28px}
+      .film-strip::before{left:-6px;width:6px;background-size:6px 14px}
+      .film-strip::after{right:-6px;width:6px;background-size:6px 14px}
       .tl-card{max-width:100%}
       .main-wrap{padding:30px 16px 60px}
-      .tl-item{margin-bottom:32px}
+      .tl-item{margin-bottom:28px}
     }
     @media(max-width:480px){
       .nav-bar{padding:0 18px;width:calc(100% - 24px)}
@@ -296,7 +257,7 @@
   <canvas id="bgCanvas"></canvas>
 
   <nav class="nav-bar" id="navBar">
-    <a href="index.html" class="nav-brand">🎬 金牌AI视频剧</a>
+    <a href="index.html" class="nav-brand">金牌AI视频剧</a>
     <div class="nav-links" id="navLinks">
       <a href="index.html">课程介绍</a><a href="teacher.html">主讲老师</a>
       <a href="course.html" class="active">课程内容</a><a href="cases.html">学员案例</a>
@@ -307,25 +268,25 @@
 
   <div class="main-wrap">
     <div class="page-header">
-      <div class="badge">▸ MISSION NODES</div>
+      <div class="badge">MISSION NODES</div>
       <h1>课程任务节点</h1>
     </div>
 
-    <div class="timeline" id="nodesGrid">
-      <div class="tl-line"></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=1" data-wk="1"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 01</div><div class="tl-title">第一周</div><div class="tl-topic">AI视频基础概念与前期准备</div><div class="tl-status go">⚡ 已解锁</div></a></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=2" data-wk="2"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 02</div><div class="tl-title">第二周</div><div class="tl-topic">剧本创作与分镜设计</div><div class="tl-status go">⚡ 已解锁</div></a></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=3" data-wk="3"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 03</div><div class="tl-title">第三周</div><div class="tl-topic">AI绘画与视觉生成</div><div class="tl-status go">⚡ 已解锁</div></a></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=4" data-wk="4"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 04</div><div class="tl-title">第四周</div><div class="tl-topic">动态视频生成技术</div><div class="tl-status go">⚡ 已解锁</div></a></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=5" data-wk="5"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 05</div><div class="tl-title">第五周</div><div class="tl-topic">配音配乐与音效制作</div><div class="tl-status go">⚡ 已解锁</div></a></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=6" data-wk="6"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 06</div><div class="tl-title">第六周</div><div class="tl-topic">剪辑合成与后期特效</div><div class="tl-status go">⚡ 已解锁</div></a></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=7" data-wk="7"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 07</div><div class="tl-title">第七周</div><div class="tl-topic">综合实战项目（上）</div><div class="tl-status go">⚡ 已解锁</div></a></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-connector"></div><a class="tl-card unlocked" href="week.html?w=8" data-wk="8"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 08</div><div class="tl-title">第八周</div><div class="tl-topic">综合实战项目（下）</div><div class="tl-status go">⚡ 已解锁</div></a></div>
+    <div class="film-strip" id="nodesGrid">
+      <div class="film-grain"></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=1" data-wk="1"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 01</div><div class="tl-title">第一周</div><div class="tl-topic">AI视频基础概念与前期准备</div><div class="tl-status go">已解锁</div></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=2" data-wk="2"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 02</div><div class="tl-title">第二周</div><div class="tl-topic">剧本创作与分镜设计</div><div class="tl-status go">已解锁</div></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=3" data-wk="3"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 03</div><div class="tl-title">第三周</div><div class="tl-topic">AI绘画与视觉生成</div><div class="tl-status go">已解锁</div></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=4" data-wk="4"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 04</div><div class="tl-title">第四周</div><div class="tl-topic">动态视频生成技术</div><div class="tl-status go">已解锁</div></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=5" data-wk="5"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 05</div><div class="tl-title">第五周</div><div class="tl-topic">配音配乐与音效制作</div><div class="tl-status go">已解锁</div></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=6" data-wk="6"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 06</div><div class="tl-title">第六周</div><div class="tl-topic">剪辑合成与后期特效</div><div class="tl-status go">已解锁</div></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=7" data-wk="7"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 07</div><div class="tl-title">第七周</div><div class="tl-topic">综合实战项目（上）</div><div class="tl-status go">已解锁</div></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=8" data-wk="8"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 08</div><div class="tl-title">第八周</div><div class="tl-topic">综合实战项目（下）</div><div class="tl-status go">已解锁</div></a></div>
     </div>
   </div>
 
   <footer class="page-footer">
-    <div class="ft-brand">🎬 金牌AI视频剧</div>
+    <div class="ft-brand">金牌AI视频剧</div>
     <p>© 2025 金牌AI视频剧 · 用AI点亮创作梦想</p>
   </footer>
 

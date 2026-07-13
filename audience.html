@@ -1,10 +1,182 @@
 <!DOCTYPE html>
 <html lang="zh-CN" data-v="FIX">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>适合人群 - 金牌AI视频剧</title>
-<style>*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:linear-gradient(135deg,#dbeafe 0%,#ede9fe 35%,#fce4ec 70%,#e0f2fe 100%);background-attachment:fixed;color:#1a1a2e;overflow-x:hidden;line-height:1.6;padding-top:88px;min-height:100vh}a{color:inherit;text-decoration:none}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(59,130,246,0.2);border-radius:3px}@keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}.nav-bar{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:1000;width:calc(100% - 40px);max-width:1100px;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(255,255,255,0.78);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.5);border-radius:20px;box-shadow:0 4px 24px rgba(59,130,246,0.08),0 1px 4px rgba(0,0,0,0.04)}.nav-bar.scrolled{box-shadow:0 8px 40px rgba(59,130,246,0.12),0 2px 8px rgba(0,0,0,0.06)}.nav-brand{font-size:19px;font-weight:800;letter-spacing:2px;background:linear-gradient(135deg,#2563eb,#06b6d4,#8b5cf6);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientShift 4s ease infinite;white-space:nowrap}.nav-links{display:flex;gap:8px;align-items:center}.nav-links a{display:inline-block;padding:10px 18px;border-radius:12px;font-size:14px;font-weight:600;color:#64748b;transition:all 0.3s;white-space:nowrap;position:relative}.nav-links a::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:0;height:2px;border-radius:1px;background:linear-gradient(90deg,#3b82f6,#06b6d4);transition:width 0.3s}.nav-links a:hover{color:#2563eb;background:rgba(59,130,246,0.06)}.nav-links a:hover::after{width:60%}.nav-links a.active{color:#2563eb;background:rgba(59,130,246,0.1);font-weight:700}.nav-links a.active::after{width:80%}.nav-toggle{display:none;width:40px;height:40px;border-radius:12px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.15);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}.nav-toggle span{display:block;width:20px;height:2px;border-radius:2px;background:#3b82f6}.page-section{max-width:800px;margin:0 auto;padding:80px 28px;animation:fadeInUp 0.6s ease}.page-section h1{font-size:clamp(28px,5vw,42px);font-weight:900;background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}.page-section .subtitle{color:#64748b;font-size:15px;margin-bottom:48px}.audience-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}.audience-card{background:rgba(255,255,255,0.62);backdrop-filter:blur(8px);border-radius:20px;padding:36px 24px;border:1px solid rgba(59,130,246,0.12);text-align:center;transition:all 0.3s}.audience-card:hover{transform:translateY(-4px);border-color:rgba(59,130,246,0.25);box-shadow:0 12px 36px rgba(59,130,246,0.08)}.audience-card .ac-icon{font-size:48px;margin-bottom:14px;display:block}.audience-card h3{font-size:17px;font-weight:700;margin-bottom:8px}.audience-card p{font-size:13px;color:#94a3b8;line-height:1.7}@media(max-width:768px){.nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:absolute;top:88px;left:20px;right:20px;background:rgba(255,255,255,0.95);backdrop-filter:blur(24px);padding:20px 24px;gap:4px;border-radius:20px;border:1px solid rgba(255,255,255,0.5);box-shadow:0 8px 40px rgba(0,0,0,0.08)}.nav-links.open a{padding:14px 18px;font-size:15px}.nav-toggle{display:flex}.audience-grid{grid-template-columns:1fr}}@media(max-width:480px){.nav-bar{padding:0 18px;width:calc(100% - 24px)}.page-section{padding:48px 20px}}</style></head>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:linear-gradient(135deg,#dbeafe 0%,#ede9fe 35%,#fce4ec 70%,#e0f2fe 100%);background-attachment:fixed;color:#1a1a2e;overflow-x:hidden;line-height:1.6;padding-top:88px;min-height:100vh}a{color:inherit;text-decoration:none}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(59,130,246,0.2);border-radius:3px}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float1{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes float2{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
+@keyframes float3{0%,100%{transform:translateY(1px)}50%{transform:translateY(-5px)}}
+@keyframes float4{0%,100%{transform:translateY(-3px)}50%{transform:translateY(2px)}}
+@keyframes float5{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes float6{0%,100%{transform:translateY(2px)}50%{transform:translateY(-3px)}}
+@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+.nav-bar{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:1000;width:calc(100% - 40px);max-width:1100px;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(255,255,255,0.78);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.5);border-radius:20px;box-shadow:0 4px 24px rgba(59,130,246,0.08),0 1px 4px rgba(0,0,0,0.04)}.nav-bar.scrolled{box-shadow:0 8px 40px rgba(59,130,246,0.12),0 2px 8px rgba(0,0,0,0.06)}.nav-brand{font-size:18px;font-weight:800;letter-spacing:1.5px;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#06b6d4,#8b5cf6);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientShift 4s ease infinite;white-space:nowrap}.nav-brand::before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#06b6d4);flex-shrink:0}.nav-links{display:flex;gap:8px;align-items:center}.nav-links a{display:inline-block;padding:10px 18px;border-radius:12px;font-size:14px;font-weight:600;color:#64748b;transition:all 0.3s;white-space:nowrap;position:relative}.nav-links a::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:0;height:2px;border-radius:1px;background:linear-gradient(90deg,#3b82f6,#06b6d4);transition:width 0.3s}.nav-links a:hover{color:#2563eb;background:rgba(59,130,246,0.06)}.nav-links a:hover::after{width:60%}.nav-links a.active{color:#2563eb;background:rgba(59,130,246,0.1);font-weight:700}.nav-links a.active::after{width:80%}.nav-toggle{display:none;width:40px;height:40px;border-radius:12px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.15);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}.nav-toggle span{display:block;width:20px;height:2px;border-radius:2px;background:#3b82f6}
+
+/* Page */
+.page-section{max-width:1100px;margin:0 auto;padding:72px 32px 80px}.page-header{text-align:center;margin-bottom:64px}.page-header h1{font-size:clamp(28px,5vw,42px);font-weight:900;background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}.page-header .subtitle{color:#64748b;font-size:15px}
+
+/* Character Row */
+.characters{display:flex;justify-content:center;gap:0;flex-wrap:wrap}
+.character{
+  flex:1;min-width:0;max-width:180px;text-align:center;padding:0 10px;
+  opacity:0;transform:translateY(20px);transition:opacity 0.5s ease,transform 0.5s ease;
+  cursor:default;position:relative;
+}
+.character.visible{opacity:1;transform:translateY(0)}
+.character:nth-child(1){animation:float1 5s ease-in-out infinite}
+.character:nth-child(2){animation:float2 5.5s ease-in-out infinite}
+.character:nth-child(3){animation:float3 4.8s ease-in-out infinite}
+.character:nth-child(4){animation:float4 5.2s ease-in-out infinite}
+.character:nth-child(5){animation:float5 4.5s ease-in-out infinite}
+.character:nth-child(6){animation:float6 5.8s ease-in-out infinite}
+
+/* Hover effects */
+.character .ch-inner{transition:transform 0.3s ease}
+.character:hover .ch-inner{transform:translateY(-6px)}
+.character:hover .ch-avatar-wrap{box-shadow:0 0 0 8px rgba(59,130,246,0.12),0 0 24px rgba(6,182,212,0.18)}
+.character:hover .ch-avatar-wrap img{transform:scale(1.05)}
+.character:hover .ch-badge{transform:scale(1.08)}
+.character:hover .ch-name{background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.character:hover .ch-desc{color:#475569}
+
+/* Badge */
+.ch-badge-wrap{display:flex;justify-content:center;margin-bottom:-16px;position:relative;z-index:2}
+.ch-badge{
+  width:28px;height:28px;border-radius:50%;
+  background:#fff;border:2px solid rgba(59,130,246,0.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:800;color:#3b82f6;letter-spacing:0.5px;
+  box-shadow:0 2px 8px rgba(59,130,246,0.08);
+  transition:transform 0.3s ease;
+}
+
+/* Avatar */
+.ch-avatar-wrap{
+  width:110px;height:110px;border-radius:50%;margin:0 auto 20px;
+  background:linear-gradient(135deg,rgba(59,130,246,0.06),rgba(6,182,212,0.04));
+  border:2px solid rgba(59,130,246,0.08);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;transition:box-shadow 0.3s ease;
+  position:relative;z-index:1;
+}
+.ch-avatar-wrap img{
+  width:100%;height:100%;object-fit:cover;border-radius:50%;
+  transition:transform 0.3s ease;
+}
+.ch-avatar-placeholder{
+  width:60%;height:60%;display:flex;align-items:center;justify-content:center;
+}
+.ch-avatar-placeholder img{width:100%;height:100%;opacity:0.35}
+
+/* Name */
+.ch-name{
+  font-size:18px;font-weight:800;color:#1e293b;margin-bottom:8px;
+  transition:all 0.3s ease;
+}
+
+/* Desc */
+.ch-desc{
+  font-size:13px;color:#94a3b8;line-height:1.7;max-width:150px;margin:0 auto;
+  text-align:center;transition:color 0.3s ease;
+}
+
+@media(max-width:900px){
+  .characters{display:grid;grid-template-columns:repeat(3,1fr);gap:32px 12px;max-width:600px;margin:0 auto}
+  .character{max-width:100%}
+}
+@media(max-width:600px){
+  .characters{grid-template-columns:repeat(2,1fr);gap:28px 10px}
+  .ch-avatar-wrap{width:96px;height:96px}
+}
+@media(max-width:400px){
+  .characters{grid-template-columns:1fr;gap:32px}
+  .ch-avatar-wrap{width:100px;height:100px}.character{max-width:220px;margin:0 auto}
+}
+@media(max-width:768px){
+  .nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:88px;left:20px;right:20px;background:rgba(255,255,255,0.95);backdrop-filter:blur(24px);padding:20px 24px;gap:4px;border-radius:20px;border:1px solid rgba(255,255,255,0.5);box-shadow:0 8px 40px rgba(0,0,0,0.08)}.nav-links.open a{padding:14px 18px;font-size:15px}.nav-toggle{display:flex}
+}
+@media(max-width:480px){.nav-bar{padding:0 18px;width:calc(100% - 24px)}.page-section{padding:48px 16px 60px}}
+</style><base target="_blank">
+</head>
 <body>
-<nav class="nav-bar" id="navBar"><a href="index.html" class="nav-brand">🎬 金牌AI视频剧</a><div class="nav-links" id="navLinks"><a href="index.html">课程介绍</a><a href="teacher.html">主讲老师</a><a href="course.html">课程内容</a><a href="cases.html">学员案例</a><a href="audience.html" class="active">适合人群</a><a href="faq.html">常见问题</a></div><button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button></nav>
-<section class="page-section"><h1>适合人群</h1><p class="subtitle">不管你是什么背景，只要对AI视频创作感兴趣，这门课都适合你</p><div class="audience-grid"><div class="audience-card"><span class="ac-icon">🎓</span><h3>零基础新手</h3><p>完全没接触过AI工具？没关系，从安装到出片，每一步都有详细指导</p></div><div class="audience-card"><span class="ac-icon">🎨</span><h3>内容创作者</h3><p>想用AI提升创作效率？学会AI工具链，十倍速产出高质量内容</p></div><div class="audience-card"><span class="ac-icon">📱</span><h3>自媒体运营</h3><p>AI是你的超级助手，批量生产爆款内容</p></div><div class="audience-card"><span class="ac-icon">💼</span><h3>职场人士</h3><p>用AI快速制作企业宣传、产品展示视频</p></div><div class="audience-card"><span class="ac-icon">🏫</span><h3>教师/培训师</h3><p>把教案变成生动的AI视频课件</p></div><div class="audience-card"><span class="ac-icon">🚀</span><h3>创业者</h3><p>低成本高效率制作品牌视频</p></div></div></section>
-<script>var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');t.addEventListener('click',function(){l.classList.toggle('open')});l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open')})});window.addEventListener('scroll',function(){document.getElementById('navBar').classList.toggle('scrolled',window.scrollY>10)});</script>
+<nav class="nav-bar" id="navBar"><a href="index.html" class="nav-brand">金牌AI视频剧</a><div class="nav-links" id="navLinks"><a href="index.html">课程介绍</a><a href="teacher.html">主讲老师</a><a href="course.html">课程内容</a><a href="cases.html">学员案例</a><a href="audience.html" class="active">适合人群</a><a href="faq.html">常见问题</a></div><button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button></nav>
+
+<section class="page-section">
+  <div class="page-header">
+    <h1>适合人群</h1>
+    <p class="subtitle">不管你是什么背景，只要对AI视频创作感兴趣，这门课都适合你</p>
+  </div>
+  <div class="characters" id="characters">
+    <div class="character" data-delay="0">
+      <div class="ch-inner">
+        <div class="ch-avatar-wrap">
+          <div class="ch-avatar-placeholder"><img src="一些icon/书籍.svg" alt=""></div>
+        </div>
+        <div class="ch-name">零基础新手</div>
+        <div class="ch-desc">完全没接触过AI工具？没关系，从安装到出片，每一步都有详细指导</div>
+      </div>
+    </div>
+    <div class="character" data-delay="1">
+      <div class="ch-inner">
+        <div class="ch-avatar-wrap">
+          <div class="ch-avatar-placeholder"><img src="一些icon/调色盘.svg" alt=""></div>
+        </div>
+        <div class="ch-name">内容创作者</div>
+        <div class="ch-desc">想用AI提升创作效率？学会AI工具链，十倍速产出高质量内容</div>
+      </div>
+    </div>
+    <div class="character" data-delay="2">
+      <div class="ch-inner">
+        <div class="ch-avatar-wrap">
+          <div class="ch-avatar-placeholder"><img src="一些icon/设备.svg" alt=""></div>
+        </div>
+        <div class="ch-name">自媒体运营</div>
+        <div class="ch-desc">AI是你的超级助手，批量生产爆款内容</div>
+      </div>
+    </div>
+    <div class="character" data-delay="3">
+      <div class="ch-inner">
+        <div class="ch-avatar-wrap">
+          <div class="ch-avatar-placeholder"><img src="一些icon/公文包.svg" alt=""></div>
+        </div>
+        <div class="ch-name">职场人士</div>
+        <div class="ch-desc">用AI快速制作企业宣传、产品展示视频</div>
+      </div>
+    </div>
+    <div class="character" data-delay="4">
+      <div class="ch-inner">
+        <div class="ch-avatar-wrap">
+          <div class="ch-avatar-placeholder"><img src="一些icon/学校.svg" alt=""></div>
+        </div>
+        <div class="ch-name">教师 / 培训师</div>
+        <div class="ch-desc">把教案变成生动的AI视频课件</div>
+      </div>
+    </div>
+    <div class="character" data-delay="5">
+      <div class="ch-inner">
+        <div class="ch-avatar-wrap">
+          <div class="ch-avatar-placeholder"><img src="一些icon/火箭.svg" alt=""></div>
+        </div>
+        <div class="ch-name">创业者</div>
+        <div class="ch-desc">低成本高效率制作品牌视频</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');
+t.addEventListener('click',function(){l.classList.toggle('open')});
+l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open')})});
+window.addEventListener('scroll',function(){document.getElementById('navBar').classList.toggle('scrolled',window.scrollY>10)});
+
+// Staggered entrance
+document.querySelectorAll('.character').forEach(function(c){
+  var d=parseInt(c.getAttribute('data-delay'))||0;
+  setTimeout(function(){c.classList.add('visible')},100+d*100);
+});
+</script>
 <script>(function(){var l=localStorage.getItem("sv");fetch("version.txt?t="+Date.now()).then(function(r){return r.text()}).then(function(t){t=t.trim();if(l&&l!==t){localStorage.setItem("sv",t);location.reload(true)}else{localStorage.setItem("sv",t)}}).catch(function(){})})();</script>
 </body></html>
