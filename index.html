@@ -276,46 +276,16 @@
     .sf-corner-brand .sf-brand-text{display:flex;flex-direction:column;align-items:flex-start}
     @media(max-width:480px){.sf-corner-brand .sf-brand-text{display:none}.sf-corner-brand{padding:6px 10px}}
 
-    /* Intro Overlay - 纯代码动画开场 (无视频/无流量) */
+    /* Intro Overlay - 全屏视频开场 (同事版) */
     body.intro-active{overflow:hidden}
     .intro-overlay{
       position:fixed;inset:0;z-index:9999;
       display:flex;flex-direction:column;align-items:center;justify-content:center;
-      background:linear-gradient(135deg,#0a0e27 0%,#151b3d 25%,#1a1040 50%,#0c2340 75%,#0a0e27 100%);
-      background-size:300% 300%;animation:introGradient 8s ease infinite;
+      background:#000;
       overflow:hidden;
       transition:opacity 0.7s ease,transform 0.8s cubic-bezier(0.76,0,0.24,1);
     }
     .intro-overlay.intro-done{opacity:0;transform:translateY(-100%);pointer-events:none}
-    .intro-glow{position:absolute;top:50%;left:50%;width:min(90vw,520px);height:min(90vw,520px);border-radius:50%;
-      background:radial-gradient(circle,rgba(59,130,246,0.22) 0%,rgba(139,92,246,0.12) 35%,transparent 70%);
-      filter:blur(20px);animation:introFloat 6s ease-in-out infinite;transform:translate(-50%,-50%)}
-    .intro-glow.two{width:min(70vw,360px);height:min(70vw,360px);background:radial-gradient(circle,rgba(6,182,212,0.16) 0%,transparent 70%);animation-delay:-2s;animation-duration:7s}
-    .intro-rings{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
-    .intro-rings span{position:absolute;top:50%;left:50%;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;border:1.5px solid rgba(96,165,250,0.4);animation:introRing 2.4s ease-out infinite}
-    .intro-rings span:nth-child(2){animation-delay:.8s}
-    .intro-rings span:nth-child(3){animation-delay:1.6s}
-    .intro-logo{position:relative;width:96px;height:96px;margin-bottom:26px;opacity:0;transform:scale(.4) rotate(-30deg);animation:introLogoIn .9s cubic-bezier(.34,1.56,.64,1) .25s forwards}
-    .intro-logo svg{width:100%;height:100%;display:block;filter:drop-shadow(0 0 18px rgba(96,165,250,.55))}
-    .intro-logo::after{content:'';position:absolute;inset:-14px;border-radius:50%;border:2px solid rgba(96,165,250,.25);border-top-color:rgba(96,165,250,.8);border-right-color:rgba(6,182,212,.5);animation:introSpin 1.4s linear infinite}
-    .intro-text{position:relative;z-index:2;text-align:center;padding:0 20px}
-    .intro-brand{font-size:13px;letter-spacing:5px;color:rgba(148,163,184,.7);margin-bottom:12px;opacity:0;animation:introFadeUp .6s ease .7s forwards}
-    .intro-title{font-size:clamp(30px,8vw,52px);font-weight:900;letter-spacing:6px;line-height:1.1;
-      background:linear-gradient(135deg,#60a5fa,#22d3ee,#a78bfa,#60a5fa);background-size:300% 300%;
-      -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
-      opacity:0;filter:blur(14px);transform:translateY(18px);animation:introTitleIn .9s ease .85s forwards,introGradient 3s ease .85s infinite}
-    .intro-sub{margin-top:14px;font-size:13px;letter-spacing:4px;color:rgba(148,163,184,.65);opacity:0;transform:translateY(10px);animation:introFadeUp .7s ease 1.15s forwards}
-    .intro-progress{margin:34px auto 0;width:200px;height:2px;border-radius:1px;background:rgba(255,255,255,.06);overflow:hidden;opacity:0;animation:introFadeUp .5s ease 1.2s forwards}
-    .intro-progress-bar{height:100%;width:0;border-radius:1px;background:linear-gradient(90deg,#3b82f6,#06b6d4,#8b5cf6);background-size:200% 100%;animation:introProgress 2.2s cubic-bezier(.4,0,.2,1) 1.2s forwards,introGradient 2s ease 1.2s infinite}
-    .intro-hint{margin-top:16px;font-size:11px;letter-spacing:3px;color:rgba(148,163,184,.4);opacity:0;animation:introFadeUp .5s ease 1.4s forwards}
-    @keyframes introGradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-    @keyframes introFloat{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.08)}}
-    @keyframes introLogoIn{to{opacity:1;transform:scale(1) rotate(0)}}
-    @keyframes introSpin{to{transform:rotate(360deg)}}
-    @keyframes introRing{0%{transform:scale(.5);opacity:.8}100%{transform:scale(3.2);opacity:0}}
-    @keyframes introFadeUp{to{opacity:1;transform:translateY(0)}}
-    @keyframes introTitleIn{to{opacity:1;filter:blur(0);transform:translateY(0)}}
-    @keyframes introProgress{from{width:0}to{width:100%}}
 
     /* Content reveal after intro */
     .nav-bar,.hero-badge,.hero h1,.hero-sub,.hero-desc,.hero-btns,.stats-strip{transition:opacity 0.55s ease,transform 0.55s ease}
@@ -366,25 +336,9 @@
 </head>
 <body class="intro-active">
   <div class="intro-overlay" id="introOverlay">
-    <div class="intro-glow"></div>
-    <div class="intro-glow two"></div>
-    <div class="intro-rings"><span></span><span></span><span></span></div>
-    <div class="intro-logo">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="ig" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#a78bfa"/>
-        </linearGradient></defs>
-        <rect x="14" y="14" width="72" height="72" rx="20" fill="none" stroke="url(#ig)" stroke-width="3.5"/>
-        <path d="M43 37 L69 50 L43 63 Z" fill="url(#ig)"/>
-      </svg>
-    </div>
-    <div class="intro-text">
-      <div class="intro-brand">SHUFAN EDUCATION · 树帆教育</div>
-      <div class="intro-title">金牌AI视频剧</div>
-      <div class="intro-sub">零基础掌握 AI 视频创作</div>
-      <div class="intro-progress"><div class="intro-progress-bar"></div></div>
-      <div class="intro-hint">正在进入</div>
-    </div>
+    <video id="introVideo" src="intro.mp4" autoplay muted playsinline webkit-playsinline preload="auto"
+      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;">
+    </video>
   </div>
   <canvas id="particleCanvas"></canvas>
 
@@ -571,10 +525,11 @@
   </footer>
 
 <script>
-// Intro code animation (纯代码开场：无视频、无流量，手机秒开)
+// Intro video animation (同事版：全屏视频开场)
 (function(){
   var body=document.body;
   var ov=document.getElementById('introOverlay');
+  var video=document.getElementById('introVideo');
   if(sessionStorage.getItem('_intro_shown')){
     body.classList.remove('intro-active');
     body.classList.add('intro-done');
@@ -590,13 +545,23 @@
     body.classList.add('intro-done');
     setTimeout(function(){if(ov)ov.style.display='none'},900);
   }
-  // 动画总时长后自动收起（与 CSS 进度条/文案节奏一致）
-  setTimeout(finishIntro,3400);
-  // 用户点击/触摸可立即跳过
-  function skip(){ finishIntro(); }
-  ['touchstart','click'].forEach(function(ev){
-    document.addEventListener(ev,skip,{once:true});
-  });
+  if(video){
+    var started=false;
+    video.addEventListener('ended',finishIntro);
+    video.addEventListener('error',finishIntro);
+    video.addEventListener('playing',function(){started=true;});
+    // 兜底：仅当视频始终未能开始播放时才跳过（不再盲藏，避免手机弱网被误杀）
+    setTimeout(function(){ if(!started) finishIntro(); },8000);
+    // 主动触发播放，提升手机端自动播放成功率
+    function tryPlay(){ var p=video.play(); if(p&&p.catch)p.catch(function(){}); }
+    tryPlay();
+    // 最严格手机浏览器：用户首次点击/触摸即尝试播放
+    ['touchstart','click'].forEach(function(ev){
+      document.addEventListener(ev,function(){ if(video.paused) tryPlay(); },{once:true});
+    });
+  }else{
+    finishIntro();
+  }
 })();
 
 // Particle canvas
