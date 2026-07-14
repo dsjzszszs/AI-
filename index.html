@@ -276,80 +276,15 @@
     .sf-corner-brand .sf-brand-text{display:flex;flex-direction:column;align-items:flex-start}
     @media(max-width:480px){.sf-corner-brand .sf-brand-text{display:none}.sf-corner-brand{padding:6px 10px}}
 
-    /* Intro Overlay — 纯代码开场(还原同事版视频风格：光斑→圆环→星球Logo→品牌名) */
+    /* Intro Overlay - 全屏视频开场 (同事版) */
     body.intro-active{overflow:hidden}
     .intro-overlay{
       position:fixed;inset:0;z-index:9999;
       display:flex;flex-direction:column;align-items:center;justify-content:center;
-      background:#070d1f;
+      background:linear-gradient(135deg,#0b1626 0%,#1a3050 100%);
       overflow:hidden;
-      transition:opacity 0.8s ease,transform 0.9s cubic-bezier(0.76,0,0.24,1);
+      transition:opacity 0.7s ease,transform 0.8s cubic-bezier(0.76,0,0.24,1);
     }
-    .intro-bg{position:absolute;inset:0;z-index:0;
-      background:radial-gradient(ellipse at 35% 40%,rgba(60,120,200,.18) 0%,transparent 55%),
-                 radial-gradient(ellipse at 75% 25%,rgba(140,100,220,.14) 0%,transparent 50%),
-                 radial-gradient(ellipse at 20% 80%,rgba(50,160,180,.12) 0%,transparent 45%),
-                 linear-gradient(170deg,#070d1f 0%,#0e1a38 40%,#1a1045 100%);
-      transition:background 1.6s ease 1.2s}
-    .intro-overlay.intro-done .intro-bg{
-      background:linear-gradient(170deg,#12082a 0%,#2a1547 40%,#361854 100%)}
-    /* 动态光斑 */
-    .intro-light{position:absolute;border-radius:50%;filter:blur(30px);opacity:0;animation:introLightIn 2s ease forwards}
-    .intro-light.l1{width:280px;height:180px;background:rgba(90,160,255,.22);top:15%;left:-5%;
-      animation-delay:.3s;animation-name:introL1}
-    .intro-light.l2{width:200px;height:200px;background:rgba(150,110,240,.16);top:-8%;right:10%;
-      animation-delay:.6s;animation-name:introL2}
-    .intro-light.l3{width:260px;height:140px;background:rgba(60,190,210,.13);bottom:10%;right:-3%;
-      animation-delay:.9s;animation-name:introL3}
-    @keyframes introL1{0%{opacity:0;transform:translateX(-40px) scale(.5)} 100%{opacity:1;transform:translateX(0) scale(1)}}
-    @keyframes introL2{0%{opacity:0;transform:translateY(-30px) scale(.4)} 100%{opacity:1;transform:translateY(0) scale(1)}}
-    @keyframes introL3{0%{opacity:0;transform:translateX(40px) scale(.5)} 100%{opacity:1;transform:translateX(0) scale(1)}}
-    @keyframes introLightIn{0%{opacity:0} 100%{opacity:1}}
-    /* 同心圆环系统 */
-    .intro-rings{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;
-      width:220px;height:220px;opacity:0;transform:scale(.05);animation:introRingsIn 1.4s cubic-bezier(.34,1.56,.64,1) .5s forwards}
-    .intro-ring{position:absolute;border-radius:50%;border-style:solid;box-sizing:border-box}
-    .intro-ring.r1{width:220px;height:220px;border-width:1px;border-color:rgba(130,180,255,.35);
-      animation:introR1Spin 8s linear infinite}
-    .intro-ring.r2{width:160px;height:160px;border-width:1.5px;border-color:rgba(100,160,255,.45);
-      transform:rotate(65deg);animation:introR2Spin 12s linear infinite reverse}
-    .intro-ring.r3{width:105px;height:105px;border-width:2px;border-color:rgba(160,140,255,.5);
-      border-top-color:rgba(200,170,255,.7);border-bottom-color:rgba(200,170,255,.7);
-      animation:introR3Pulse 3s ease-in-out infinite alternate}
-    .intro-ring.r4{width:72px;height:72px;border-radius:50%;
-      background:radial-gradient(circle at 38% 32%,#fff 0%,#c8d8ff 25%,#6ea0ff 55%,#2a60c4 85%,#143a78 100%);
-      box-shadow:0 0 28px rgba(100,160,255,.5),0 0 60px rgba(80,120,220,.25), inset 0 -4px 12px rgba(0,0,0,.3);
-      opacity:0;transform:scale(0);animation:introCoreIn .8s cubic-bezier(.34,1.56,.64,1) 1.3s forwards}
-    /* 轨道小点 */
-    .intro-orbit-dot{position:absolute;width:7px;height:7px;border-radius:50%;
-      background:radial-gradient(circle,#fff 0%,#8eb8ff 60%,#3a7ad9 100%);
-      box-shadow:0 0 8px rgba(120,170,255,.7)}
-    .intro-orbit-dot.o1{top:6%;left:50%;margin-left:-3.5px;animation:introOrbit1 5s linear infinite}
-    .intro-orbit-dot.o2{bottom:12%;right:8%;animation:introOrbit2 7s linear infinite reverse}
-    .intro-orbit-dot.o3{top:42%;left:4%;animation:introOrbit3 9s linear infinite}
-    @keyframes introRingsIn{to{opacity:1;transform:scale(1)}}
-    @keyframes introR1Spin{to{transform:rotate(360deg)}}
-    @keyframes introR2Spin{from{transform:rotate(65deg)}to{transform:rotate(425deg)}}
-    @keyframes introR3Pulse{from{transform:scale(1);border-color:rgba(160,140,255,.5)}to{transform:scale(1.06);border-color:rgba(200,170,255,.7)}}
-    @keyframes introCoreIn{to{opacity:1;transform:scale(1)}}
-    @keyframes introOrbit1{from{transform:rotate(0deg) translateX(108px) rotate(0deg)}to{transform:rotate(360deg) translateX(108px) rotate(-360deg)}}
-    @keyframes introOrbit2{from{transform:rotate(0deg) translateX(78px) rotate(0deg)}to{transform:rotate(360deg) translateX(78px) rotate(-360deg)}}
-    @keyframes introOrbit3{from{transform:rotate(0deg) translateX(51px) rotate(0deg)}to{transform:rotate(360deg) translateX(51px) rotate(-360deg)}}
-    /* 品牌文字区 */
-    .intro-brand{position:relative;z-index:2;margin-top:28px;display:flex;flex-direction:column;align-items:center;gap:10px;
-      opacity:0;transform:translateY(24px);animation:introBrandIn .9s ease 1.8s forwards}
-    .intro-logo-svg{width:72px;height:72px;opacity:0;transform:scale(.3);animation:introLogoSVG .8s cubic-bezier(.34,1.56,.64,1) 1.6s forwards}
-    .intro-title{font-size:26px;font-weight:700;color:#e8eeff;letter-spacing:8px;text-shadow:0 2px 20px rgba(100,150,255,.35);
-      font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif}
-    .intro-subtitle{font-size:13px;color:rgba(200,215,245,.75);letter-spacing:3px;line-height:1.8;text-align:center;
-      font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif}
-    @keyframes introBrandIn{to{opacity:1;transform:translateY(0)}}
-    @keyframes introLogoSVG{to{opacity:1;transform:scale(1)}}
-    /* 进度指示(底部细线) */
-    .intro-progress{position:absolute;bottom:0;left:0;width:0;height:2px;
-      background:linear-gradient(90deg,transparent,rgba(100,160,255,.6),rgba(160,140,255,.6),transparent);
-      z-index:10;animation:introProgress 3.2s linear forwards}
-    @keyframes introProgress{to{width:100%}}
     .intro-overlay.intro-done{opacity:0;transform:translateY(-100%);pointer-events:none}
 
     /* Content reveal after intro */
@@ -401,34 +336,9 @@
 </head>
 <body class="intro-active">
   <div class="intro-overlay" id="introOverlay">
-    <div class="intro-bg"></div>
-    <div class="intro-light l1"></div>
-    <div class="intro-light l2"></div>
-    <div class="intro-light l3"></div>
-    <div class="intro-rings">
-      <div class="intro-ring r1"></div>
-      <div class="intro-ring r2"></div>
-      <div class="intro-ring r3"></div>
-      <div class="intro-ring r4"></div>
-      <div class="intro-orbit-dot o1"></div>
-      <div class="intro-orbit-dot o2"></div>
-      <div class="intro-orbit-dot o3"></div>
-    </div>
-    <!-- SVG 星球Logo -->
-    <svg class="intro-logo-svg" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs><linearGradient id="ig" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6ea0ff"/><stop offset="50%" stop-color="#a78bff"/><stop offset="100%" stop-color="#c98fff"/></linearGradient></defs>
-      <ellipse cx="40" cy="42" rx="34" ry="12" stroke="url(#ig)" stroke-width="1.8" transform="rotate(-20 40 42)" opacity=".7"/>
-      <ellipse cx="40" cy="42" rx="26" ry="8" stroke="url(#ig)" stroke-width="1.2" transform="rotate(35 40 42)" opacity=".5"/>
-      <circle cx="40" cy="40" r="16" fill="url(#ig)" opacity=".9"/>
-      <circle cx="33" cy="35" r="4" fill="#e8eeff" opacity=".7"/>
-      <circle cx="46" cy="44" r="2.5" fill="#fff" opacity=".5"/>
-      <path d="M52 30 Q58 28 60 32" stroke="#fff" stroke-width="1" fill="none" opacity=".45" stroke-linecap="round"/>
-    </svg>
-    <div class="intro-brand">
-      <div class="intro-title">源码世界</div>
-      <div class="intro-subtitle">全流程AI实践课<br>构建属于自己的AI能力体系</div>
-    </div>
-    <div class="intro-progress"></div>
+    <video id="introVideo" src="intro.mp4" poster="intro-poster.jpg" autoplay muted playsinline webkit-playsinline preload="auto"
+      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;">
+    </video>
   </div>
   <canvas id="particleCanvas"></canvas>
 
@@ -615,10 +525,11 @@
   </footer>
 
 <script>
-// Intro 纯代码动画开场(还原同事版视频风格：光斑→圆环→星球Logo→品牌名)
+// Intro video animation (同事版：全屏视频开场)
 (function(){
   var body=document.body;
   var ov=document.getElementById('introOverlay');
+  var video=document.getElementById('introVideo');
   if(sessionStorage.getItem('_intro_shown')){
     body.classList.remove('intro-active');
     body.classList.add('intro-done');
@@ -632,11 +543,31 @@
     if(ov)ov.classList.add('intro-done');
     body.classList.remove('intro-active');
     body.classList.add('intro-done');
-    setTimeout(function(){if(ov)ov.style.display='none'},1000);
+    setTimeout(function(){if(ov)ov.style.display='none'},900);
   }
-  // CSS 动画总时长约 3.2s，3.4s 后收起遮罩
-  setTimeout(finishIntro,3400);
-})();
+  if(video){
+    var started=false;
+    // 关键：iOS Safari 必须在 JS 中显式置 muted，否则 muted 自动播放会被拦截（表现为必须点一下才播）
+    video.muted=true; video.defaultMuted=true;
+    video.addEventListener('ended',finishIntro);
+    video.addEventListener('error',finishIntro);
+    video.addEventListener('stalled',finishIntro);
+    video.addEventListener('playing',function(){started=true;});
+    function tryPlay(){ var p=video.play(); if(p&&p.catch)p.catch(function(){}); }
+    // 多处触发自动播放：元数据就绪/可播/首帧就绪都尝试，确保手机端免点击自动播放
+    video.addEventListener('loadedmetadata',tryPlay);
+    video.addEventListener('canplay',tryPlay);
+    video.addEventListener('loadeddata',tryPlay);
+    tryPlay();
+    // 极端兜底：用户首次交互才尝试（正常不应需要）
+    ['touchstart','click'].forEach(function(ev){
+      document.addEventListener(ev,function(){ if(video.paused) tryPlay(); },{once:true});
+    });
+    // 兜底：仅当始终未播放才跳过（海报已占位，不会黑屏）；放宽到6s给弱网自动播放更多时间
+    setTimeout(function(){ if(!started) finishIntro(); },6000);
+  }else{
+    finishIntro();
+  }
 })();
 
 // Particle canvas
