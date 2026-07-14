@@ -51,6 +51,21 @@
 @media(max-width:360px){
   .case-card{width:190px}
 }
+
+/* ===== Case video media & lightbox ===== */
+.cc-media{position:relative;height:180px;background:linear-gradient(135deg,rgba(59,130,246,0.10),rgba(6,182,212,0.06));overflow:hidden;cursor:pointer}
+.cc-video{width:100%;height:100%;object-fit:cover;display:block;background:#0f172a}
+.cc-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:rgba(37,99,235,0.92);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;box-shadow:0 6px 20px rgba(37,99,235,0.35);pointer-events:none;transition:transform .25s}
+.cc-media:hover .cc-play{transform:translate(-50%,-50%) scale(1.12)}
+.case-card{cursor:pointer}
+.video-modal{position:fixed;inset:0;z-index:2000;display:none;align-items:center;justify-content:center}
+.video-modal.open{display:flex}
+.vm-backdrop{position:absolute;inset:0;background:rgba(15,23,42,.82);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.vm-inner{position:relative;z-index:1;width:min(92vw,960px);display:flex;flex-direction:column}
+.vm-video{width:100%;max-height:80vh;background:#000;border-radius:12px;outline:none}
+.vm-close{position:absolute;top:-46px;right:0;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.95);border:none;color:#0f172a;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.vm-caption{color:#e2e8f0;font-size:14px;margin-top:12px;text-align:center}
+@media(max-width:480px){.cc-media{height:150px}.vm-close{top:-42px}}
 </style><base target="_blank">
 </head>
 <body>
@@ -60,10 +75,11 @@
   <div class="carousel-nav prev" id="navPrev">&#10094;</div>
   <div class="carousel-nav next" id="navNext">&#10095;</div>
   <div class="carousel-track" id="carouselTrack">
-    <div class="case-card" data-index="0"><div class="cc-thumb"><img src="一些icon/影视板.svg" alt="" style="width:40px;height:40px"></div><div class="cc-body"><h3>学员作品 #1</h3><span class="cc-tag">AI短片</span><p>此处放置学员作品截图或视频链接</p></div></div>
-    <div class="case-card" data-index="1"><div class="cc-thumb"><img src="一些icon/调色盘.svg" alt="" style="width:40px;height:40px"></div><div class="cc-body"><h3>学员作品 #2</h3><span class="cc-tag">动画视频</span><p>此处放置学员作品截图或视频链接</p></div></div>
-    <div class="case-card" data-index="2"><div class="cc-thumb"><img src="一些icon/火箭.svg" alt="" style="width:40px;height:40px"></div><div class="cc-body"><h3>学员作品 #3</h3><span class="cc-tag">创意广告</span><p>此处放置学员作品截图或视频链接</p></div></div>
-    <div class="case-card" data-index="3"><div class="cc-thumb"><img src="一些icon/设备.svg" alt="" style="width:40px;height:40px"></div><div class="cc-body"><h3>学员作品 #4</h3><span class="cc-tag">个人Vlog</span><p>此处放置学员作品截图或视频链接</p></div></div>
+    <div class="case-card" data-index="0" data-video="cases-videos/jiang-2.mp4" data-title="蒋同学作品 · AI短片"><div class="cc-media"><video class="cc-video" src="cases-videos/jiang-2.mp4" preload="metadata" muted playsinline></video><span class="cc-play">&#9654;</span></div><div class="cc-body"><h3>蒋同学作品</h3><span class="cc-tag">AI短片</span><p>点击封面即可播放学员作品</p></div></div>
+    <div class="case-card" data-index="1" data-video="cases-videos/zhe.mp4" data-title="哲同学作品 · 动画短片"><div class="cc-media"><video class="cc-video" src="cases-videos/zhe.mp4" preload="metadata" muted playsinline></video><span class="cc-play">&#9654;</span></div><div class="cc-body"><h3>哲同学作品</h3><span class="cc-tag">动画短片</span><p>点击封面即可播放学员作品</p></div></div>
+    <div class="case-card" data-index="2" data-video="cases-videos/zhouyu-2.mp4" data-title="周羽同学作品 · 创意短片"><div class="cc-media"><video class="cc-video" src="cases-videos/zhouyu-2.mp4" preload="metadata" muted playsinline></video><span class="cc-play">&#9654;</span></div><div class="cc-body"><h3>周羽同学作品</h3><span class="cc-tag">创意短片</span><p>点击封面即可播放学员作品</p></div></div>
+    <div class="case-card" data-index="3" data-video="cases-videos/jiang-maitanweng.mp4" data-title="蒋同学《卖炭翁》· 古诗新编"><div class="cc-media"><video class="cc-video" src="cases-videos/jiang-maitanweng.mp4" preload="metadata" muted playsinline></video><span class="cc-play">&#9654;</span></div><div class="cc-body"><h3>蒋同学《卖炭翁》</h3><span class="cc-tag">古诗新编</span><p>点击封面即可播放学员作品</p></div></div>
+    <div class="case-card" data-index="4" data-video="cases-videos/student-5.mp4" data-title="学员作品（未命名）· AI视频"><div class="cc-media"><video class="cc-video" src="cases-videos/student-5.mp4" preload="metadata" muted playsinline></video><span class="cc-play">&#9654;</span></div><div class="cc-body"><h3>学员作品（未命名）</h3><span class="cc-tag">AI视频</span><p>点击封面即可播放学员作品</p></div></div>
   </div>
 </div>
 <div class="carousel-dots" id="carouselDots"></div>
@@ -300,4 +316,48 @@
 </script>
 <script>var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');t.addEventListener('click',function(){l.classList.toggle('open')});l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open')})});window.addEventListener('scroll',function(){document.getElementById('navBar').classList.toggle('scrolled',window.scrollY>10)});</script>
 <script>(function(){var l=localStorage.getItem("sv");fetch("version.txt?t="+Date.now()).then(function(r){return r.text()}).then(function(t){t=t.trim();if(l&&l!==t){localStorage.setItem("sv",t);location.reload(true)}else{localStorage.setItem("sv",t)}}).catch(function(){})})();</script>
+<div class="video-modal" id="videoModal" aria-hidden="true">
+  <div class="vm-backdrop" id="vmBackdrop"></div>
+  <div class="vm-inner">
+    <button class="vm-close" id="vmClose" aria-label="关闭">&times;</button>
+    <video class="vm-video" id="vmVideo" controls playsinline></video>
+    <div class="vm-caption" id="vmCaption"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var modal = document.getElementById('videoModal');
+  var video = document.getElementById('vmVideo');
+  var caption = document.getElementById('vmCaption');
+  var closeBtn = document.getElementById('vmClose');
+  var backdrop = document.getElementById('vmBackdrop');
+
+  function openModal(src, title){
+    video.src = src;
+    caption.textContent = title || '';
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    video.play().catch(function(){});
+  }
+  function closeModal(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+    video.pause();
+    video.removeAttribute('src');
+    video.load();
+  }
+
+  document.querySelectorAll('.case-card').forEach(function(card){
+    card.addEventListener('click', function(){
+      var src = card.getAttribute('data-video');
+      var title = card.getAttribute('data-title') || card.querySelector('h3').textContent;
+      openModal(src, title);
+    });
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  backdrop.addEventListener('click', closeModal);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeModal(); });
+})();
+</script>
 </body></html>
