@@ -276,37 +276,16 @@
     .sf-corner-brand .sf-brand-text{display:flex;flex-direction:column;align-items:flex-start}
     @media(max-width:480px){.sf-corner-brand .sf-brand-text{display:none}.sf-corner-brand{padding:6px 10px}}
 
-    /* Intro Overlay */
+    /* Intro Overlay - 全屏视频开场 (同事版) */
     body.intro-active{overflow:hidden}
     .intro-overlay{
       position:fixed;inset:0;z-index:9999;
       display:flex;flex-direction:column;align-items:center;justify-content:center;
-      background:linear-gradient(135deg,#0a0e27 0%,#151b3d 25%,#1a1040 50%,#0c2340 75%,#0a0e27 100%);
-      background-size:300% 300%;animation:gradientShift 6s ease infinite;
+      background:#000;
       overflow:hidden;
       transition:opacity 0.7s ease,transform 0.8s cubic-bezier(0.76,0,0.24,1);
     }
     .intro-overlay.intro-done{opacity:0;transform:translateY(-100%);pointer-events:none}
-    .intro-orb{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,0.18) 0%,rgba(139,92,246,0.1) 35%,transparent 70%);filter:blur(30px);animation:float 5s ease infinite;top:50%;left:50%;margin-top:-250px;margin-left:-250px}
-    .intro-orb-2{position:absolute;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(6,182,212,0.12) 0%,transparent 70%);filter:blur(25px);animation:float 6s ease infinite;animation-delay:-2s;top:15%;right:10%}
-    .intro-particles span{position:absolute;bottom:0;border-radius:50%;animation:floatUp linear infinite}
-    @keyframes floatUp{0%{transform:translateY(0) scale(0);opacity:0}10%{opacity:1}90%{opacity:0.6}100%{transform:translateY(-100vh) scale(1);opacity:0}}
-    .intro-content{position:relative;z-index:2;text-align:center;padding:0 20px}
-    .intro-icon-wrap{position:relative;width:100px;height:100px;margin:0 auto 30px;display:flex;align-items:center;justify-content:center}
-    .intro-icon-wrap::before{content:'';position:absolute;inset:-12px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,0.25),rgba(139,92,246,0.1),transparent);animation:softPulse 2s ease infinite}
-    .intro-icon-wrap::after{content:'';position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(96,165,250,0.12);border-top-color:rgba(96,165,250,0.5);border-right-color:rgba(6,182,212,0.3);animation:spin 1.5s linear infinite}
-    .intro-icon{position:relative;z-index:1;opacity:0;transform:scale(0) rotate(-180deg);animation:introIconIn 0.8s cubic-bezier(0.34,1.56,0.64,1) 0.4s forwards}
-    .intro-icon img{width:52px;height:52px;display:block}
-    @keyframes introIconIn{to{opacity:1;transform:scale(1) rotate(0)}}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    .intro-title{font-size:clamp(32px,7vw,52px);font-weight:900;letter-spacing:8px;margin-bottom:10px;background:linear-gradient(135deg,#60a5fa,#22d3ee,#a78bfa,#60a5fa);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0;filter:blur(16px);transform:translateY(20px);animation:introTitleIn 0.9s ease 0.7s forwards,gradientShift 3s ease 0.7s infinite}
-    @keyframes introTitleIn{to{opacity:1;filter:blur(0);transform:translateY(0)}}
-    .intro-subtitle{font-size:13px;color:rgba(148,163,184,0.7);letter-spacing:6px;opacity:0;transform:translateY(10px);animation:introFadeUp 0.7s ease 1s forwards}
-    @keyframes introFadeUp{to{opacity:1;transform:translateY(0)}}
-    .intro-progress{margin:36px auto 0;width:180px;height:2px;border-radius:1px;background:rgba(255,255,255,0.06);overflow:hidden;opacity:0;animation:introFadeUp 0.5s ease 1.1s forwards}
-    .intro-progress-bar{height:100%;width:0;border-radius:1px;background:linear-gradient(90deg,#3b82f6,#06b6d4,#8b5cf6);background-size:200% 100%;animation:progressFill 1.7s cubic-bezier(0.4,0,0.2,1) 1.1s forwards,gradientShift 2s ease 1.1s infinite}
-    @keyframes progressFill{from{width:0}to{width:100%}}
-    .intro-hint{margin-top:18px;font-size:11.5px;color:rgba(148,163,184,0.4);letter-spacing:3px;opacity:0;animation:introFadeUp 0.5s ease 1.3s forwards}
 
     /* Content reveal after intro */
     .nav-bar,.hero-badge,.hero h1,.hero-sub,.hero-desc,.hero-btns,.stats-strip{transition:opacity 0.55s ease,transform 0.55s ease}
@@ -324,13 +303,6 @@
     body.intro-done .hero-desc{transition-delay:0.65s}
     body.intro-done .hero-btns{transition-delay:0.8s}
     body.intro-done .stats-strip{transition-delay:0.95s}
-
-    /* Intro Brand */
-    .intro-brand{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:24px;opacity:0;transform:translateY(10px);animation:introFadeUp 0.7s ease 0.2s forwards}
-    .intro-brand .brand-logo{width:38px;height:44px}
-    .intro-brand .sf-name{font-size:15px;font-weight:700;color:#fff;letter-spacing:2px}
-    .intro-brand .sf-en{font-size:9px;color:rgba(255,255,255,0.55);letter-spacing:3px}
-    .intro-brand .sf-brand-text{display:flex;flex-direction:column;align-items:flex-start;line-height:1.25}
 
     @media(max-width:768px){
       .nav-links{
@@ -359,31 +331,14 @@
       .hero h1{letter-spacing:1px}.hero-btns{flex-direction:column;align-items:center}
       .btn-primary,.btn-outline{width:100%;justify-content:center}
       .stats-strip{gap:22px}.stat-item{padding:0 20px}.stat-item .st-num{font-size:32px}.stat-item .st-num .st-unit{font-size:16px}.stat-item+.stat-item::before{display:none}
-      .intro-title{letter-spacing:4px}
-      .intro-orb{width:300px;height:300px;margin-top:-150px;margin-left:-150px}
     }
   </style>
 </head>
 <body class="intro-active">
   <div class="intro-overlay" id="introOverlay">
-    <div class="intro-orb"></div>
-    <div class="intro-orb-2"></div>
-    <div class="intro-particles" id="introParticles"></div>
-    <div class="intro-content">
-      <div class="intro-brand">
-        <div class="sf-brand-text" style="align-items:center">
-          <div class="sf-name">树帆教育</div>
-          <div class="sf-en">SHUFAN EDUCATION</div>
-        </div>
-      </div>
-      <div class="intro-icon-wrap">
-        <span class="intro-icon"><img src="一些icon/影视板.svg" alt=""></span>
-      </div>
-      <div class="intro-title">金牌AI视频剧</div>
-      <div class="intro-subtitle">零基础掌握AI视频创作</div>
-      <div class="intro-progress"><div class="intro-progress-bar"></div></div>
-      <div class="intro-hint">正在进入</div>
-    </div>
+    <video id="introVideo" src="intro.mp4" autoplay muted playsinline webkit-playsinline preload="auto"
+      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;">
+    </video>
   </div>
   <canvas id="particleCanvas"></canvas>
 
@@ -570,10 +525,11 @@
   </footer>
 
 <script>
-// Intro entrance animation
+// Intro video animation (同事版：全屏视频开场)
 (function(){
   var body=document.body;
   var ov=document.getElementById('introOverlay');
+  var video=document.getElementById('introVideo');
   if(sessionStorage.getItem('_intro_shown')){
     body.classList.remove('intro-active');
     body.classList.add('intro-done');
@@ -582,20 +538,24 @@
   }
   sessionStorage.setItem('_intro_shown','1');
   window.scrollTo(0,0);
-  var pc=document.getElementById('introParticles');
-  if(pc){for(var i=0;i<18;i++){var s=document.createElement('span');
-    s.style.left=Math.random()*100+'%';
-    s.style.width=s.style.height=(2+Math.random()*4)+'px';
-    s.style.animationDuration=(3+Math.random()*4)+'s';
-    s.style.animationDelay=(Math.random()*3)+'s';
-    s.style.background='rgba('+(Math.random()>0.5?'96,165,250':'167,139,250')+','+(0.3+Math.random()*0.4)+')';
-    pc.appendChild(s);}}
-  setTimeout(function(){
+  function finishIntro(){
+    if(body.classList.contains('intro-done'))return;
     if(ov)ov.classList.add('intro-done');
     body.classList.remove('intro-active');
     body.classList.add('intro-done');
     setTimeout(function(){if(ov)ov.style.display='none'},900);
-  },3000);
+  }
+  if(video){
+    video.addEventListener('ended',finishIntro);
+    video.addEventListener('error',finishIntro);
+    // 兜底：视频未在 8s 内播放完成则跳过开场（兼顾手机弱网）
+    setTimeout(function(){finishIntro()},8000);
+    // 主动触发播放，提升手机端自动播放成功率
+    var pr=video.play();
+    if(pr&&pr.catch)pr.catch(function(){});
+  }else{
+    finishIntro();
+  }
 })();
 
 // Particle canvas
