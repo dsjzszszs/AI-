@@ -7,7 +7,8 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{-webkit-tap-highlight-color:transparent}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:linear-gradient(135deg,#dbeafe 0%,#ede9fe 35%,#fce4ec 70%,#e0f2fe 100%);background-attachment:fixed;color:#1a1a2e;min-height:100vh;overflow-x:hidden;line-height:1.6}a{color:inherit;text-decoration:none}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(59,130,246,0.2);border-radius:3px}@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 .top-bar{display:flex;align-items:center;gap:12px;padding:14px 24px;background:rgba(255,255,255,0.82);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(59,130,246,0.08);position:sticky;top:0;z-index:100}.top-bar .btn-back{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:rgba(59,130,246,0.06);color:#3b82f6;font-size:20px;font-weight:600;cursor:pointer;transition:all 0.25s;border:none;flex-shrink:0}.top-bar .btn-back:hover{background:rgba(59,130,246,0.12)}.top-bar .page-title{font-size:16px;font-weight:700;background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.screen-container{max-width:750px;margin:36px auto;padding:0 28px;animation:fadeInUp 0.6s ease;position:relative}
+.screen-container{max-width:750px;margin:36px auto;padding:0 28px;position:relative}
+.replay-list{display:flex;flex-direction:column;gap:28px}
 .screen-frame{position:relative;border-radius:10px;z-index:1;background:linear-gradient(180deg,#e8ecf1 0%,#e2e6ec 100%);border:1.5px solid #b0b8c4;box-shadow:0 0 0 3px #c8d0d8,0 4px 18px rgba(0,0,0,0.12);padding:28px 28px 38px;overflow:hidden}
 .screen-surface{position:relative;z-index:2;background:rgba(255,255,255,0.92);border-radius:6px;padding:40px 32px 44px;box-shadow:inset 0 0 40px rgba(59,130,246,0.04)}
 .screen-beam{position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:55%;height:120px;z-index:0;background:linear-gradient(to bottom,rgba(59,130,246,0.08),transparent);clip-path:polygon(25% 0%,75% 0%,100% 100%,0% 100%);pointer-events:none}
@@ -25,35 +26,25 @@
 <body>
 <div class="top-bar"><button class="btn-back" onclick="history.back()">&#8249;</button><span class="page-title" id="pageTitle">直播回放</span></div>
 <div class="screen-container">
-  <div class="screen-frame">
-    <div class="screen-beam"></div>
-    <div class="screen-surface">
-      <div class="screen-content">
-        <div class="wd-title" id="rpTitle">第一节</div>
-        <p class="wd-sub" id="rpSub"></p>
-        <div class="replay-video-wrap">
-          <video id="rpVideo" controls preload="metadata" playsinline></video>
-        </div>
-        <p class="replay-tip">建议在 Wi-Fi 环境下观看</p>
-      </div>
-    </div>
-  </div>
+  <div class="replay-list" id="replayList"></div>
 </div>
 <script>
 var REPLAY_DATA={
-1:{weekNum:'一',title:'第一节',sub:'第一周 · 直播回放',video:'https://pub-22a3693e66df453596742a5598f7513c.r2.dev/replays/week1-lesson1.mp4'}
+1:{weekNum:'一',lessons:[
+ {title:'第一节',sub:'第一周 · 直播回放',video:'https://pub-22a3693e66df453596742a5598f7513c.r2.dev/replays/week1-lesson1.mp4'},
+ {title:'第二节',sub:'第一周 · 直播回放',video:'https://pub-22a3693e66df453596742a5598f7513c.r2.dev/replays/week1-lesson2.mp4'},
+ {title:'第三节',sub:'第一周 · 直播回放',video:'https://pub-22a3693e66df453596742a5598f7513c.r2.dev/replays/week1-lesson3.mp4'},
+ {title:'第四节',sub:'第一周 · 直播回放',video:'https://pub-22a3693e66df453596742a5598f7513c.r2.dev/replays/week1-lesson4.mp4'}
+]}
 };
 function getParam(n){var m=location.search.match(new RegExp('[?&]'+n+'=([^&]*)'));return m?decodeURIComponent(m[1]):null}
 (function(){
-var w=parseInt(getParam('w'))||1,d=REPLAY_DATA[w];
-if(d){
+var w=parseInt(getParam('w'))||1,d=REPLAY_DATA[w],el=document.getElementById('replayList');
+if(d&&d.lessons&&d.lessons.length){
 document.getElementById('pageTitle').textContent='第'+d.weekNum+'周 · 直播回放';
-document.getElementById('rpTitle').textContent=d.title;
-document.getElementById('rpSub').textContent=d.sub;
-document.getElementById('rpVideo').src=d.video;
+el.innerHTML=d.lessons.map(function(L,i){return '<div class="screen-frame" style="animation:fadeInUp 0.6s ease '+(i*0.08)+'s both"><div class="screen-beam"></div><div class="screen-surface"><div class="screen-content"><div class="wd-title">'+L.title+'</div><p class="wd-sub">'+L.sub+'</p><div class="replay-video-wrap"><video controls preload="metadata" playsinline src="'+L.video+'"></video></div><p class="replay-tip">建议在 Wi-Fi 环境下观看</p></div></div></div>'}).join('')
 }else{
-document.getElementById('rpTitle').textContent='暂无回放';
-document.getElementById('rpSub').textContent='该周直播回放尚未上传';
+el.innerHTML='<div class="screen-frame"><div class="screen-beam"></div><div class="screen-surface"><div class="screen-content"><div class="wd-title">暂无回放</div><p class="wd-sub">该周直播回放尚未上传</p></div></div></div>'
 }
 })();
 </script>
