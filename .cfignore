@@ -1,0 +1,3 @@
+# Cloudflare Pages ignore rules
+# Videos are hosted on R2; exclude from Pages deployment
+cases-videos/
