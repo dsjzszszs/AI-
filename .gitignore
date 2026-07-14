@@ -9,8 +9,8 @@ FDE复盘分析.html
 __MACOSX/
 学员好评宣传/
 
-# Exclude student case videos (served via CloudStudio deploy, not GitHub)
-cases-videos/
+# Student case videos are now tracked in GitHub for permanent backup
+# cases-videos/
 
 # Git files
 .git/
