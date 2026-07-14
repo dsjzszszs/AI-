@@ -546,13 +546,19 @@
     setTimeout(function(){if(ov)ov.style.display='none'},900);
   }
   if(video){
+    var started=false;
     video.addEventListener('ended',finishIntro);
     video.addEventListener('error',finishIntro);
-    // 兜底：视频未在 8s 内播放完成则跳过开场（兼顾手机弱网）
-    setTimeout(function(){finishIntro()},8000);
+    video.addEventListener('playing',function(){started=true;});
+    // 兜底：仅当视频始终未能开始播放时才跳过（不再盲藏，避免手机弱网被误杀）
+    setTimeout(function(){ if(!started) finishIntro(); },8000);
     // 主动触发播放，提升手机端自动播放成功率
-    var pr=video.play();
-    if(pr&&pr.catch)pr.catch(function(){});
+    function tryPlay(){ var p=video.play(); if(p&&p.catch)p.catch(function(){}); }
+    tryPlay();
+    // 最严格手机浏览器：用户首次点击/触摸即尝试播放
+    ['touchstart','click'].forEach(function(ev){
+      document.addEventListener(ev,function(){ if(video.paused) tryPlay(); },{once:true});
+    });
   }else{
     finishIntro();
   }
