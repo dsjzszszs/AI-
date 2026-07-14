@@ -547,19 +547,24 @@
   }
   if(video){
     var started=false;
+    // 关键：iOS Safari 必须在 JS 中显式置 muted，否则 muted 自动播放会被拦截（表现为必须点一下才播）
+    video.muted=true; video.defaultMuted=true;
     video.addEventListener('ended',finishIntro);
     video.addEventListener('error',finishIntro);
     video.addEventListener('stalled',finishIntro);
     video.addEventListener('playing',function(){started=true;});
-    // 兜底：视频始终未播放则快速跳过（视频已极致压缩，正常应1-2s内播起）
-    setTimeout(function(){ if(!started) finishIntro(); },3500);
-    // 主动触发播放，提升手机端自动播放成功率
     function tryPlay(){ var p=video.play(); if(p&&p.catch)p.catch(function(){}); }
+    // 多处触发自动播放：元数据就绪/可播/首帧就绪都尝试，确保手机端免点击自动播放
+    video.addEventListener('loadedmetadata',tryPlay);
+    video.addEventListener('canplay',tryPlay);
+    video.addEventListener('loadeddata',tryPlay);
     tryPlay();
-    // 最严格手机浏览器：用户首次点击/触摸即尝试播放
+    // 极端兜底：用户首次交互才尝试（正常不应需要）
     ['touchstart','click'].forEach(function(ev){
       document.addEventListener(ev,function(){ if(video.paused) tryPlay(); },{once:true});
     });
+    // 兜底：仅当始终未播放才跳过（海报已占位，不会黑屏）；放宽到6s给弱网自动播放更多时间
+    setTimeout(function(){ if(!started) finishIntro(); },6000);
   }else{
     finishIntro();
   }
