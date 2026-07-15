@@ -38,7 +38,7 @@
     }
     .nav-bar.scrolled{box-shadow:0 8px 40px rgba(59,130,246,0.1),0 2px 8px rgba(0,0,0,0.04)}
     .nav-brand{font-size:18px;font-weight:800;letter-spacing:1.5px;background:linear-gradient(135deg,#2563eb,#06b6d4,#8b5cf6);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientShift 4s ease infinite;white-space:nowrap;display:flex;align-items:center;gap:8px}
-    .nav-brand::before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#06b6d4);flex-shrink:0}
+    
     .nav-links{display:flex;gap:4px;align-items:center}
     .nav-links a{display:inline-block;padding:9px 16px;border-radius:14px;font-size:13.5px;font-weight:600;color:#64748b;transition:all 0.3s;position:relative}
     .nav-links a:hover{color:#2563eb;background:rgba(59,130,246,0.05)}
@@ -143,7 +143,7 @@
 
     /* Feature Accordion */
     .feature-accordion{
-      display:flex;gap:14px;height:320px;max-width:860px;margin:0 auto;
+      display:flex;gap:14px;height:340px;max-width:860px;margin:0 auto;
       justify-content:center;
     }
     .f-card{
@@ -154,57 +154,54 @@
       transition:width 0.55s cubic-bezier(0.22,0.61,0.36,1),background 0.5s ease,border-color 0.5s ease,box-shadow 0.5s ease;
       display:flex;flex-direction:column;align-items:center;justify-content:center;
     }
-    .f-card .f-bg{
-      position:absolute;inset:0;border-radius:20px;opacity:0;transition:opacity 0.5s ease;
-      background:linear-gradient(135deg,rgba(59,130,246,0.12),rgba(147,51,234,0.08));
+    .f-card .f-img{
+      display:none;width:100%;height:180px;background-size:contain;
+      background-position:center;background-repeat:no-repeat;
+      flex-shrink:0;transition:all 0.5s ease;
     }
-    .f-card.active .f-bg{opacity:1}
-    .f-card .f-icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;transition:all 0.5s ease;flex-shrink:0}
-    .f-card .f-icon img{width:30px;height:30px;transition:all 0.5s ease}
+    .f-card .f-text{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;width:100%;transition:all 0.5s ease}
     .f-card .f-title{
       font-size:15px;font-weight:700;color:#64748b;letter-spacing:2px;
       white-space:nowrap;transition:all 0.5s ease;
       writing-mode:vertical-rl;text-orientation:mixed;
     }
     .f-card .f-desc{
-      position:absolute;bottom:32px;left:0;right:0;text-align:center;
-      font-size:14px;color:#64748b;line-height:1.7;padding:0 20px;
-      opacity:0;visibility:hidden;transform:translateY(8px);
-      transition:opacity 0.15s ease 0s,visibility 0s 0.15s,transform 0.15s ease 0s;
-    }
-    .f-card .f-number{
-      position:absolute;top:24px;left:50%;transform:translateX(-50%);
-      font-size:12px;font-weight:700;letter-spacing:3px;color:#3b82f6;
-      opacity:0;visibility:hidden;
-      transition:opacity 0.15s ease 0s,visibility 0s 0.15s;
+      font-size:13px;color:#64748b;line-height:1.7;text-align:center;
+      opacity:0;visibility:hidden;max-height:0;overflow:hidden;
+      transition:opacity 0.35s ease,visibility 0s 0.35s,max-height 0.35s ease;
     }
     /* Active state */
     .f-card.active{
-      width:320px;flex-shrink:0;cursor:default;
+      width:320px;flex-shrink:0;cursor:default;justify-content:flex-start;
       background:rgba(255,255,255,0.6);
       border-color:rgba(59,130,246,0.15);
       box-shadow:0 8px 32px rgba(59,130,246,0.08);
     }
-    .f-card.active .f-icon{margin-top:48px;margin-bottom:10px}
-    .f-card.active .f-icon img{width:40px;height:40px}
-    .f-card.active .f-title{
-      writing-mode:horizontal-tb;font-size:22px;color:#1e293b;letter-spacing:0;
+    .f-card.active .f-img{display:block;height:220px}
+    .f-card.active .f-text{
+      background:rgba(255,255,255,0.85);backdrop-filter:blur(8px);
+      padding:18px 22px 22px;border-radius:0 0 20px 20px;gap:6px;
+      flex:1;justify-content:flex-start;
     }
-    .f-card.active .f-desc{opacity:1;visibility:visible;transform:translateY(0);transition:opacity 0.35s ease 0.4s,visibility 0s 0.4s,transform 0.35s ease 0.4s}
-    .f-card.active .f-number{opacity:0.5;visibility:visible;transition:opacity 0.3s ease 0.4s,visibility 0s 0.4s}
+    .f-card.active .f-title{
+      writing-mode:horizontal-tb;font-size:19px;color:#1e293b;letter-spacing:0;
+    }
+    .f-card.active .f-desc{
+      opacity:1;visibility:visible;max-height:60px;margin-top:4px;
+    }
 
     @media(max-width:768px){
       .feature-accordion{flex-direction:column;height:auto;gap:10px;max-width:100%}
       .f-card{width:100%!important;flex:0 0 auto!important;height:58px;flex-direction:row;justify-content:flex-start;padding:0 20px;align-items:center;border-radius:16px}
-      .f-card .f-title{writing-mode:horizontal-tb;font-size:14px;letter-spacing:1px;margin-left:12px}
-      .f-card .f-icon{margin-bottom:0;margin-top:0!important;width:30px;height:30px}
-      .f-card .f-icon img{width:24px;height:24px}
-      .f-card .f-desc{position:relative;bottom:auto;opacity:0;visibility:hidden;max-height:0;transform:none;font-size:13px;padding:0;text-align:left;margin-left:12px;transition:opacity 0.3s ease,max-height 0.3s ease,visibility 0.3s ease}
-      .f-card .f-number{display:none}
-      .f-card .f-bg{border-radius:16px}
-      .f-card.active{width:100%!important;flex:0 0 auto!important;height:auto;padding:20px 20px 16px;flex-direction:column;align-items:flex-start}
-      .f-card.active .f-title{margin-left:0;font-size:18px}
-      .f-card.active .f-desc{opacity:1;visibility:visible;max-height:60px;margin-top:8px;margin-left:0}
+      .f-card .f-img{display:none}
+      .f-card .f-text{flex-direction:row;align-items:center;justify-content:flex-start}
+      .f-card .f-title{writing-mode:horizontal-tb;font-size:14px;letter-spacing:1px}
+      .f-card .f-desc{max-height:0}
+      .f-card.active{width:100%!important;flex:0 0 auto!important;height:auto;padding:0;flex-direction:column;align-items:stretch}
+      .f-card.active .f-img{display:block;height:140px;border-radius:16px 16px 0 0}
+      .f-card.active .f-text{background:rgba(255,255,255,0.85);padding:16px 20px;border-radius:0 0 16px 16px;flex-direction:column;align-items:flex-start;gap:4px}
+      .f-card.active .f-title{font-size:17px}
+      .f-card.active .f-desc{max-height:60px}
     }
 
     /* Timeline - Snaking */
@@ -336,14 +333,15 @@
 </head>
 <body class="intro-active">
   <div class="intro-overlay" id="introOverlay">
-    <video id="introVideo" src="intro.mp4" poster="intro-poster.jpg" autoplay muted playsinline webkit-playsinline preload="auto"
-      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;">
-    </video>
+    <picture style="position:absolute;inset:0;width:100%;height:100%;z-index:1;">
+      <source media="(max-width: 768px)" srcset="800_竖.gif">
+      <img src="800.gif" alt="开场动画" style="width:100%;height:100%;object-fit:cover;">
+    </picture>
   </div>
   <canvas id="particleCanvas"></canvas>
 
   <nav class="nav-bar" id="navBar">
-    <a href="index.html" class="nav-brand">金牌AI视频剧</a>
+    <a href="index.html" class="nav-brand">源码世界 · 金牌AI视频剧</a>
     <div class="nav-links" id="navLinks">
       <a href="index.html" class="active">课程介绍</a><a href="teacher.html">主讲老师</a>
       <a href="course.html">课程内容</a><a href="cases.html">学员案例</a>
@@ -377,46 +375,46 @@
     <p class="section-desc">AI正在重塑视频创作的方式。与其被动观望，不如主动掌握。</p>
     <div class="feature-accordion" id="featureAccordion">
       <div class="f-card active" data-index="0">
-        <div class="f-bg"></div>
-        <div class="f-number">01</div>
-        <div class="f-icon"><img src="一些icon/靶子.svg" alt=""></div>
-        <div class="f-title">系统化路径</div>
-        <div class="f-desc">从概念到实战，八周循序渐进，构建完整知识体系</div>
+        <div class="f-img" style="background-image:url('SVG/01-系统化路径.svg')"></div>
+        <div class="f-text">
+          <div class="f-title">系统化路径</div>
+          <div class="f-desc">从概念到实战，八周循序渐进，构建完整知识体系</div>
+        </div>
       </div>
       <div class="f-card" data-index="1">
-        <div class="f-bg"></div>
-        <div class="f-number">02</div>
-        <div class="f-icon"><img src="一些icon/订书机.svg" alt=""></div>
-        <div class="f-title">工具全覆盖</div>
-        <div class="f-desc">AI绘画、视频生成、语音合成，主流工具一网打尽</div>
+        <div class="f-img" style="background-image:url('SVG/02-工具全覆盖.svg')"></div>
+        <div class="f-text">
+          <div class="f-title">工具全覆盖</div>
+          <div class="f-desc">AI绘画、视频生成、语音合成，主流工具一网打尽</div>
+        </div>
       </div>
       <div class="f-card" data-index="2">
-        <div class="f-bg"></div>
-        <div class="f-number">03</div>
-        <div class="f-icon"><img src="一些icon/影视板.svg" alt=""></div>
-        <div class="f-title">实战出作品</div>
-        <div class="f-desc">课程结束拥有一部完整AI短片作品，学完即交付</div>
+        <div class="f-img" style="background-image:url('SVG/03-实战出作品.svg')"></div>
+        <div class="f-text">
+          <div class="f-title">实战出作品</div>
+          <div class="f-desc">课程结束拥有一部完整AI短片作品，学完即交付</div>
+        </div>
       </div>
       <div class="f-card" data-index="3">
-        <div class="f-bg"></div>
-        <div class="f-number">04</div>
-        <div class="f-icon"><img src="一些icon/举手.svg" alt=""></div>
-        <div class="f-title">专业指导</div>
-        <div class="f-desc">老师全程带练，一对一作业点评，学习群随时答疑</div>
+        <div class="f-img" style="background-image:url('SVG/04-专业指导.svg')"></div>
+        <div class="f-text">
+          <div class="f-title">专业指导</div>
+          <div class="f-desc">老师全程带练，一对一作业点评，学习群随时答疑</div>
+        </div>
       </div>
       <div class="f-card" data-index="4">
-        <div class="f-bg"></div>
-        <div class="f-number">05</div>
-        <div class="f-icon"><img src="一些icon/设备.svg" alt=""></div>
-        <div class="f-title">随时随地学</div>
-        <div class="f-desc">课件视频全在线，手机电脑都能看，进度自由掌控</div>
+        <div class="f-img" style="background-image:url('SVG/05-随时随地学.svg')"></div>
+        <div class="f-text">
+          <div class="f-title">随时随地学</div>
+          <div class="f-desc">课件视频全在线，手机电脑都能看，进度自由掌控</div>
+        </div>
       </div>
       <div class="f-card" data-index="5">
-        <div class="f-bg"></div>
-        <div class="f-number">06</div>
-        <div class="f-icon"><img src="一些icon/趋势.svg" alt=""></div>
-        <div class="f-title">紧跟趋势</div>
-        <div class="f-desc">课程持续更新，始终站在AI视频创作的最前沿</div>
+        <div class="f-img" style="background-image:url('SVG/06-紧跟趋势.svg')"></div>
+        <div class="f-text">
+          <div class="f-title">紧跟趋势</div>
+          <div class="f-desc">课程持续更新，始终站在AI视频创作的最前沿</div>
+        </div>
       </div>
     </div>
   </section>
@@ -525,11 +523,10 @@
   </footer>
 
 <script>
-// Intro video animation (同事版：全屏视频开场)
+// Intro GIF animation
 (function(){
   var body=document.body;
   var ov=document.getElementById('introOverlay');
-  var video=document.getElementById('introVideo');
   if(sessionStorage.getItem('_intro_shown')){
     body.classList.remove('intro-active');
     body.classList.add('intro-done');
@@ -545,29 +542,8 @@
     body.classList.add('intro-done');
     setTimeout(function(){if(ov)ov.style.display='none'},900);
   }
-  if(video){
-    var started=false;
-    // 关键：iOS Safari 必须在 JS 中显式置 muted，否则 muted 自动播放会被拦截（表现为必须点一下才播）
-    video.muted=true; video.defaultMuted=true;
-    video.addEventListener('ended',finishIntro);
-    video.addEventListener('error',finishIntro);
-    video.addEventListener('stalled',finishIntro);
-    video.addEventListener('playing',function(){started=true;});
-    function tryPlay(){ var p=video.play(); if(p&&p.catch)p.catch(function(){}); }
-    // 多处触发自动播放：元数据就绪/可播/首帧就绪都尝试，确保手机端免点击自动播放
-    video.addEventListener('loadedmetadata',tryPlay);
-    video.addEventListener('canplay',tryPlay);
-    video.addEventListener('loadeddata',tryPlay);
-    tryPlay();
-    // 极端兜底：用户首次交互才尝试（正常不应需要）
-    ['touchstart','click'].forEach(function(ev){
-      document.addEventListener(ev,function(){ if(video.paused) tryPlay(); },{once:true});
-    });
-    // 兜底：仅当始终未播放才跳过（海报已占位，不会黑屏）；放宽到6s给弱网自动播放更多时间
-    setTimeout(function(){ if(!started) finishIntro(); },6000);
-  }else{
-    finishIntro();
-  }
+  // GIF plays once (3.3s loop), auto finish
+  setTimeout(function(){finishIntro()},3300);
 })();
 
 // Particle canvas

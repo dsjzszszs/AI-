@@ -1,0 +1,184 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="playerBigFrame" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a5b4fc"/><stop offset="50%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="playerBigScreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b"/><stop offset="100%" stop-color="#3730a3"/>
+    </linearGradient>
+    <linearGradient id="clapperBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c4b5fd"/><stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="clapperBar" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b"/><stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+    <linearGradient id="trophyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/><stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="trophyBase" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+    <linearGradient id="baseGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#818cf8" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#818cf8" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#818cf8" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="bigGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dx="0" dy="10"/>
+      <feFlood flood-color="#6366f1" flood-opacity="0.18"/>
+      <feComposite in2="SourceAlpha" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="pGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="250" cy="445" rx="190" ry="18" fill="url(#baseGlow)"/>
+
+  <!-- celebration particles -->
+  <g filter="url(#pGlow)">
+    <circle cx="60" cy="80" r="2.5" fill="#fbbf24" opacity="0.6"/>
+    <circle cx="440" cy="70" r="2" fill="#c084fc" opacity="0.5"/>
+    <circle cx="470" cy="300" r="3" fill="#a855f7" opacity="0.4"/>
+    <circle cx="30" cy="300" r="2" fill="#f59e0b" opacity="0.5"/>
+    <circle cx="420" cy="50" r="2" fill="#818cf8" opacity="0.5"/>
+    <circle cx="80" cy="400" r="1.5" fill="#fbbf24" opacity="0.4"/>
+    <circle cx="430" cy="380" r="2.5" fill="#c084fc" opacity="0.4"/>
+    <circle cx="50" cy="200" r="1.5" fill="#a78bfa" opacity="0.4"/>
+    <!-- confetti pieces -->
+    <rect x="55" y="120" width="6" height="3" rx="1" fill="#fbbf24" opacity="0.5" transform="rotate(30,58,121)"/>
+    <rect x="430" y="110" width="5" height="3" rx="1" fill="#c084fc" opacity="0.5" transform="rotate(-20,432,111)"/>
+    <rect x="40" y="180" width="5" height="3" rx="1" fill="#a855f7" opacity="0.4" transform="rotate(45,42,181)"/>
+    <rect x="450" y="200" width="6" height="3" rx="1" fill="#f59e0b" opacity="0.5" transform="rotate(-35,453,201)"/>
+    <rect x="80" y="140" width="4" height="3" rx="1" fill="#818cf8" opacity="0.5" transform="rotate(15,82,141)"/>
+    <rect x="420" y="160" width="4" height="3" rx="1" fill="#7c3aed" opacity="0.4" transform="rotate(-10,422,161)"/>
+  </g>
+
+  <!-- ===== BIG VIDEO PLAYER (top/center) ===== -->
+  <g filter="url(#softShadow)">
+    <!-- player frame -->
+    <rect x="100" y="85" width="300" height="210" rx="16" fill="url(#playerBigFrame)"/>
+    <!-- screen -->
+    <rect x="115" y="100" width="270" height="155" rx="8" fill="url(#playerBigScreen)"/>
+
+    <!-- "finished" video content on screen -->
+    <!-- cinematic bars -->
+    <rect x="115" y="100" width="270" height="12" fill="#4c1d95"/>
+    <rect x="115" y="243" width="270" height="12" fill="#4c1d95"/>
+
+    <!-- central scene: a character with sparkle effects -->
+    <g transform="translate(215, 155)">
+      <!-- background glow -->
+      <circle cx="35" cy="30" r="40" fill="#c084fc" opacity="0.1" filter="url(#glow)"/>
+
+      <!-- simplified character -->
+      <circle cx="35" cy="22" r="12" fill="none" stroke="#a5b4fc" stroke-width="2.5"/>
+      <!-- hair -->
+      <path d="M 23,18 Q 28,6 35,4 Q 42,6 47,18" fill="none" stroke="#c084fc" stroke-width="2.5"/>
+      <!-- eyes -->
+      <circle cx="31" cy="22" r="2.5" fill="#a5b4fc"/>
+      <circle cx="39" cy="22" r="2.5" fill="#a5b4fc"/>
+      <circle cx="32" cy="21" r="0.8" fill="#ffffff"/>
+      <circle cx="40" cy="21" r="0.8" fill="#ffffff"/>
+      <!-- smile -->
+      <path d="M 32,28 Q 35,32 38,28" fill="none" stroke="#a5b4fc" stroke-width="1.5"/>
+      <!-- body -->
+      <rect x="30" y="36" width="10" height="14" rx="3" fill="#7c3aed" opacity="0.4"/>
+
+      <!-- sparkle effects around character -->
+      <polygon points="15,10 18,14 15,18 12,14" fill="#fbbf24" opacity="0.7" filter="url(#glow)"/>
+      <polygon points="55,10 57,13 55,16 53,13" fill="#fbbf24" opacity="0.5" filter="url(#glow)"/>
+      <polygon points="5,30 7,33 5,36 3,33" fill="#f59e0b" opacity="0.5" filter="url(#glow)"/>
+      <polygon points="65,30 67,33 65,36 63,33" fill="#fbbf24" opacity="0.4" filter="url(#glow)"/>
+      <polygon points="48,8 50,11 48,14 46,11" fill="#f59e0b" opacity="0.4"/>
+      <polygon points="22,8 24,11 22,14 20,11" fill="#fbbf24" opacity="0.4"/>
+    </g>
+
+    <!-- end screen circle -->
+    <circle cx="250" cy="230" r="30" fill="#312e81" opacity="0.5" filter="url(#glow)"/>
+    <polygon points="240,215 240,245 262,230" fill="#c084fc" opacity="0.4"/>
+    <path d="M 262,230 L 270,225 L 270,235 Z" fill="#c084fc" opacity="0.3"/>
+
+    <!-- progress bar (nearly full) -->
+    <rect x="135" y="265" width="230" height="4" rx="2" fill="#312e81"/>
+    <rect x="135" y="265" width="215" height="4" rx="2" fill="url(#trophyGrad)"/>
+
+    <!-- controls -->
+    <rect x="150" y="280" width="14" height="4" rx="2" fill="#4c1d95"/>
+    <rect x="170" y="280" width="12" height="4" rx="2" fill="#4c1d95"/>
+    <rect x="188" y="280" width="16" height="4" rx="2" fill="#4c1d95"/>
+  </g>
+
+  <!-- ===== CLAPPERBOARD (below-left) ===== -->
+  <g filter="url(#softShadow)" transform="translate(120, 330)">
+    <!-- board body -->
+    <rect x="0" y="10" width="80" height="55" rx="4" fill="url(#clapperBody)"/>
+    <!-- clapper lines on board -->
+    <g stroke="#6d28d9" stroke-width="0.8" opacity="0.3">
+      <line x1="0" y1="25" x2="80" y2="25"/>
+      <line x1="0" y1="40" x2="80" y2="40"/>
+    </g>
+    <!-- diagonal stripe pattern -->
+    <g stroke="#6d28d9" stroke-width="0.5" opacity="0.15">
+      <line x1="0" y1="15" x2="15" y2="65"/>
+      <line x1="15" y1="10" x2="30" y2="65"/>
+      <line x1="30" y1="10" x2="45" y2="65"/>
+      <line x1="45" y1="10" x2="60" y2="65"/>
+      <line x1="60" y1="10" x2="80" y2="55"/>
+    </g>
+    <!-- clapper bar (top) -->
+    <rect x="-5" y="0" width="90" height="12" rx="3" fill="url(#clapperBar)"/>
+    <!-- bar stripes -->
+    <rect x="-5" y="2" width="90" height="3" rx="1.5" fill="#4c1d95"/>
+    <rect x="-5" y="7" width="90" height="3" rx="1.5" fill="#4c1d95"/>
+    <!-- hinge circle -->
+    <circle cx="75" cy="6" r="5" fill="#6d28d9"/>
+  </g>
+
+  <!-- ===== TROPHY (below-right) ===== -->
+  <g filter="url(#softShadow)" transform="translate(330, 330)">
+    <!-- trophy glow -->
+    <ellipse cx="25" cy="60" rx="35" ry="8" fill="#fbbf24" opacity="0.15" filter="url(#glow)"/>
+    <!-- trophy base bottom -->
+    <rect x="10" y="55" width="30" height="6" rx="2" fill="url(#trophyBase)"/>
+    <!-- trophy base mid -->
+    <rect x="15" y="47" width="20" height="8" rx="2" fill="url(#trophyBase)"/>
+    <!-- trophy stem -->
+    <rect x="22" y="32" width="6" height="15" rx="2" fill="#7c3aed"/>
+    <!-- trophy cup body -->
+    <path d="M 10,32 Q 10,18 25,18 Q 40,18 40,32 L 38,35 L 12,35 Z" fill="url(#trophyGrad)"/>
+    <!-- cup highlight -->
+    <path d="M 15,30 Q 15,22 25,21" fill="none" stroke="#fde68a" stroke-width="2" opacity="0.4"/>
+    <!-- cup handles -->
+    <path d="M 10,24 Q 0,26 5,32" fill="none" stroke="url(#trophyGrad)" stroke-width="4" stroke-linecap="round"/>
+    <path d="M 40,24 Q 50,26 45,32" fill="none" stroke="url(#trophyGrad)" stroke-width="4" stroke-linecap="round"/>
+    <!-- star on cup -->
+    <polygon points="25,24 27,28 31,29 28,32 29,36 25,34 21,36 22,32 19,29 23,28" fill="#fef3c7" filter="url(#glow)"/>
+  </g>
+
+  <!-- trophy stars/sparkles -->
+  <g filter="url(#pGlow)">
+    <polygon points="330,310 332,314 330,318 328,314" fill="#fbbf24" opacity="0.6"/>
+    <polygon points="365,305 367,308 365,311 363,308" fill="#fde68a" opacity="0.5"/>
+    <polygon points="380,340 382,343 380,346 378,343" fill="#fbbf24" opacity="0.4"/>
+    <polygon points="310,350 312,353 310,356 308,353" fill="#fde68a" opacity="0.35"/>
+  </g>
+
+  <!-- connector between elements -->
+  <g opacity="0.2" stroke="#a78bfa" stroke-width="1.5" fill="none" stroke-dasharray="3,4">
+    <path d="M 200,340 L 250,340"/>
+    <path d="M 300,340 L 350,340"/>
+  </g>
+</svg>

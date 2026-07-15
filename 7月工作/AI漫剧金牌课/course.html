@@ -45,7 +45,7 @@
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;
       animation:gradientShift 4s ease infinite;white-space:nowrap;
     }
-    .nav-brand::before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#06b6d4);flex-shrink:0;margin-right:0}
+    
     .nav-links{display:flex;gap:8px;align-items:center}
     .nav-links a{
       display:inline-block;padding:10px 18px;border-radius:12px;
@@ -217,6 +217,10 @@
     .tl-status.go{color:#06b6d4;border-color:rgba(6,182,212,0.3);background:rgba(6,182,212,0.04)}
     .tl-status.wait{color:#94a3b8;border-color:rgba(148,163,184,0.2);background:rgba(148,163,184,0.03)}
 
+    /* SVG icon on right side of each card */
+    .tl-svg{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:160px;height:160px;pointer-events:none;opacity:1;transition:transform 0.3s}
+    .tl-card.glowing .tl-svg{transform:translateY(-50%) scale(1.08)}
+
     /* Hover: status glow */
     .tl-card.glowing .tl-status.go{
       border-color:rgba(6,182,212,0.6);box-shadow:0 0 12px rgba(6,182,212,0.2);
@@ -268,7 +272,7 @@
   <canvas id="bgCanvas"></canvas>
 
   <nav class="nav-bar" id="navBar">
-    <a href="index.html" class="nav-brand">金牌AI视频剧</a>
+    <a href="index.html" class="nav-brand">源码世界 · 金牌AI视频剧</a>
     <div class="nav-links" id="navLinks">
       <a href="index.html">课程介绍</a><a href="teacher.html">主讲老师</a>
       <a href="course.html" class="active">课程内容</a><a href="cases.html">学员案例</a>
@@ -285,14 +289,14 @@
 
     <div class="film-strip" id="nodesGrid">
       <div class="film-grain"></div>
-      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=1" data-wk="1"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 01</div><div class="tl-title">第一周</div><div class="tl-topic">AI视频基础概念与前期准备</div><div class="tl-status go">已解锁</div></a></div>
-      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=2" data-wk="2"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 02</div><div class="tl-title">第二周</div><div class="tl-topic">剧本创作与分镜设计</div><div class="tl-status go">已解锁</div></a></div>
-      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=3" data-wk="3"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 03</div><div class="tl-title">第三周</div><div class="tl-topic">AI绘画与视觉生成</div><div class="tl-status go">已解锁</div></a></div>
-      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=4" data-wk="4"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 04</div><div class="tl-title">第四周</div><div class="tl-topic">动态视频生成技术</div><div class="tl-status go">已解锁</div></a></div>
-      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=5" data-wk="5"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 05</div><div class="tl-title">第五周</div><div class="tl-topic">配音配乐与音效制作</div><div class="tl-status go">已解锁</div></a></div>
-      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=6" data-wk="6"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 06</div><div class="tl-title">第六周</div><div class="tl-topic">剪辑合成与后期特效</div><div class="tl-status go">已解锁</div></a></div>
-      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=7" data-wk="7"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 07</div><div class="tl-title">第七周</div><div class="tl-topic">综合实战项目（上）</div><div class="tl-status go">已解锁</div></a></div>
-      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=8" data-wk="8"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 08</div><div class="tl-title">第八周</div><div class="tl-topic">综合实战项目（下）</div><div class="tl-status go">已解锁</div></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=1" data-wk="1"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 01</div><div class="tl-title">第一周</div><div class="tl-topic">AI视频基础概念与前期准备</div><div class="tl-status go">已解锁</div><img class="tl-svg" src="SVG/W1-AI视频基础概念与前期准备.svg" alt=""></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=2" data-wk="2"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 02</div><div class="tl-title">第二周</div><div class="tl-topic">剧本创作与分镜设计</div><div class="tl-status go">已解锁</div><img class="tl-svg" src="SVG/W2-剧本创作与分镜设计.svg" alt=""></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=3" data-wk="3"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 03</div><div class="tl-title">第三周</div><div class="tl-topic">AI绘画与视觉生成</div><div class="tl-status go">已解锁</div><img class="tl-svg" src="SVG/W3-AI绘画与视觉生成.svg" alt=""></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=4" data-wk="4"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 04</div><div class="tl-title">第四周</div><div class="tl-topic">动态视频生成技术</div><div class="tl-status go">已解锁</div><img class="tl-svg" src="SVG/W4-动态视频生成技术.svg" alt=""></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=5" data-wk="5"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 05</div><div class="tl-title">第五周</div><div class="tl-topic">配音配乐与音效制作</div><div class="tl-status go">已解锁</div><img class="tl-svg" src="SVG/W5-配音配乐与音效制作.svg" alt=""></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=6" data-wk="6"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 06</div><div class="tl-title">第六周</div><div class="tl-topic">剪辑合成与后期特效</div><div class="tl-status go">已解锁</div><img class="tl-svg" src="SVG/W6-剪辑合成与后期特效.svg" alt=""></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=7" data-wk="7"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 07</div><div class="tl-title">第七周</div><div class="tl-topic">综合实战项目（上）</div><div class="tl-status go">已解锁</div><img class="tl-svg" src="SVG/W7-综合实战项目上.svg" alt=""></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=8" data-wk="8"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 08</div><div class="tl-title">第八周</div><div class="tl-topic">综合实战项目（下）</div><div class="tl-status go">已解锁</div><img class="tl-svg" src="SVG/W8-综合实战项目下.svg" alt=""></a></div>
     </div>
   </div>
 

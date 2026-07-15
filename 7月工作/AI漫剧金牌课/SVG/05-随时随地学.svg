@@ -1,0 +1,152 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="laptopFrame" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a5b4fc"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="laptopScreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+    <linearGradient id="laptopBase" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#4c1d95"/>
+    </linearGradient>
+    <linearGradient id="phoneFrame" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a5b4fc"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="phoneScreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+    <linearGradient id="cloudGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="baseGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#818cf8" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#818cf8" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#818cf8" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dx="0" dy="10"/>
+      <feFlood flood-color="#6366f1" flood-opacity="0.2"/>
+      <feComposite in2="SourceAlpha" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="particleGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+
+
+  <!-- ground glow -->
+  <ellipse cx="250" cy="440" rx="190" ry="18" fill="url(#baseGlow)"/>
+
+  <!-- particles -->
+  <g filter="url(#particleGlow)">
+    <circle cx="60" cy="100" r="2.5" fill="#a855f7" opacity="0.4"/>
+    <circle cx="440" cy="120" r="2" fill="#818cf8" opacity="0.45"/>
+    <circle cx="455" cy="370" r="3" fill="#7c3aed" opacity="0.3"/>
+    <circle cx="45" cy="340" r="2" fill="#6366f1" opacity="0.4"/>
+    <circle cx="380" cy="60" r="1.5" fill="#c084fc" opacity="0.5"/>
+    <circle cx="120" cy="50" r="2" fill="#818cf8" opacity="0.35"/>
+    <circle cx="430" cy="250" r="1.5" fill="#a78bfa" opacity="0.4"/>
+  </g>
+
+  <!-- sync connection lines -->
+  <g opacity="0.25" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="3,4" fill="none">
+    <path d="M 170,200 Q 200,160 250,145"/>
+    <path d="M 330,210 Q 300,170 250,145"/>
+  </g>
+
+  <!-- ===== CLOUD SYNC ICON ===== -->
+  <g filter="url(#softShadow)" transform="translate(250, 130)">
+    <!-- cloud shape -->
+    <g filter="url(#glow)">
+      <path d="M -30,5 Q -40,5 -40,-5 Q -40,-15 -30,-15 Q -28,-25 -15,-25 Q -5,-30 5,-25 Q 18,-28 25,-18 Q 38,-15 38,-5 Q 38,5 28,5 Z" fill="url(#cloudGrad)"/>
+    </g>
+    <!-- sync arrows inside cloud -->
+    <g transform="translate(-3, -7)">
+      <!-- top arrow (clockwise) -->
+      <path d="M -12,0 A 12,12 0 0 1 12,0" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+      <polygon points="12,0 16,-4 8,-4" fill="#ffffff"/>
+      <!-- bottom arrow (clockwise) -->
+      <path d="M 12,0 A 12,12 0 0 1 -12,0" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+      <polygon points="-12,0 -16,4 -8,4" fill="#ffffff" opacity="0.6"/>
+    </g>
+  </g>
+
+  <!-- ===== LAPTOP (right) ===== -->
+  <g filter="url(#softShadow)">
+    <!-- screen back -->
+    <rect x="220" y="200" width="180" height="120" rx="10" fill="url(#laptopFrame)"/>
+    <!-- screen -->
+    <rect x="228" y="208" width="164" height="104" rx="5" fill="url(#laptopScreen)"/>
+
+    <!-- course player UI on laptop -->
+    <rect x="236" y="216" width="70" height="44" rx="4" fill="#312e81"/>
+    <polygon points="262,228 262,248 278,238" fill="#a5b4fc" opacity="0.8"/>
+    <rect x="314" y="216" width="70" height="44" rx="4" fill="#312e81"/>
+    <rect x="322" y="224" width="40" height="4" rx="2" fill="#818cf8" opacity="0.5"/>
+    <rect x="322" y="232" width="30" height="4" rx="2" fill="#6366f1" opacity="0.4"/>
+    <rect x="322" y="240" width="35" height="4" rx="2" fill="#6366f1" opacity="0.3"/>
+    <!-- progress bar -->
+    <rect x="236" y="270" width="148" height="4" rx="2" fill="#312e81"/>
+    <rect x="236" y="270" width="60" height="4" rx="2" fill="url(#cloudGrad)"/>
+    <circle cx="296" cy="272" r="4" fill="#ffffff"/>
+    <!-- bottom controls -->
+    <rect x="236" y="285" width="20" height="3" rx="1.5" fill="#4c1d95"/>
+    <rect x="262" y="285" width="15" height="3" rx="1.5" fill="#4c1d95"/>
+    <rect x="283" y="285" width="25" height="3" rx="1.5" fill="#4c1d95"/>
+    <rect x="314" y="285" width="18" height="3" rx="1.5" fill="#4c1d95"/>
+    <rect x="338" y="285" width="22" height="3" rx="1.5" fill="#4c1d95"/>
+
+    <!-- laptop base -->
+    <path d="M 200,320 L 420,320 L 410,338 L 210,338 Z" fill="url(#laptopBase)"/>
+    <rect x="290" y="320" width="40" height="4" rx="2" fill="#4c1d95"/>
+  </g>
+
+  <!-- ===== PHONE (left) ===== -->
+  <g filter="url(#softShadow)">
+    <!-- phone frame -->
+    <rect x="85" y="180" width="100" height="180" rx="18" fill="url(#phoneFrame)"/>
+    <!-- phone screen -->
+    <rect x="92" y="192" width="86" height="156" rx="10" fill="url(#phoneScreen)"/>
+
+    <!-- notch -->
+    <rect x="120" y="186" width="30" height="5" rx="2.5" fill="#4c1d95"/>
+
+    <!-- course player UI on phone (same as laptop) -->
+    <rect x="100" y="202" width="70" height="44" rx="4" fill="#312e81"/>
+    <polygon points="126,214 126,234 142,224" fill="#a5b4fc" opacity="0.8"/>
+    <!-- progress bar -->
+    <rect x="100" y="256" width="70" height="4" rx="2" fill="#312e81"/>
+    <rect x="100" y="256" width="28" height="4" rx="2" fill="url(#cloudGrad)"/>
+    <circle cx="128" cy="258" r="4" fill="#ffffff"/>
+    <!-- list items -->
+    <rect x="100" y="270" width="50" height="3" rx="1.5" fill="#4c1d95"/>
+    <rect x="100" y="278" width="40" height="3" rx="1.5" fill="#4c1d95" opacity="0.7"/>
+    <rect x="100" y="286" width="45" height="3" rx="1.5" fill="#4c1d95" opacity="0.5"/>
+    <rect x="100" y="294" width="35" height="3" rx="1.5" fill="#4c1d95" opacity="0.4"/>
+    <!-- bottom tab -->
+    <rect x="100" y="312" width="70" height="3" rx="1.5" fill="#3730a3"/>
+    <circle cx="115" cy="328" r="4" fill="#818cf8" opacity="0.5"/>
+    <circle cx="135" cy="328" r="4" fill="#6366f1" opacity="0.3"/>
+    <circle cx="155" cy="328" r="4" fill="#6366f1" opacity="0.3"/>
+  </g>
+
+  <!-- sync sparkles -->
+  <g filter="url(#particleGlow)">
+    <circle cx="195" cy="180" r="2" fill="#c084fc" opacity="0.6"/>
+    <circle cx="310" cy="175" r="2.5" fill="#a855f7" opacity="0.5"/>
+    <circle cx="210" cy="160" r="1.5" fill="#8b5cf6" opacity="0.4"/>
+    <circle cx="290" cy="165" r="1.5" fill="#c084fc" opacity="0.5"/>
+  </g>
+</svg>

@@ -1,0 +1,151 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="playerFrame" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a5b4fc"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="playerScreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+    <linearGradient id="char2D" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="char3D" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="50%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+    <linearGradient id="char3DLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e9d5ff"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+    <linearGradient id="timelineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="progressGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c084fc"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="baseGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#818cf8" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#818cf8" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#818cf8" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dx="0" dy="10"/>
+      <feFlood flood-color="#6366f1" flood-opacity="0.2"/>
+      <feComposite in2="SourceAlpha" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="particleGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+
+
+  <!-- ground glow -->
+  <ellipse cx="250" cy="430" rx="170" ry="18" fill="url(#baseGlow)"/>
+
+  <!-- particles -->
+  <g filter="url(#particleGlow)">
+    <circle cx="65" cy="120" r="2.5" fill="#a855f7" opacity="0.4"/>
+    <circle cx="435" cy="100" r="3" fill="#818cf8" opacity="0.4"/>
+    <circle cx="450" cy="340" r="2" fill="#7c3aed" opacity="0.35"/>
+    <circle cx="50" cy="350" r="2.5" fill="#6366f1" opacity="0.4"/>
+    <circle cx="380" cy="60" r="1.5" fill="#c084fc" opacity="0.5"/>
+    <circle cx="120" cy="420" r="2" fill="#818cf8" opacity="0.35"/>
+    <circle cx="430" cy="200" r="1.5" fill="#a78bfa" opacity="0.4"/>
+  </g>
+
+  <!-- ===== VIDEO PLAYER ===== -->
+  <g filter="url(#softShadow)">
+    <!-- frame -->
+    <rect x="100" y="130" width="300" height="220" rx="18" fill="url(#playerFrame)"/>
+    <!-- screen -->
+    <rect x="110" y="140" width="280" height="170" rx="10" fill="url(#playerScreen)"/>
+
+    <!-- center divider (2D -> 3D transition) -->
+    <line x1="250" y1="150" x2="250" y2="300" stroke="#4c1d95" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.4"/>
+
+    <!-- LEFT: 2D flat character (line art) -->
+    <g opacity="0.9">
+      <!-- head -->
+      <circle cx="200" cy="190" r="16" fill="none" stroke="#a5b4fc" stroke-width="2"/>
+      <!-- body -->
+      <path d="M 200,206 L 200,250" fill="none" stroke="#a5b4fc" stroke-width="2"/>
+      <!-- arms -->
+      <path d="M 200,220 L 182,238" fill="none" stroke="#a5b4fc" stroke-width="2" stroke-linecap="round"/>
+      <path d="M 200,220 L 218,238" fill="none" stroke="#a5b4fc" stroke-width="2" stroke-linecap="round"/>
+      <!-- legs -->
+      <path d="M 200,250 L 188,275" fill="none" stroke="#a5b4fc" stroke-width="2" stroke-linecap="round"/>
+      <path d="M 200,250 L 212,275" fill="none" stroke="#a5b4fc" stroke-width="2" stroke-linecap="round"/>
+      <!-- eyes -->
+      <circle cx="195" cy="187" r="2" fill="#a5b4fc"/>
+      <circle cx="205" cy="187" r="2" fill="#a5b4fc"/>
+      <!-- label arrow -->
+      <text x="200" y="293" font-size="0" fill="none">2D</text>
+    </g>
+
+    <!-- arrow indicating transformation -->
+    <g transform="translate(250, 225)">
+      <path d="M -8,0 L 6,0 M 2,-4 L 6,0 L 2,4" fill="none" stroke="#c084fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+    </g>
+
+    <!-- RIGHT: 3D shaded character -->
+    <g filter="url(#glow)">
+      <!-- head (3D sphere effect) -->
+      <circle cx="300" cy="190" r="16" fill="url(#char3D)"/>
+      <ellipse cx="295" cy="185" rx="8" ry="6" fill="url(#char3DLight)" opacity="0.6"/>
+      <!-- eyes -->
+      <circle cx="296" cy="188" r="2.5" fill="#1e1b4b"/>
+      <circle cx="305" cy="188" r="2.5" fill="#1e1b4b"/>
+      <circle cx="297" cy="187" r="0.8" fill="#ffffff"/>
+      <circle cx="306" cy="187" r="0.8" fill="#ffffff"/>
+      <!-- body (3D cylinder) -->
+      <path d="M 288,206 Q 300,202 312,206 L 314,250 Q 300,254 286,250 Z" fill="url(#char3D)"/>
+      <path d="M 288,206 Q 300,210 312,206" fill="none" stroke="url(#char3DLight)" stroke-width="1.5" opacity="0.5"/>
+      <!-- arms (3D) -->
+      <path d="M 290,218 Q 278,228 274,240" fill="none" stroke="url(#char3D)" stroke-width="5" stroke-linecap="round"/>
+      <path d="M 310,218 Q 322,228 326,240" fill="none" stroke="url(#char3D)" stroke-width="5" stroke-linecap="round"/>
+      <!-- legs (3D) -->
+      <path d="M 294,250 Q 290,265 286,278" fill="none" stroke="url(#char3D)" stroke-width="5" stroke-linecap="round"/>
+      <path d="M 306,250 Q 310,265 314,278" fill="none" stroke="url(#char3D)" stroke-width="5" stroke-linecap="round"/>
+    </g>
+
+    <!-- break-through particles around the 3D character -->
+    <g filter="url(#particleGlow)">
+      <circle cx="275" cy="175" r="2" fill="#c084fc" opacity="0.6"/>
+      <circle cx="330" cy="200" r="1.5" fill="#a855f7" opacity="0.5"/>
+      <circle cx="320" cy="265" r="2" fill="#8b5cf6" opacity="0.5"/>
+      <circle cx="278" cy="260" r="1.5" fill="#c084fc" opacity="0.4"/>
+    </g>
+
+    <!-- play button overlay -->
+    <g transform="translate(250, 225)">
+      <circle cx="0" cy="0" r="22" fill="#ffffff" opacity="0.15"/>
+      <circle cx="0" cy="0" r="18" fill="#ffffff" opacity="0.9" filter="url(#glow)"/>
+      <polygon points="-6,-8 -6,8 9,0" fill="#7c3aed"/>
+    </g>
+
+    <!-- timeline bar -->
+    <rect x="125" y="322" width="250" height="6" rx="3" fill="#312e81"/>
+    <rect x="125" y="322" width="90" height="6" rx="3" fill="url(#progressGrad)"/>
+    <circle cx="215" cy="325" r="7" fill="#ffffff" filter="url(#glow)"/>
+    <circle cx="215" cy="325" r="4" fill="url(#progressGrad)"/>
+  </g>
+
+  <!-- floating "breakthrough" shards -->
+  <g filter="url(#particleGlow)" opacity="0.5">
+    <polygon points="340,160 346,165 340,170 334,165" fill="#c084fc"/>
+    <polygon points="260,155 265,159 260,163 255,159" fill="#a855f7"/>
+    <polygon points="335,280 340,284 335,288 330,284" fill="#8b5cf6"/>
+  </g>
+</svg>

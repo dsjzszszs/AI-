@@ -1,0 +1,135 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="micBody" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c4b5fd"/><stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="micHead" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a5b4fc"/><stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="micGrill" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+    <linearGradient id="micStand" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#5b21b6"/>
+    </linearGradient>
+    <linearGradient id="noteGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="noteGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+    <linearGradient id="noteGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+    <linearGradient id="baseGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#818cf8" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#818cf8" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#818cf8" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dx="0" dy="10"/>
+      <feFlood flood-color="#6366f1" flood-opacity="0.18"/>
+      <feComposite in2="SourceAlpha" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="pGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="250" cy="435" rx="180" ry="18" fill="url(#baseGlow)"/>
+
+  <!-- particles -->
+  <g filter="url(#pGlow)">
+    <circle cx="55" cy="100" r="2.5" fill="#a855f7" opacity="0.4"/>
+    <circle cx="445" cy="120" r="2" fill="#818cf8" opacity="0.45"/>
+    <circle cx="460" cy="360" r="3" fill="#7c3aed" opacity="0.3"/>
+    <circle cx="40" cy="340" r="2.5" fill="#6366f1" opacity="0.4"/>
+    <circle cx="420" cy="55" r="2" fill="#c084fc" opacity="0.5"/>
+    <circle cx="80" cy="410" r="1.5" fill="#818cf8" opacity="0.35"/>
+  </g>
+
+  <!-- ===== SOUND WAVES (background) ===== -->
+  <g fill="none" stroke="#a78bfa" stroke-linecap="round" opacity="0.2">
+    <!-- left waves -->
+    <path d="M 155,280 Q 140,260 155,240" stroke-width="3"/>
+    <path d="M 145,290 Q 120,260 145,230" stroke-width="2"/>
+    <path d="M 135,300 Q 100,260 135,220" stroke-width="1.5"/>
+    <!-- right waves -->
+    <path d="M 345,280 Q 360,260 345,240" stroke-width="3"/>
+    <path d="M 355,290 Q 380,260 355,230" stroke-width="2"/>
+    <path d="M 365,300 Q 400,260 365,220" stroke-width="1.5"/>
+  </g>
+
+  <!-- ===== MICROPHONE (center) ===== -->
+  <g filter="url(#softShadow)">
+    <!-- stand base -->
+    <ellipse cx="250" cy="385" rx="55" ry="10" fill="url(#micStand)"/>
+    <!-- stand base top -->
+    <ellipse cx="250" cy="382" rx="48" ry="8" fill="#7c3aed"/>
+    <!-- pole -->
+    <rect x="247" y="250" width="6" height="135" rx="3" fill="url(#micStand)"/>
+    <!-- mic body -->
+    <rect x="240" y="210" width="20" height="40" rx="5" fill="url(#micBody)"/>
+    <!-- mic head (grill area) -->
+    <ellipse cx="250" cy="195" rx="22" ry="25" fill="url(#micHead)"/>
+    <!-- grill pattern -->
+    <g stroke="#4f46e5" stroke-width="1.5" opacity="0.4">
+      <ellipse cx="250" cy="195" rx="20" ry="23" fill="none"/>
+      <ellipse cx="250" cy="195" rx="16" ry="18" fill="none"/>
+      <ellipse cx="250" cy="195" rx="12" ry="13" fill="none"/>
+      <ellipse cx="250" cy="195" rx="8" ry="8" fill="none"/>
+    </g>
+    <!-- mic highlight -->
+    <ellipse cx="242" cy="188" rx="6" ry="8" fill="#ffffff" opacity="0.15"/>
+    <!-- mic top dot -->
+    <circle cx="250" cy="175" r="2.5" fill="#a5b4fc" filter="url(#glow)"/>
+  </g>
+
+  <!-- ===== MUSIC NOTES (floating around) ===== -->
+  <!-- Note 1 (top-left, large, double) -->
+  <g filter="url(#glow)" transform="translate(140, 140) rotate(-15) scale(1.2)">
+    <ellipse cx="0" cy="0" rx="10" ry="7" fill="url(#noteGrad1)" transform="rotate(-20)"/>
+    <line x1="8" y1="-2" x2="8" y2="-35" stroke="url(#noteGrad1)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M 8,-35 Q 20,-30 18,-18" fill="none" stroke="url(#noteGrad1)" stroke-width="2.5"/>
+  </g>
+
+  <!-- Note 2 (top-right, single) -->
+  <g filter="url(#glow)" transform="translate(360, 130) rotate(10) scale(1)">
+    <ellipse cx="0" cy="0" rx="9" ry="6" fill="url(#noteGrad2)" transform="rotate(-20)"/>
+    <line x1="7" y1="-2" x2="7" y2="-30" stroke="url(#noteGrad2)" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- Note 3 (mid-right, double) -->
+  <g filter="url(#glow)" transform="translate(385, 270) rotate(20) scale(0.9)">
+    <ellipse cx="0" cy="0" rx="9" ry="6" fill="url(#noteGrad3)" transform="rotate(-20)"/>
+    <line x1="7" y1="-2" x2="7" y2="-28" stroke="url(#noteGrad3)" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M 7,-28 Q 18,-24 16,-14" fill="none" stroke="url(#noteGrad3)" stroke-width="2"/>
+  </g>
+
+  <!-- Note 4 (mid-left, small) -->
+  <g filter="url(#glow)" transform="translate(100, 260) rotate(-10) scale(0.75)" opacity="0.8">
+    <ellipse cx="0" cy="0" rx="9" ry="6" fill="url(#noteGrad1)" transform="rotate(-20)"/>
+    <line x1="7" y1="-2" x2="7" y2="-25" stroke="url(#noteGrad1)" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Note 5 (bottom-left, tiny) -->
+  <g filter="url(#glow)" transform="translate(160, 330) rotate(-5) scale(0.6)" opacity="0.6">
+    <ellipse cx="0" cy="0" rx="9" ry="6" fill="url(#noteGrad2)" transform="rotate(-20)"/>
+    <line x1="7" y1="-2" x2="7" y2="-25" stroke="url(#noteGrad2)" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M 7,-25 Q 18,-21 16,-11" fill="none" stroke="url(#noteGrad2)" stroke-width="2"/>
+  </g>
+
+  <!-- sound wave arcs near mic -->
+  <g fill="none" stroke="#c084fc" stroke-width="2" stroke-linecap="round" opacity="0.4" filter="url(#glow)">
+    <path d="M 230,185 Q 222,195 230,205"/>
+    <path d="M 235,175 Q 218,195 235,215"/>
+    <path d="M 270,185 Q 278,195 270,205"/>
+    <path d="M 265,175 Q 282,195 265,215"/>
+  </g>
+</svg>

@@ -1,0 +1,139 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="playerFrame" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a5b4fc"/><stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="playerScreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b"/><stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+    <linearGradient id="frameCard" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c4b5fd"/><stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+    <linearGradient id="frameScreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fafaff"/><stop offset="100%" stop-color="#f0e8ff"/>
+    </linearGradient>
+    <linearGradient id="motionTrail" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c084fc" stop-opacity="0.01"/>
+      <stop offset="50%" stop-color="#a78bfa" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#c084fc" stop-opacity="0.01"/>
+    </linearGradient>
+    <linearGradient id="baseGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#818cf8" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#818cf8" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#818cf8" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dx="0" dy="8"/>
+      <feFlood flood-color="#6366f1" flood-opacity="0.18"/>
+      <feComposite in2="SourceAlpha" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="pGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="250" cy="435" rx="190" ry="18" fill="url(#baseGlow)"/>
+
+  <!-- particles -->
+  <g filter="url(#pGlow)">
+    <circle cx="55" cy="100" r="2.5" fill="#a855f7" opacity="0.4"/>
+    <circle cx="450" cy="100" r="2" fill="#818cf8" opacity="0.45"/>
+    <circle cx="465" cy="350" r="3" fill="#7c3aed" opacity="0.3"/>
+    <circle cx="35" cy="330" r="2" fill="#6366f1" opacity="0.4"/>
+    <circle cx="410" cy="60" r="2" fill="#c084fc" opacity="0.5"/>
+    <circle cx="85" cy="420" r="1.5" fill="#818cf8" opacity="0.35"/>
+    <circle cx="440" cy="240" r="1.5" fill="#a78bfa" opacity="0.4"/>
+  </g>
+
+  <!-- ===== VIDEO PLAYER (top/background) ===== -->
+  <g filter="url(#softShadow)" transform="translate(140, 110)">
+    <rect x="0" y="0" width="220" height="155" rx="12" fill="url(#playerFrame)"/>
+    <rect x="12" y="12" width="196" height="105" rx="6" fill="url(#playerScreen)"/>
+    <!-- screen content -->
+    <rect x="25" y="25" width="80" height="40" rx="3" fill="#312e81"/>
+    <polygon points="55,35 55,55 72,45" fill="#a5b4fc" opacity="0.7"/>
+    <rect x="115" y="25" width="80" height="40" rx="3" fill="#312e81"/>
+    <rect x="125" y="32" width="50" height="3" rx="1.5" fill="#6366f1" opacity="0.5"/>
+    <rect x="125" y="40" width="35" height="3" rx="1.5" fill="#6366f1" opacity="0.3"/>
+    <!-- timeline in player -->
+    <rect x="25" y="95" width="170" height="4" rx="2" fill="#312e81"/>
+    <rect x="25" y="95" width="80" height="4" rx="2" fill="#a78bfa"/>
+    <circle cx="105" cy="97" r="5" fill="#ffffff" filter="url(#glow)"/>
+    <!-- bottom controls -->
+    <rect x="40" y="130" width="12" height="4" rx="2" fill="#4c1d95"/>
+    <rect x="58" y="130" width="10" height="4" rx="2" fill="#4c1d95"/>
+    <rect x="74" y="130" width="16" height="4" rx="2" fill="#4c1d95"/>
+  </g>
+
+  <!-- ===== MOTION TRAIL ===== -->
+  <path d="M 160,300 Q 250,290 340,305" fill="none" stroke="url(#motionTrail)" stroke-width="30" opacity="0.4"/>
+
+  <!-- ===== SEQUENTIAL FRAMES (front, showing motion) ===== -->
+  <!-- Frame 1 (leftmost, far) -->
+  <g filter="url(#softShadow)" transform="translate(95, 290) scale(0.7)">
+    <rect x="0" y="0" width="90" height="65" rx="5" fill="url(#frameCard)"/>
+    <rect x="5" y="5" width="80" height="55" rx="3" fill="url(#frameScreen)"/>
+    <!-- stick figure - standing -->
+    <circle cx="45" cy="22" r="7" fill="none" stroke="#6366f1" stroke-width="1.8"/>
+    <line x1="45" y1="29" x2="45" y2="48" stroke="#6366f1" stroke-width="1.8"/>
+    <line x1="45" y1="35" x2="35" y2="42" stroke="#6366f1" stroke-width="1.5"/>
+    <line x1="45" y1="35" x2="55" y2="42" stroke="#6366f1" stroke-width="1.5"/>
+    <line x1="45" y1="48" x2="38" y2="58" stroke="#6366f1" stroke-width="1.5"/>
+    <line x1="45" y1="48" x2="52" y2="58" stroke="#6366f1" stroke-width="1.5"/>
+  </g>
+
+  <!-- Frame 2 -->
+  <g filter="url(#softShadow)" transform="translate(155, 288) scale(0.8)">
+    <rect x="0" y="0" width="90" height="65" rx="5" fill="url(#frameCard)"/>
+    <rect x="5" y="5" width="80" height="55" rx="3" fill="url(#frameScreen)"/>
+    <!-- stick figure - step forward -->
+    <circle cx="45" cy="22" r="7" fill="none" stroke="#7c3aed" stroke-width="1.8"/>
+    <line x1="45" y1="29" x2="45" y2="48" stroke="#7c3aed" stroke-width="1.8"/>
+    <line x1="45" y1="35" x2="33" y2="40" stroke="#7c3aed" stroke-width="1.5"/>
+    <line x1="45" y1="35" x2="57" y2="42" stroke="#7c3aed" stroke-width="1.5"/>
+    <line x1="45" y1="48" x2="37" y2="56" stroke="#7c3aed" stroke-width="1.5"/>
+    <line x1="45" y1="48" x2="55" y2="56" stroke="#7c3aed" stroke-width="1.5"/>
+  </g>
+
+  <!-- Frame 3 (center) -->
+  <g filter="url(#softShadow)" transform="translate(220, 285) scale(0.9)">
+    <rect x="0" y="0" width="90" height="65" rx="5" fill="url(#frameCard)"/>
+    <rect x="5" y="5" width="80" height="55" rx="3" fill="url(#frameScreen)"/>
+    <!-- stick figure - mid run -->
+    <circle cx="45" cy="22" r="7" fill="none" stroke="#8b5cf6" stroke-width="1.8"/>
+    <line x1="45" y1="29" x2="45" y2="48" stroke="#8b5cf6" stroke-width="1.8"/>
+    <line x1="45" y1="35" x2="32" y2="42" stroke="#8b5cf6" stroke-width="1.5"/>
+    <line x1="45" y1="35" x2="58" y2="40" stroke="#8b5cf6" stroke-width="1.5"/>
+    <line x1="45" y1="48" x2="35" y2="55" stroke="#8b5cf6" stroke-width="1.5"/>
+    <line x1="45" y1="48" x2="56" y2="55" stroke="#8b5cf6" stroke-width="1.5"/>
+  </g>
+
+  <!-- Frame 4 (rightmost, near) -->
+  <g filter="url(#softShadow)" transform="translate(290, 282)">
+    <rect x="0" y="0" width="90" height="65" rx="5" fill="url(#frameCard)"/>
+    <rect x="5" y="5" width="80" height="55" rx="3" fill="url(#frameScreen)"/>
+    <!-- stick figure - full run -->
+    <circle cx="45" cy="22" r="7" fill="none" stroke="#6d28d9" stroke-width="1.8"/>
+    <line x1="45" y1="29" x2="45" y2="48" stroke="#6d28d9" stroke-width="1.8"/>
+    <line x1="45" y1="35" x2="30" y2="38" stroke="#6d28d9" stroke-width="1.5"/>
+    <line x1="45" y1="35" x2="60" y2="40" stroke="#6d28d9" stroke-width="1.5"/>
+    <line x1="45" y1="48" x2="35" y2="56" stroke="#6d28d9" stroke-width="1.5"/>
+    <line x1="45" y1="48" x2="58" y2="56" stroke="#6d28d9" stroke-width="1.5"/>
+  </g>
+
+  <!-- motion trail dots -->
+  <g filter="url(#pGlow)" opacity="0.5">
+    <circle cx="168" cy="302" r="2" fill="#c084fc"/>
+    <circle cx="182" cy="299" r="1.5" fill="#a78bfa"/>
+    <circle cx="200" cy="297" r="2" fill="#8b5cf6"/>
+    <circle cx="260" cy="293" r="1.5" fill="#a78bfa"/>
+    <circle cx="280" cy="292" r="2" fill="#c084fc"/>
+    <circle cx="310" cy="290" r="1.5" fill="#a78bfa"/>
+  </g>
+</svg>

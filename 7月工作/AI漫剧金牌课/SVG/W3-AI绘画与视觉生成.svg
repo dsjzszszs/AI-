@@ -1,0 +1,165 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="paletteBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c4b5fd"/><stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="paletteEdge" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+    <linearGradient id="brushHandle" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#4c1d95"/>
+    </linearGradient>
+    <linearGradient id="brushTip" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+    <radialGradient id="paletteGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c084fc" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="baseGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#818cf8" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#818cf8" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#818cf8" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dx="0" dy="10"/>
+      <feFlood flood-color="#6366f1" flood-opacity="0.18"/>
+      <feComposite in2="SourceAlpha" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="pGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="2.5"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="250" cy="445" rx="180" ry="18" fill="url(#baseGlow)"/>
+  <circle cx="240" cy="230" r="160" fill="url(#paletteGlow)" filter="url(#glow)"/>
+
+  <g filter="url(#pGlow)">
+    <circle cx="55" cy="110" r="2.5" fill="#a855f7" opacity="0.4"/>
+    <circle cx="445" cy="100" r="2" fill="#818cf8" opacity="0.45"/>
+    <circle cx="460" cy="360" r="3" fill="#7c3aed" opacity="0.3"/>
+    <circle cx="40" cy="340" r="2" fill="#6366f1" opacity="0.4"/>
+    <circle cx="410" cy="60" r="2" fill="#c084fc" opacity="0.5"/>
+    <circle cx="80" cy="420" r="1.5" fill="#818cf8" opacity="0.35"/>
+  </g>
+
+  <!-- ===== PALETTE ===== -->
+  <g filter="url(#softShadow)">
+    <!-- palette body (kidney/bean shape) -->
+    <path d="M 140,230 Q 130,180 170,150 Q 210,120 260,145 Q 310,170 330,210 Q 350,260 310,300 Q 290,320 270,310 Q 250,300 230,315 Q 210,330 190,310 L 150,280 Q 140,260 140,230 Z" fill="url(#paletteBody)"/>
+
+    <!-- palette top highlight -->
+    <path d="M 150,225 Q 145,180 180,155 Q 220,130 260,150" fill="none" stroke="#e9d5ff" stroke-width="3" opacity="0.25"/>
+
+    <!-- thumb hole -->
+    <circle cx="175" cy="260" r="22" fill="#ffffff"/>
+    <circle cx="175" cy="260" r="21" fill="none" stroke="#6d28d9" stroke-width="2" opacity="0.3"/>
+
+    <!-- paint color dots on palette -->
+    <!-- Dot 1 -->
+    <circle cx="210" cy="200" r="14" fill="#c084fc" filter="url(#softGlow)"/>
+    <ellipse cx="207" cy="196" rx="5" ry="4" fill="#ffffff" opacity="0.25"/>
+
+    <!-- Dot 2 -->
+    <circle cx="250" cy="185" r="12" fill="#a78bfa" filter="url(#softGlow)"/>
+    <ellipse cx="248" cy="182" rx="4" ry="3" fill="#ffffff" opacity="0.25"/>
+
+    <!-- Dot 3 -->
+    <circle cx="285" cy="195" r="13" fill="#818cf8" filter="url(#softGlow)"/>
+    <ellipse cx="282" cy="192" rx="4.5" ry="3.5" fill="#ffffff" opacity="0.25"/>
+
+    <!-- Dot 4 -->
+    <circle cx="300" cy="235" r="10" fill="#7c3aed" filter="url(#softGlow)"/>
+    <ellipse cx="298" cy="233" rx="3.5" ry="2.5" fill="#ffffff" opacity="0.25"/>
+
+    <!-- Dot 5 -->
+    <circle cx="195" cy="230" r="9" fill="#a5b4fc" filter="url(#softGlow)"/>
+    <ellipse cx="193" cy="228" rx="3" ry="2" fill="#ffffff" opacity="0.25"/>
+
+    <!-- Dot 6 -->
+    <circle cx="230" cy="240" r="8" fill="#6366f1" filter="url(#softGlow)"/>
+    <ellipse cx="228" cy="238.5" rx="3" ry="2" fill="#ffffff" opacity="0.25"/>
+
+    <!-- Dot 7 -->
+    <circle cx="265" cy="215" r="9" fill="#c084fc" filter="url(#softGlow)"/>
+    <ellipse cx="263" cy="213" rx="3" ry="2.2" fill="#ffffff" opacity="0.25"/>
+
+    <!-- Dot 8 -->
+    <circle cx="310" cy="255" r="7" fill="#8b5cf6" filter="url(#softGlow)"/>
+    <ellipse cx="308.5" cy="253.5" rx="2.5" ry="1.8" fill="#ffffff" opacity="0.25"/>
+
+    <!-- Dot 9 -->
+    <circle cx="215" cy="265" r="6" fill="#a78bfa" filter="url(#softGlow)"/>
+    <ellipse cx="213.5" cy="264" rx="2" ry="1.5" fill="#ffffff" opacity="0.25"/>
+
+    <!-- Dot 10 -->
+    <circle cx="255" cy="255" r="7" fill="#818cf8" filter="url(#softGlow)"/>
+    <ellipse cx="253.5" cy="253.5" rx="2.5" ry="1.8" fill="#ffffff" opacity="0.25"/>
+
+    <!-- Dot 11 -->
+    <circle cx="280" cy="260" r="5.5" fill="#a5b4fc" filter="url(#softGlow)"/>
+    <ellipse cx="278.5" cy="259" rx="2" ry="1.4" fill="#ffffff" opacity="0.25"/>
+
+    <!-- palette 3D edge/border -->
+    <path d="M 140,230 Q 130,180 170,150 Q 210,120 260,145 Q 310,170 330,210 Q 350,260 310,300 Q 290,320 270,310 Q 250,300 230,315 Q 210,330 190,310 L 150,280 Q 140,260 140,230 Z" fill="none" stroke="url(#paletteEdge)" stroke-width="5"/>
+  </g>
+
+  <!-- ===== GLOWING BRUSH ===== -->
+  <g filter="url(#softShadow)" transform="translate(360, 175) rotate(30)">
+    <!-- brush handle -->
+    <rect x="0" y="-60" width="12" height="70" rx="4" fill="url(#brushHandle)"/>
+    <!-- handle grip lines -->
+    <rect x="2" y="-50" width="8" height="3" rx="1.5" fill="#312e81" opacity="0.5"/>
+    <rect x="2" y="-43" width="8" height="3" rx="1.5" fill="#312e81" opacity="0.5"/>
+    <!-- ferrule -->
+    <rect x="0" y="-72" width="12" height="8" rx="2" fill="#9ca3af"/>
+    <!-- brush tip -->
+    <ellipse cx="6" cy="-78" rx="7" ry="14" fill="url(#brushTip)" filter="url(#softGlow)"/>
+    <!-- bristle lines -->
+    <line x1="2" y1="-82" x2="2" y2="-68" stroke="#ffffff" stroke-width="1" opacity="0.25"/>
+    <line x1="6" y1="-84" x2="6" y2="-68" stroke="#ffffff" stroke-width="1" opacity="0.25"/>
+    <line x1="10" y1="-82" x2="10" y2="-68" stroke="#ffffff" stroke-width="1" opacity="0.25"/>
+  </g>
+
+  <!-- brush tip glow (where it touches palette) -->
+  <circle cx="340" cy="215" r="12" fill="#c084fc" opacity="0.25" filter="url(#glow)"/>
+
+  <!-- ===== LIGHT PARTICLES SPREADING ===== -->
+  <g filter="url(#pGlow)">
+    <!-- from palette center outward -->
+    <circle cx="260" cy="210" r="3" fill="#c084fc" opacity="0.6"/>
+    <circle cx="285" cy="185" r="2.5" fill="#a855f7" opacity="0.5"/>
+    <circle cx="310" cy="210" r="2" fill="#a78bfa" opacity="0.6"/>
+    <circle cx="275" cy="245" r="2.5" fill="#c084fc" opacity="0.5"/>
+
+    <!-- spreading particles -->
+    <circle cx="230" cy="175" r="2" fill="#a855f7" opacity="0.45"/>
+    <circle cx="310" cy="175" r="1.5" fill="#c084fc" opacity="0.5"/>
+    <circle cx="330" cy="250" r="2" fill="#818cf8" opacity="0.45"/>
+    <circle cx="220" cy="295" r="2" fill="#a78bfa" opacity="0.4"/>
+    <circle cx="260" cy="310" r="1.5" fill="#c084fc" opacity="0.4"/>
+    <circle cx="200" cy="210" r="1.5" fill="#a855f7" opacity="0.45"/>
+
+    <!-- tiny sparkles -->
+    <polygon points="295,175 297,178 295,181 293,178" fill="#c084fc" opacity="0.5"/>
+    <polygon points="245,165 247,168 245,171 243,168" fill="#a78bfa" opacity="0.4"/>
+    <polygon points="320,230 322,233 320,236 318,233" fill="#818cf8" opacity="0.45"/>
+  </g>
+
+  <!-- trailing sparkle from brush -->
+  <g filter="url(#pGlow)" opacity="0.6">
+    <circle cx="370" cy="190" r="1.5" fill="#c084fc"/>
+    <circle cx="380" cy="205" r="1" fill="#a855f7"/>
+    <circle cx="355" cy="200" r="1" fill="#a78bfa"/>
+  </g>
+</svg>
