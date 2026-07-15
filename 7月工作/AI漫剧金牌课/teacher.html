@@ -13,7 +13,7 @@
 /* Hero */
 .hero-card{background:rgba(255,255,255,0.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:22px;border:1px solid rgba(59,130,246,0.12);overflow:hidden;box-shadow:0 12px 36px rgba(59,130,246,0.08)}
 .hero-top{display:flex;gap:28px;align-items:flex-start;padding:38px 38px 30px;background:linear-gradient(135deg,#1e3a5f 0%,#0f2744 100%)}
-.hero-avatar{width:180px;height:260px;border-radius:18px;flex-shrink:0;background:linear-gradient(135deg,#3b82f6,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:96px;font-weight:800;color:rgba(255,255,255,0.85);border:2px solid rgba(255,255,255,0.2);box-shadow:0 8px 24px rgba(0,0,0,0.25)}
+.hero-avatar{width:180px;height:260px;border-radius:18px;flex-shrink:0;object-fit:cover;border:2px solid rgba(255,255,255,0.2);box-shadow:0 8px 24px rgba(0,0,0,0.25)}
 .hero-meta{flex:1;min-width:0}
 .hero-meta h1{font-size:clamp(26px,4.5vw,34px);font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:0.5px}
 .hero-role{font-size:15px;color:#bfdbfe;margin-bottom:16px;font-weight:600}
@@ -63,6 +63,10 @@
 .work-item:hover img{transform:scale(1.06)}
 .work-ph{color:rgba(255,255,255,0.85);font-size:13px;font-weight:600;letter-spacing:1px}
 
+/* 老师介绍封面 */
+.teacher-cover{max-width:840px;margin:0 auto 0;padding:0 28px;animation:fadeInUp 0.6s ease}
+.teacher-cover img{width:100%;border-radius:16px;box-shadow:0 12px 36px rgba(59,130,246,0.12)}
+
 /* CTA */
 .cta-card{background:linear-gradient(135deg,#2563eb 0%,#7c3aed 100%);border-radius:22px;padding:40px 32px;text-align:center;box-shadow:0 16px 40px rgba(124,58,237,0.25)}
 .cta-title{color:#fff;font-size:clamp(17px,3vw,21px);font-weight:700;margin-bottom:8px}
@@ -86,11 +90,16 @@
 <body>
 <nav class="nav-bar" id="navBar"><a href="index.html" class="nav-brand">金牌AI视频剧</a><div class="nav-links" id="navLinks"><a href="index.html">课程介绍</a><a href="teacher.html" class="active">主讲老师</a><a href="course.html">课程内容</a><a href="cases.html">学员案例</a><a href="audience.html">适合人群</a><a href="faq.html">常见问题</a></div><button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button></nav>
 
+<!-- 老师介绍封面 -->
+<div class="teacher-cover">
+  <img src="老师介绍.png" alt="JACK老师 - 金牌AI视频剧高端课程">
+</div>
+
 <!-- ① Hero 头部 -->
 <section class="page-section" style="padding-top:24px">
   <div class="hero-card">
     <div class="hero-top">
-      <div class="hero-avatar">J</div>
+      <img class="hero-avatar" src="老师.png" alt="JACK老师">
       <div class="hero-meta">
         <h1>JACK 老师</h1>
         <p class="hero-role">AI 漫剧金牌讲师</p>
