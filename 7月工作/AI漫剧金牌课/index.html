@@ -334,8 +334,8 @@
 <body class="intro-active">
   <div class="intro-overlay" id="introOverlay">
     <picture style="position:absolute;inset:0;width:100%;height:100%;z-index:1;">
-      <source media="(max-width: 768px)" srcset="800_竖.gif">
-      <img src="800.gif" alt="开场动画" style="width:100%;height:100%;object-fit:cover;">
+      <source media="(max-width: 768px)" srcset="540_竖.gif">
+      <img src="540.gif" alt="开场动画" style="width:100%;height:100%;object-fit:cover;">
     </picture>
   </div>
   <canvas id="particleCanvas"></canvas>
@@ -542,8 +542,8 @@
     body.classList.add('intro-done');
     setTimeout(function(){if(ov)ov.style.display='none'},900);
   }
-  // GIF plays once (3.3s loop), auto finish
-  setTimeout(function(){finishIntro()},3300);
+  // GIF plays once (~3.4s loop), auto finish
+  setTimeout(function(){finishIntro()},3500);
 })();
 
 // Particle canvas

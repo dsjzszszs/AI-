@@ -254,17 +254,6 @@
       .nav-bar{padding:0 18px;width:calc(100% - 24px)}
       .page-header h1{letter-spacing:2px}
     }
-    /* ===== 直播回放 ===== */
-    .replay-section{margin-top:90px}
-    .replay-list{display:flex;flex-direction:column;gap:28px;max-width:860px;margin:0 auto}
-    .replay-card{background:rgba(255,255,255,0.7);border:1px solid rgba(59,130,246,0.15);border-radius:20px;overflow:hidden;box-shadow:0 12px 40px rgba(30,41,59,0.08);backdrop-filter:blur(8px);transition:transform .3s,box-shadow .3s}
-    .replay-card:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(30,41,59,0.12)}
-    .replay-player video{width:100%;display:block;background:#000;aspect-ratio:16/9}
-    .replay-meta{padding:20px 24px 24px}
-    .replay-tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:1px;color:#2563eb;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.15);padding:4px 12px;border-radius:999px;margin-bottom:12px}
-    .replay-meta h3{font-size:20px;color:#1a1a2e;margin:0 0 8px}
-    .replay-meta p{font-size:14px;color:#64748b;margin:0}
-    @media(max-width:600px){.replay-meta h3{font-size:17px}}
   </style>
 </head>
 <body>
@@ -299,25 +288,6 @@
       <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=8" data-wk="8"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 08</div><div class="tl-title">第八周</div><div class="tl-topic">综合实战项目（下）</div><div class="tl-status go">已解锁</div><img class="tl-svg" src="SVG/W8-综合实战项目下.svg" alt=""></a></div>
     </div>
   </div>
-
-  <section class="replay-section">
-    <div class="page-header">
-      <div class="badge">CLASS REPLAY</div>
-      <h1>直播回放</h1>
-    </div>
-    <div class="replay-list">
-      <article class="replay-card">
-        <div class="replay-player">
-          <video controls preload="metadata" playsinline src="https://pub-22a3693e66df453596742a5598f7513c.r2.dev/replays/week1-lesson1.mp4"></video>
-        </div>
-        <div class="replay-meta">
-          <span class="replay-tag">第一周 · 第一节</span>
-          <h3>AI视频基础概念与前期准备</h3>
-          <p>课程直播完整回放，建议在 Wi-Fi 环境下观看</p>
-        </div>
-      </article>
-    </div>
-  </section>
 
   <footer class="page-footer">
     <div class="ft-brand">金牌AI视频剧</div>
