@@ -12,18 +12,17 @@
 
 /* Hero */
 .hero-card{background:rgba(255,255,255,0.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:22px;border:1px solid rgba(59,130,246,0.12);overflow:hidden;box-shadow:0 12px 36px rgba(59,130,246,0.08)}
-.hero-top{display:flex;gap:28px;align-items:center;padding:38px 38px 30px;background:linear-gradient(135deg,#1e3a5f 0%,#0f2744 100%)}
-.hero-avatar{width:108px;height:108px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,#3b82f6,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:800;color:#fff;border:3px solid rgba(255,255,255,0.3);object-fit:cover}
+.hero-top{display:flex;gap:28px;align-items:flex-start;padding:38px 38px 30px;background:linear-gradient(135deg,#1e3a5f 0%,#0f2744 100%)}
+.hero-avatar{width:180px;height:220px;border-radius:18px;flex-shrink:0;background:linear-gradient(135deg,#3b82f6,#06b6d4);object-fit:cover;border:2px solid rgba(255,255,255,0.2);box-shadow:0 8px 24px rgba(0,0,0,0.25)}
 .hero-meta{flex:1;min-width:0}
-.hero-meta h1{font-size:clamp(22px,4vw,28px);font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:0.5px}
-.hero-role{font-size:14px;color:#93c5fd;margin-bottom:14px;font-weight:600}
+.hero-meta h1{font-size:clamp(26px,4.5vw,34px);font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:0.5px}
+.hero-role{font-size:15px;color:#bfdbfe;margin-bottom:16px;font-weight:600}
 .hero-tags{display:flex;flex-wrap:wrap;gap:8px}
 .hero-tags span{display:inline-block;padding:5px 13px;border-radius:20px;font-size:12px;font-weight:600}
 .tag-blue{background:rgba(59,130,246,0.18);color:#93c5fd}
 .tag-purple{background:rgba(139,92,246,0.18);color:#c4b5fd}
 .tag-cyan{background:rgba(6,182,212,0.18);color:#67e8f9}
-.hero-summary{padding:20px 38px 26px;background:rgba(30,58,95,0.04);font-size:14px;color:#475569;line-height:1.85}
-.hero-summary strong{color:#1e293b}
+.hero-summary{padding:18px 38px 26px;background:rgba(30,58,95,0.04);font-size:14px;color:#475569;line-height:1.8}
 
 /* 数据成就 */
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:8px}
@@ -74,6 +73,7 @@
 @media(max-width:768px){
   .nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:absolute;top:88px;left:20px;right:20px;background:rgba(255,255,255,0.95);backdrop-filter:blur(24px);padding:20px 24px;gap:4px;border-radius:20px;border:1px solid rgba(255,255,255,0.5);box-shadow:0 8px 40px rgba(0,0,0,0.08)}.nav-links.open a{padding:14px 18px;font-size:15px}.nav-toggle{display:flex}
   .hero-top{flex-direction:column;text-align:center;padding:32px 22px 26px}
+  .hero-avatar{width:140px;height:175px;margin:0 auto}
   .hero-tags{justify-content:center}
   .hero-summary{padding:18px 22px 22px}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
@@ -92,94 +92,90 @@
     <div class="hero-top">
       <img class="hero-avatar" src="teacher-jack.jpg" alt="JACK老师">
       <div class="hero-meta">
-        <h1>Teacher JACK 老师</h1>
-        <p class="hero-role">树帆教育 AI 项目战略专家</p>
+        <h1>JACK 老师</h1>
+        <p class="hero-role">AI 漫剧金牌讲师</p>
         <div class="hero-tags">
-          <span class="tag-blue">动漫及影视设计制作资深专家</span>
-          <span class="tag-purple">AI漫剧系列金牌讲师</span>
-          <span class="tag-cyan">爆款AI影视剧导演</span>
+          <span class="tag-blue">10 年一线游戏 / 影视制作经验</span>
+          <span class="tag-cyan">多部爆款 AI 漫剧导演</span>
         </div>
       </div>
     </div>
-    <p class="hero-summary"><strong>一句话定位：</strong>10 年一线游戏及影视设计制作经验 + 5 年一线动漫影视讲师经验 + 3 年 AI 应用讲师经验，多部爆款 AI 漫剧导演，已带数千名学员从零入门 AI 创作。</p>
+    <p class="hero-summary">10 年一线游戏及影视设计制作经验，曾任上海游族网络资深画师、泛次元 ACG 原画/UI 设计师；现任树帆 AI 漫剧金牌讲师，已带领数千名学员从零入门 AI 创作。</p>
   </div>
 </section>
 
 <!-- ② 数据成就 -->
 <section class="page-section" style="padding-top:8px">
   <div class="stats-grid">
-    <div class="stat-card"><div class="stat-num" style="color:#2563eb">10<span>年</span></div><div class="stat-label">一线游戏 / 影视<br>设计制作经验</div></div>
-    <div class="stat-card"><div class="stat-num" style="color:#8b5cf6">5+3<span>年</span></div><div class="stat-label">动漫影视讲师<br>+ AI 应用教学</div></div>
-    <div class="stat-card"><div class="stat-num" style="color:#06b6d4">数千<span>名</span></div><div class="stat-label">学员已进入<br>动漫游戏行业</div></div>
-    <div class="stat-card"><div class="stat-num" style="color:#d97706">多部<span>爆款</span></div><div class="stat-label">AI 漫剧作品<br>执导 / 导演</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:#2563eb">10<span>+</span></div><div class="stat-label">年游戏 / 影视<br>一线制作经验</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:#8b5cf6">8<span>+</span></div><div class="stat-label">年讲师经验<br>动漫 / AI 教学</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:#06b6d4">数千</div><div class="stat-label">学员已入门<br>AI 创作</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:#d97706">多部</div><div class="stat-label">爆款 AI 漫剧<br>执导经验</div></div>
   </div>
 </section>
 
-<!-- ③ 专业履历与资历 -->
+<!-- ③ 职业经历 -->
 <section class="page-section" style="padding-top:8px">
-  <h2 class="section-title">专业履历与资历</h2>
+  <h2 class="section-title">职业经历</h2>
   <div class="resume-cards">
     <div class="rcard rcard-blue">
       <div class="rcard-label" style="color:#2563eb">教育背景</div>
-      <div class="rcard-title">东华理工大学 · 动漫设计专业</div>
-      <div class="rcard-desc">扎实的科班美术理论基础</div>
+      <div class="rcard-title">东华理工大学 · 动漫设计</div>
     </div>
     <div class="rcard rcard-purple">
       <div class="rcard-label" style="color:#a855f7">核心能力</div>
-      <div class="rcard-title">深厚美术功底 + 精湛手绘能力</div>
-      <div class="rcard-desc">十年游戏美术 + 一线工作经验</div>
+      <div class="rcard-title">十年游戏美术 / 手绘设计</div>
     </div>
   </div>
   <div class="timeline">
-    <div class="tl-item"><div class="tl-dot" style="background:#22c55e"></div><div class="tl-text"><span class="tl-strong">现任 · 树帆机构</span><br>AI 漫剧系列金牌讲师 / AI 项目资深讲师 / 原画讲师</div></div>
-    <div class="tl-item"><div class="tl-dot" style="background:#3b82f6"></div><div class="tl-text"><span class="tl-strong">曾任 · 上海游族网络</span><br>资深游戏画师（大型网游项目）</div></div>
-    <div class="tl-item"><div class="tl-dot" style="background:#a855f7"></div><div class="tl-text"><span class="tl-strong">曾任 · 泛次元 ACG 有限公司</span><br>原画 / UI 设计师</div></div>
-    <div class="tl-item"><div class="tl-dot" style="background:#06b6d4"></div><div class="tl-text"><span class="tl-strong">重点项目经历</span><br>《木叶传说》场景原画、《卧龙吟》美术开发</div></div>
+    <div class="tl-item"><div class="tl-dot" style="background:#22c55e"></div><div class="tl-text"><span class="tl-strong">现任 · 树帆机构</span><br>AI 漫剧金牌讲师 / 原画讲师</div></div>
+    <div class="tl-item"><div class="tl-dot" style="background:#3b82f6"></div><div class="tl-text"><span class="tl-strong">曾任 · 上海游族网络</span><br>资深游戏画师，参与大型网游项目</div></div>
+    <div class="tl-item"><div class="tl-dot" style="background:#a855f7"></div><div class="tl-text"><span class="tl-strong">曾任 · 泛次元 ACG</span><br>原画 / UI 设计师</div></div>
+    <div class="tl-item"><div class="tl-dot" style="background:#06b6d4"></div><div class="tl-text"><span class="tl-strong">项目经历</span><br>《木叶传说》《卧龙吟》美术开发</div></div>
   </div>
 </section>
 
-<!-- ④ 教学三大特色 -->
+<!-- ④ 教学特色 -->
 <section class="page-section" style="padding-top:8px">
-  <h2 class="section-title">教学三大特色</h2>
+  <h2 class="section-title">教学特色</h2>
   <div class="feature-grid">
     <div class="fcard">
       <div class="fcard-icon" style="background:rgba(59,130,246,0.1)"><img src="一些icon/大脑.svg" alt=""></div>
       <div class="fcard-title">深入浅出</div>
-      <div class="fcard-desc">擅长把复杂的知识和概念用简单、易懂、生动、有趣的方式讲出来。适合各种职业、各种学历、各种年龄段的学生。</div>
+      <div class="fcard-desc">复杂知识用简单生动的方式讲透，零基础也能跟上。</div>
     </div>
     <div class="fcard">
       <div class="fcard-icon" style="background:rgba(217,119,6,0.1)"><img src="一些icon/公文包.svg" alt=""></div>
       <div class="fcard-title">实战导师</div>
-      <div class="fcard-desc">JACK 老师本身具有多年一线游戏影视设计和制作经验，所有课程内容均配备实战案例演示讲解（其中不乏参与的爆款作品），跟随行业一线大佬近距离学习，学到的不仅是知识技能，还有行业思维和经验。</div>
+      <div class="fcard-desc">多年一线游戏影视制作经验，案例来自真实项目。</div>
     </div>
     <div class="fcard">
       <div class="fcard-icon" style="background:rgba(22,163,74,0.1)"><img src="一些icon/靶子.svg" alt=""></div>
       <div class="fcard-title">案例驱动</div>
-      <div class="fcard-desc">课程从来不是单纯乏味的理论演示，而是带领学员一步一步亲自实操，将理论和知识融入到可参与的实践中，让学员边学边做，学完即拥有属于自己的个人原创 AI 项目作品。</div>
+      <div class="fcard-desc">边讲边做，学完即能产出自己的原创 AI 项目作品。</div>
     </div>
   </div>
 </section>
 
-<!-- ⑤ 讲师作品 -->
+<!-- ⑤ 代表作品 -->
 <section class="page-section" style="padding-top:8px">
-  <h2 class="section-title">讲师作品</h2>
+  <h2 class="section-title">代表作品</h2>
   <div class="works-grid">
-    <!-- 替换提示：把 6 张作品图放到本目录（如 work-1.jpg ~ work-6.jpg），把下面占位 div 改成 <img src="work-1.jpg" alt="作品"> -->
-    <div class="work-item" style="background:linear-gradient(135deg,#1e3a5f,#2d4a6f)"><span class="work-ph">角色作品 1</span></div>
-    <div class="work-item" style="background:linear-gradient(135deg,#4a1942,#6b2157)"><span class="work-ph">角色作品 2</span></div>
-    <div class="work-item" style="background:linear-gradient(135deg,#1a365d,#2c5282)"><span class="work-ph">角色作品 3</span></div>
-    <div class="work-item" style="background:linear-gradient(135deg,#234e52,#285e61)"><span class="work-ph">角色作品 4</span></div>
-    <div class="work-item" style="background:linear-gradient(135deg,#44337a,#553c9a)"><span class="work-ph">角色作品 5</span></div>
-    <div class="work-item" style="background:linear-gradient(135deg,#744210,#975a16)"><span class="work-ph">场景作品 6</span></div>
+    <div class="work-item" style="background:linear-gradient(135deg,#1e3a5f,#2d4a6f)"><span class="work-ph">作品 1</span></div>
+    <div class="work-item" style="background:linear-gradient(135deg,#4a1942,#6b2157)"><span class="work-ph">作品 2</span></div>
+    <div class="work-item" style="background:linear-gradient(135deg,#1a365d,#2c5282)"><span class="work-ph">作品 3</span></div>
+    <div class="work-item" style="background:linear-gradient(135deg,#234e52,#285e61)"><span class="work-ph">作品 4</span></div>
+    <div class="work-item" style="background:linear-gradient(135deg,#44337a,#553c9a)"><span class="work-ph">作品 5</span></div>
+    <div class="work-item" style="background:linear-gradient(135deg,#744210,#975a16)"><span class="work-ph">作品 6</span></div>
   </div>
 </section>
 
 <!-- ⑥ 底部 CTA -->
 <section class="page-section" style="padding-top:8px">
   <div class="cta-card">
-    <div class="cta-title">跟随 JACK 老师，从零基础到独立创作你的个人 AI 漫剧</div>
-    <div class="cta-sub">把复杂的 AI 创作，变成你能上手的每一步</div>
-    <a href="course.html" class="cta-btn">查看完整课程 →</a>
+    <div class="cta-title">跟随 JACK 老师，从零创作你的 AI 漫剧</div>
+    <div class="cta-sub">把 AI 创作拆成你能一步步落地的流程</div>
+    <a href="course.html" class="cta-btn">查看课程 →</a>
   </div>
 </section>
 
