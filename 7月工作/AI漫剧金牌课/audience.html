@@ -17,82 +17,76 @@
 /* Page */
 .page-section{max-width:1100px;margin:0 auto;padding:72px 32px 80px}.page-header{text-align:center;margin-bottom:64px}.page-header h1{font-size:clamp(28px,5vw,42px);font-weight:900;background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}.page-header .subtitle{color:#64748b;font-size:15px}
 
-/* Character Row */
-.characters{display:flex;justify-content:center;gap:0;flex-wrap:wrap}
+/* ===== 适合人群 · 故事卡片网格 ===== */
+.characters{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .character{
-  flex:1;min-width:0;max-width:180px;text-align:center;padding:0 10px;
-  opacity:0;transform:translateY(20px);transition:opacity 0.5s ease,transform 0.5s ease;
-  cursor:default;position:relative;
+  --c1:#3b82f6;--c2:#06b6d4;
+  position:relative;display:flex;flex-direction:column;
+  background:rgba(255,255,255,0.66);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(59,130,246,0.12);border-radius:22px;
+  padding:26px 24px 24px;overflow:hidden;
+  box-shadow:0 6px 22px rgba(59,130,246,0.06);
+  opacity:0;transform:translateY(38px);
+  transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1),box-shadow .4s ease,border-color .4s ease;
 }
-.character.visible{opacity:1;transform:translateY(0)}
-.character:nth-child(1){animation:float1 5s ease-in-out infinite}
-.character:nth-child(2){animation:float2 5.5s ease-in-out infinite}
-.character:nth-child(3){animation:float3 4.8s ease-in-out infinite}
-.character:nth-child(4){animation:float4 5.2s ease-in-out infinite}
-.character:nth-child(5){animation:float5 4.5s ease-in-out infinite}
-.character:nth-child(6){animation:float6 5.8s ease-in-out infinite}
+.character.visible{opacity:1;transform:none}
+/* 顶部彩条 */
+.character::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--c1),var(--c2))}
+/* hover */
+.character:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(59,130,246,0.15);border-color:rgba(59,130,246,0.26)}
+/* 斜向高光扫过 */
+.character::after{content:'';position:absolute;top:-20%;left:0;width:45%;height:140%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.5) 50%,transparent);transform:translateX(-240%) skewX(-18deg);opacity:0;pointer-events:none}
+.character:hover::after{animation:shimmer 1s ease}
+@keyframes shimmer{0%{transform:translateX(-240%) skewX(-18deg);opacity:0}12%{opacity:.8}100%{transform:translateX(280%) skewX(-18deg);opacity:0}}
 
-/* Hover effects */
-.character .ch-inner{transition:transform 0.3s ease}
-.character:hover .ch-inner{transform:translateY(-6px)}
-.character:hover .ch-avatar-wrap{box-shadow:0 0 0 8px rgba(59,130,246,0.12),0 0 24px rgba(6,182,212,0.18)}
-.character:hover .ch-avatar-wrap img{transform:scale(1.05)}
-.character:hover .ch-badge{transform:scale(1.08)}
-.character:hover .ch-name{background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.character:hover .ch-desc{color:#475569}
+/* 头部：图标 + 标题 */
+.ch-head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.ch-icon{
+  width:52px;height:52px;flex-shrink:0;border-radius:15px;
+  background:linear-gradient(135deg,var(--c1),var(--c2));
+  display:flex;align-items:center;justify-content:center;position:relative;
+  box-shadow:0 6px 18px rgba(59,130,246,0.20);
+  transition:transform .35s ease,box-shadow .35s ease;
+}
+.character:hover .ch-icon{transform:scale(1.08) rotate(-4deg);box-shadow:0 10px 26px rgba(59,130,246,0.30)}
+.ch-icon::after{content:'';position:absolute;inset:-2px;border-radius:17px;border:2px solid var(--c1);opacity:0;animation:iconPulse 2.6s ease-out infinite}
+@keyframes iconPulse{0%{transform:scale(1);opacity:.5}70%{transform:scale(1.45);opacity:0}100%{opacity:0}}
+.ch-icon img{width:26px;height:26px;filter:brightness(0) invert(1)}
+.ch-titles{min-width:0}
+.ch-name{font-size:18px;font-weight:800;color:#1e293b;line-height:1.25;transition:color .3s ease}
+.character:hover .ch-name{background:linear-gradient(135deg,var(--c1),var(--c2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.ch-tag{display:inline-block;margin-top:4px;padding:2px 10px;border-radius:7px;font-size:11px;font-weight:600;color:var(--c1);background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.14)}
 
-/* Badge */
-.ch-badge-wrap{display:flex;justify-content:center;margin-bottom:-16px;position:relative;z-index:2}
-.ch-badge{
-  width:28px;height:28px;border-radius:50%;
-  background:#fff;border:2px solid rgba(59,130,246,0.25);
-  display:flex;align-items:center;justify-content:center;
-  font-size:10px;font-weight:800;color:#3b82f6;letter-spacing:0.5px;
-  box-shadow:0 2px 8px rgba(59,130,246,0.08);
-  transition:transform 0.3s ease;
-}
+/* 定位一句话 */
+.ch-lead{font-size:13.5px;color:#475569;line-height:1.7;margin-bottom:14px;font-weight:500}
 
-/* Avatar */
-.ch-avatar-wrap{
-  width:110px;height:110px;border-radius:50%;margin:0 auto 20px;
-  background:linear-gradient(135deg,rgba(59,130,246,0.06),rgba(6,182,212,0.04));
-  border:2px solid rgba(59,130,246,0.08);
-  display:flex;align-items:center;justify-content:center;
-  overflow:hidden;transition:box-shadow 0.3s ease;
-  position:relative;z-index:1;
-}
-.ch-avatar-wrap img{
-  width:100%;height:100%;object-fit:cover;border-radius:50%;
-  transition:transform 0.3s ease;
-}
-.ch-avatar-placeholder{
-  width:60%;height:60%;display:flex;align-items:center;justify-content:center;
-}
-.ch-avatar-placeholder img{width:100%;height:100%;opacity:0.35}
+/* 真实故事 */
+.ch-story{position:relative;background:rgba(59,130,246,0.045);border:1px solid rgba(59,130,246,0.09);border-radius:14px;padding:16px 16px 14px 40px;flex:1}
+.ch-story::before{content:'\201C';position:absolute;left:12px;top:6px;font-size:40px;line-height:1;font-family:Georgia,serif;color:var(--c1);opacity:.35}
+.ch-story-text{font-size:12.5px;color:#64748b;line-height:1.85}
+.ch-sign{display:block;margin-top:10px;font-size:12px;font-weight:700;color:#94a3b8;text-align:right}
+.ch-sign b{color:var(--c1)}
 
-/* Name */
-.ch-name{
-  font-size:18px;font-weight:800;color:#1e293b;margin-bottom:8px;
-  transition:all 0.3s ease;
-}
-
-/* Desc */
-.ch-desc{
-  font-size:13px;color:#94a3b8;line-height:1.7;max-width:150px;margin:0 auto;
-  text-align:center;transition:color 0.3s ease;
-}
+/* 入场错位 */
+.character:nth-child(1){transition-delay:.02s}
+.character:nth-child(2){transition-delay:.10s}
+.character:nth-child(3){transition-delay:.18s}
+.character:nth-child(4){transition-delay:.26s}
+.character:nth-child(5){transition-delay:.34s}
+.character:nth-child(6){transition-delay:.42s}
 
 @media(max-width:900px){
-  .characters{display:grid;grid-template-columns:repeat(3,1fr);gap:32px 12px;max-width:600px;margin:0 auto}
-  .character{max-width:100%}
+  .characters{grid-template-columns:repeat(2,1fr);gap:20px}
 }
-@media(max-width:600px){
-  .characters{grid-template-columns:repeat(2,1fr);gap:28px 10px}
-  .ch-avatar-wrap{width:96px;height:96px}
+@media(max-width:560px){
+  .characters{grid-template-columns:1fr;gap:18px}
+  .character{padding:22px 18px 20px}
 }
-@media(max-width:400px){
-  .characters{grid-template-columns:1fr;gap:32px}
-  .ch-avatar-wrap{width:100px;height:100px}.character{max-width:220px;margin:0 auto}
+@media(prefers-reduced-motion:reduce){
+  .character{transition:opacity .3s ease;transform:none}
+  .character.visible{transform:none}
+  .ch-icon,.ch-icon::after{animation:none}
+  .character::after{display:none}
 }
 @media(max-width:768px){
   .nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:88px;left:20px;right:20px;background:rgba(255,255,255,0.95);backdrop-filter:blur(24px);padding:20px 24px;gap:4px;border-radius:20px;border:1px solid rgba(255,255,255,0.5);box-shadow:0 8px 40px rgba(0,0,0,0.08)}.nav-links.open a{padding:14px 18px;font-size:15px}.nav-toggle{display:flex}
@@ -122,58 +116,88 @@
     <p class="subtitle">不管你是什么背景，只要对AI视频创作感兴趣，这门课都适合你</p>
   </div>
   <div class="characters" id="characters">
-    <div class="character" data-delay="0">
-      <div class="ch-inner">
-        <div class="ch-avatar-wrap">
-          <div class="ch-avatar-placeholder"><img src="一些icon/书籍.svg" alt=""></div>
+    <div class="character" data-delay="0" style="--c1:#f59e0b;--c2:#ef4444">
+      <div class="ch-head">
+        <div class="ch-icon" data-no-gv><img src="一些icon/书籍.svg" alt=""></div>
+        <div class="ch-titles">
+          <div class="ch-name">零基础新手</div>
+          <span class="ch-tag">从零开始</span>
         </div>
-        <div class="ch-name">零基础新手</div>
-        <div class="ch-desc">完全没接触过AI工具？没关系，从安装到出片，每一步都有详细指导</div>
+      </div>
+      <div class="ch-lead">完全没接触过AI工具？没关系，从安装到出片，每一步都有详细指导。</div>
+      <div class="ch-story">
+        <div class="ch-story-text">我今年快 40 了，连 PS 都没碰过，一开始真怕自己学不会。报名时手都在抖，想着大不了就当交个学费。结果第一节课跟着老师把工具装好、跑通第一条 15 秒的片子，那一刻整个人都亮了——原来所谓"高科技"，跟着做就是了。现在我能独立做完整分镜脚本，家里人都不敢相信是我做的。</div>
+        <span class="ch-sign">—— <b>周姐（化名）</b> · 42岁 · 家庭主妇</span>
       </div>
     </div>
-    <div class="character" data-delay="1">
-      <div class="ch-inner">
-        <div class="ch-avatar-wrap">
-          <div class="ch-avatar-placeholder"><img src="一些icon/调色盘.svg" alt=""></div>
+    <div class="character" data-delay="1" style="--c1:#3b82f6;--c2:#06b6d4">
+      <div class="ch-head">
+        <div class="ch-icon" data-no-gv><img src="一些icon/调色盘.svg" alt=""></div>
+        <div class="ch-titles">
+          <div class="ch-name">内容创作者</div>
+          <span class="ch-tag">效率翻倍</span>
         </div>
-        <div class="ch-name">内容创作者</div>
-        <div class="ch-desc">想用AI提升创作效率？学会AI工具链，十倍速产出高质量内容</div>
+      </div>
+      <div class="ch-lead">想用AI提升创作效率？学会AI工具链，十倍速产出高质量内容。</div>
+      <div class="ch-story">
+        <div class="ch-story-text">我做插画博主三年，最痛苦的是出图慢，一条动态视频要磨一整周。学完课程把 AI 工具串成流水线后，同样的活儿现在两天就交稿，产量直接翻了三倍。上个月接了一个品牌联名，靠 AI 分镜提案一次过稿，甲方还夸我"更新怎么这么勤"，其实是 AI 帮我扛住了。</div>
+        <span class="ch-sign">—— <b>阿泽（化名）</b> · 26岁 · 插画博主</span>
       </div>
     </div>
-    <div class="character" data-delay="2">
-      <div class="ch-inner">
-        <div class="ch-avatar-wrap">
-          <div class="ch-avatar-placeholder"><img src="一些icon/设备.svg" alt=""></div>
+    <div class="character" data-delay="2" style="--c1:#8b5cf6;--c2:#ec4899">
+      <div class="ch-head">
+        <div class="ch-icon" data-no-gv><img src="一些icon/设备.svg" alt=""></div>
+        <div class="ch-titles">
+          <div class="ch-name">自媒体运营</div>
+          <span class="ch-tag">批量爆款</span>
         </div>
-        <div class="ch-name">自媒体运营</div>
-        <div class="ch-desc">AI是你的超级助手，批量生产爆款内容</div>
+      </div>
+      <div class="ch-lead">AI是你的超级助手，一个人也能批量生产爆款内容。</div>
+      <div class="ch-story">
+        <div class="ch-story-text">之前团队三个人一天最多做两条短视频，选题、脚本、剪辑全靠肝。上了课把 AI 生成融进工作流后，我一个人一天能出六到八条，还能同时养三个账号做矩阵。有一条 AI 漫剧当晚就冲到同城榜前十，涨粉两万多。老板看到数据，直接给我加了预算。</div>
+        <span class="ch-sign">—— <b>小林（化名）</b> · 29岁 · MCN运营</span>
       </div>
     </div>
-    <div class="character" data-delay="3">
-      <div class="ch-inner">
-        <div class="ch-avatar-wrap">
-          <div class="ch-avatar-placeholder"><img src="一些icon/公文包.svg" alt=""></div>
+    <div class="character" data-delay="3" style="--c1:#10b981;--c2:#06b6d4">
+      <div class="ch-head">
+        <div class="ch-icon" data-no-gv><img src="一些icon/公文包.svg" alt=""></div>
+        <div class="ch-titles">
+          <div class="ch-name">职场人士</div>
+          <span class="ch-tag">降本增效</span>
         </div>
-        <div class="ch-name">职场人士</div>
-        <div class="ch-desc">用AI快速制作企业宣传、产品展示视频</div>
+      </div>
+      <div class="ch-lead">用AI快速制作企业宣传、产品展示视频，省下大笔外包费。</div>
+      <div class="ch-story">
+        <div class="ch-story-text">我在公司做市场，以前一条产品宣传片外包报价两三万，还得来回改半个月。学完之后我自己用 AI 做，成本几乎为零，三天就能出成片。季度发布会的开场视频就是我做的，领导当场问"这是找哪家做的"，听说是我自己搞的，直接把品牌视频这块交给我全权负责了。</div>
+        <span class="ch-sign">—— <b>陈先生（化名）</b> · 33岁 · 市场专员</span>
       </div>
     </div>
-    <div class="character" data-delay="4">
-      <div class="ch-inner">
-        <div class="ch-avatar-wrap">
-          <div class="ch-avatar-placeholder"><img src="一些icon/学校.svg" alt=""></div>
+    <div class="character" data-delay="4" style="--c1:#f97316;--c2:#f59e0b">
+      <div class="ch-head">
+        <div class="ch-icon" data-no-gv><img src="一些icon/学校.svg" alt=""></div>
+        <div class="ch-titles">
+          <div class="ch-name">教师 / 培训师</div>
+          <span class="ch-tag">课件升级</span>
         </div>
-        <div class="ch-name">教师 / 培训师</div>
-        <div class="ch-desc">把教案变成生动的AI视频课件</div>
+      </div>
+      <div class="ch-lead">把枯燥的教案变成生动的AI视频课件，学生一看就懂。</div>
+      <div class="ch-story">
+        <div class="ch-story-text">我教初中历史，学生总觉得课本干巴巴的。学会 AI 视频后，我把"丝绸之路"做成了一段两分钟的动画短片，商队、驼铃、大漠全出来了。那节课全班都盯着屏幕不说话，下课还围着我问怎么做的。现在我的公开课成了学校的示范课，同事都来找我取经。</div>
+        <span class="ch-sign">—— <b>李老师（化名）</b> · 36岁 · 中学教师</span>
       </div>
     </div>
-    <div class="character" data-delay="5">
-      <div class="ch-inner">
-        <div class="ch-avatar-wrap">
-          <div class="ch-avatar-placeholder"><img src="一些icon/火箭.svg" alt=""></div>
+    <div class="character" data-delay="5" style="--c1:#0ea5e9;--c2:#6366f1">
+      <div class="ch-head">
+        <div class="ch-icon" data-no-gv><img src="一些icon/火箭.svg" alt=""></div>
+        <div class="ch-titles">
+          <div class="ch-name">创业者</div>
+          <span class="ch-tag">轻资产启动</span>
         </div>
-        <div class="ch-name">创业者</div>
-        <div class="ch-desc">低成本高效率制作品牌视频</div>
+      </div>
+      <div class="ch-lead">低成本高效率制作品牌视频，把每一分预算都花在刀刃上。</div>
+      <div class="ch-story">
+        <div class="ch-story-text">我刚创业做一个小众茶饮品牌，初期没钱请团队拍宣传片。学完课程后，产品视频、开业短片、朋友圈广告全是我自己用 AI 做的，前后省了小十万。开业那天靠这几条视频在本地小红书刷了屏，第一个月就把店门口排起了队。对创业者来说，这门课等于白捡了一个视频团队。</div>
+        <span class="ch-sign">—— <b>Kevin（化名）</b> · 31岁 · 茶饮品牌主理人</span>
       </div>
     </div>
   </div>
@@ -185,11 +209,20 @@ t.addEventListener('click',function(){l.classList.toggle('open')});
 l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open')})});
 window.addEventListener('scroll',function(){document.getElementById('navBar').classList.toggle('scrolled',window.scrollY>10)});
 
-// Staggered entrance
-document.querySelectorAll('.character').forEach(function(c){
-  var d=parseInt(c.getAttribute('data-delay'))||0;
-  setTimeout(function(){c.classList.add('visible')},100+d*100);
-});
+// 滚动入场（错位延迟由 CSS transition-delay 控制）
+(function(){
+  var cards=document.querySelectorAll('.character');
+  if(!cards.length)return;
+  if(!('IntersectionObserver' in window)){
+    cards.forEach(function(c){c.classList.add('visible')});return;
+  }
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}
+    });
+  },{threshold:0.15,rootMargin:'0px 0px -8% 0px'});
+  cards.forEach(function(c){io.observe(c);});
+})();
 </script>
 <script>(function(){var l=localStorage.getItem("sv");fetch("version.txt?t="+Date.now()).then(function(r){return r.text()}).then(function(t){t=t.trim();if(l&&l!==t){localStorage.setItem("sv",t);location.reload(true)}else{localStorage.setItem("sv",t)}}).catch(function(){})})();</script>
 <!-- 全局图片/视频查看器 -->
