@@ -52,6 +52,42 @@
   .case-card{width:190px}
 }
 
+/* ===== 真实就业截图 Gallery ===== */
+.proof-section{margin-top:56px}
+.proof-header{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px}
+.proof-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 16px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:2px;background:rgba(16,185,129,0.08);color:#059669;border:1px solid rgba(16,185,129,0.18)}
+.proof-badge svg{width:14px;height:14px}
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:24px}
+.proof-card{background:rgba(255,255,255,0.65);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:18px;overflow:hidden;border:1px solid rgba(59,130,246,0.10);transition:transform 0.4s cubic-bezier(.22,.61,.36,1),box-shadow 0.4s ease;cursor:pointer;position:relative}
+.proof-card:hover{transform:translateY(-6px);box-shadow:0 20px 52px rgba(59,130,246,0.15)}
+.pro-thumb{width:100%;aspect-ratio:0.58;display:block;object-fit:cover;transition:transform 0.5s ease}
+.proof-card:hover .pro-thumb{transform:scale(1.03)}
+.pro-info{padding:16px 18px 18px;display:flex;align-items:center;gap:10px}
+.pro-avatar{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#fff}
+.pro-avatar.pa-1{background:linear-gradient(135deg,#f59e0b,#ef4444)}
+.pro-avatar.pa-2{background:linear-gradient(135deg,#3b82f6,#06b6d4)}
+.pro-avatar.pa-3{background:linear-gradient(135deg,#8b5cf6,#ec4899)}
+.pro-text{flex:1;min-width:0}
+.pro-name{font-size:14px;font-weight:700;color:#1a1a2e}
+.pro-desc{font-size:11.5px;color:#64748b;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pro-tag{display:inline-block;padding:3px 10px;border-radius:8px;font-size:10px;font-weight:700;white-space:nowrap;flex-shrink:0}
+.pro-tag.pt-job{background:rgba(16,185,129,0.08);color:#059669;border:1px solid rgba(16,185,129,0.18)}
+.pro-tag.pt-data{background:rgba(139,92,246,0.08);color:#7c3aed;border:1px solid rgba(139,92,246,0.18)}
+
+/* Lightbox for proof images */
+.proof-lightbox{position:fixed;inset:0;z-index:3000;display:none;align-items:center;justify-content:center}
+.proof-lightbox.open{display:flex}
+.pl-backdrop{position:absolute;inset:0;background:rgba(15,23,42,.88);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.pl-inner{position:relative;z-index:1;width:min(92vw,720px)}
+.pl-img{width:100%;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.pl-caption{color:#e2e8f0;font-size:13px;text-align:center;margin-top:14px;line-height:1.6}
+.pl-close{position:absolute;top:-44px;right:0;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.95);border:none;color:#0f172a;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.3);transition:transform .2s}
+.pl-close:hover{transform:scale(1.1)}
+
+@media(max-width:900px){.proof-grid{grid-template-columns:repeat(2,1fr)}.proof-grid .proof-card:last-child{grid-column:span 2;max-width:480px;margin:0 auto;width:100%}}
+@media(max-width:600px){.proof-grid{grid-template-columns:1fr}.proof-grid .proof-card:last-child{max-width:none}}
+@media(max-width:480px){.pro-info{padding:12px 14px 14px}.pro-name{font-size:13px}}
+
 /* ===== Case video media & lightbox ===== */
 .cc-media{position:relative;height:180px;background:linear-gradient(135deg,rgba(59,130,246,0.10),rgba(6,182,212,0.06));overflow:hidden;cursor:pointer}
 .cc-video{width:100%;height:100%;object-fit:cover;display:block;background:#0f172a}
@@ -137,6 +173,66 @@
   </div>
 </div>
 </section>
+
+<!-- 真实就业反馈 · 企微聊天实录 -->
+<section class="page-section" id="proofSection">
+  <div class="proof-section">
+    <div class="proof-header">
+      <span class="proof-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+        真实可查
+      </span>
+    </div>
+    <h1>真实就业反馈</h1>
+    <p class="subtitle">以下均为学员与企业微信的真实聊天截图，见证课程的实际就业效果</p>
+    <div class="proof-grid">
+      <div class="proof-card" data-proof="学员就业1.png" data-name="学员A · 入职短视频公司">
+        <img class="pro-thumb" src="学员就业1.png" alt="学员就业聊天记录1" loading="lazy">
+        <div class="pro-info">
+          <div class="pro-avatar pa-1">A</div>
+          <div class="pro-text">
+            <div class="pro-name">学员A</div>
+            <div class="pro-desc">入职短视频公司 · 做剪辑/包装/分镜设计</div>
+          </div>
+          <span class="pro-tag pt-job">已就业</span>
+        </div>
+      </div>
+      <div class="proof-card" data-proof="学员就业2.png" data-name="学员B · 入职宣传片制作公司">
+        <img class="pro-thumb" src="学员就业2.png" alt="学员就业聊天记录2" loading="lazy">
+        <div class="pro-info">
+          <div class="pro-avatar pa-2">哲</div>
+          <div class="pro-text">
+            <div class="pro-name">尚AI同学-哲</div>
+            <div class="pro-desc">入职宣传片/品牌视频公司 · 后期+调色+包装</div>
+          </div>
+          <span class="pro-tag pt-job">已就业</span>
+        </div>
+      </div>
+      <div class="proof-card" data-proof="学员就业3.png" data-name="学员Berry · 轻运动品牌视频策划">
+        <img class="pro-thumb" src="学员就业3.png" alt="学员就业聊天记录3" loading="lazy">
+        <div class="pro-info">
+          <div class="pro-avatar pa-3">B</div>
+          <div class="pro-text">
+            <div class="pro-name">尚AI同学-Berry</div>
+            <div class="pro-desc">品牌短视频策划 · 播放量1280万+ / 互动56.3万</div>
+          </div>
+          <span class="pro-tag pt-data">数据亮眼</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="proof-lightbox" id="proofLightbox" aria-hidden="true">
+  <div class="pl-backdrop" id="plBackdrop"></div>
+  <div class="pl-inner">
+    <button class="pl-close" id="plClose" aria-label="关闭">&times;</button>
+    <img class="pl-img" id="plImg" src="" alt="">
+    <div class="pl-caption" id="plCaption"></div>
+  </div>
+</div>
+
 <section class="page-section"><h1>往期学员作品</h1><p class="subtitle">看看学长学姐们的AI视频作品</p>
 <div class="carousel-container" id="carouselContainer">
   <div class="carousel-nav prev" id="navPrev">&#10094;</div>
@@ -380,6 +476,34 @@
   goToSlide(0, false);
   startAutoScroll();
 })();
+// Proof lightbox
+(function(){
+  var lb=document.getElementById('proofLightbox');
+  var img=document.getElementById('plImg');
+  var cap=document.getElementById('plCaption');
+  var closeBtn=document.getElementById('plClose');
+  var backdrop=document.getElementById('plBackdrop');
+
+  function openProof(src,title){
+    img.src=src;cap.textContent=title||'';
+    lb.classList.add('open');lb.setAttribute('aria-hidden','false');
+  }
+  function closeProof(){
+    lb.classList.remove('open');lb.setAttribute('aria-hidden','true');
+    img.src='';img.removeAttribute('src');img.load&&img.load();
+  }
+
+  document.querySelectorAll('.proof-card').forEach(function(card){
+    card.addEventListener('click',function(){
+      openProof(card.getAttribute('data-proof'),card.getAttribute('data-name'));
+    });
+  });
+
+  closeBtn.addEventListener('click',closeProof);
+  backdrop.addEventListener('click',closeProof);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeProof();});
+})();
+
 </script>
 <script>var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');t.addEventListener('click',function(){l.classList.toggle('open')});l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open')})});window.addEventListener('scroll',function(){document.getElementById('navBar').classList.toggle('scrolled',window.scrollY>10)});</script>
 <script>(function(){var l=localStorage.getItem("sv");fetch("version.txt?t="+Date.now()).then(function(r){return r.text()}).then(function(t){t=t.trim();if(l&&l!==t){localStorage.setItem("sv",t);location.reload(true)}else{localStorage.setItem("sv",t)}}).catch(function(){})})();</script>

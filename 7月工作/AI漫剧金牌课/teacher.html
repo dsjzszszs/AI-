@@ -56,6 +56,28 @@
 .fcard-title{font-size:17px;font-weight:800;color:#1e293b;margin-bottom:10px}
 .fcard-desc{font-size:13px;color:#64748b;line-height:1.8}
 
+/* 线下授课实拍 */
+.lecture-showcase{background:rgba(255,255,255,0.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:20px;overflow:hidden;border:1px solid rgba(59,130,246,0.12)}
+.lecture-img-wrap{position:relative;width:100%;overflow:hidden;background:#0f172a}
+.lecture-img{width:100%;display:block;transition:transform 0.6s ease}
+.lecture-img-wrap:hover .lecture-img{transform:scale(1.03)}
+.lecture-badge{
+  position:absolute;top:18px;left:18px;z-index:2;
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 16px;border-radius:20px;
+  font-size:11px;font-weight:700;letter-spacing:2px;
+  background:rgba(255,255,255,0.92);color:#2563eb;
+  border:1px solid rgba(255,255,255,0.6);
+  box-shadow:0 4px 14px rgba(0,0,0,0.1);
+  backdrop-filter:blur(8px);
+}
+.lecture-badge svg{width:14px;height:14px}
+.lecture-caption{padding:18px 26px 22px;display:flex;align-items:center;gap:12px}
+.lecture-icon{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,rgba(217,119,6,0.1),rgba(245,158,11,0.05));border:1px solid rgba(245,158,11,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lecture-icon svg{width:20px;height:20px}
+.lecture-text h3{font-size:16px;font-weight:800;color:#1e293b;margin-bottom:3px}
+.lecture-text p{font-size:13px;color:#64748b;line-height:1.6}
+
 /* 作品 */
 .works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .work-item{aspect-ratio:1;border-radius:14px;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.4)}
@@ -80,6 +102,7 @@
   .resume-cards{grid-template-columns:1fr}
   .feature-grid{grid-template-columns:1fr}
   .works-grid{grid-template-columns:repeat(2,1fr)}
+  .lecture-text h3{font-size:15px}.lecture-caption{padding:14px 18px 18px}
 }
 @media(max-width:480px){.nav-bar{padding:0 18px;width:calc(100% - 24px)}.page-section{padding:36px 18px}}
 </style></head>
@@ -153,6 +176,29 @@
       <div class="fcard-icon" style="background:rgba(22,163,74,0.1)"><img src="一些icon/靶子.svg" alt=""></div>
       <div class="fcard-title">案例驱动</div>
       <div class="fcard-desc">边讲边做，学完即能产出自己的原创 AI 项目作品。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ④⑤之间：线下授课实拍 -->
+<section class="page-section" style="padding-top:8px">
+  <h2 class="section-title">线下授课实拍</h2>
+  <div class="lecture-showcase">
+    <div class="lecture-img-wrap">
+      <span class="lecture-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 10l4.553-2.276A1 1 0 0021 6.763V4.237a1 1 0 00-1.21-1.008l-9.5 1.9a1 1 0 01-.58-.03L3 3.5"/><path d="M14 12v7a2 2 0 01-2 2H6a2 2 0 01-2-2v-7"/></svg>
+        真实课堂
+      </span>
+      <img class="lecture-img" src="JACK老师线下讲课.png" alt="JACK老师线下授课现场" loading="lazy">
+    </div>
+    <div class="lecture-caption">
+      <div class="lecture-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M10 16l5-4-5-4v8z"/></svg>
+      </div>
+      <div class="lecture-text">
+        <h3>JACK 老师线下授课现场 · AI基础入门课程</h3>
+        <p>从人工智能定义到深度学习发展历程，JACK老师用深入浅出的方式，将复杂的AI知识讲得生动易懂。这是2024年4月线下培训的真实拍摄记录。</p>
+      </div>
     </div>
   </div>
 </section>
