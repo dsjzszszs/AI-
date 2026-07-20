@@ -78,6 +78,30 @@
 .lecture-text h3{font-size:16px;font-weight:800;color:#1e293b;margin-bottom:3px}
 .lecture-text p{font-size:13px;color:#64748b;line-height:1.6}
 
+/* 线下培训合影 */
+.group-photo{background:rgba(255,255,255,0.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:20px;overflow:hidden;border:1px solid rgba(59,130,246,0.12)}
+.gp-img-wrap{position:relative;width:100%;overflow:hidden;background:#f8fafc;line-height:0}
+.gp-img{width:100%;display:block;transition:transform 0.7s ease}
+.gp-img-wrap:hover .gp-img{transform:scale(1.02)}
+.gp-badge{
+  position:absolute;top:16px;left:16px;z-index:2;
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 16px;border-radius:20px;
+  font-size:11px;font-weight:700;letter-spacing:2px;
+  background:rgba(239,68,68,0.92);color:#fff;
+  border:1px solid rgba(255,255,255,0.4);
+  box-shadow:0 4px 14px rgba(239,68,68,0.25);
+}
+.gp-badge svg{width:14px;height:14px}
+.gp-caption{
+  padding:18px 26px;display:flex;align-items:center;gap:12px;
+  background:linear-gradient(135deg,rgba(239,68,68,0.04),rgba(245,158,11,0.02));
+}
+.gp-icon{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,rgba(239,68,68,0.1),rgba(220,38,38,0.05));border:1px solid rgba(239,68,68,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.gp-icon svg{width:20px;height:20px;color:#ef4444}
+.gp-text h3{font-size:16px;font-weight:800;color:#1e293b;margin-bottom:3px}
+.gp-text p{font-size:13px;color:#64748b;line-height:1.6}
+
 /* 作品 */
 .works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .work-item{aspect-ratio:1;border-radius:14px;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.4)}
@@ -103,6 +127,7 @@
   .feature-grid{grid-template-columns:1fr}
   .works-grid{grid-template-columns:repeat(2,1fr)}
   .lecture-text h3{font-size:15px}.lecture-caption{padding:14px 18px 18px}
+  .gp-text h3{font-size:15px}.gp-caption{padding:14px 18px 16px}
 }
 @media(max-width:480px){.nav-bar{padding:0 18px;width:calc(100% - 24px)}.page-section{padding:36px 18px}}
 </style></head>
@@ -198,6 +223,29 @@
       <div class="lecture-text">
         <h3>JACK 老师线下授课现场 · AI基础入门课程</h3>
         <p>从人工智能定义到深度学习发展历程，JACK老师用深入浅出的方式，将复杂的AI知识讲得生动易懂。这是2024年4月线下培训的真实拍摄记录。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 线下培训合影 -->
+<section class="page-section" style="padding-top:8px">
+  <h2 class="section-title">线下培训合影</h2>
+  <div class="group-photo">
+    <div class="gp-img-wrap">
+      <span class="gp-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        圆满结营
+      </span>
+      <img class="gp-img" src="线下培训合影.jpg" alt="树帆机构AI线下企业员工对接训练营合影" loading="lazy">
+    </div>
+    <div class="gp-caption">
+      <div class="gp-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <div class="gp-text">
+        <h3>AI线下企业员工对接训练营 · 满满一教室的收获</h3>
+        <p>来自不同行业的学员齐聚一堂，完成系统化 AI 培训并全员获得结业证书。这张合影见证了树帆机构线下培训的真实规模与学员认可度。</p>
       </div>
     </div>
   </div>
