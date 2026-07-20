@@ -102,6 +102,29 @@
 .gp-text h3{font-size:16px;font-weight:800;color:#1e293b;margin-bottom:3px}
 .gp-text p{font-size:13px;color:#64748b;line-height:1.6}
 
+/* ===== 商业作品（腾讯视频已上架）===== */
+.commercial-works{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.cw-card{border-radius:16px;overflow:hidden;position:relative;cursor:pointer;background:#0f172a;border:1px solid rgba(255,255,255,0.08);transition:transform 0.3s,box-shadow 0.3s}
+.cw-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,0.3)}
+.cw-poster{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.cw-overlay{position:absolute;inset:0;top:0;left:0;width:100%;height:100%;background:linear-gradient(to top,rgba(15,23,42,.85) 0%,transparent 50%);display:flex;align-items:center;justify-content:center;transition:opacity .25s;opacity:1}
+.cw-card:hover .cw-overlay{opacity:.6}
+.cw-play{width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.2);backdrop-filter:blur(8px);border:2px solid rgba(255,255,255,.45);display:flex;align-items:center;justify-content:center;transition:transform .25s,background .25s}
+.cw-card:hover .cw-play{transform:scale(1.1);background:rgba(255,255,255,.3)}
+.cw-play svg{width:24px;height:24px;color:#fff;margin-left:3px}
+.cw-info{padding:14px 16px 16px}
+.cw-info-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.cw-title{font-size:16px;font-weight:700;color:#f8fafc;line-height:1.35}
+.cw-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:10px;font-size:11px;font-weight:700;letter-spacing:.3px}
+.cw-badge-tx{background:linear-gradient(135deg,#ff6b00,#e85d04);color:#fff}.cw-badge-time{background:rgba(100,116,139,.18);color:#94a3b8}
+.cw-desc{font-size:13px;color:#94a3b8;line-height:1.55;margin-top:4px}
+
+@media(max-width:768px){
+  .commercial-works{grid-template-columns:1fr;gap:16px}
+  .cw-title{font-size:15px}.cw-info{padding:11px 14px 13px}
+  .cw-play{width:52px;height:52px}.cw-play svg{width:20px;height:20px}
+}
+
 /* 作品 */
 .works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .work-item{aspect-ratio:1;border-radius:14px;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.4)}
@@ -129,7 +152,7 @@
   .lecture-text h3{font-size:15px}.lecture-caption{padding:14px 18px 18px}
   .gp-text h3{font-size:15px}.gp-caption{padding:14px 18px 16px}
 }
-@media(max-width:480px){.nav-bar{padding:0 18px;width:calc(100% - 24px)}.page-section{padding:36px 18px}}
+@media(max-width:480px){.nav-bar{padding:0 18px;width:calc(100% - 24px)}.page-section{padding:36px 18px}.cw-title{font-size:14px}.cw-desc{font-size:12px}.cw-info{padding:9px 12px 11px}.cw-play{width:48px;height:48px}}
 </style><style>
 /* ===== Global Image/Video Viewer（叉按钮固定视口右上角，永远够得到） ===== */
 .gv-overlay{position:fixed;inset:0;z-index:99990;display:none;align-items:center;justify-content:center;background:rgba(8,15,30,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:0}
@@ -261,6 +284,52 @@
         <p>来自不同行业的学员齐聚一堂，完成系统化 AI 培训并全员获得结业证书。这张合影见证了树帆机构线下培训的真实规模与学员认可度。</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- 商业作品 · 已上架腾讯视频 -->
+<section class="page-section" style="padding-top:8px">
+  <div class="section-title" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+    <span>商业作品</span>
+    <span class="cw-badge cw-badge-tx" style="font-size:12px;padding:4px 12px;border-radius:20px;letter-spacing:.5px">📺 已上架腾讯视频</span>
+  </div>
+  <p style="color:#64748b;font-size:13px;margin:-2px 0 18px;text-align:center">JACK 老师主导的 AI 漫剧商用案例，已在腾讯视频平台正式上线</p>
+  <div class="commercial-works">
+
+    <!-- 片头曲 -->
+    <div class="cw-card" onclick="if(window.__gvOpen)window.__gvOpen('video','yushou-opening.mp4','御兽 片头曲')">
+      <img class="cw-poster" src="yushou-opening-poster.jpg" alt="御兽片头曲" loading="lazy">
+      <div class="cw-overlay">
+        <div class="cw-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="cw-info">
+        <div class="cw-info-row">
+          <span class="cw-title">御兽 · 片头曲</span>
+        </div>
+        <div class="cw-info-row">
+          <span class="cw-desc">AI 漫剧开场动画，史诗级斗兽场场景</span>
+          <span class="cw-badge cw-badge-time">01:04</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 第一集 -->
+    <div class="cw-card" onclick="if(window.__gvOpen)window.__gvOpen('video','yushou-ep1.mp4','御兽 第一集 配音完成版')">
+      <img class="cw-poster" src="yushou-ep1-poster.jpg" alt="第一集配音完成" loading="lazy">
+      <div class="cw-overlay">
+        <div class="cw-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="cw-info">
+        <div class="cw-info-row">
+          <span class="cw-title">御兽 · 第一集（配音完成）</span>
+        </div>
+        <div class="cw-info-row">
+          <span class="cw-desc">前2分钟预览 · 完整版已在腾讯视频上架</span>
+          <span class="cw-badge cw-badge-time">02:00</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
