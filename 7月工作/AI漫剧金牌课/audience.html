@@ -99,6 +99,19 @@
 }
 @media(max-width:480px){.nav-bar{padding:0 18px;width:calc(100% - 24px)}.page-section{padding:48px 16px 60px}}
 </style>
+<style>
+/* ===== Global Image/Video Viewer（叉按钮固定视口右上角，永远够得到） ===== */
+.gv-overlay{position:fixed;inset:0;z-index:99990;display:none;align-items:center;justify-content:center;background:rgba(8,15,30,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:0}
+.gv-overlay.open{display:flex}
+.gv-stage{position:relative;max-width:94vw;max-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.gv-img{max-width:94vw;max-height:84vh;width:auto;height:auto;object-fit:contain;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.5);-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.gv-video{max-width:94vw;max-height:84vh;width:auto;height:auto;background:#000;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.5);outline:none}
+.gv-caption{color:#e2e8f0;font-size:13px;text-align:center;margin-top:14px;line-height:1.6;max-width:94vw;padding:0 12px}
+.gv-close{position:fixed;top:16px;right:16px;z-index:99999;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.96);border:none;color:#0f172a;font-size:26px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.4);transition:transform .2s,background .2s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.gv-close:hover{transform:scale(1.08);background:#fff}
+.gv-close:active{transform:scale(.9)}
+@media(max-width:480px){.gv-close{top:10px;right:10px;width:42px;height:42px;font-size:24px}.gv-img,.gv-video{max-width:96vw;max-height:80vh}}
+</style>
 </head>
 <body>
 <nav class="nav-bar" id="navBar"><a href="index.html" class="nav-brand">源码世界 · 金牌AI视频剧</a><div class="nav-links" id="navLinks"><a href="index.html">课程介绍</a><a href="teacher.html">主讲老师</a><a href="course.html">课程内容</a><a href="cases.html">学员案例</a><a href="audience.html" class="active">适合人群</a><a href="faq.html">常见问题</a></div><button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button></nav>
@@ -179,4 +192,59 @@ document.querySelectorAll('.character').forEach(function(c){
 });
 </script>
 <script>(function(){var l=localStorage.getItem("sv");fetch("version.txt?t="+Date.now()).then(function(r){return r.text()}).then(function(t){t=t.trim();if(l&&l!==t){localStorage.setItem("sv",t);location.reload(true)}else{localStorage.setItem("sv",t)}}).catch(function(){})})();</script>
+<!-- 全局图片/视频查看器 -->
+<div class="gv-overlay" id="gvOverlay" aria-hidden="true">
+  <button class="gv-close" id="gvClose" aria-label="关闭">&times;</button>
+  <div class="gv-stage">
+    <img class="gv-img" id="gvImg" alt="" style="display:none">
+    <video class="gv-video" id="gvVideo" controls playsinline style="display:none"></video>
+    <div class="gv-caption" id="gvCaption"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var overlay=document.getElementById('gvOverlay');
+  if(!overlay)return;
+  var imgEl=document.getElementById('gvImg');
+  var videoEl=document.getElementById('gvVideo');
+  var capEl=document.getElementById('gvCaption');
+  var closeBtn=document.getElementById('gvClose');
+  function openViewer(type,src,caption){
+    if(type==='video'){
+      imgEl.style.display='none';imgEl.removeAttribute('src');
+      videoEl.style.display='block';videoEl.src=src;
+      videoEl.play().catch(function(){});
+    }else{
+      videoEl.style.display='none';videoEl.pause();videoEl.removeAttribute('src');
+      imgEl.style.display='block';imgEl.src=src;
+    }
+    capEl.textContent=caption||'';
+    overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+  }
+  function closeViewer(){
+    overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    imgEl.src='';imgEl.style.display='none';
+    videoEl.pause();videoEl.removeAttribute('src');videoEl.style.display='none';
+  }
+  closeBtn.addEventListener('click',function(e){e.stopPropagation();closeViewer();});
+  overlay.addEventListener('click',function(e){if(e.target===overlay||e.target===capEl)closeViewer();});
+  imgEl.addEventListener('click',function(e){e.stopPropagation();});
+  videoEl.addEventListener('click',function(e){e.stopPropagation();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&overlay.classList.contains('open'))closeViewer();});
+  window.__gvOpen=openViewer;window.__gvClose=closeViewer;
+  var skipSel='a, .nav-bar, .nav-links, .nav-toggle, .fcard-icon, .ch-avatar-placeholder, .lecture-icon, .gp-icon, .tl-go, .faq-avatar, [data-no-gv]';
+  document.querySelectorAll('img').forEach(function(img){
+    if(img.closest(skipSel))return;
+    img.style.cursor='pointer';
+    img.addEventListener('click',function(e){
+      e.stopPropagation();
+      var src=img.getAttribute('data-gv-src')||img.currentSrc||img.src;
+      var cap=img.getAttribute('data-gv-cap')||img.alt||'';
+      openViewer('image',src,cap);
+    });
+  });
+})();
+</script>
 </body></html>
