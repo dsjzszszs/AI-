@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三阶段体系 · FDE训练营</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav>
+  <div class="wrap nav-in">
+    <a class="logo" href="index.html">FDE<span>训练营</span></a>
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">首页</a>
+      <a href="what.html">什么是FDE</a>
+      <a href="stages.html" class="active">三阶段</a>
+      <a href="courses.html">课程内容</a>
+      <a href="works.html">学员案例</a>
+      <a href="teacher.html">师资案例</a>
+      <a href="jobs.html">就业变现</a>
+      <a href="faq.html">常见问题</a>
+      <a href="signup.html" class="btn nav-cta">抢免费名额</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="wrap">
+    <h1>三阶段，薪资三级跳</h1>
+    <p>不会写代码也能学。5 天小白营，就是你站上这条增长曲线的起点。</p>
+  </div>
+</div>
+
+<!-- 薪资增长柱状图 -->
+<section class="ladder-sec">
+  <div class="wrap">
+    <div class="ladder reveal">
+      <div class="bar">
+        <div class="bar-val">6–8k</div>
+        <div class="bar-fill b1" style="--h:70px"><span class="bar-cap">阶段一</span></div>
+        <div class="bar-name">AI 应用<br>入门</div>
+      </div>
+      <div class="bar">
+        <div class="bar-val">15–30k</div>
+        <div class="bar-fill b2" style="--h:210px"><span class="bar-cap">阶段二</span></div>
+        <div class="bar-name">AI 应用<br>工程师</div>
+      </div>
+      <div class="bar">
+        <div class="bar-val">20–45k</div>
+        <div class="bar-fill b3" style="--h:300px"><span class="bar-cap">阶段三</span></div>
+        <div class="bar-name">Agent 应用<br>高手</div>
+      </div>
+      <svg class="ladder-arrow" viewBox="0 0 600 400" preserveAspectRatio="none" style="color:#f59e0b"><defs><marker id="arr" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto"><polygon points="0,0 10,4 0,8" fill="currentColor"/></marker></defs><path d="M 70,355 Q 200,350 535,60" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" marker-end="url(#arr)"/></svg>
+    </div>
+
+  </div>
+</section>
+
+<!-- 三个阶段大卡 -->
+<section class="stage-detail">
+  <div class="wrap">
+
+    <div class="stage-full s1 reveal">
+      <div class="stage-head">
+        <div class="num">01</div>
+        <div>
+          <h3>阶段一 · AI 应用入门</h3>
+          <div class="meta">5 天小白营 ｜ 月薪 <span class="pay-chip">6k–8k</span></div>
+        </div>
+      </div>
+      <div class="learn-grid">
+        <div class="learn-card"><div class="ic"><svg width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path stroke-linejoin="bevel" stroke-linecap="square" stroke-width="3" stroke="#9be600" d="M5 6h34s4 2 4 7-4 7-4 7H5s4-2 4-7-4-7-4-7ZM43 28H9s-4 2-4 7 4 7 4 7h34s-4-2-4-7 4-7 4-7Z"/></svg></div><b>打基础</b></div>
+        <div class="learn-card"><div class="ic"><svg width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle stroke-linejoin="bevel" stroke-width="3" stroke="#9be600" r="9" cy="13" cx="24"/><path stroke-width="3" stroke="#9be600" d="M4.5 44c0-6 7-16 19.5-16 0 0 2.759 0 5.782 1.09C32.744 30.16 36.5 31.149 36.5 28V7.75a3.75 3.75 0 1 1 7.5 0V44"/><path stroke-linejoin="bevel" stroke-linecap="square" stroke-width="3" stroke="#9be600" d="M2 44h44"/></svg></div><b>动手做</b></div>
+        <div class="learn-card"><div class="ic"><svg width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path stroke-linejoin="bevel" stroke-linecap="square" stroke-width="3" stroke="#9be600" d="M44 16H4v26h40V16ZM44 16V6H4v10h40ZM26 6l4 10M18 6l4 10M10 6l4 10M34 6l4 10M12 24h24M12 32h12"/></svg></div><b>出作品</b></div>
+      </div>
+      <p class="map-hint"><span class="tap-icon"><span class="tap-ripple"></span><span class="tap-hand">☞</span></span> 点击地图上的 北京 / 上海 / 广州 / 深圳 / 武汉，查看该城市真实在招岗位与薪资</p>
+      <div class="chinamap" data-stage="1"></div>
+    </div>
+
+    <div class="stage-full s2 reveal">
+      <div class="stage-head">
+        <div class="num">02</div>
+        <div>
+          <h3>阶段二 · AI 应用工程师养成</h3>
+          <div class="meta">正课核心 ｜ 月薪 <span class="pay-chip">15k–30k</span></div>
+        </div>
+      </div>
+      <div class="learn-grid">
+        <div class="learn-card"><div class="ic"><svg width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path stroke-linejoin="bevel" stroke-linecap="square" stroke-width="3" stroke="#9be600" d="M32 16c0-6.075-3.582-12-8-12s-8 5.925-8 12M9 16h30l1 12H27v-3h-6v3H8l1-12ZM8 28 6 42h36l-2-14"/><path stroke-linejoin="bevel" stroke-linecap="square" stroke-width="3" stroke="#9be600" d="M21 25h6v6h-6v-6Z"/></svg></div><b>能交付</b></div>
+        <div class="learn-card"><div class="ic"><svg width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path stroke-linejoin="bevel" stroke-linecap="square" stroke-width="3" stroke="#9be600" d="M26 24h16M26 38h16M26 10h16M18 24H6h4m8 14c-6-2-2-14-8-14m8-14c-6 2-2 14-8 14"/></svg></div><b>搭工作流</b></div>
+        <div class="learn-card"><div class="ic"><svg width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path stroke-linejoin="bevel" stroke-width="3" stroke="#9be600" d="M6 44V10h12v34H6ZM16 44V20h16v24H16ZM30 44V14h12v30H30Z"/><path stroke-linejoin="bevel" stroke-linecap="square" stroke-width="3" stroke="#9be600" d="M9 16h6M9 22h6M9 28h6M9 34h6M19 26h10M19 32h10M19 38h10M33 20h6M33 26h6M33 32h6"/><rect stroke-linejoin="bevel" stroke-width="3" stroke="#9be600" x="20" y="38" width="8" height="6"/></svg></div><b>商用级</b></div>
+      </div>
+      <p class="map-hint"><span class="tap-icon"><span class="tap-ripple"></span><span class="tap-hand">☞</span></span> 点击地图上的 北京 / 上海 / 广州 / 深圳 / 武汉，查看该城市真实在招岗位与薪资</p>
+      <div class="chinamap" data-stage="2"></div>
+    </div>
+
+    <div class="stage-full s3 reveal">
+      <div class="stage-head">
+        <div class="num">03</div>
+        <div>
+          <h3>阶段三 · Agent 应用高手</h3>
+          <div class="meta">就业冲刺 ｜ 月薪 <span class="pay-chip">20k–45k</span></div>
+        </div>
+      </div>
+      <div class="learn-grid">
+        <div class="learn-card"><div class="ic"><svg width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path stroke-linejoin="bevel" stroke-width="3" stroke="#9be600" d="M4 33a2 2 0 0 1 2-2h6v-7l12-8 12 8v7h6a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4V33Z"/><path stroke-linecap="square" stroke-width="3" stroke="#9be600" d="M24 6v10"/><path stroke-linejoin="bevel" stroke-linecap="square" stroke-width="3" stroke="#9be600" d="M36 12V6s-1.5 3-6 0-6 0-6 0v6s1.5-3 6 0 6 0 6 0ZM28 44V31h-8v13M18 44h12"/></svg></div><b>做架构</b></div>
+        <div class="learn-card"><div class="ic"><svg width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path stroke-linejoin="bevel" stroke-width="3" stroke="#9be600" d="M32 6H22v36h10V6ZM42 6H32v36h10V6ZM10 6l8 1-3.5 35L6 41l4-35Z"/><path stroke-linejoin="bevel" stroke-linecap="square" stroke-width="3" stroke="#9be600" d="M37 18v-3M27 18v-3"/></svg></div><b>带作品</b></div>
+        <div class="learn-card"><div class="ic"><svg width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path stroke-linejoin="bevel" stroke-width="3" stroke="#9be600" d="M19 4h18L26 18h15L17 44l5-19H8L19 4Z"/></svg></div><b>当骨干</b></div>
+      </div>
+      <p class="map-hint"><span class="tap-icon"><span class="tap-ripple"></span><span class="tap-hand">☞</span></span> 点击地图上的 北京 / 上海 / 广州 / 深圳 / 武汉，查看该城市真实在招岗位与薪资</p>
+      <div class="chinamap" data-stage="3"></div>
+    </div>
+
+    <div class="cta-row">
+      <a href="signup.html" class="btn">5 天小白营，从这开始 →</a>
+      <p class="cta-sub">免费名额有限，先到先得</p>
+    </div>
+    <p class="disclaimer">岗位与薪资来自 2026 年北上广深及武汉等公开招聘平台（智联 / 猎聘 / BOSS直聘 / 企业招聘页）聚合，多数含 13–16 薪，实际以企业招聘为准。本页仅作市场趋势参考，<b>不构成任何收入承诺</b>。</p>
+  </div>
+</section>
+
+<!-- 岗位弹窗 -->
+<div class="modal" id="jobModal" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-panel" role="dialog" aria-modal="true">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-head">
+      <span class="m-city" id="mCity">北京</span>
+      <span class="m-stage" id="mStage">阶段一</span>
+    </div>
+    <div class="job-list" id="jobList"></div>
+    <div class="modal-foot">数据来自 2026 年智联招聘 / 猎聘 / BOSS直聘 等公开岗位，真实可查，仅供市场趋势参考，不构成收入承诺。</div>
+  </div>
+</div>
+
+<footer><div class="wrap">FDE训练营 · 用 Agent 应用吃上 AI 红利　|　公众号 / 视频号 / 客服微信占位　|　© 2026 版权信息占位</div></footer>
+<script src="script.js"></script>
+<script src="chinamap.js"></script>
+</body>
+</html>

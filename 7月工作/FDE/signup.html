@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>报名 · FDE训练营</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav>
+  <div class="wrap nav-in">
+    <a class="logo" href="index.html">FDE<span>训练营</span></a>
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">首页</a>
+      <a href="what.html">什么是FDE</a>
+      <a href="stages.html">三阶段</a>
+      <a href="courses.html">课程内容</a>
+      <a href="works.html">学员案例</a>
+      <a href="teacher.html">师资案例</a>
+      <a href="jobs.html">就业变现</a>
+      <a href="faq.html">常见问题</a>
+      <a href="signup.html" class="btn nav-cta active">抢免费名额</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="wrap">
+    <h1>抢 5 天免费体验课名额</h1>
+    <p>留个联系方式，班主任带你进群开课，先看懂 AI，再亲手做出第一个项目。</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="signup">
+      <div>
+        <h2>5 天，先让 AI 帮你赚到第一笔钱</h2>
+        <p>· 每天 19:00 直播，手机电脑都能看<br>· 全勤送 AI 视频模板大礼包<br>· 班主任全程陪跑、作业点评</p>
+      </div><figure class="figure zoom" style="margin-top:16px"><img class="lb" loading="lazy" src="assets/img/signup/dingjin.jpg" alt="课程权益与报名福利"><figcaption>限额福利 · 现在报名立享</figcaption></figure>
+      <form class="form" onsubmit="event.preventDefault();alert('原型演示：表单提交需对接后端/微信，此处仅占位');">
+        <label>姓名 / 昵称</label>
+        <input type="text" placeholder="怎么称呼你">
+        <label>微信</label>
+        <input type="text" placeholder="用于加你进群">
+        <label>当前基础</label>
+        <select>
+          <option>纯小白，完全没用过 AI</option>
+          <option>听说过，但不会用</option>
+          <option>偶尔用，不太熟练</option>
+          <option>比较熟，想系统进阶</option>
+        </select>
+        <button class="btn" type="submit">抢免费名额</button>
+        <div class="note">* 本表单为原型占位，正式上线需对接微信 / CRM</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">FDE训练营 · 用 Agent 应用吃上 AI 红利　|　公众号 / 视频号 / 客服微信占位　|　© 2026 版权信息占位</div></footer>
+<script src="script.js"></script>
+</body>
+</html>

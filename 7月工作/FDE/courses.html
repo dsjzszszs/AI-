@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课程内容 · FDE训练营</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav>
+  <div class="wrap nav-in">
+    <a class="logo" href="index.html">FDE<span>训练营</span></a>
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">首页</a>
+      <a href="what.html">什么是FDE</a>
+      <a href="stages.html">三阶段</a>
+      <a href="courses.html" class="active">课程内容</a>
+      <a href="works.html">学员案例</a>
+      <a href="teacher.html">师资案例</a>
+      <a href="jobs.html">就业变现</a>
+      <a href="faq.html">常见问题</a>
+      <a href="signup.html" class="btn nav-cta">抢免费名额</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="wrap">
+    <h1>5 天小白营 · 每天学什么</h1>
+    <p>环环相扣，每节课都有实打实的作品产出，5 天后你手里就有一个完整 AI 项目。</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="days">
+      <div class="day"><span class="d">Day 1</span><h4>零基础入门 AI 基础</h4><p>搞懂大模型、Agent、提示词，建立第一套 AI 应用框架</p></div>
+      <div class="day"><span class="d">Day 2</span><h4>从聊天工具到智能体</h4><p>Agent 工作原理 + 现场实操，普通人也能做出真实成果</p></div>
+      <div class="day"><span class="d">Day 3</span><h4>智能体（Agent）应用解析</h4><p>网站 / 小程序 / 视频剧，AI 如何重塑个人生产力</p></div>
+      <div class="day"><span class="d">Day 4</span><h4>AI 应用工程师必备 AI 知识</h4><p>把能力变成职业结果，从会用 Agent 到能交付业务</p></div>
+      <div class="day"><span class="d">Day 5</span><h4>AI时代的风口与机遇</h4><p>看懂趋势与岗位，找到适合自己的 AI 应用方向</p></div>
+    </div>
+<div class="fig-grid"><figure class="figure zoom"><img class="lb" loading="lazy" src="assets/img/curriculum/kebiao.jpg" alt="5天训练营课表"><figcaption>5 天训练营 · 每日课程安排</figcaption></figure><figure class="figure zoom"><img class="lb" loading="lazy" src="assets/img/curriculum/tixi.jpg" alt="FDE课程体系图"><figcaption>完整课程体系 · 三阶段进阶地图</figcaption></figure></div>
+    <h2 style="margin:34px 0 6px">5 天课程 PPT 精讲</h2>
+    <p class="strip-hint" style="margin-top:0">点击天数切换课件，左右箭头翻页，拖动底部滑块跳转任意页，点开可放大查看。</p>
+<div class="ppt-viewer" id="pptViewer">
+      <div class="ppt-sidebar" id="pptSidebar">
+        <div class="ppt-tab active" data-day="0">
+          <span class="ppt-tab-no">Day 1</span>
+          <span class="ppt-tab-title">零基础入门 AI 基础</span>
+        </div>
+        <div class="ppt-tab" data-day="1">
+          <span class="ppt-tab-no">Day 2</span>
+          <span class="ppt-tab-title">从聊天工具到智能体</span>
+        </div>
+        <div class="ppt-tab" data-day="2">
+          <span class="ppt-tab-no">Day 3</span>
+          <span class="ppt-tab-title">智能体（Agent）应用解析</span>
+        </div>
+        <div class="ppt-tab" data-day="3">
+          <span class="ppt-tab-no">Day 4</span>
+          <span class="ppt-tab-title">AI 应用工程师必备 AI 知识</span>
+        </div>
+        <div class="ppt-tab" data-day="4">
+          <span class="ppt-tab-no">Day 5</span>
+          <span class="ppt-tab-title">AI时代的风口与机遇</span>
+        </div>
+      </div>
+      <div class="ppt-tabs-mobile" id="pptTabsMobile">
+        <button class="ppt-mtab active" data-day="0">Day 1</button>
+        <button class="ppt-mtab" data-day="1">Day 2</button>
+        <button class="ppt-mtab" data-day="2">Day 3</button>
+        <button class="ppt-mtab" data-day="3">Day 4</button>
+        <button class="ppt-mtab" data-day="4">Day 5</button>
+      </div>
+      <div class="ppt-main">
+        <div class="ppt-view-area">
+          <button class="ppt-arrow ppt-prev" id="pptPrev" aria-label="上一页">&lsaquo;</button>
+          <div class="ppt-slide-wrap" id="pptSlideWrap">
+            <img class="ppt-slide-img lb" id="pptSlideImg" alt="">
+            <div class="ppt-page-info" id="pptPageInfo">1 / 38</div>
+          </div>
+          <button class="ppt-arrow ppt-next" id="pptNext" aria-label="下一页">&rsaquo;</button>
+        </div>
+        <div class="ppt-slider-wrap">
+          <span class="ppt-slider-num" id="pptSliderMin">1</span>
+          <input type="range" class="ppt-slider" id="pptSlider" min="0" max="37" value="0">
+          <span class="ppt-slider-num" id="pptSliderMax">38</span>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:24px"><a href="signup.html" class="btn">免费跟完这 5 天 →</a></div>
+  </div>
+</section>
+
+<footer><div class="wrap">FDE训练营 · 用 Agent 应用吃上 AI 红利　|　公众号 / 视频号 / 客服微信占位　|　© 2026 版权信息占位</div></footer>
+<script src="script.js"></script>
+</body>
+</html>
