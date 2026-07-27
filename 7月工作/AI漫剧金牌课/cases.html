@@ -3,6 +3,17 @@
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>学员案例 - 金牌AI视频剧</title>
 <style>*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:linear-gradient(135deg,#dbeafe 0%,#ede9fe 35%,#fce4ec 70%,#e0f2fe 100%);background-attachment:fixed;color:#1a1a2e;overflow-x:hidden;line-height:1.6;padding-top:76px;min-height:100vh}a{color:inherit;text-decoration:none}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(59,130,246,0.2);border-radius:3px}@keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}.nav-bar{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:1000;width:calc(100% - 40px);max-width:1100px;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(255,255,255,0.78);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.5);border-radius:20px;box-shadow:0 4px 24px rgba(59,130,246,0.08),0 1px 4px rgba(0,0,0,0.04)}.nav-bar.scrolled{box-shadow:0 8px 40px rgba(59,130,246,0.12),0 2px 8px rgba(0,0,0,0.06)}.nav-brand{font-size:18px;font-weight:800;letter-spacing:1.5px;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#06b6d4,#8b5cf6);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientShift 4s ease infinite;white-space:nowrap}.nav-links{display:flex;gap:8px;align-items:center}.nav-links a{display:inline-block;padding:10px 18px;border-radius:12px;font-size:14px;font-weight:600;color:#64748b;transition:all 0.3s;white-space:nowrap;position:relative}.nav-links a::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:0;height:2px;border-radius:1px;background:linear-gradient(90deg,#3b82f6,#06b6d4);transition:width 0.3s}.nav-links a:hover{color:#2563eb;background:rgba(59,130,246,0.06)}.nav-links a:hover::after{width:60%}.nav-links a.active{color:#2563eb;background:rgba(59,130,246,0.1);font-weight:700}.nav-links a.active::after{width:80%}.nav-toggle{display:none;width:40px;height:40px;border-radius:12px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.15);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}.nav-toggle span{display:block;width:20px;height:2px;border-radius:2px;background:#3b82f6}.page-section{max-width:1100px;margin:0 auto;padding:40px 28px 80px;animation:fadeInUp 0.6s ease}.page-section h1{font-size:clamp(28px,5vw,42px);font-weight:900;background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}.page-section .subtitle{color:#64748b;font-size:15px;margin-bottom:12px}
 
+/* ===== 学员案例展示（精美设计卡） ===== */
+.case-showcase-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.cs-item{border-radius:18px;overflow:hidden;position:relative;cursor:pointer;background:#fff;border:1px solid rgba(59,130,246,0.12);box-shadow:0 8px 24px rgba(59,130,246,0.06);transition:transform .35s ease,box-shadow .35s ease}
+.cs-item:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(59,130,246,0.14)}
+.cs-item img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.cs-label{display:block;padding:10px 14px;font-size:13px;font-weight:600;color:#475569;text-align:center;background:rgba(248,250,252,.9);border-top:1px solid rgba(59,130,246,0.08)}
+
+@media(max-width:600px){
+  .case-showcase-grid{grid-template-columns:1fr;gap:12px}
+}
+
 /* ===== Carousel Styles ===== */
 .carousel-container{position:relative;width:100%;overflow:hidden;padding:20px 0}
 .carousel-track{display:flex;gap:24px;padding:40px 0;cursor:grab;user-select:none;transition:transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);will-change:transform}
@@ -303,6 +314,30 @@
 </section>
 
 <!-- (图片/视频查看器已统一迁移至页面底部 GlobalViewer) -->
+
+<!-- 学员案例展示（精美设计卡 — 同事制作） -->
+<section class="page-section" id="caseShowcaseSection">
+  <h2 class="section-title">学员作品案例</h2>
+  <p style="color:#64748b;font-size:13px;margin:-16px 0 20px;text-align:center">零基础学员的真实成长轨迹 · 从文字到 AI 漫剧作品</p>
+  <div class="case-showcase-grid">
+    <div class="cs-item" onclick="if(window.__gvOpen)window.__gvOpen('image','学员案例1.png','学员案例：蒋同学 — 成长路径与漫剧作品①')">
+      <img src="学员案例1.png" alt="学员案例1" loading="lazy">
+      <span class="cs-label">作品展示 · AI 漫剧画作</span>
+    </div>
+    <div class="cs-item" onclick="if(window.__gvOpen)window.__gvOpen('image','学员案例2.png','学员案例：蒋同学 — 成长路径与漫剧作品②')">
+      <img src="学员案例2.png" alt="学员案例2" loading="lazy">
+      <span class="cs-label">作品展示 · 腾讯视频上线</span>
+    </div>
+    <div class="cs-item" onclick="if(window.__gvOpen)window.__gvOpen('image','学员案例3.png','学员案例：蒋同学 — 成长路径与漫剧作品③')">
+      <img src="学员案例3.png" alt="学员案例3" loading="lazy">
+      <span class="cs-label">作品展示 · 精选创作</span>
+    </div>
+    <div class="cs-item" onclick="if(window.__gvOpen)window.__gvOpen('image','学员案例4.png','学员案例：蒋同学 — 成长路径与漫剧作品④')">
+      <img src="学员案例4.png" alt="学员案例4" loading="lazy">
+      <span class="cs-label">作品展示 · 完整项目</span>
+    </div>
+  </div>
+</section>
 
 <section class="page-section"><h1>往期学员作品</h1><p class="subtitle">看看学长学姐们的AI视频作品</p>
 <div class="carousel-container" id="carouselContainer">
