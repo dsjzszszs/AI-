@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-v="JACK-V1">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>主讲老师 - 金牌AI视频剧</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:linear-gradient(135deg,#dbeafe 0%,#ede9fe 35%,#fce4ec 70%,#e0f2fe 100%);background-attachment:fixed;color:#1a1a2e;overflow-x:hidden;line-height:1.6;padding-top:88px;min-height:100vh}a{color:inherit;text-decoration:none}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(59,130,246,0.2);border-radius:3px}@keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.nav-bar{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:1000;width:calc(100% - 40px);max-width:1100px;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(255,255,255,0.78);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.5);border-radius:20px;box-shadow:0 4px 24px rgba(59,130,246,0.08),0 1px 4px rgba(0,0,0,0.04)}.nav-bar.scrolled{box-shadow:0 8px 40px rgba(59,130,246,0.12),0 2px 8px rgba(0,0,0,0.06)}.nav-brand{font-size:18px;font-weight:800;letter-spacing:1.5px;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#06b6d4,#8b5cf6);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientShift 4s ease infinite;white-space:nowrap}.nav-brand::before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#06b6d4);flex-shrink:0}.nav-links{display:flex;gap:8px;align-items:center}.nav-links a{display:inline-block;padding:10px 18px;border-radius:12px;font-size:14px;font-weight:600;color:#64748b;transition:all 0.3s;white-space:nowrap;position:relative}.nav-links a::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:0;height:2px;border-radius:1px;background:linear-gradient(90deg,#3b82f6,#06b6d4);transition:width 0.3s}.nav-links a:hover{color:#2563eb;background:rgba(59,130,246,0.06)}.nav-links a:hover::after{width:60%}.nav-links a.active{color:#2563eb;background:rgba(59,130,246,0.1);font-weight:700}.nav-links a.active::after{width:80%}.nav-toggle{display:none;width:40px;height:40px;border-radius:12px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.15);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}.nav-toggle span{display:block;width:20px;height:2px;border-radius:2px;background:#3b82f6}
+
+/* 通用容器 */
+.page-section{max-width:840px;margin:0 auto;padding:48px 28px;animation:fadeInUp 0.6s ease}
+.section-title{font-size:clamp(20px,3.5vw,26px);font-weight:800;color:#1e293b;margin-bottom:24px;display:flex;align-items:center;gap:10px}
+.section-title::before{content:'';width:5px;height:22px;border-radius:3px;background:linear-gradient(135deg,#2563eb,#06b6d4)}
+
+/* Hero */
+.hero-card{background:rgba(255,255,255,0.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:22px;border:1px solid rgba(59,130,246,0.12);overflow:hidden;box-shadow:0 12px 36px rgba(59,130,246,0.08)}
+.hero-top{display:flex;gap:28px;align-items:flex-start;padding:38px 38px 30px;background:linear-gradient(135deg,#1e3a5f 0%,#0f2744 100%)}
+.hero-avatar{width:180px;height:260px;border-radius:18px;flex-shrink:0;object-fit:cover;border:2px solid rgba(255,255,255,0.2);box-shadow:0 8px 24px rgba(0,0,0,0.25)}
+.hero-meta{flex:1;min-width:0}
+.hero-meta h1{font-size:clamp(26px,4.5vw,34px);font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:0.5px}
+.hero-role{font-size:15px;color:#bfdbfe;margin-bottom:16px;font-weight:600}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px}
+.hero-tags span{display:inline-block;padding:5px 13px;border-radius:20px;font-size:12px;font-weight:600}
+.tag-blue{background:rgba(59,130,246,0.18);color:#93c5fd}
+.tag-purple{background:rgba(139,92,246,0.18);color:#c4b5fd}
+.tag-cyan{background:rgba(6,182,212,0.18);color:#67e8f9}
+.hero-summary{padding:18px 38px 26px;background:rgba(30,58,95,0.04);font-size:14px;color:#475569;line-height:1.8}
+
+/* 数据成就 */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:8px}
+.stat-card{background:rgba(255,255,255,0.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:16px;border:1px solid rgba(59,130,246,0.1);padding:22px 14px;text-align:center;transition:transform 0.25s,box-shadow 0.25s}
+.stat-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(59,130,246,0.12)}
+.stat-num{font-size:30px;font-weight:800;line-height:1;margin-bottom:8px}
+.stat-num span{font-size:14px;font-weight:600;margin-left:2px}
+.stat-label{font-size:12px;color:#64748b;line-height:1.5}
+
+/* 履历 */
+.resume-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:26px}
+.rcard{border-radius:14px;padding:18px 20px}
+.rcard-blue{background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(59,130,246,0.03));border-left:4px solid #2563eb}
+.rcard-purple{background:linear-gradient(135deg,rgba(139,92,246,0.08),rgba(139,92,246,0.03));border-left:4px solid #a855f7}
+.rcard-label{font-size:12px;font-weight:700;margin-bottom:6px}
+.rcard-title{font-size:15px;font-weight:700;color:#1e293b}
+.rcard-desc{font-size:12.5px;color:#64748b;margin-top:3px}
+.timeline{display:flex;flex-direction:column}
+.tl-item{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(0,0,0,0.05)}
+.tl-item:last-child{border-bottom:none}
+.tl-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:4px;box-shadow:0 0 0 4px rgba(0,0,0,0.03)}
+.tl-text{font-size:14px;color:#334155;line-height:1.6}
+.tl-strong{font-weight:700;color:#1e293b}
+
+/* 三大特色 */
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.fcard{background:rgba(255,255,255,0.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:18px;border:1px solid rgba(59,130,246,0.1);padding:26px 22px;transition:transform 0.25s,box-shadow 0.25s}
+.fcard:hover{transform:translateY(-5px);box-shadow:0 14px 36px rgba(59,130,246,0.12)}
+.fcard-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.fcard-icon img{width:28px;height:28px}
+.fcard-title{font-size:17px;font-weight:800;color:#1e293b;margin-bottom:10px}
+.fcard-desc{font-size:13px;color:#64748b;line-height:1.8}
+
+/* 线下授课实拍 */
+.lecture-showcase{background:rgba(255,255,255,0.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:20px;overflow:hidden;border:1px solid rgba(59,130,246,0.12)}
+.lecture-img-wrap{position:relative;width:100%;overflow:hidden;background:#0f172a}
+.lecture-img{width:100%;display:block;transition:transform 0.6s ease}
+.lecture-img-wrap:hover .lecture-img{transform:scale(1.03)}
+.lecture-badge{
+  position:absolute;top:18px;left:18px;z-index:2;
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 16px;border-radius:20px;
+  font-size:11px;font-weight:700;letter-spacing:2px;
+  background:rgba(255,255,255,0.92);color:#2563eb;
+  border:1px solid rgba(255,255,255,0.6);
+  box-shadow:0 4px 14px rgba(0,0,0,0.1);
+  backdrop-filter:blur(8px);
+}
+.lecture-badge svg{width:14px;height:14px}
+.lecture-caption{padding:18px 26px 22px;display:flex;align-items:center;gap:12px}
+.lecture-icon{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,rgba(217,119,6,0.1),rgba(245,158,11,0.05));border:1px solid rgba(245,158,11,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lecture-icon svg{width:20px;height:20px}
+.lecture-text h3{font-size:16px;font-weight:800;color:#1e293b;margin-bottom:3px}
+.lecture-text p{font-size:13px;color:#64748b;line-height:1.6}
+
+/* 线下培训合影 */
+.group-photo{background:rgba(255,255,255,0.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:20px;overflow:hidden;border:1px solid rgba(59,130,246,0.12)}
+.gp-img-wrap{position:relative;width:100%;overflow:hidden;background:#f8fafc;line-height:0}
+.gp-img{width:100%;display:block;transition:transform 0.7s ease}
+.gp-img-wrap:hover .gp-img{transform:scale(1.02)}
+.gp-badge{
+  position:absolute;top:16px;left:16px;z-index:2;
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 16px;border-radius:20px;
+  font-size:11px;font-weight:700;letter-spacing:2px;
+  background:rgba(239,68,68,0.92);color:#fff;
+  border:1px solid rgba(255,255,255,0.4);
+  box-shadow:0 4px 14px rgba(239,68,68,0.25);
+}
+.gp-badge svg{width:14px;height:14px}
+.gp-caption{
+  padding:18px 26px;display:flex;align-items:center;gap:12px;
+  background:linear-gradient(135deg,rgba(239,68,68,0.04),rgba(245,158,11,0.02));
+}
+.gp-icon{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,rgba(239,68,68,0.1),rgba(220,38,38,0.05));border:1px solid rgba(239,68,68,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.gp-icon svg{width:20px;height:20px;color:#ef4444}
+.gp-text h3{font-size:16px;font-weight:800;color:#1e293b;margin-bottom:3px}
+.gp-text p{font-size:13px;color:#64748b;line-height:1.6}
+
+/* ===== 商业作品（腾讯视频已上架）===== */
+.commercial-works{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.cw-card{border-radius:16px;overflow:hidden;position:relative;cursor:pointer;background:#0f172a;border:1px solid rgba(255,255,255,0.08);transition:transform 0.3s,box-shadow 0.3s}
+.cw-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,0.3)}
+.cw-poster{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.cw-overlay{position:absolute;inset:0;top:0;left:0;width:100%;height:100%;background:linear-gradient(to top,rgba(15,23,42,.85) 0%,transparent 50%);display:flex;align-items:center;justify-content:center;transition:opacity .25s;opacity:1}
+.cw-card:hover .cw-overlay{opacity:.6}
+.cw-play{width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.2);backdrop-filter:blur(8px);border:2px solid rgba(255,255,255,.45);display:flex;align-items:center;justify-content:center;transition:transform .25s,background .25s}
+.cw-card:hover .cw-play{transform:scale(1.1);background:rgba(255,255,255,.3)}
+.cw-play svg{width:24px;height:24px;color:#fff;margin-left:3px}
+.cw-info{padding:14px 16px 16px}
+.cw-info-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.cw-title{font-size:16px;font-weight:700;color:#f8fafc;line-height:1.35}
+.cw-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:10px;font-size:11px;font-weight:700;letter-spacing:.3px}
+.cw-badge-tx{background:linear-gradient(135deg,#ff6b00,#e85d04);color:#fff}.cw-badge-time{background:rgba(100,116,139,.18);color:#94a3b8}
+.cw-desc{font-size:13px;color:#94a3b8;line-height:1.55;margin-top:4px}
+
+@media(max-width:768px){
+  .commercial-works{grid-template-columns:1fr;gap:16px}
+  .cw-title{font-size:15px}.cw-info{padding:11px 14px 13px}
+  .cw-play{width:52px;height:52px}.cw-play svg{width:20px;height:20px}
+}
+
+/* Jack 课程宣传横幅 */
+.jack-banner-wrap{border-radius:20px;overflow:hidden;border:1px solid rgba(59,130,246,0.12);box-shadow:0 10px 36px rgba(59,130,246,0.08);background:#fff}
+.jack-banner{width:100%;display:block;transition:transform .5s ease}
+.jack-banner-wrap:hover .jack-banner{transform:scale(1.008)}
+
+/* CTA */
+.cta-card{background:linear-gradient(135deg,#2563eb 0%,#7c3aed 100%);border-radius:22px;padding:40px 32px;text-align:center;box-shadow:0 16px 40px rgba(124,58,237,0.25)}
+.cta-title{color:#fff;font-size:clamp(17px,3vw,21px);font-weight:700;margin-bottom:8px}
+.cta-sub{color:rgba(255,255,255,0.8);font-size:13px;margin-bottom:22px}
+.cta-btn{display:inline-block;background:#fff;color:#2563eb;padding:12px 34px;border-radius:24px;font-size:15px;font-weight:700;transition:transform 0.2s,box-shadow 0.2s}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.18)}
+
+@media(max-width:768px){
+  .nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:absolute;top:88px;left:20px;right:20px;background:rgba(255,255,255,0.95);backdrop-filter:blur(24px);padding:20px 24px;gap:4px;border-radius:20px;border:1px solid rgba(255,255,255,0.5);box-shadow:0 8px 40px rgba(0,0,0,0.08)}.nav-links.open a{padding:14px 18px;font-size:15px}.nav-toggle{display:flex}
+  .hero-top{flex-direction:column;text-align:center;padding:32px 22px 26px}
+  .hero-avatar{width:140px;height:200px;margin:0 auto}
+  .hero-tags{justify-content:center}
+  .hero-summary{padding:18px 22px 22px}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .resume-cards{grid-template-columns:1fr}
+  .feature-grid{grid-template-columns:1fr}
+  .lecture-text h3{font-size:15px}.lecture-caption{padding:14px 18px 18px}
+  .gp-text h3{font-size:15px}.gp-caption{padding:14px 18px 16px}
+}
+@media(max-width:480px){.nav-bar{padding:0 18px;width:calc(100% - 24px)}.page-section{padding:36px 18px}.cw-title{font-size:14px}.cw-desc{font-size:12px}.cw-info{padding:9px 12px 11px}.cw-play{width:48px;height:48px}}
+</style><style>
+/* ===== Global Image/Video Viewer（叉按钮固定视口右上角，永远够得到） ===== */
+.gv-overlay{position:fixed;inset:0;z-index:99990;display:none;align-items:center;justify-content:center;background:rgba(8,15,30,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:0}
+.gv-overlay.open{display:flex}
+.gv-stage{position:relative;max-width:94vw;max-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.gv-img{max-width:94vw;max-height:84vh;width:auto;height:auto;object-fit:contain;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.5);-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.gv-video{max-width:94vw;max-height:84vh;width:auto;height:auto;background:#000;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.5);outline:none}
+.gv-caption{color:#e2e8f0;font-size:13px;text-align:center;margin-top:14px;line-height:1.6;max-width:94vw;padding:0 12px}
+.gv-close{position:fixed;top:16px;right:16px;z-index:99999;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.96);border:none;color:#0f172a;font-size:26px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.4);transition:transform .2s,background .2s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.gv-close:hover{transform:scale(1.08);background:#fff}
+.gv-close:active{transform:scale(.9)}
+@media(max-width:480px){.gv-close{top:10px;right:10px;width:42px;height:42px;font-size:24px}.gv-img,.gv-video{max-width:96vw;max-height:80vh}}
+</style>
+</head>
+<body>
+<nav class="nav-bar" id="navBar"><a href="index.html" class="nav-brand">金牌AI视频剧</a><div class="nav-links" id="navLinks"><a href="index.html">课程介绍</a><a href="teacher.html" class="active">主讲老师</a><a href="course.html">课程内容</a><a href="cases.html">学员案例</a><a href="audience.html">适合人群</a><a href="faq.html">常见问题</a></div><button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button></nav>
+
+<!-- ① Hero 头部 -->
+<section class="page-section" style="padding-top:24px">
+  <div class="hero-card">
+    <div class="hero-top">
+      <img class="hero-avatar" src="老师.png" alt="JACK老师">
+      <div class="hero-meta">
+        <h1>JACK 老师</h1>
+        <p class="hero-role">AI 漫剧金牌讲师</p>
+        <div class="hero-tags">
+          <span class="tag-blue">10 年一线游戏 / 影视制作经验</span>
+          <span class="tag-cyan">多部爆款 AI 漫剧导演</span>
+        </div>
+      </div>
+    </div>
+    <p class="hero-summary">10 年一线游戏及影视设计制作经验，曾任上海游族网络资深画师、泛次元 ACG 原画/UI 设计师；现任树帆 AI 漫剧金牌讲师，已带领数千名学员从零入门 AI 创作。</p>
+  </div>
+</section>
+
+<!-- ①②之间：课程宣传横幅（Jack 老师高端课程） -->
+<section class="page-section" style="padding-top:8px">
+  <div class="jack-banner-wrap">
+    <img class="jack-banner" src="Jack.jpg" alt="从零开始学AI视频·金牌AI视频剧高端课程" loading="lazy">
+  </div>
+</section>
+
+<!-- ② 数据成就 -->
+<section class="page-section" style="padding-top:8px">
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-num" style="color:#2563eb">10<span>+</span></div><div class="stat-label">年游戏 / 影视<br>一线制作经验</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:#8b5cf6">8<span>+</span></div><div class="stat-label">年讲师经验<br>动漫 / AI 教学</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:#06b6d4">数千</div><div class="stat-label">学员已入门<br>AI 创作</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:#d97706">多部</div><div class="stat-label">爆款 AI 漫剧<br>执导经验</div></div>
+  </div>
+</section>
+
+<!-- ③ 职业经历 -->
+<section class="page-section" style="padding-top:8px">
+  <h2 class="section-title">职业经历</h2>
+  <div class="resume-cards">
+    <div class="rcard rcard-blue">
+      <div class="rcard-label" style="color:#2563eb">教育背景</div>
+      <div class="rcard-title">东华理工大学 · 动漫设计</div>
+    </div>
+    <div class="rcard rcard-purple">
+      <div class="rcard-label" style="color:#a855f7">核心能力</div>
+      <div class="rcard-title">十年游戏美术 / 手绘设计</div>
+    </div>
+  </div>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-dot" style="background:#22c55e"></div><div class="tl-text"><span class="tl-strong">现任 · 树帆机构</span><br>AI 漫剧金牌讲师 / 原画讲师</div></div>
+    <div class="tl-item"><div class="tl-dot" style="background:#3b82f6"></div><div class="tl-text"><span class="tl-strong">曾任 · 上海游族网络</span><br>资深游戏画师，参与大型网游项目</div></div>
+    <div class="tl-item"><div class="tl-dot" style="background:#a855f7"></div><div class="tl-text"><span class="tl-strong">曾任 · 泛次元 ACG</span><br>原画 / UI 设计师</div></div>
+    <div class="tl-item"><div class="tl-dot" style="background:#06b6d4"></div><div class="tl-text"><span class="tl-strong">项目经历</span><br>《木叶传说》《卧龙吟》美术开发</div></div>
+  </div>
+</section>
+
+<!-- ④ 教学特色 -->
+<section class="page-section" style="padding-top:8px">
+  <h2 class="section-title">教学特色</h2>
+  <div class="feature-grid">
+    <div class="fcard">
+      <div class="fcard-icon" style="background:rgba(59,130,246,0.1)"><img src="一些icon/大脑.svg" alt=""></div>
+      <div class="fcard-title">深入浅出</div>
+      <div class="fcard-desc">复杂知识用简单生动的方式讲透，零基础也能跟上。</div>
+    </div>
+    <div class="fcard">
+      <div class="fcard-icon" style="background:rgba(217,119,6,0.1)"><img src="一些icon/公文包.svg" alt=""></div>
+      <div class="fcard-title">实战导师</div>
+      <div class="fcard-desc">多年一线游戏影视制作经验，案例来自真实项目。</div>
+    </div>
+    <div class="fcard">
+      <div class="fcard-icon" style="background:rgba(22,163,74,0.1)"><img src="一些icon/靶子.svg" alt=""></div>
+      <div class="fcard-title">案例驱动</div>
+      <div class="fcard-desc">边讲边做，学完即能产出自己的原创 AI 项目作品。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ④⑤之间：线下授课实拍 -->
+<section class="page-section" style="padding-top:8px">
+  <h2 class="section-title">线下授课实拍</h2>
+  <div class="lecture-showcase">
+    <div class="lecture-img-wrap">
+      <span class="lecture-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 10l4.553-2.276A1 1 0 0021 6.763V4.237a1 1 0 00-1.21-1.008l-9.5 1.9a1 1 0 01-.58-.03L3 3.5"/><path d="M14 12v7a2 2 0 01-2 2H6a2 2 0 01-2-2v-7"/></svg>
+        真实课堂
+      </span>
+      <img class="lecture-img" src="JACK老师线下讲课.png" alt="JACK老师线下授课现场" loading="lazy">
+    </div>
+    <div class="lecture-caption">
+      <div class="lecture-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M10 16l5-4-5-4v8z"/></svg>
+      </div>
+      <div class="lecture-text">
+        <h3>JACK 老师线下授课现场 · AI基础入门课程</h3>
+        <p>从人工智能定义到深度学习发展历程，JACK老师用深入浅出的方式，将复杂的AI知识讲得生动易懂。这是2024年4月线下培训的真实拍摄记录。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 线下培训合影 -->
+<section class="page-section" style="padding-top:8px">
+  <h2 class="section-title">线下培训合影</h2>
+  <div class="group-photo">
+    <div class="gp-img-wrap">
+      <span class="gp-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        圆满结营
+      </span>
+      <img class="gp-img" src="线下培训合影.jpg" alt="树帆机构AI线下企业员工对接训练营合影" loading="lazy">
+    </div>
+    <div class="gp-caption">
+      <div class="gp-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <div class="gp-text">
+        <h3>AI线下企业员工对接训练营 · 满满一教室的收获</h3>
+        <p>来自不同行业的学员齐聚一堂，完成系统化 AI 培训并全员获得结业证书。这张合影见证了树帆机构线下培训的真实规模与学员认可度。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 商业作品 · 已上架腾讯视频 -->
+<section class="page-section" style="padding-top:8px">
+  <div class="section-title" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+    <span>商业作品</span>
+    <span class="cw-badge cw-badge-tx" style="font-size:12px;padding:4px 12px;border-radius:20px;letter-spacing:.5px">📺 已上架腾讯视频</span>
+  </div>
+  <p style="color:#64748b;font-size:13px;margin:-2px 0 18px;text-align:center">JACK 老师主导的 AI 漫剧商用案例，已在腾讯视频平台正式上线</p>
+  <div class="commercial-works">
+
+    <!-- 片头曲 -->
+    <div class="cw-card" onclick="if(window.__gvOpen)window.__gvOpen('video','yushou-opening.mp4','御兽 片头曲')">
+      <img class="cw-poster" src="yushou-opening-poster.jpg" alt="御兽片头曲" loading="lazy">
+      <div class="cw-overlay">
+        <div class="cw-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="cw-info">
+        <div class="cw-info-row">
+          <span class="cw-title">御兽 · 片头曲</span>
+        </div>
+        <div class="cw-info-row">
+          <span class="cw-desc">AI 漫剧开场动画，史诗级斗兽场场景</span>
+          <span class="cw-badge cw-badge-time">01:04</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 第一集 -->
+    <div class="cw-card" onclick="if(window.__gvOpen)window.__gvOpen('video','yushou-ep1.mp4','御兽 第一集 配音完成版')">
+      <img class="cw-poster" src="yushou-ep1-poster.jpg" alt="第一集配音完成" loading="lazy">
+      <div class="cw-overlay">
+        <div class="cw-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="cw-info">
+        <div class="cw-info-row">
+          <span class="cw-title">御兽 · 第一集（配音完成）</span>
+        </div>
+        <div class="cw-info-row">
+          <span class="cw-desc">前2分钟预览 · 完整版已在腾讯视频上架</span>
+          <span class="cw-badge cw-badge-time">02:00</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ⑥ 底部 CTA -->
+<section class="page-section" style="padding-top:8px">
+  <div class="cta-card">
+    <div class="cta-title">跟随 JACK 老师，从零创作你的 AI 漫剧</div>
+    <div class="cta-sub">把 AI 创作拆成你能一步步落地的流程</div>
+    <a href="course.html" class="cta-btn">查看课程 →</a>
+  </div>
+</section>
+
+<script>var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');t.addEventListener('click',function(){l.classList.toggle('open')});l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open')})});window.addEventListener('scroll',function(){document.getElementById('navBar').classList.toggle('scrolled',window.scrollY>10)});</script>
+<script>(function(){var l=localStorage.getItem("sv");fetch("version.txt?t="+Date.now()).then(function(r){return r.text()}).then(function(t){t=t.trim();if(l&&l!==t){localStorage.setItem("sv",t);location.reload(true)}else{localStorage.setItem("sv",t)}}).catch(function(){})})();</script>
+<!-- 全局图片/视频查看器 -->
+<div class="gv-overlay" id="gvOverlay" aria-hidden="true">
+  <button class="gv-close" id="gvClose" aria-label="关闭">&times;</button>
+  <div class="gv-stage">
+    <img class="gv-img" id="gvImg" alt="" style="display:none">
+    <video class="gv-video" id="gvVideo" controls playsinline style="display:none"></video>
+    <div class="gv-caption" id="gvCaption"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var overlay=document.getElementById('gvOverlay');
+  if(!overlay)return;
+  var imgEl=document.getElementById('gvImg');
+  var videoEl=document.getElementById('gvVideo');
+  var capEl=document.getElementById('gvCaption');
+  var closeBtn=document.getElementById('gvClose');
+  function openViewer(type,src,caption){
+    if(type==='video'){
+      imgEl.style.display='none';imgEl.removeAttribute('src');
+      videoEl.style.display='block';videoEl.src=src;
+      videoEl.play().catch(function(){});
+    }else{
+      videoEl.style.display='none';videoEl.pause();videoEl.removeAttribute('src');
+      imgEl.style.display='block';imgEl.src=src;
+    }
+    capEl.textContent=caption||'';
+    overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+  }
+  function closeViewer(){
+    overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    imgEl.src='';imgEl.style.display='none';
+    videoEl.pause();videoEl.removeAttribute('src');videoEl.style.display='none';
+  }
+  closeBtn.addEventListener('click',function(e){e.stopPropagation();closeViewer();});
+  overlay.addEventListener('click',function(e){if(e.target===overlay||e.target===capEl)closeViewer();});
+  imgEl.addEventListener('click',function(e){e.stopPropagation();});
+  videoEl.addEventListener('click',function(e){e.stopPropagation();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&overlay.classList.contains('open'))closeViewer();});
+  window.__gvOpen=openViewer;window.__gvClose=closeViewer;
+  // 自动让页面内的内容图片可点开放大（排除导航/图标/链接内图片）
+  var skipSel='a, .nav-bar, .nav-links, .nav-toggle, .fcard-icon, .ch-avatar-placeholder, .lecture-icon, .gp-icon, .tl-go, .faq-avatar, [data-no-gv]';
+  document.querySelectorAll('img').forEach(function(img){
+    if(img.closest(skipSel))return;
+    img.style.cursor='pointer';
+    img.addEventListener('click',function(e){
+      e.stopPropagation();
+      var src=img.getAttribute('data-gv-src')||img.currentSrc||img.src;
+      var cap=img.getAttribute('data-gv-cap')||img.alt||'';
+      openViewer('image',src,cap);
+    });
+  });
+})();
+</script>
+</body></html>

@@ -1,0 +1,138 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="screenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="50%" stop-color="#3730a3"/>
+      <stop offset="100%" stop-color="#4c1d95"/>
+    </linearGradient>
+    <linearGradient id="bezelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a5b4fc"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="backGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+    <linearGradient id="standGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#5b21b6"/>
+    </linearGradient>
+    <linearGradient id="badge1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="badge2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+    <linearGradient id="badge3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+    <linearGradient id="baseGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#818cf8" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#818cf8" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#818cf8" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="7"/>
+      <feOffset dx="0" dy="8"/>
+      <feFlood flood-color="#6366f1" flood-opacity="0.2"/>
+      <feComposite in2="SourceAlpha" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="particleGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+
+
+  <!-- ground glow -->
+  <ellipse cx="250" cy="440" rx="160" ry="18" fill="url(#baseGlow)"/>
+
+  <!-- particles -->
+  <g filter="url(#particleGlow)">
+    <circle cx="60" cy="100" r="2.5" fill="#a855f7" opacity="0.4"/>
+    <circle cx="440" cy="110" r="2" fill="#818cf8" opacity="0.45"/>
+    <circle cx="455" cy="380" r="3" fill="#7c3aed" opacity="0.3"/>
+    <circle cx="50" cy="360" r="2" fill="#6366f1" opacity="0.4"/>
+    <circle cx="400" cy="50" r="1.5" fill="#c084fc" opacity="0.5"/>
+    <circle cx="100" cy="430" r="2" fill="#818cf8" opacity="0.35"/>
+  </g>
+
+  <!-- ===== MONITOR ===== -->
+  <g filter="url(#softShadow)">
+    <!-- back panel -->
+    <rect x="140" y="155" width="220" height="150" rx="14" fill="url(#backGrad)"/>
+    <!-- bezel -->
+    <rect x="145" y="160" width="210" height="140" rx="10" fill="url(#bezelGrad)"/>
+    <!-- screen -->
+    <rect x="153" y="168" width="194" height="124" rx="6" fill="url(#screenGrad)"/>
+
+    <!-- screen content: abstract UI -->
+    <rect x="165" y="180" width="80" height="8" rx="4" fill="#818cf8" opacity="0.5"/>
+    <rect x="165" y="196" width="120" height="6" rx="3" fill="#a78bfa" opacity="0.3"/>
+    <rect x="165" y="210" width="100" height="6" rx="3" fill="#a78bfa" opacity="0.3"/>
+    <!-- mini play area on screen -->
+    <rect x="165" y="228" width="80" height="50" rx="6" fill="#312e81"/>
+    <polygon points="193,244 193,262 210,253" fill="#a5b4fc" opacity="0.8"/>
+    <!-- side panel -->
+    <rect x="255" y="228" width="80" height="50" rx="6" fill="#312e81"/>
+    <circle cx="275" cy="245" r="5" fill="#818cf8" opacity="0.6"/>
+    <rect x="265" y="256" width="60" height="4" rx="2" fill="#6366f1" opacity="0.5"/>
+    <rect x="265" y="264" width="45" height="4" rx="2" fill="#6366f1" opacity="0.4"/>
+
+    <!-- stand neck -->
+    <rect x="240" y="305" width="20" height="35" rx="4" fill="url(#standGrad)"/>
+    <!-- stand base -->
+    <ellipse cx="250" cy="345" rx="55" ry="10" fill="url(#standGrad)"/>
+  </g>
+
+  <!-- ===== FLOATING ICON BADGES ===== -->
+
+  <!-- Brush (top-left) -->
+  <g filter="url(#softShadow)" transform="translate(95, 110)">
+    <circle cx="0" cy="0" r="34" fill="url(#badge1)" filter="url(#glow)"/>
+    <circle cx="0" cy="0" r="34" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.3"/>
+    <!-- brush icon -->
+    <g transform="translate(0, 2)">
+      <rect x="-3" y="-14" width="6" height="14" rx="2" fill="#ffffff"/>
+      <rect x="-5" y="-16" width="10" height="5" rx="2" fill="#ffffff" opacity="0.8"/>
+      <path d="M -4,0 L 4,0 L 6,8 L 0,14 L -6,8 Z" fill="#ffffff" opacity="0.9"/>
+    </g>
+  </g>
+
+  <!-- Play button (top-right) -->
+  <g filter="url(#softShadow)" transform="translate(405, 120)">
+    <circle cx="0" cy="0" r="34" fill="url(#badge2)" filter="url(#glow)"/>
+    <circle cx="0" cy="0" r="34" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.3"/>
+    <polygon points="-9,-13 -9,13 15,0" fill="#ffffff"/>
+  </g>
+
+  <!-- Microphone (bottom-right) -->
+  <g filter="url(#softShadow)" transform="translate(420, 320)">
+    <circle cx="0" cy="0" r="34" fill="url(#badge3)" filter="url(#glow)"/>
+    <circle cx="0" cy="0" r="34" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.3"/>
+    <!-- mic icon -->
+    <g transform="translate(0, -2)">
+      <rect x="-7" y="-14" width="14" height="18" rx="7" fill="#ffffff"/>
+      <path d="M -11,-2 Q -11,10 0,10 Q 11,10 11,-2" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="0" y1="10" x2="0" y2="16" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="-6" y1="16" x2="6" y2="16" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- connection dots -->
+  <g opacity="0.3">
+    <circle cx="120" cy="135" r="2" fill="#a855f7"/>
+    <circle cx="155" cy="155" r="1.5" fill="#a855f7"/>
+    <circle cx="375" cy="145" r="2" fill="#818cf8"/>
+    <circle cx="345" cy="160" r="1.5" fill="#818cf8"/>
+    <circle cx="390" cy="295" r="2" fill="#a78bfa"/>
+    <circle cx="360" cy="300" r="1.5" fill="#a78bfa"/>
+  </g>
+</svg>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-v="FIX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>课程内容 - 金牌AI视频剧</title>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{-webkit-tap-highlight-color:transparent}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+      background:linear-gradient(135deg,#dbeafe 0%,#ede9fe 35%,#fce4ec 70%,#e0f2fe 100%);background-attachment:fixed;color:#1a1a2e;overflow-x:hidden;line-height:1.5;
+      padding-top:88px;min-height:100vh;
+    }
+    a{color:inherit;text-decoration:none}
+    ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(0,200,255,0.2);border-radius:2px}
+
+    /* Keyframes */
+    @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    @keyframes pulseGlow{0%,100%{box-shadow:0 0 8px rgba(0,200,255,0.3),0 0 25px rgba(0,200,255,0.08)}50%{box-shadow:0 0 18px rgba(0,200,255,0.6),0 0 50px rgba(0,200,255,0.2)}}
+    @keyframes pulseUnlocked{0%,100%{box-shadow:0 0 6px rgba(6,182,212,0.2),0 0 18px rgba(6,182,212,0.06),inset 0 0 6px rgba(6,182,212,0.04)}50%{box-shadow:0 0 14px rgba(6,182,212,0.5),0 0 35px rgba(6,182,212,0.15),inset 0 0 14px rgba(6,182,212,0.08)}}
+    @keyframes glitch1{0%,100%{transform:translate(0)}20%{transform:translate(-2px,1px)}40%{transform:translate(2px,-1px)}60%{transform:translate(-1px,-1px)}80%{transform:translate(1px,1px)}}
+    @keyframes particleBurst{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0}}
+    @keyframes scanLine{0%{transform:translateY(-100%)}100%{transform:translateY(100vh)}}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+
+    /* Nav */
+    .nav-bar{
+      position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:1000;
+      width:calc(100% - 40px);max-width:1100px;
+      height:64px;display:flex;align-items:center;justify-content:space-between;
+      padding:0 24px;
+      background:rgba(255,255,255,0.78);
+      backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+      border:1px solid rgba(255,255,255,0.5);
+      border-radius:20px;
+      box-shadow:0 4px 24px rgba(59,130,246,0.08),0 1px 4px rgba(0,0,0,0.04);
+    }
+    .nav-bar.scrolled{box-shadow:0 8px 40px rgba(59,130,246,0.12),0 2px 8px rgba(0,0,0,0.06)}
+    .nav-brand{
+      font-size:18px;font-weight:800;letter-spacing:1.5px;display:flex;align-items:center;gap:8px;
+      background:linear-gradient(135deg,#2563eb,#06b6d4,#8b5cf6);
+      background-size:200% 200%;
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      animation:gradientShift 4s ease infinite;white-space:nowrap;
+    }
+    
+    .nav-links{display:flex;gap:8px;align-items:center}
+    .nav-links a{
+      display:inline-block;padding:10px 18px;border-radius:12px;
+      font-size:14px;font-weight:600;color:#64748b;transition:all 0.3s;position:relative;
+    }
+    .nav-links a::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:0;height:2px;border-radius:1px;background:linear-gradient(90deg,#3b82f6,#06b6d4);transition:width 0.3s}
+    .nav-links a:hover{color:#2563eb;background:rgba(59,130,246,0.06)}
+    .nav-links a:hover::after{width:60%}
+    .nav-links a.active{color:#2563eb;background:rgba(59,130,246,0.1);font-weight:700}
+    .nav-links a.active::after{width:80%}
+    .nav-toggle{display:none;width:40px;height:40px;border-radius:12px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.15);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+    .nav-toggle span{display:block;width:20px;height:2px;border-radius:2px;background:#3b82f6}
+
+    /* Canvas layers */
+    #bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+    #lineCanvas{position:fixed;inset:0;z-index:1;pointer-events:none}
+
+    /* Main content */
+    .main-wrap{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:40px 28px 80px}
+    .page-header{text-align:center;margin-bottom:60px;animation:fadeInUp 0.6s ease}
+    .page-header .badge{
+      display:inline-block;padding:5px 18px;border-radius:18px;
+      font-size:11px;font-weight:700;letter-spacing:4px;color:#2563eb;
+      background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.15);
+      margin-bottom:16px;
+    }
+    .page-header h1{
+      font-size:clamp(28px,5vw,44px);font-weight:900;letter-spacing:6px;
+      background:linear-gradient(135deg,#2563eb,#06b6d4,#8b5cf6);
+      background-size:300% 300%;
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      animation:gradientShift 4s ease infinite;
+      filter:drop-shadow(0 2px 8px rgba(37,99,235,0.2));
+    }
+
+    /* Film Strip */
+    .film-strip{
+      position:relative;max-width:460px;margin:0 auto;padding:30px 36px;
+      background:linear-gradient(180deg,
+        rgba(30,41,59,0.02) 0%,
+        rgba(30,41,59,0.08) 20%,
+        rgba(59,130,246,0.05) 50%,
+        rgba(30,41,59,0.08) 80%,
+        rgba(30,41,59,0.02) 100%
+      );
+      border-left:1px solid rgba(59,130,246,0.12);
+      border-right:1px solid rgba(59,130,246,0.12);
+      border-radius:4px;
+    }
+    /* Sprocket holes - left */
+    .film-strip::before{
+      content:'';position:absolute;left:-8px;top:0;bottom:0;width:8px;
+      background:radial-gradient(circle 2.5px at 4px center,transparent 2.5px,rgba(30,41,59,0.15) 2.5px);
+      background-size:8px 16px;background-repeat:repeat-y;
+      z-index:0;pointer-events:none;
+    }
+    /* Sprocket holes - right */
+    .film-strip::after{
+      content:'';position:absolute;right:-8px;top:0;bottom:0;width:8px;
+      background:radial-gradient(circle 2.5px at 4px center,transparent 2.5px,rgba(30,41,59,0.15) 2.5px);
+      background-size:8px 16px;background-repeat:repeat-y;
+      z-index:0;pointer-events:none;
+    }
+    /* Film grain overlay - subtle */
+    .film-strip .film-grain{
+      position:absolute;inset:0;pointer-events:none;z-index:0;opacity:0.03;
+      background:linear-gradient(180deg,
+        rgba(59,130,246,0.5) 0%,transparent 3%,transparent 97%,rgba(59,130,246,0.5) 100%
+      );
+    }
+
+    /* Film strip items (cards) */
+    .tl-item{
+      position:relative;z-index:1;display:flex;justify-content:center;align-items:center;
+      margin-bottom:36px;opacity:0;transform:translateY(30px);
+      animation:fadeInUp 0.5s ease forwards;
+    }
+    .tl-item:nth-child(1){animation-delay:0.05s}
+    .tl-item:nth-child(2){animation-delay:0.15s}
+    .tl-item:nth-child(3){animation-delay:0.25s}
+    .tl-item:nth-child(4){animation-delay:0.35s}
+    .tl-item:nth-child(5){animation-delay:0.45s}
+    .tl-item:nth-child(6){animation-delay:0.55s}
+    .tl-item:nth-child(7){animation-delay:0.65s}
+    .tl-item:nth-child(8){animation-delay:0.75s}
+
+    /* 3D Card container */
+    .tl-item{perspective:800px}
+    .tl-card{
+      position:relative;display:block;width:100%;max-width:340px;
+      background:rgba(255,255,255,0.45);
+      backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+      border:1px solid rgba(255,255,255,0.5);
+      border-radius:18px;padding:28px 22px;
+      cursor:pointer;text-decoration:none;
+      transition:box-shadow 0.4s,border-color 0.4s;
+      transform-style:preserve-3d;overflow:hidden;
+      will-change:transform;
+    }
+    /* Glow ring */
+    .tl-card::before{
+      content:'';position:absolute;inset:-2px;border-radius:20px;z-index:-1;
+      background:linear-gradient(135deg,#2563eb,#06b6d4,#8b5cf6,#06b6d4);
+      background-size:300% 300%;opacity:0;transition:opacity 0.5s;
+      animation:gradientShift 4s ease infinite;
+    }
+    .tl-card.glowing::before{opacity:0.55}
+    .tl-card.glowing{
+      border-color:transparent;
+      box-shadow:0 16px 48px rgba(59,130,246,0.18),0 6px 18px rgba(6,182,212,0.1);
+    }
+    /* 3D shine layer */
+    .tl-card .card-shine{
+      position:absolute;inset:0;border-radius:18px;pointer-events:none;z-index:5;
+      background:radial-gradient(circle at 50% 50%,rgba(255,255,255,0.35) 0%,transparent 70%);
+      opacity:0;transition:opacity 0.3s;
+    }
+    .tl-card.glowing .card-shine{opacity:0.7}
+    /* Dynamic shadow layer */
+    .tl-card .card-shadow-layer{
+      position:absolute;inset:-10px;border-radius:28px;pointer-events:none;z-index:-2;
+      background:transparent;transition:all 0.15s ease-out;
+    }
+    /* Ripple for mobile */
+    .tl-card .card-ripple{
+      position:absolute;border-radius:50%;pointer-events:none;z-index:10;
+      background:rgba(59,130,246,0.25);transform:scale(0);opacity:1;
+      animation:rippleBurst 0.7s ease-out forwards;
+    }
+    @keyframes rippleBurst{
+      to{transform:scale(4);opacity:0}
+    }
+    .tl-card:active{transform:scale(0.97)!important;transition:transform 0.1s!important}
+
+    /* Unlocked card */
+    .tl-card.unlocked{
+      border-color:rgba(6,182,212,0.2);
+      animation:tlCardGlow 4s ease-in-out infinite;
+    }
+    @keyframes tlCardGlow{
+      0%,100%{box-shadow:0 0 0 rgba(6,182,212,0)}
+      50%{box-shadow:0 0 24px rgba(6,182,212,0.1),inset 0 0 18px rgba(6,182,212,0.03)}
+    }
+
+    /* Card inner elements */
+    .tl-week-badge{
+      display:inline-block;padding:3px 12px;border-radius:8px;
+      font-size:10px;font-weight:700;letter-spacing:3px;
+      background:rgba(6,182,212,0.08);color:#06b6d4;
+      border:1px solid rgba(6,182,212,0.18);margin-bottom:10px;
+    }
+    .tl-title{
+      font-size:18px;font-weight:700;color:#1a1a2e;margin-bottom:6px;
+      transition:all 0.3s;
+    }
+    .tl-card.glowing .tl-title{
+      background:linear-gradient(135deg,#2563eb,#06b6d4);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    }
+    .tl-topic{
+      font-size:13px;color:#64748b;line-height:1.5;margin-bottom:14px;
+    }
+    .tl-status{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:4px 14px;border-radius:10px;
+      font-size:11px;font-weight:600;letter-spacing:1px;
+      border:1px solid;
+    }
+    .tl-status.go{color:#06b6d4;border-color:rgba(6,182,212,0.3);background:rgba(6,182,212,0.04)}
+    .tl-status.wait{color:#94a3b8;border-color:rgba(148,163,184,0.2);background:rgba(148,163,184,0.03)}
+
+    /* SVG icon on right side of each card */
+    .tl-svg{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:160px;height:160px;pointer-events:none;opacity:1;transition:transform 0.3s}
+    .tl-card.glowing .tl-svg{transform:translateY(-50%) scale(1.08)}
+
+    /* Hover: status glow */
+    .tl-card.glowing .tl-status.go{
+      border-color:rgba(6,182,212,0.6);box-shadow:0 0 12px rgba(6,182,212,0.2);
+    }
+
+    /* Glitch overlay - active on glow */
+    .tl-card .glitch-overlay{
+      position:absolute;inset:0;border-radius:18px;pointer-events:none;opacity:0;
+      background:linear-gradient(transparent 35%,rgba(0,200,255,0.05) 36%,transparent 38%,transparent 62%,rgba(139,92,246,0.05) 63%,transparent 65%);
+      transition:opacity 0.2s;
+    }
+    .tl-card.glowing .glitch-overlay{opacity:0.5;animation:glitch1 0.3s ease infinite}
+
+    /* Footer */
+    .page-footer{text-align:center;padding:40px 28px;position:relative;z-index:2;border-top:1px solid rgba(59,130,246,0.08);color:#94a3b8;font-size:12px}
+    .page-footer .ft-brand{font-size:15px;font-weight:700;background:linear-gradient(135deg,#2563eb,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
+
+    @media(max-width:768px){
+      .nav-links{display:none}
+      .nav-links.open{display:flex;flex-direction:column;position:fixed;top:88px;left:20px;right:20px;background:rgba(255,255,255,0.95);backdrop-filter:blur(24px);padding:20px 24px;gap:4px;border-radius:20px;border:1px solid rgba(255,255,255,0.5);box-shadow:0 8px 40px rgba(0,0,0,0.08)}
+      .nav-links.open a{padding:14px 18px;font-size:15px}
+      .nav-toggle{display:flex}
+      .film-strip{max-width:100%;padding:20px 28px}
+      .film-strip::before{left:-6px;width:6px;background-size:6px 14px}
+      .film-strip::after{right:-6px;width:6px;background-size:6px 14px}
+      .tl-card{max-width:100%}
+      .main-wrap{padding:30px 16px 60px}
+      .tl-item{margin-bottom:28px}
+    }
+    @media(max-width:480px){
+      .nav-bar{padding:0 18px;width:calc(100% - 24px)}
+      .page-header h1{letter-spacing:2px}
+    }
+  </style>
+<style>
+/* ===== Global Image/Video Viewer（叉按钮固定视口右上角，永远够得到） ===== */
+.gv-overlay{position:fixed;inset:0;z-index:99990;display:none;align-items:center;justify-content:center;background:rgba(8,15,30,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:0}
+.gv-overlay.open{display:flex}
+.gv-stage{position:relative;max-width:94vw;max-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.gv-img{max-width:94vw;max-height:84vh;width:auto;height:auto;object-fit:contain;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.5);-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.gv-video{max-width:94vw;max-height:84vh;width:auto;height:auto;background:#000;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.5);outline:none}
+.gv-caption{color:#e2e8f0;font-size:13px;text-align:center;margin-top:14px;line-height:1.6;max-width:94vw;padding:0 12px}
+.gv-close{position:fixed;top:16px;right:16px;z-index:99999;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.96);border:none;color:#0f172a;font-size:26px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.4);transition:transform .2s,background .2s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.gv-close:hover{transform:scale(1.08);background:#fff}
+.gv-close:active{transform:scale(.9)}
+@media(max-width:480px){.gv-close{top:10px;right:10px;width:42px;height:42px;font-size:24px}.gv-img,.gv-video{max-width:96vw;max-height:80vh}}
+</style>
+</head>
+<body>
+
+  <canvas id="bgCanvas"></canvas>
+
+  <nav class="nav-bar" id="navBar">
+    <a href="index.html" class="nav-brand">源码世界 · 金牌AI视频剧</a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">课程介绍</a><a href="teacher.html">主讲老师</a>
+      <a href="course.html" class="active">课程内容</a><a href="cases.html">学员案例</a>
+      <a href="audience.html">适合人群</a><a href="faq.html">常见问题</a>
+    </div>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </nav>
+
+  <div class="main-wrap">
+    <div class="page-header">
+      <div class="badge">MISSION NODES</div>
+      <h1>课程任务节点</h1>
+    </div>
+
+    <div class="film-strip" id="nodesGrid">
+      <div class="film-grain"></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=1" data-wk="1"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 01</div><div class="tl-title">第一周</div><div class="tl-topic">AI视频基础概念与前期准备</div><div class="tl-status go">已解锁</div><img class="tl-svg" src="SVG/W1-AI视频基础概念与前期准备.svg" alt=""></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=2" data-wk="2"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 02</div><div class="tl-title">第二周</div><div class="tl-topic">剧本创作与分镜设计</div><div class="tl-status go">已解锁</div><img class="tl-svg" src="SVG/W2-剧本创作与分镜设计.svg" alt=""></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=3" data-wk="3"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 03</div><div class="tl-title">第三周</div><div class="tl-topic">AI绘画与视觉生成</div><div class="tl-status go">已解锁</div><img class="tl-svg" src="SVG/W3-AI绘画与视觉生成.svg" alt=""></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=4" data-wk="4"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 04</div><div class="tl-title">第四周</div><div class="tl-topic">动态视频生成技术</div><div class="tl-status go">已解锁</div><img class="tl-svg" src="SVG/W4-动态视频生成技术.svg" alt=""></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=5" data-wk="5"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 05</div><div class="tl-title">第五周</div><div class="tl-topic">配音配乐与音效制作</div><div class="tl-status go">已解锁</div><img class="tl-svg" src="SVG/W5-配音配乐与音效制作.svg" alt=""></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=6" data-wk="6"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 06</div><div class="tl-title">第六周</div><div class="tl-topic">剪辑合成与后期特效</div><div class="tl-status go">已解锁</div><img class="tl-svg" src="SVG/W6-剪辑合成与后期特效.svg" alt=""></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=7" data-wk="7"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 07</div><div class="tl-title">第七周</div><div class="tl-topic">综合实战项目（上）</div><div class="tl-status go">已解锁</div><img class="tl-svg" src="SVG/W7-综合实战项目上.svg" alt=""></a></div>
+      <div class="tl-item"><a class="tl-card unlocked" href="week.html?w=8" data-wk="8"><div class="glitch-overlay"></div><div class="card-shine"></div><div class="card-shadow-layer"></div><div class="tl-week-badge">WEEK 08</div><div class="tl-title">第八周</div><div class="tl-topic">综合实战项目（下）</div><div class="tl-status go">已解锁</div><img class="tl-svg" src="SVG/W8-综合实战项目下.svg" alt=""></a></div>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <div class="ft-brand">金牌AI视频剧</div>
+    <p>© 2025 金牌AI视频剧 · 用AI点亮创作梦想</p>
+  </footer>
+
+<script>
+// ===== Nav bar =====
+var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');
+t.addEventListener('click',function(){l.classList.toggle('open')});
+l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open')})});
+window.addEventListener('scroll',function(){document.getElementById('navBar').classList.toggle('scrolled',window.scrollY>10)});
+
+// ===== Background Canvas =====
+(function(){
+  var c=document.getElementById('bgCanvas'),x=c.getContext('2d'),w,h;
+  function rs(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}rs();window.addEventListener('resize',rs);
+  var lines=[],particles=[];
+  for(var i=0;i<12;i++){
+    lines.push({
+      x1:Math.random()*w,y1:Math.random()*h,
+      x2:Math.random()*w,y2:Math.random()*h,
+      vx:(Math.random()-0.5)*0.5,vy:(Math.random()-0.5)*0.5,
+      vx2:(Math.random()-0.5)*0.5,vy2:(Math.random()-0.5)*0.5,
+      hue:Math.random()<0.5?210:250,alpha:Math.random()*0.18+0.06
+    });
+  }
+  for(var i=0;i<50;i++){
+    particles.push({
+      x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.2+0.3,
+      vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,
+      alpha:Math.random()*0.4+0.1,pulse:Math.random()*Math.PI*2
+    });
+  }
+  function draw(){
+    x.clearRect(0,0,w,h);
+    for(var i=0;i<lines.length;i++){
+      var ln=lines[i];
+      ln.x1+=ln.vx;ln.y1+=ln.vy;ln.x2+=ln.vx2;ln.y2+=ln.vy2;
+      if(ln.x1<0||ln.x1>w)ln.vx*=-1;if(ln.y1<0||ln.y1>h)ln.vy*=-1;
+      if(ln.x2<0||ln.x2>w)ln.vx2*=-1;if(ln.y2<0||ln.y2>h)ln.vy2*=-1;
+      var grad=x.createLinearGradient(ln.x1,ln.y1,ln.x2,ln.y2);
+      grad.addColorStop(0,'hsla('+ln.hue+',80%,60%,0)');
+      grad.addColorStop(0.5,'hsla('+ln.hue+',80%,60%,'+ln.alpha+')');
+      grad.addColorStop(1,'hsla('+ln.hue+',80%,60%,0)');
+      x.strokeStyle=grad;x.lineWidth=1;
+      x.beginPath();x.moveTo(ln.x1,ln.y1);x.lineTo(ln.x2,ln.y2);x.stroke();
+    }
+    for(var i=0;i<particles.length;i++){
+      var p=particles[i];p.pulse+=0.015;
+      var a=p.alpha+Math.sin(p.pulse)*0.08;
+      x.fillStyle='rgba(59,130,246,'+a+')';x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fill();
+      p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ===== 3D Tilt + Ripple Effect =====
+document.querySelectorAll('.tl-card').forEach(function(card){
+  var shine=card.querySelector('.card-shine');
+  var shadow=card.querySelector('.card-shadow-layer');
+
+  card.addEventListener('mousemove',function(e){
+    if(window.innerWidth<768)return;
+    var rect=card.getBoundingClientRect();
+    var x=(e.clientX-rect.left)/rect.width-0.5;
+    var y=(e.clientY-rect.top)/rect.height-0.5;
+    card.style.transform='rotateX('+(y*-10)+'deg) rotateY('+(x*10)+'deg) scale(1.03)';
+    card.classList.add('glowing');
+    if(shine)shine.style.background='radial-gradient(circle at '+(50+x*50)+'% '+(50+y*50)+'%,rgba(255,255,255,0.28) 0%,transparent 70%)';
+    if(shadow)shadow.style.boxShadow=(x*-10)+'px '+(y*8+6)+'px 30px rgba(59,130,246,'+(0.08+Math.abs(x)*0.1)+'),'+(x*-3)+'px '+(y*3+1)+'px 8px rgba(6,182,212,'+(0.03+Math.abs(y)*0.05)+')';
+  });
+  card.addEventListener('mouseleave',function(){
+    card.style.transform='rotateX(0deg) rotateY(0deg) scale(1)';
+    card.classList.remove('glowing');
+    if(shine)shine.style.background='radial-gradient(circle at 50% 50%,rgba(255,255,255,0.5) 0%,transparent 70%)';
+    if(shadow)shadow.style.boxShadow='none';
+  });
+
+  card.addEventListener('pointerdown',function(e){
+    var rect=card.getBoundingClientRect();
+    var cx=e.clientX-rect.left,cy=e.clientY-rect.top;
+    var size=Math.max(rect.width,rect.height);
+    var ripple=document.createElement('div');
+    ripple.className='card-ripple';
+    ripple.style.left=cx+'px';ripple.style.top=cy+'px';
+    ripple.style.width=size+'px';ripple.style.height=size+'px';
+    ripple.style.marginLeft=(-size/2)+'px';ripple.style.marginTop=(-size/2)+'px';
+    card.appendChild(ripple);
+    setTimeout(function(){ripple.remove()},700);
+  });
+
+  card.addEventListener('click',function(){
+    card.style.transform='scale(0.94)';
+    card.style.boxShadow='0 0 30px rgba(59,130,246,0.25),0 0 60px rgba(6,182,212,0.15)';
+    setTimeout(function(){card.style.transform='';card.style.boxShadow=''},200);
+  });
+});
+</script>
+<script>(function(){var l=localStorage.getItem("sv");fetch("version.txt?t="+Date.now()).then(function(r){return r.text()}).then(function(t){t=t.trim();if(l&&l!==t){localStorage.setItem("sv",t);location.reload(true)}else{localStorage.setItem("sv",t)}}).catch(function(){})})();</script>
+<!-- 全局图片/视频查看器 -->
+<div class="gv-overlay" id="gvOverlay" aria-hidden="true">
+  <button class="gv-close" id="gvClose" aria-label="关闭">&times;</button>
+  <div class="gv-stage">
+    <img class="gv-img" id="gvImg" alt="" style="display:none">
+    <video class="gv-video" id="gvVideo" controls playsinline style="display:none"></video>
+    <div class="gv-caption" id="gvCaption"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var overlay=document.getElementById('gvOverlay');
+  if(!overlay)return;
+  var imgEl=document.getElementById('gvImg');
+  var videoEl=document.getElementById('gvVideo');
+  var capEl=document.getElementById('gvCaption');
+  var closeBtn=document.getElementById('gvClose');
+  function openViewer(type,src,caption){
+    if(type==='video'){
+      imgEl.style.display='none';imgEl.removeAttribute('src');
+      videoEl.style.display='block';videoEl.src=src;
+      videoEl.play().catch(function(){});
+    }else{
+      videoEl.style.display='none';videoEl.pause();videoEl.removeAttribute('src');
+      imgEl.style.display='block';imgEl.src=src;
+    }
+    capEl.textContent=caption||'';
+    overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+  }
+  function closeViewer(){
+    overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    imgEl.src='';imgEl.style.display='none';
+    videoEl.pause();videoEl.removeAttribute('src');videoEl.style.display='none';
+  }
+  closeBtn.addEventListener('click',function(e){e.stopPropagation();closeViewer();});
+  overlay.addEventListener('click',function(e){if(e.target===overlay||e.target===capEl)closeViewer();});
+  imgEl.addEventListener('click',function(e){e.stopPropagation();});
+  videoEl.addEventListener('click',function(e){e.stopPropagation();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&overlay.classList.contains('open'))closeViewer();});
+  window.__gvOpen=openViewer;window.__gvClose=closeViewer;
+  var skipSel='a, .nav-bar, .nav-links, .nav-toggle, .fcard-icon, .ch-avatar-placeholder, .lecture-icon, .gp-icon, .tl-go, .faq-avatar, [data-no-gv]';
+  document.querySelectorAll('img').forEach(function(img){
+    if(img.closest(skipSel))return;
+    img.style.cursor='pointer';
+    img.addEventListener('click',function(e){
+      e.stopPropagation();
+      var src=img.getAttribute('data-gv-src')||img.currentSrc||img.src;
+      var cap=img.getAttribute('data-gv-cap')||img.alt||'';
+      openViewer('image',src,cap);
+    });
+  });
+})();
+</script>
+</body>
+</html>

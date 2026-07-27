@@ -1,0 +1,174 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bulbGlass" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc" stop-opacity="0.5"/>
+      <stop offset="50%" stop-color="#a78bfa" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.15"/>
+    </linearGradient>
+    <linearGradient id="bulbHighlight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="bulbBase" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9ca3af"/><stop offset="50%" stop-color="#6b7280"/>
+      <stop offset="100%" stop-color="#4b5563"/>
+    </linearGradient>
+    <linearGradient id="wandStick" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#4c1d95"/>
+    </linearGradient>
+    <linearGradient id="wandTip" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="playGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a5b4fc"/><stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="baseGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#818cf8" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#818cf8" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#818cf8" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="bulbLight" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c084fc" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#8b5cf6" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="wandGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dx="0" dy="10"/>
+      <feFlood flood-color="#6366f1" flood-opacity="0.18"/>
+      <feComposite in2="SourceAlpha" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="pGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="2.5"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="250" cy="445" rx="180" ry="18" fill="url(#baseGlow)"/>
+
+  <!-- ambient light -->
+  <circle cx="250" cy="230" r="160" fill="url(#bulbLight)" filter="url(#glow)"/>
+
+  <g filter="url(#pGlow)">
+    <circle cx="55" cy="120" r="2.5" fill="#a855f7" opacity="0.4"/>
+    <circle cx="445" cy="100" r="2" fill="#818cf8" opacity="0.45"/>
+    <circle cx="460" cy="360" r="3" fill="#7c3aed" opacity="0.3"/>
+    <circle cx="40" cy="340" r="2" fill="#6366f1" opacity="0.4"/>
+    <circle cx="410" cy="60" r="2" fill="#c084fc" opacity="0.5"/>
+    <circle cx="80" cy="420" r="1.5" fill="#818cf8" opacity="0.35"/>
+    <circle cx="440" cy="240" r="1.5" fill="#a78bfa" opacity="0.4"/>
+  </g>
+
+  <!-- ===== LIGHTBULB ===== -->
+  <g filter="url(#softShadow)">
+    <!-- filament glow inside bulb -->
+    <circle cx="250" cy="210" r="30" fill="#c084fc" opacity="0.15" filter="url(#glow)"/>
+
+    <!-- bulb glass (outer contour - perfectly smooth top) -->
+    <path d="M 200,200 A 50,50 0 0,1 300,200 Q 300,235 280,250 L 280,275 L 220,275 L 220,250 Q 200,235 200,200 Z" fill="url(#bulbGlass)" filter="url(#softGlow)"/>
+
+    <!-- bulb glass stroke -->
+    <path d="M 200,200 A 50,50 0 0,1 300,200 Q 300,235 280,250 L 280,275 L 220,275 L 220,250 Q 200,235 200,200 Z" fill="none" stroke="#a5b4fc" stroke-width="3" opacity="0.6"/>
+
+    <!-- bulb glass highlight -->
+    <path d="M 218,160 Q 212,185 218,215" fill="none" stroke="url(#bulbHighlight)" stroke-width="10" stroke-linecap="round" filter="url(#softGlow)"/>
+
+    <!-- PLAY BUTTON inside bulb -->
+    <g transform="translate(250, 205)" filter="url(#softGlow)">
+      <circle cx="0" cy="0" r="26" fill="url(#playGrad)"/>
+      <circle cx="0" cy="0" r="24" fill="none" stroke="#c084fc" stroke-width="2" opacity="0.4"/>
+      <polygon points="-9,-11 -9,11 12,0" fill="#ffffff"/>
+    </g>
+
+    <!-- bulb base (screw thread) -->
+    <rect x="215" y="275" width="70" height="9" rx="2" fill="url(#bulbBase)"/>
+    <rect x="218" y="284" width="64" height="9" rx="2" fill="url(#bulbBase)"/>
+    <rect x="222" y="293" width="56" height="9" rx="2" fill="url(#bulbBase)"/>
+    <rect x="226" y="302" width="48" height="12" rx="3" fill="#374151"/>
+    <!-- base contact point -->
+    <circle cx="250" cy="316" r="6" fill="#6b7280"/>
+    <circle cx="250" cy="316" r="3.5" fill="#9ca3af"/>
+  </g>
+
+  <!-- ===== MAGIC WAND (right side, touching/reaching toward bulb) ===== -->
+  <g filter="url(#softShadow)" transform="translate(355, 175) rotate(35)">
+    <!-- wand stick -->
+    <rect x="-5" y="-40" width="10" height="120" rx="4" fill="url(#wandStick)"/>
+    <!-- wand stick highlight -->
+    <rect x="-3" y="-38" width="3" height="115" rx="1.5" fill="#ffffff" opacity="0.12"/>
+    <!-- wand tip star -->
+    <polygon points="0,-50 7,-35 22,-32 12,-20 15,-5 0,-14 -15,-5 -12,-20 -22,-32 -7,-35" fill="url(#wandTip)" filter="url(#wandGlow)"/>
+    <polygon points="0,-42 5,-30 16,-28 9,-19 11,-8 0,-15 -11,-8 -9,-19 -16,-28 -5,-30" fill="#fef3c7" opacity="0.4"/>
+  </g>
+
+  <!-- wand spark trailing to bulb -->
+  <g filter="url(#pGlow)" opacity="0.6">
+    <circle cx="330" cy="185" r="2" fill="#fbbf24"/>
+    <circle cx="315" cy="195" r="1.5" fill="#fde68a"/>
+    <circle cx="305" cy="202" r="2" fill="#fbbf24"/>
+    <circle cx="295" cy="208" r="1.5" fill="#fde68a"/>
+    <circle cx="285" cy="212" r="1" fill="#fbbf24"/>
+  </g>
+
+  <!-- ===== FLOATING CREATIVE ELEMENTS ===== -->
+
+  <!-- Brush (bottom-left, small) -->
+  <g filter="url(#softShadow)" transform="translate(100, 300)">
+    <circle cx="0" cy="0" r="14" fill="#c084fc" opacity="0.7" filter="url(#softGlow)"/>
+    <g transform="translate(0, 1)">
+      <rect x="-1.5" y="-5" width="3" height="6" rx="1" fill="#ffffff"/>
+      <path d="M -2,1 L 2,1 L 2.5,4 L 0,6 L -2.5,4 Z" fill="#ffffff" opacity="0.9"/>
+    </g>
+  </g>
+
+  <!-- Note/Clip (bottom-right) -->
+  <g filter="url(#softShadow)" transform="translate(400, 290)">
+    <circle cx="0" cy="0" r="14" fill="#818cf8" opacity="0.7" filter="url(#softGlow)"/>
+    <g transform="translate(0, 0)">
+      <rect x="-5" y="-4" width="10" height="2.5" rx="1.25" fill="#ffffff" opacity="0.8"/>
+      <rect x="-4" y="0" width="8" height="2.5" rx="1.25" fill="#ffffff" opacity="0.5"/>
+      <rect x="-3" y="4" width="6" height="2.5" rx="1.25" fill="#ffffff" opacity="0.3"/>
+    </g>
+  </g>
+
+  <!-- Image frame (top-right) -->
+  <g filter="url(#softShadow)" transform="translate(420, 160)">
+    <circle cx="0" cy="0" r="12" fill="#a78bfa" opacity="0.7" filter="url(#softGlow)"/>
+    <g transform="translate(0, 0)">
+      <rect x="-5" y="-4" width="10" height="8" rx="1" fill="none" stroke="#ffffff" stroke-width="1.3" opacity="0.8"/>
+      <circle cx="-1" cy="-1" r="1.2" fill="#ffffff" opacity="0.6"/>
+    </g>
+  </g>
+
+  <!-- Mic (top-left) -->
+  <g filter="url(#softShadow)" transform="translate(80, 170)">
+    <circle cx="0" cy="0" r="12" fill="#a5b4fc" opacity="0.7" filter="url(#softGlow)"/>
+    <g transform="translate(0, 0)">
+      <rect x="-2.5" y="-5" width="5" height="6" rx="2.5" fill="#ffffff"/>
+      <path d="M -3,0 Q -3,4 0,4 Q 3,4 3,0" fill="none" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="0" y1="4" x2="0" y2="5.5" stroke="#ffffff" stroke-width="1" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- light rays from bulb -->
+  <g opacity="0.12" stroke="#c084fc" stroke-width="2" stroke-linecap="round" filter="url(#softGlow)">
+    <line x1="250" y1="180" x2="250" y2="100"/>
+    <line x1="250" y1="240" x2="250" y2="280"/>
+    <line x1="210" y1="210" x2="160" y2="240"/>
+    <line x1="290" y1="210" x2="340" y2="185"/>
+    <line x1="220" y1="180" x2="185" y2="145"/>
+    <line x1="280" y1="180" x2="315" y2="145"/>
+  </g>
+</svg>
