@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI视频剧 — 打造你的第一部AI视频剧</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:linear-gradient(135deg,#dbeafe 0%,#ede9fe 35%,#fce4ec 70%,#e0f2fe 100%);
+  background-attachment:fixed;
+  color:#111;overflow-x:hidden;line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:rgba(91,108,255,.15)}
+
+/* ── Animation keyframes: GPU-only, no blur ── */
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUpFade{from{opacity:0;transform:translateY(16px) translateZ(0)}to{opacity:1;transform:translateY(0) translateZ(0)}}
+@keyframes slideUp24{from{opacity:0;transform:translateY(24px) translateZ(0)}to{opacity:1;transform:translateY(0) translateZ(0)}}
+@keyframes slideUp20{from{opacity:0;transform:translateY(20px) translateZ(0)}to{opacity:1;transform:translateY(0) translateZ(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(1.04) translateZ(0)}to{opacity:1;transform:scale(1) translateZ(0)}}
+@keyframes wipeReveal{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes btnReveal{from{opacity:0;transform:scale(.96) translateZ(0)}to{opacity:1;transform:scale(1) translateZ(0)}}
+@keyframes slideFromLeft{from{opacity:0;transform:translateX(-20px) translateZ(0)}to{opacity:1;transform:translateX(0) translateZ(0)}}
+@keyframes slideFromRight{from{opacity:0;transform:translateX(20px) translateZ(0)}to{opacity:1;transform:translateX(0) translateZ(0)}}
+@keyframes cardReveal{from{opacity:0;transform:translateY(16px) translateZ(0)}to{opacity:1;transform:translateY(0) translateZ(0)}}
+@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+/* ── GPU compositing: will-change hints ── */
+.reveal,.hero-title,.hero-subtitle,.hero-btns,.hero-visual,.work-card,.capsule-track,.timeline-step{will-change:transform,opacity}
+
+/* ── Page load ── */
+body{animation:fadeIn .5s ease}
+
+/* ── Reveal system ── */
+.reveal{opacity:0}
+.reveal.visible{animation-name:slideUp24;animation-duration:.6s;animation-timing-function:ease-out;animation-fill-mode:both}
+
+/* ── Pre-animated hero elements ── */
+.hero-nav{animation:fadeIn .4s ease-out both}
+.hero-title{animation:none}
+
+/* ── Hero title: full-line wipe reveal ── */
+.hw{display:block;overflow:hidden}
+.hwi{display:inline-block;clip-path:inset(0 100% 0 0);animation:wipeReveal .45s cubic-bezier(.4,0,0,1) forwards}
+.hero-subtitle{animation:fadeIn .5s ease-out .35s both}
+.hero-btns{animation:btnReveal .5s ease-out .5s both}
+.hero-visual{animation:scaleIn .9s ease-out .3s both}
+
+/* ── Nav ── */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:20px 48px;display:flex;align-items:center;justify-content:space-between;
+  transition:background .4s;
+}
+.nav.scrolled{background:rgba(255,255,255,.82);backdrop-filter:blur(20px)}
+.nav-brand{font-size:16px;font-weight:700;color:#111;text-decoration:none;letter-spacing:-.3px}
+.nav-links{display:flex;gap:36px;align-items:center}
+.nav-links a{font-size:13px;font-weight:500;color:#6b7280;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:#111}
+.nav .btn-primary{padding:10px 22px;font-size:13px}
+.nav-cta{
+  padding:10px 22px;border-radius:0;font-size:13px;font-weight:600;
+  background:#111;color:#fff;text-decoration:none;transition:all .25s;
+}
+.nav-cta:hover{background:#1f2937;transform:translateY(-1px)}
+
+/* ── Section ── */
+.section{padding:80px 48px}
+.section-header{display:flex;align-items:baseline;justify-content:space-between;max-width:none;margin-bottom:72px}
+.section-label{font-size:10.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;background:linear-gradient(135deg,#5B6CFF,#8A5CFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.section-title{font-size:clamp(26px,4vw,40px);font-weight:800;color:#111;line-height:1.2;margin-bottom:0;letter-spacing:-.5px}
+.section-desc{font-size:15px;color:#6b7280;line-height:1.7;max-width:none;text-align:right;flex-shrink:0;margin-left:24px}
+
+/* ═══════════════ SCREEN 1: HERO ═══════════════ */
+.hero{
+  min-height:100vh;display:grid;align-content:center;justify-content:center;
+  grid-template-columns:520px 1fr;
+  padding:120px 48px 100px;gap:0;position:relative;
+}
+.hero-text{grid-column:1;display:flex;flex-direction:column;gap:0}
+.hero-text h1{
+  font-size:clamp(38px,6vw,64px);font-weight:900;line-height:1.12;
+  letter-spacing:-1.5px;color:#111;margin-bottom:20px;
+}
+.hero-text h1 em{font-style:normal;background:linear-gradient(135deg,#5B6CFF,#C36BFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-text p{
+  font-size:15px;color:#6b7280;line-height:1.8;margin-bottom:32px;max-width:380px;
+}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+
+/* ── Hero split blocks (title + actions) — seamless with video ── */
+.hero-block{padding:36px 40px}
+.hero-block-title{
+  flex:1;display:flex;flex-direction:column;justify-content:center;
+  background:rgba(255,255,255,.45);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  color:#1e293b;
+}
+.hero-block-title .hero-title{color:#1e293b;margin-bottom:18px;font-size:clamp(34px,4.5vw,52px);line-height:1.18}
+.hero-block-title .hero-title em{
+  background:linear-gradient(135deg,#5B6CFF,#C36BFF);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-block-title .hero-subtitle{
+  color:#64748b;margin:0;max-width:none;font-size:clamp(14px,1.5vw,17px);line-height:1.8
+}
+.hero-block-actions{
+  background:linear-gradient(135deg,#5B6CFF,#8A5CFF);color:#fff;
+  display:flex;align-items:center;gap:8px;
+  padding:18px 40px;
+  font-size:15px;font-weight:700;
+  text-decoration:none;cursor:pointer;
+  transition:background .2s ease,box-shadow .2s ease;
+  box-shadow:0 2px 12px rgba(91,108,255,.25);
+}
+.hero-block-actions:hover{
+  background:linear-gradient(135deg,#4f60e8,#7a4ee8);box-shadow:0 4px 18px rgba(91,108,255,.35);
+}
+.hero-block-actions .arr{transition:transform .2s}
+.hero-block-actions:hover .arr{transform:translateX(3px)}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;padding:15px 30px;
+  border-radius:0;font-size:14px;font-weight:700;color:#fff;
+  background:linear-gradient(135deg,#5B6CFF,#8A5CFF);
+  text-decoration:none;  transition:transform .2s ease-out,box-shadow .2s ease-out,background .2s ease;
+  box-shadow:0 2px 16px rgba(91,108,255,.25);
+}
+.btn-primary:hover{transform:scale(1.02);box-shadow:0 6px 28px rgba(91,108,255,.35)}
+.btn-primary:active{transform:scale(.98)}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;padding:15px 30px;
+  border-radius:0;font-size:14px;font-weight:600;color:#111;
+  border:1px solid #d1d5db;background:transparent;
+  text-decoration:none;transition:transform .2s ease-out,border-color .2s ease,background .2s ease;
+}
+.btn-ghost:hover{background:#fff;border-color:#9ca3af;transform:scale(1.02)}
+.btn-ghost:active{transform:scale(.98)}
+.hero-visual{grid-column:2;position:relative;margin-top:0;display:flex;align-items:center;justify-content:flex-start}
+.hero-frame{
+  border-radius:0;overflow:hidden;
+  width:100%;max-width:860px;aspect-ratio:3/2;position:relative;
+  box-shadow:0 40px 120px rgba(0,0,0,.15),0 8px 24px rgba(0,0,0,.06);
+}
+.hero-frame video{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block;
+}
+.hero-frame::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.35) 100%);
+  border-radius:0;pointer-events:none;
+}
+
+/* ═══════════════ SCREEN 2: STUDENT WORKS ═══════════════ */
+.works{background:transparent;border-top:1px solid #eee}
+.works .section-header{margin-bottom:32px}
+
+/* ── Marquee carousel (two rows, opposite directions) ── */
+.works-marquee-wrap{overflow:hidden;margin-bottom:32px;display:flex;flex-direction:column;gap:0}
+@keyframes marqRight{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes marqLeft{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
+.works-marquee-track{
+  display:flex;width:max-content;gap:12px;padding:4px 12px;
+}
+.works-marquee-track.right{animation:marqRight 40s linear infinite}
+.works-marquee-track.left{animation:marqLeft 40s linear infinite}
+.works-marquee:hover .works-marquee-track{animation-play-state:paused}
+.works-marquee-card{flex:0 0 240px;aspect-ratio:3/4}
+.works-marquee-card-inner{width:100%;height:100%}
+
+@media(max-width:560px){
+  .works-marquee-card{flex:0 0 170px}
+}
+
+/* ── Video showcase ── */
+/* (removed) */
+
+@media(max-width:560px){
+  .works-marquee-card{flex:0 0 150px}
+}
+
+/* ═══════════════ SCREEN 3: TIMELINE ═══════════════ */
+.timeline-horizontal{max-width:1100px;margin:0 auto}
+.timeline-flow{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  position:relative;padding:20px 0 40px;
+}
+.timeline-flow::before{
+  content:'';position:absolute;top:36px;left:40px;right:40px;height:1px;
+  background:linear-gradient(90deg,transparent,#5B6CFF 20%,#8A5CFF 50%,#C36BFF 80%,transparent);
+}
+.timeline-step{
+  text-align:center;position:relative;z-index:1;flex:1;padding:0 8px;
+}
+.timeline-icon{
+  width:56px;height:56px;border-radius:50%;margin:0 auto 14px;
+  background:#fff;border:2px solid #e5e7eb;display:flex;align-items:center;justify-content:center;
+  transition:border-color .3s ease,box-shadow .3s ease;
+  position:relative;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+}
+.timeline-icon svg{width:22px;height:22px;color:#9ca3af;transition:color .3s}
+.timeline-step:hover .timeline-icon{border-color:#8A5CFF;box-shadow:0 0 0 4px rgba(138,92,255,.06)}
+.timeline-step:hover .timeline-icon svg{color:#8A5CFF}
+.timeline-step-name{font-size:13px;font-weight:700;color:#111;margin-bottom:2px}
+.timeline-step-desc{font-size:11px;color:#9ca3af;line-height:1.5}
+
+/* ── Section link ── */
+.section-link-wrap{display:flex;justify-content:center;margin-top:32px}
+.section-link{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 28px;border-radius:50px;
+  font-size:15px;font-weight:700;
+  background:rgba(255,255,255,.5);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.5);
+  color:#1e293b;text-decoration:none;
+  transition:background .25s,transform .25s,box-shadow .25s,border-color .25s;
+  box-shadow:0 2px 12px rgba(0,0,0,.05);
+}
+.section-link:hover{
+  background:rgba(255,255,255,.8);
+  border-color:rgba(91,108,255,.35);
+  transform:translateY(-1px);
+  box-shadow:0 4px 20px rgba(91,108,255,.12);
+}
+.section-link .arr{transition:transform .2s}
+.section-link:hover .arr{transform:translateX(3px)}
+
+/* ═══════════════ SCREEN 2: COURSE CAROUSEL ═══════════════ */
+.course-section{background:transparent;border-top:1px solid #eee}
+.course-section .section-header{margin-bottom:40px}
+
+.course-carousel{
+  position:relative;overflow:hidden;max-width:1200px;margin:0 auto;
+}
+.course-track{
+  display:flex;gap:20px;will-change:transform;
+  transition:transform .55s cubic-bezier(.4,0,.2,1);
+}
+.course-item{flex:0 0 calc((100% - 40px) / 2.3);min-width:0;cursor:pointer}
+.course-img{
+  width:100%;aspect-ratio:4/3;background-size:cover;background-position:center;
+  background-color:#f5f5f5;transition:transform .4s ease;background-repeat:no-repeat;
+}
+.course-item:hover .course-img{transform:scale(1.03)}
+.course-info{margin-top:14px;text-align:left}
+.course-info h4{font-size:16px;font-weight:700;color:#111;margin-bottom:6px;letter-spacing:-.3px;line-height:1.3}
+.course-info p{font-size:13px;color:#6b7280;line-height:1.6}
+
+/* ── Arrow buttons ── */
+.course-arrows{
+  display:flex;gap:10px;margin-top:18px;
+  max-width:1200px;margin-left:auto;margin-right:auto;
+}
+.course-arrow{
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid #d1d5db;background:rgba(255,255,255,.85);
+  backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  color:#374151;cursor:pointer;
+  transition:background .2s,border-color .2s,color .2s,transform .15s;
+  box-shadow:0 1px 6px rgba(0,0,0,.06);
+}
+.course-arrow:hover{background:#fff;border-color:#9ca3af;color:#111}
+.course-arrow:active{transform:scale(.94)}
+
+@media(max-width:960px){
+  .course-item{flex:0 0 calc((100% - 20px) / 1.6)}
+  .course-info h4{font-size:15px}
+  .course-info p{font-size:12.5px}
+}
+@media(max-width:560px){
+  .course-item{flex:0 0 calc((100% - 20px) / 1.3)}
+  .course-info{margin-top:10px}
+  .course-info h4{font-size:14px}
+  .course-info p{font-size:12px;line-height:1.5}
+}
+
+/* ═══════════════ SCREEN 5: MONETIZE ═══════════════ */
+.monetize-section{background:transparent;border-top:1px solid #eee}
+.monetize-section .section-header{margin-bottom:40px}
+.monetize-layout{display:flex;align-items:stretch;gap:0;margin:0;min-height:440px}
+.monetize-list{
+  flex:0 0 360px;position:relative;overflow:hidden;border-radius:0;
+  display:flex;flex-direction:column;
+  transition:background .6s ease;
+}
+.monetize-list-bg{position:absolute;inset:0;opacity:.06;transition:background .6s ease;pointer-events:none}
+.monetize-item{
+  position:relative;z-index:1;flex:1;
+  display:flex;align-items:center;gap:12px;
+  padding:0 24px;cursor:pointer;
+  border-bottom:1px solid rgba(0,0,0,.06);
+  transition:background .3s;
+}
+.monetize-item:last-child{border-bottom:none}
+.monetize-item:hover{background:rgba(91,108,255,.03)}
+.monetize-arrow{
+  flex-shrink:0;display:flex;align-items:center;
+  opacity:0;transform:translateX(8px);
+  transition:opacity .3s,transform .3s;
+  color:#111;
+}
+.monetize-arrow svg{display:block}
+.monetize-item.active .monetize-arrow{opacity:1;transform:translateX(0)}
+.monetize-item-content h4{font-size:18px;font-weight:700;color:#111;margin:0}
+.monetize-item.active .monetize-item-content h4{color:inherit}
+.monetize-visual-wrap{flex:1;margin-left:0;display:flex;flex-direction:column}
+.monetize-visual{
+  flex:1;position:relative;overflow:hidden;border-radius:0;background:#f5f5f5;
+}
+.monetize-visual-inner{
+  position:absolute;inset:0;border-radius:0;
+  clip-path:inset(0 100% 0 0);
+  transition:clip-path .55s cubic-bezier(.4,0,0,1);
+}
+.monetize-visual-inner.active{clip-path:inset(0 0% 0 0)}
+.monetize-desc-area{display:none}
+
+/* ── Mobile slider ── */
+.monetize-slider{display:none}
+
+@media(max-width:767px){
+  .monetize-layout{display:none}
+  .monetize-slider{
+    display:flex;overflow-x:auto;scroll-snap-type:x mandatory;
+    gap:16px;padding:0 24px 16px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .monetize-slider::-webkit-scrollbar{display:none}
+  .monetize-slide{
+    flex:0 0 82vw;scroll-snap-align:center;
+    display:flex;flex-direction:column;gap:16px;
+  }
+  .monetize-slide-img{
+    width:100%;aspect-ratio:16/9;border-radius:0;overflow:hidden;position:relative;
+  }
+  .monetize-slide-img-inner{position:absolute;inset:0}
+  .monetize-slide h4{font-size:18px;font-weight:700;color:#111;text-align:center}
+}
+
+/* ═══════════════ SCREEN 6: ASSETS ═══════════════ */
+.assets-section{background:transparent;border-top:1px solid #eee}
+.assets-section .section-header{margin-bottom:48px}
+.assets-layout{display:flex;flex-direction:column;gap:0;margin:0}
+.assets-text-block{
+  padding:24px 36px;
+  background:rgba(255,255,255,.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  font-size:20px;font-weight:800;color:#1e293b;letter-spacing:-.3px;
+}
+.assets-img-block{
+  height:360px;position:relative;
+  background-size:cover;background-position:center;
+}
+/* 竖排标签 —— 图片左上角 */
+.assets-tabs-v{
+  position:absolute;top:16px;left:16px;z-index:2;
+  display:flex;flex-direction:column;gap:6px;
+}
+.assets-tab-v{
+  padding:6px 14px;border-radius:8px;
+  background:rgba(255,255,255,.15);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  color:#fff;font-size:12.5px;font-weight:600;letter-spacing:1px;
+  border:1px solid rgba(255,255,255,.3);
+  transition:background .25s;white-space:nowrap;
+}
+.assets-tab-v.active{background:rgba(255,255,255,.35);border-color:rgba(255,255,255,.55)}
+@media(max-width:960px){
+  .assets-img-block{height:280px}
+}
+@media(max-width:560px){
+  .assets-text-block{padding:20px 24px;font-size:18px}
+  .assets-img-block{height:220px}
+  .assets-tab-v{padding:5px 12px;font-size:11.5px}
+}
+
+/* ═══════════════ SCREEN 7: FAQ ═══════════════ */
+.faq-section .section-header{margin-bottom:40px}
+.faq-list{max-width:none}
+.faq-item{border-bottom:1px solid #e5e7eb}
+.faq-q{
+  width:100%;padding:24px 0;display:flex;align-items:center;justify-content:space-between;
+  background:transparent;border:none;cursor:pointer;font-size:16px;font-weight:600;
+  color:#111;text-align:left;transition:color .2s;font-family:inherit;
+}
+.faq-q:hover{color:#5B6CFF}
+.faq-q .faq-icon{
+  width:28px;height:28px;border-radius:50%;border:1px solid #d1d5db;
+  display:flex;align-items:center;justify-content:center;
+  color:#9ca3af;transition:transform .25s ease,background .25s ease,border-color .25s ease,color .25s ease;flex-shrink:0;
+}
+.faq-q .faq-icon svg{display:block}
+.faq-item.open .faq-q .faq-icon{background:#5B6CFF;border-color:#5B6CFF;color:#fff;transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease,opacity .3s ease;opacity:0}
+.faq-item.open .faq-a{max-height:200px;opacity:1}
+.faq-a-inner{padding-bottom:24px;font-size:14px;color:#6b7280;line-height:1.7}
+
+/* ═══════════════ TEACHER INTRO ═══════════════ */
+.teacher-section{background:transparent;border-top:1px solid #eee}
+.teacher-section .section-header{margin-bottom:40px}
+.teacher-showcase{width:100%}
+.teacher-photo-img{
+  width:100%;height:auto;display:block;
+}
+
+/* ═══════════════ SCREEN 8: CTA ═══════════════ */
+.cta-kevin{
+  text-align:center;padding:160px 32px 140px;
+  position:relative;overflow:hidden;
+}
+.cta-kevin::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 50% 40% at 50% 50%,rgba(91,108,255,.04),transparent 70%);
+  pointer-events:none;
+}
+.cta-kevin h2{font-size:clamp(28px,4.5vw,44px);font-weight:800;color:#111;margin-bottom:16px;letter-spacing:-1px}
+.cta-kevin p{font-size:16px;color:#6b7280;margin-bottom:40px}
+.cta-kevin .btn-primary{font-size:16px;padding:18px 44px}
+.cta-kevin .btn-ghost{font-size:16px;padding:18px 44px}
+.cta-kevin .reveal-d2{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+
+/* ── Footer ── */
+.footer{
+  text-align:center;padding:28px 32px 36px;
+  background:transparent;border-top:1px solid #e5e7eb;
+}
+.footer-links{display:flex;justify-content:center;gap:28px;margin-bottom:10px;flex-wrap:wrap}
+.footer-links a{font-size:12px;color:#6b7280;text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:#111}
+.footer-copy{font-size:11px;color:#9ca3af}
+
+/* ── Responsive ── */
+@media(max-width:960px){
+  .nav{padding:14px 24px}.nav-links{display:none}
+  .hero{grid-template-columns:1fr;padding:100px 24px 40px;gap:0;text-align:left;align-content:start}
+  .hero-text{grid-column:1;max-width:100%}
+  .hero-block-title{flex:auto}
+  .hero-text p{margin:0 0 32px}
+  .hero-text h1{font-size:clamp(32px,7vw,48px)}
+  .hero-block-title .hero-title{font-size:clamp(34px,7vw,52px)}
+  .hero-btns{justify-content:center}
+  .hero-visual{grid-column:1;width:100%}
+  .hero-frame{aspect-ratio:3/2}
+  .timeline-flow{flex-wrap:wrap;gap:20px;justify-content:center}
+  .timeline-flow::before{display:none}
+  .timeline-step{flex:0 0 25%}
+  .section{padding:80px 24px}.section-header{margin-bottom:48px}
+  .cta-kevin{padding:100px 24px 80px}
+}
+@media(max-width:560px){
+  .timeline-step{flex:0 0 50%}
+  .hero-btns{flex-direction:column}.btn-primary,.btn-ghost{justify-content:center}
+  .section-header{flex-direction:column;align-items:flex-start}
+  .section-desc{text-align:left;margin-left:0;margin-top:8px;font-size:14px}
+  .faq-q{font-size:14.5px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav class="nav hero-nav" id="nav">
+  <a href="index.html" class="nav-brand">源码世界</a>
+  <div class="nav-links">
+    <a href="#course">课程内容</a>
+    <a href="#works">学员作品</a>
+    <a href="#teacher">导师介绍</a>
+  </div>
+  <a href="course.html" class="btn-primary">立即学习</a>
+</nav>
+
+<!-- ═══════════════ SCREEN 1: HERO ═══════════════ -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-block hero-block-title">
+      <h1 class="hero-title">
+        <span class="hw"><span class="hwi" style="animation-delay:.2s">8周打造属于你的</span></span>
+        <span class="hw"><span class="hwi" style="animation-delay:.68s"><em>第一部AI视频剧</em></span></span>
+      </h1>
+      <p class="hero-subtitle">从AI绘画、角色一致性、分镜、配音、动画到剪辑，全流程实战教学。</p>
+    </div>
+    <a href="course.html" class="hero-block hero-block-actions">
+      立即学习 <span class="arr">→</span>
+    </a>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-frame">
+      <video src="hero-video.mp4" autoplay loop muted playsinline></video>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SCREEN 2: COURSE CAROUSEL ═══════════════ -->
+<section class="section course-section" id="course">
+  <div class="section-header">
+    <div class="section-title">课程内容</div>
+    <div class="section-desc">从工具入门到完整作品，覆盖AI视频创作全链路。</div>
+  </div>
+  <div class="course-carousel" id="courseCarousel">
+    <div class="course-track" id="courseTrack">
+      <div class="course-item">
+        <div class="course-img" style="background-image:url('tu/基础入门.png')"></div>
+        <div class="course-info">
+          <h4>基础入门 · 工具与流程</h4>
+          <p>了解AI视频制作全流程，搭建创作环境，快速上手</p>
+        </div>
+      </div>
+      <div class="course-item">
+        <div class="course-img" style="background-image:url('tu/剧本创作.png')"></div>
+        <div class="course-info">
+          <h4>剧本创作与分镜设计</h4>
+          <p>AI辅助撰写专业剧本，设计电影级分镜脚本</p>
+        </div>
+      </div>
+      <div class="course-item">
+        <div class="course-img" style="background-image:url('tu/AI绘画.png')"></div>
+        <div class="course-info">
+          <h4>AI绘画 · 角色与场景</h4>
+          <p>掌握AI绘画工具，生成角色一致的高质量视觉素材</p>
+        </div>
+      </div>
+      <div class="course-item">
+        <div class="course-img" style="background-image:url('tu/动态视频生成.png')"></div>
+        <div class="course-info">
+          <h4>动态视频生成</h4>
+          <p>将静态画面转化为流畅动态影像，AI一键生成</p>
+        </div>
+      </div>
+      <div class="course-item">
+        <div class="course-img" style="background-image:url('tu/配音配乐.png')"></div>
+        <div class="course-info">
+          <h4>配音配乐 · 剪辑与特效</h4>
+          <p>AI语音合成 + 智能配乐 + AI剪辑，打造专业级成片</p>
+        </div>
+      </div>
+      <div class="course-item">
+        <div class="course-img" style="background-image:url('tu/综合实战.png')"></div>
+        <div class="course-info">
+          <h4>综合实战 · 完成作品</h4>
+          <p>从0到1交付一部完整AI短片，打造个人作品集</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="course-arrows">
+    <button class="course-arrow" id="coursePrev" aria-label="上一个">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="course-arrow" id="courseNext" aria-label="下一个">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+  <div class="section-link-wrap"><a href="course.html" class="section-link">了解完整课程内容 <span class="arr">→</span></a></div>
+</section>
+
+<!-- ═══════════════ TEACHER INTRO ═══════════════ -->
+<section class="section teacher-section" id="teacher">
+  <div class="section-header">
+    <div class="section-title">导师介绍</div>
+    <div class="section-desc">经验丰富的导师带你从零到一。</div>
+  </div>
+  <div class="teacher-showcase">
+    <img src="Jack.jpg" alt="导师 Jack" class="teacher-photo-img">
+  </div>
+  <div class="section-link-wrap"><a href="teacher.html" class="section-link">看更多信息 <span class="arr">→</span></a></div>
+</section>
+
+
+<!-- ═══════════════ SCREEN 5: MONETIZE ═══════════════ -->
+<section class="section monetize-section">
+  <div class="section-header">
+    <div class="section-title">学完你能做什么</div>
+    <div class="section-desc">不只学技能，更学会用AI视频创作持续变现。</div>
+  </div>
+  <div class="monetize-layout">
+    <div class="monetize-list" id="monetizeList">
+      <div class="monetize-list-bg" id="monetizeListBg" style="background:linear-gradient(135deg,#2563eb,#1d4ed8)"></div>
+      <div class="monetize-item active" data-idx="0" data-gradient="linear-gradient(135deg,#2563eb,#1d4ed8)">
+        <div class="monetize-item-content"><h4>AI漫剧接单</h4></div>
+        <span class="monetize-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+      <div class="monetize-item" data-idx="1" data-gradient="linear-gradient(135deg,#7c3aed,#6d28d9)">
+        <div class="monetize-item-content"><h4>自媒体账号运营</h4></div>
+        <span class="monetize-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+      <div class="monetize-item" data-idx="2" data-gradient="linear-gradient(135deg,#0891b2,#0e7490)">
+        <div class="monetize-item-content"><h4>企业定制服务</h4></div>
+        <span class="monetize-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+      <div class="monetize-item" data-idx="3" data-gradient="linear-gradient(135deg,#db2777,#be185d)">
+        <div class="monetize-item-content"><h4>素材授权售卖</h4></div>
+        <span class="monetize-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+      <div class="monetize-item" data-idx="4" data-gradient="linear-gradient(135deg,#ea580c,#c2410c)">
+        <div class="monetize-item-content"><h4>知识付费教学</h4></div>
+        <span class="monetize-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+      <div class="monetize-item" data-idx="5" data-gradient="linear-gradient(135deg,#5B6CFF,#C36BFF)">
+        <div class="monetize-item-content"><h4>海外市场出海</h4></div>
+        <span class="monetize-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+    </div>
+    <div class="monetize-visual-wrap">
+      <div class="monetize-visual" id="monetizeVisual">
+        <div class="monetize-visual-inner active" style="background:url('tu/AI漫剧接单.png') center/cover"></div>
+        <div class="monetize-visual-inner" style="background:url('tu/自媒体账号运营.png') center/cover"></div>
+        <div class="monetize-visual-inner" style="background:url('tu/企业定制服务.png') center/cover"></div>
+        <div class="monetize-visual-inner" style="background:url('tu/素材授权售卖.png') center/cover"></div>
+        <div class="monetize-visual-inner" style="background:url('tu/知识付费教学.png') center/cover"></div>
+        <div class="monetize-visual-inner" style="background:url('tu/海外市场出海.png') center/cover"></div>
+      </div>
+      <div class="monetize-desc-area" id="monetizeDescArea"></div>
+    </div>
+  </div>
+  <!-- Mobile slider -->
+  <div class="monetize-slider">
+    <div class="monetize-slide">
+      <h4>AI漫剧接单</h4>
+      <div class="monetize-slide-img"><div class="monetize-slide-img-inner" style="background:url('tu/AI漫剧接单.png') center/cover"></div></div>
+    </div>
+    <div class="monetize-slide">
+      <h4>自媒体账号运营</h4>
+      <div class="monetize-slide-img"><div class="monetize-slide-img-inner" style="background:url('tu/自媒体账号运营.png') center/cover"></div></div>
+    </div>
+    <div class="monetize-slide">
+      <h4>企业定制服务</h4>
+      <div class="monetize-slide-img"><div class="monetize-slide-img-inner" style="background:url('tu/企业定制服务.png') center/cover"></div></div>
+    </div>
+    <div class="monetize-slide">
+      <h4>素材授权售卖</h4>
+      <div class="monetize-slide-img"><div class="monetize-slide-img-inner" style="background:url('tu/素材授权售卖.png') center/cover"></div></div>
+    </div>
+    <div class="monetize-slide">
+      <h4>知识付费教学</h4>
+      <div class="monetize-slide-img"><div class="monetize-slide-img-inner" style="background:url('tu/知识付费教学.png') center/cover"></div></div>
+    </div>
+    <div class="monetize-slide">
+      <h4>海外市场出海</h4>
+      <div class="monetize-slide-img"><div class="monetize-slide-img-inner" style="background:url('tu/海外市场出海.png') center/cover"></div></div>
+    </div>
+  </div>
+  <div class="section-link-wrap"><a href="audience.html" class="section-link">看看课程适不适合你 <span class="arr">→</span></a></div>
+</section>
+
+<!-- ═══════════════ SCREEN 6: ASSETS ═══════════════ -->
+<section class="section assets-section">
+  <div class="section-header">
+    <div class="section-title">你将获得</div>
+    <div class="section-desc">每一份资产都经过精心打磨，助力你从入门到精通。</div>
+  </div>
+  <div class="assets-layout">
+    <!-- Block 1 -->
+    <div class="assets-text-block reveal">模块化课程大纲</div>
+    <div class="assets-img-block reveal" style="background-image:url('tu/基础入门.png');margin-bottom:24px">
+      <div class="assets-tabs-v">
+        <div class="assets-tab-v active">基础篇</div>
+        <div class="assets-tab-v">进阶篇</div>
+        <div class="assets-tab-v">实战篇</div>
+        <div class="assets-tab-v">商业篇</div>
+      </div>
+    </div>
+    <!-- Block 2 -->
+    <div class="assets-text-block reveal reveal-d1">学员专属资源包</div>
+    <div class="assets-img-block reveal reveal-d1" style="background-image:url('tu/综合实战.png')"></div>
+  </div>
+</section>
+
+<!-- ═══════════════ SCREEN 3: STUDENT WORKS ═══════════════ -->
+<section class="section works" id="works">
+  <div class="section-header">
+    <div class="section-title">学员作品</div>
+    <div class="section-desc">不是纸上谈兵。每位学员都能做出完整AI视频作品。</div>
+  </div>
+
+  <!-- Image marquee: row 1 → right, row 2 → left -->
+  <div class="works-marquee-wrap">
+    <div class="works-marquee">
+      <div class="works-marquee-track right" id="marqRow1">
+        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#1a1a2e,#16213e)"></div></div>
+        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#2d1b69,#1a0533)"></div></div>
+        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#0f2027,#203a43)"></div></div>
+        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#1e293b,#334155)"></div></div>
+        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#3b0764,#581c87)"></div></div>
+        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#064e3b,#065f46)"></div></div>
+        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#450a0a,#7f1d1d)"></div></div>
+        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#1e1b4b,#312e81)"></div></div>
+        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#4a1942,#831843)"></div></div>
+        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#172554,#1e3a5f)"></div></div>
+      </div>
+    </div>
+    <div class="works-marquee">
+      <div class="works-marquee-track left" id="marqRow2">
+        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#172554,#1e3a5f)"></div></div>
+        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#4a1942,#831843)"></div></div>
+        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#1e1b4b,#312e81)"></div></div>
+        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#450a0a,#7f1d1d)"></div></div>
+        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#064e3b,#065f46)"></div></div>
+        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#3b0764,#581c87)"></div></div>
+        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#1e293b,#334155)"></div></div>
+        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#0f2027,#203a43)"></div></div>
+        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#2d1b69,#1a0533)"></div></div>
+        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#1a1a2e,#16213e)"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-link-wrap"><a href="cases.html" class="section-link">看更多学员案例 <span class="arr">→</span></a></div>
+</section>
+
+
+
+<!-- ═══════════════ SCREEN 8: CTA ═══════════════ -->
+<section class="cta-kevin">
+  <h2 class="reveal">准备好开始你的第一部AI视频剧了吗？</h2>
+  <p class="reveal reveal-d1">零基础 · 八周 · 从白纸到完整作品</p>
+  <div class="reveal reveal-d2">
+    <a href="course.html" class="btn-primary">立即学习 <span class="arr">→</span></a>
+    <a href="faq.html" class="btn-ghost">常见问题</a>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="footer">
+  <div class="footer-links">
+    <a href="index.html">课程介绍</a>
+    <a href="teacher.html">主讲老师</a>
+    <a href="course.html">课程内容</a>
+    <a href="cases.html">学员案例</a>
+    <a href="faq.html">常见问题</a>
+  </div>
+  <p class="footer-copy">2025 树帆教育 · 金牌AI视频剧 · 用AI点亮创作梦想</p>
+</footer>
+
+<script>
+// Nav scroll
+addEventListener('scroll',function(){document.getElementById('nav').classList.toggle('scrolled',scrollY>40)})
+
+// FAQ accordion
+function toggleFaq(btn){
+  var item=btn.parentElement;
+  var wasOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(function(el){el.classList.remove('open')});
+  if(!wasOpen)item.classList.add('open');
+}
+
+// ── Reveal system ──
+(function(){
+  var EASE='ease-out';
+
+  function revealHeader(el){
+    var title=el.querySelector('.section-title');
+    var desc=el.querySelector('.section-desc');
+    if(title){
+      title.style.animation='wipeReveal .45s cubic-bezier(.4,0,0,1) both';
+    }
+    if(desc){
+      desc.style.animation='fadeIn .5s ease-out .12s both';
+    }
+  }
+  function revealCard(el){ el.style.animation='cardReveal .6s '+EASE+' both'; }
+  function revealImage(el){ el.style.animation='scaleInImg .7s '+EASE+' both'; }
+  function revealTeacher(el){
+    var photo=el.querySelector('.teacher-photo-wrap');
+    var info=el.querySelector('.teacher-info');
+    if(photo)photo.style.animation='scaleInImg .7s '+EASE+' both';
+    if(info)info.style.animation='slideFromRight .6s '+EASE+' .1s both';
+  }
+
+  // Main observer: section-headers, cards, course, monetize layout etc.
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting)return;
+      var el=e.target;
+      obs.unobserve(el);
+      if(el.classList.contains('section-header')) revealHeader(el);
+      else if(el.classList.contains('work-card')) revealCard(el);
+      else if(el.classList.contains('teacher-photo')) revealImage(el);
+      else if(el.classList.contains('teacher-layout')) revealTeacher(el);
+      else if(el.classList.contains('reveal')) el.classList.add('visible');
+    })
+  },{threshold:.25});
+
+  // Observe section headers
+  document.querySelectorAll('.section-header').forEach(function(el,i){
+    if(!el.closest('.hero-text')){
+      el.style.animationDelay=(i*.04)+'s';
+      obs.observe(el);
+    }
+  });
+
+  // Observe all other dynamic elements
+  document.querySelectorAll('.work-card,.teacher-layout,.monetize-layout,.course-carousel,.course-arrows,.assets-layout,.teacher-showcase,.section-link').forEach(function(el,i){
+    if(el.classList.contains('work-card')) el.style.animationDelay=(i%4)*.06+'s';
+    if(!el.classList.contains('reveal')) el.classList.add('reveal');
+    obs.observe(el);
+  });
+
+  // Video cards inside the grid get staggered reveal
+  document.querySelectorAll('.works-video-card').forEach(function(el,i){
+    if(!el.classList.contains('reveal')) el.classList.add('reveal');
+    el.style.animationDelay=(i*.06)+'s';
+    obs.observe(el);
+  });
+
+  // Folder items inside assets get staggered reveal
+  document.querySelectorAll('.assets-folder .folder-item').forEach(function(el,i){
+    if(!el.classList.contains('reveal')) el.classList.add('reveal');
+    el.style.animationDelay=(i*.04)+'s';
+    obs.observe(el);
+  });
+
+  // Monetize items get staggered arrival
+  document.querySelectorAll('.monetize-item').forEach(function(el,i){
+    if(!el.classList.contains('reveal')) el.classList.add('reveal');
+    el.style.animationDelay=(i*.04)+'s';
+    obs.observe(el);
+  });
+
+  // Standard .reveal elements (FAQ, CTA etc.)
+  var obs2=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('visible'); obs2.unobserve(e.target); }
+    })
+  },{threshold:.25});
+
+  document.querySelectorAll('.reveal').forEach(function(el){
+    var delays={d1:.08,d2:.16,d3:.24,d4:.32,d5:.4,d6:.48};
+    Object.keys(delays).forEach(function(k){
+      if(el.classList.contains('reveal-'+k))el.style.animationDelay=delays[k]+'s';
+    });
+    obs2.observe(el);
+  });
+
+  document.querySelectorAll('.faq-item').forEach(function(el,i){
+    if(!el.classList.contains('reveal'))el.classList.add('reveal');
+    el.style.animationDelay=(i*.06)+'s';
+    obs2.observe(el);
+  });
+})();
+
+// ── Works double marquee ──
+(function(){
+  ['marqRow1','marqRow2'].forEach(function(id){
+    var track = document.getElementById(id);
+    if(!track) return;
+    var cards = track.querySelectorAll('.works-marquee-card');
+    cards.forEach(function(card){
+      track.appendChild(card.cloneNode(true));
+    });
+  });
+})();
+
+// ── Monetize hover interaction ──
+(function(){
+  var items = document.querySelectorAll('.monetize-item');
+  var visuals = document.querySelectorAll('.monetize-visual-inner');
+  var listBg = document.getElementById('monetizeListBg');
+  if(!items.length) return;
+  items.forEach(function(item) {
+    item.addEventListener('mouseenter', function() {
+      var idx = parseInt(item.getAttribute('data-idx'));
+      var grad = item.getAttribute('data-gradient');
+      items.forEach(function(it) { it.classList.remove('active'); });
+      visuals.forEach(function(v) { v.classList.remove('active'); });
+      item.classList.add('active');
+      if(visuals[idx]) visuals[idx].classList.add('active');
+      if(listBg && grad) listBg.style.background = grad;
+    });
+  });
+})();
+
+// ── Mobile monetize slider auto-scroll ──
+(function(){
+  var slider = document.querySelector('.monetize-slider');
+  if(!slider) return;
+  var slides = slider.querySelectorAll('.monetize-slide');
+  var step = slides[1] ? slides[1].offsetLeft - slides[0].offsetLeft : 0;
+  var idx = 0, timer = null;
+
+  function go() {
+    idx = (idx + 1) % slides.length;
+    slider.scrollTo({ left: idx * step, behavior: 'smooth' });
+  }
+
+  function startAuto() { stopAuto(); timer = setInterval(go, 3000); }
+  function stopAuto() { clearInterval(timer); }
+
+  // Pause on touch, resume after 3s idle
+  var touchTimer;
+  slider.addEventListener('touchstart', function(){ stopAuto(); });
+  slider.addEventListener('touchend', function(){
+    clearTimeout(touchTimer);
+    touchTimer = setTimeout(startAuto, 3000);
+  });
+
+  // Use IntersectionObserver to start when visible
+  var obs = new IntersectionObserver(function(e){
+    if(e[0].isIntersecting){ startAuto(); obs.unobserve(slider); }
+  }, {threshold: 0.3});
+  obs.observe(slider);
+})();
+
+// ── Course carousel auto-scroll ──
+(function(){
+  var carousel = document.getElementById('courseCarousel');
+  var track    = document.getElementById('courseTrack');
+  if(!carousel || !track) return;
+
+  var originalItems = Array.prototype.slice.call(track.querySelectorAll('.course-item'));
+  var originalCount = originalItems.length;
+  if(originalCount === 0) return;
+
+  // Clone original items to enable seamless loop
+  for(var i = 0; i < originalCount; i++){
+    var clone = originalItems[i].cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    track.appendChild(clone);
+  }
+
+  var idx = 0;
+  var timer = null;
+  var stepPx = 0;
+  var gapPx  = 0;
+  var DELAY = 2000;     // 每 2s 切换一张
+  var DURATION = 550;  // 切换动画时长
+
+  function measure(){
+    if(originalItems.length === 0) return;
+    gapPx  = parseInt(getComputedStyle(track).gap, 10) || 0;
+    stepPx = originalItems[0].getBoundingClientRect().width + gapPx;
+  }
+
+  function goNext(){
+    measure();
+    idx++;
+    track.style.transition = 'transform ' + DURATION + 'ms cubic-bezier(.4,0,.2,1)';
+    track.style.transform  = 'translate3d(' + (-idx * stepPx) + 'px, 0, 0)';
+
+    // When the cloned region becomes the visible window, jump back to start
+    if(idx >= originalCount){
+      var onEnd = function(e){
+        if(e.propertyName !== 'transform') return;
+        track.removeEventListener('transitionend', onEnd);
+        track.style.transition = 'none';
+        idx = 0;
+        track.style.transform = 'translate3d(0, 0, 0)';
+        // Force reflow so the next transition can run
+        void track.offsetHeight;
+        track.style.transition = 'transform ' + DURATION + 'ms cubic-bezier(.4,0,.2,1)';
+      };
+      track.addEventListener('transitionend', onEnd);
+    }
+  }
+
+  function goPrev(){
+    measure();
+    if(idx <= 0){
+      // Jump to clone end position, then animate back one step
+      track.style.transition = 'none';
+      idx = originalCount;
+      track.style.transform = 'translate3d(' + (-idx * stepPx) + 'px, 0, 0)';
+      void track.offsetHeight;
+      track.style.transition = 'transform ' + DURATION + 'ms cubic-bezier(.4,0,.2,1)';
+    }
+    idx--;
+    track.style.transform = 'translate3d(' + (-idx * stepPx) + 'px, 0, 0)';
+  }
+
+  function startAuto(){
+    stopAuto();
+    timer = setInterval(goNext, DELAY);
+  }
+  function stopAuto(){
+    if(timer){ clearInterval(timer); timer = null; }
+  }
+
+  var resumeTimeout = null;
+  function manualNavigate(){
+    stopAuto();
+    clearTimeout(resumeTimeout);
+    resumeTimeout = setTimeout(startAuto, 4000);
+  }
+
+  carousel.addEventListener('mouseenter', stopAuto);
+  carousel.addEventListener('mouseleave', startAuto);
+
+  // Arrow buttons
+  var btnPrev = document.getElementById('coursePrev');
+  var btnNext = document.getElementById('courseNext');
+  if(btnPrev) btnPrev.addEventListener('click', function(){ measure(); manualNavigate(); goPrev(); });
+  if(btnNext) btnNext.addEventListener('click', function(){ measure(); manualNavigate(); goNext(); });
+
+  // Keyboard left/right
+  carousel.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowLeft'){ e.preventDefault(); measure(); manualNavigate(); goPrev(); }
+    if(e.key === 'ArrowRight'){ e.preventDefault(); measure(); manualNavigate(); goNext(); }
+  });
+  carousel.setAttribute('tabindex', '0');
+
+  // Recompute on resize
+  window.addEventListener('resize', measure);
+
+  // Start autoplay when carousel is visible
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          measure();
+          startAuto();
+          obs.unobserve(carousel);
+        }
+      });
+    }, {threshold: 0.25});
+    obs.observe(carousel);
+  } else {
+    measure();
+    startAuto();
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="monitorFrame" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a5b4fc"/><stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="monitorScreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b"/><stop offset="100%" stop-color="#3730a3"/>
+    </linearGradient>
+    <linearGradient id="monitorStand" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#4c1d95"/>
+    </linearGradient>
+    <linearGradient id="miniScript" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c4b5fd"/><stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="miniBoard" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a5b4fc"/><stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="miniPlayer" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+    <linearGradient id="baseGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#818cf8" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#818cf8" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#818cf8" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dx="0" dy="10"/>
+      <feFlood flood-color="#6366f1" flood-opacity="0.18"/>
+      <feComposite in2="SourceAlpha" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="pGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="250" cy="435" rx="190" ry="18" fill="url(#baseGlow)"/>
+
+  <!-- particles -->
+  <g filter="url(#pGlow)">
+    <circle cx="55" cy="100" r="2.5" fill="#a855f7" opacity="0.4"/>
+    <circle cx="445" cy="120" r="2" fill="#818cf8" opacity="0.45"/>
+    <circle cx="460" cy="370" r="3" fill="#7c3aed" opacity="0.3"/>
+    <circle cx="40" cy="340" r="2.5" fill="#6366f1" opacity="0.4"/>
+    <circle cx="410" cy="60" r="2" fill="#c084fc" opacity="0.5"/>
+    <circle cx="80" cy="420" r="1.5" fill="#818cf8" opacity="0.35"/>
+    <circle cx="440" cy="240" r="1.5" fill="#a78bfa" opacity="0.4"/>
+  </g>
+
+  <!-- ===== MONITOR (center) ===== -->
+  <g filter="url(#softShadow)">
+    <!-- monitor back -->
+    <rect x="140" y="155" width="220" height="155" rx="14" fill="#4c1d95" opacity="0.5"/>
+    <!-- bezel -->
+    <rect x="145" y="160" width="210" height="145" rx="10" fill="url(#monitorFrame)"/>
+    <!-- screen -->
+    <rect x="155" y="170" width="190" height="125" rx="6" fill="url(#monitorScreen)"/>
+
+    <!-- project interface UI -->
+    <!-- timeline at bottom -->
+    <rect x="165" y="275" width="170" height="12" rx="3" fill="#312e81"/>
+    <rect x="165" y="275" width="70" height="12" rx="3" fill="#7c3aed" opacity="0.6"/>
+    <!-- clips on timeline -->
+    <rect x="170" y="278" width="18" height="6" rx="2" fill="#818cf8" opacity="0.7"/>
+    <rect x="192" y="278" width="14" height="6" rx="2" fill="#6366f1" opacity="0.6"/>
+    <rect x="210" y="278" width="20" height="6" rx="2" fill="#a78bfa" opacity="0.5"/>
+    <rect x="234" y="278" width="16" height="6" rx="2" fill="#818cf8" opacity="0.6"/>
+    <!-- playhead -->
+    <line x1="240" y1="273" x2="240" y2="289" stroke="#c084fc" stroke-width="1.5"/>
+    <polygon points="237,273 243,273 240,268" fill="#c084fc"/>
+
+    <!-- preview area -->
+    <rect x="165" y="180" width="100" height="55" rx="4" fill="#312e81"/>
+    <polygon points="205,198 205,217 220,207.5" fill="#a5b4fc" opacity="0.7"/>
+    <!-- overlay grid -->
+    <g stroke="#6366f1" stroke-width="0.5" opacity="0.3">
+      <line x1="165" y1="198" x2="265" y2="198"/>
+      <line x1="215" y1="180" x2="215" y2="235"/>
+    </g>
+
+    <!-- tool panel (right side) -->
+    <rect x="275" y="180" width="60" height="55" rx="4" fill="#312e81"/>
+    <g opacity="0.5">
+      <rect x="283" y="188" width="44" height="4" rx="2" fill="#818cf8"/>
+      <rect x="283" y="196" width="35" height="3" rx="1.5" fill="#6366f1"/>
+      <rect x="283" y="203" width="40" height="3" rx="1.5" fill="#6366f1"/>
+      <rect x="283" y="210" width="28" height="3" rx="1.5" fill="#6366f1"/>
+      <rect x="283" y="217" width="38" height="3" rx="1.5" fill="#6366f1"/>
+    </g>
+
+    <!-- toolbar -->
+    <rect x="165" y="246" width="170" height="18" rx="3" fill="#312e81"/>
+    <g opacity="0.5">
+      <rect x="172" y="251" width="12" height="8" rx="2" fill="#6366f1"/>
+      <rect x="188" y="251" width="12" height="8" rx="2" fill="#6366f1"/>
+      <rect x="204" y="251" width="12" height="8" rx="2" fill="#6366f1"/>
+      <rect x="220" y="251" width="16" height="8" rx="2" fill="#7c3aed"/>
+      <circle cx="250" cy="255" r="4" fill="#818cf8"/>
+      <rect x="260" y="251" width="12" height="8" rx="2" fill="#6366f1"/>
+      <rect x="276" y="251" width="14" height="8" rx="2" fill="#6366f1"/>
+    </g>
+
+    <!-- stand neck -->
+    <rect x="240" y="310" width="20" height="25" rx="4" fill="url(#monitorStand)"/>
+    <!-- stand base -->
+    <ellipse cx="250" cy="340" rx="60" ry="10" fill="url(#monitorStand)"/>
+  </g>
+
+  <!-- ===== MINI SCRIPT (left) ===== -->
+  <g filter="url(#softShadow)" transform="translate(55, 170)">
+    <polygon points="0,0 50,0 55,75 5,75" fill="url(#miniScript)"/>
+    <polygon points="2,2 48,2 52,73 7,73" fill="#fafaff"/>
+    <g opacity="0.3">
+      <rect x="12" y="15" width="30" height="2.5" rx="1.25" fill="#6366f1"/>
+      <rect x="12" y="22" width="35" height="2.5" rx="1.25" fill="#6366f1"/>
+      <rect x="12" y="29" width="28" height="2.5" rx="1.25" fill="#6366f1"/>
+      <rect x="12" y="36" width="32" height="2.5" rx="1.25" fill="#6366f1"/>
+      <rect x="12" y="43" width="25" height="2.5" rx="1.25" fill="#6366f1"/>
+      <rect x="12" y="50" width="30" height="2.5" rx="1.25" fill="#6366f1"/>
+      <rect x="12" y="57" width="22" height="2.5" rx="1.25" fill="#6366f1"/>
+    </g>
+  </g>
+
+  <!-- ===== MINI STORYBOARD (right) ===== -->
+  <g filter="url(#softShadow)" transform="translate(400, 175)">
+    <rect x="0" y="0" width="55" height="65" rx="6" fill="url(#miniBoard)"/>
+    <rect x="4" y="4" width="47" height="57" rx="3" fill="#fafaff"/>
+    <rect x="9" y="9" width="18" height="16" rx="2" fill="none" stroke="#6366f1" stroke-width="1"/>
+    <rect x="30" y="9" width="18" height="16" rx="2" fill="none" stroke="#6366f1" stroke-width="1"/>
+    <rect x="9" y="28" width="18" height="16" rx="2" fill="none" stroke="#6366f1" stroke-width="1"/>
+    <rect x="30" y="28" width="18" height="16" rx="2" fill="none" stroke="#6366f1" stroke-width="1"/>
+  </g>
+
+  <!-- ===== MINI PLAYER (bottom-left) ===== -->
+  <g filter="url(#softShadow)" transform="translate(75, 310)">
+    <rect x="0" y="0" width="85" height="60" rx="6" fill="url(#miniPlayer)"/>
+    <rect x="5" y="5" width="75" height="38" rx="3" fill="#1e1b4b"/>
+    <polygon points="36,17 36,31 48,24" fill="#a5b4fc" opacity="0.7"/>
+    <rect x="10" y="48" width="65" height="3" rx="1.5" fill="#312e81"/>
+    <rect x="10" y="48" width="25" height="3" rx="1.5" fill="#c084fc"/>
+    <circle cx="35" cy="49.5" r="3" fill="#ffffff"/>
+  </g>
+
+  <!-- connecting dots between elements -->
+  <g opacity="0.25">
+    <circle cx="105" cy="230" r="2" fill="#a78bfa"/>
+    <circle cx="115" cy="250" r="1.5" fill="#818cf8"/>
+    <circle cx="385" cy="230" r="2" fill="#a78bfa"/>
+    <circle cx="375" cy="250" r="1.5" fill="#818cf8"/>
+    <circle cx="155" cy="320" r="1.5" fill="#a78bfa"/>
+    <circle cx="145" cy="330" r="1.5" fill="#818cf8"/>
+  </g>
+
+  <!-- subtle glow rays from monitor -->
+  <circle cx="250" cy="230" r="90" fill="#c084fc" opacity="0.06" filter="url(#glow)"/>
+</svg>

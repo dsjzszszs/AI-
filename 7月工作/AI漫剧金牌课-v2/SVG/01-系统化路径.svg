@@ -1,0 +1,101 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="treadGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a5b4fc"/>
+      <stop offset="50%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="riserGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#4338ca"/>
+    </linearGradient>
+    <linearGradient id="sideGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#5b21b6"/>
+    </linearGradient>
+    <linearGradient id="flagGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="poleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="baseGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#818cf8" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#818cf8" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#818cf8" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="6"/>
+      <feFlood flood-color="#6366f1" flood-opacity="0.18"/>
+      <feComposite in2="SourceAlpha" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="particleGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+
+
+  <!-- ground glow -->
+  <ellipse cx="250" cy="430" rx="180" ry="22" fill="url(#baseGlow)"/>
+
+  <!-- floating particles -->
+  <g filter="url(#particleGlow)">
+    <circle cx="70" cy="120" r="3" fill="#a855f7" opacity="0.45"/>
+    <circle cx="430" cy="90" r="2.5" fill="#818cf8" opacity="0.5"/>
+    <circle cx="460" cy="340" r="3.5" fill="#7c3aed" opacity="0.35"/>
+    <circle cx="55" cy="350" r="2" fill="#6366f1" opacity="0.4"/>
+    <circle cx="130" cy="55" r="2" fill="#c084fc" opacity="0.5"/>
+    <circle cx="400" cy="420" r="2.5" fill="#818cf8" opacity="0.4"/>
+    <circle cx="90" cy="250" r="1.5" fill="#a855f7" opacity="0.5"/>
+    <circle cx="445" cy="210" r="2" fill="#6366f1" opacity="0.4"/>
+    <circle cx="170" cy="440" r="1.5" fill="#c084fc" opacity="0.35"/>
+    <circle cx="350" cy="50" r="1.5" fill="#818cf8" opacity="0.45"/>
+  </g>
+
+  <!-- ===== STAIRS (back to front) ===== -->
+
+  <!-- Step 4 (top) -->
+  <g filter="url(#softShadow)">
+    <polygon points="235,295 325,295 325,260 235,260" fill="url(#riserGrad)"/>
+    <polygon points="235,260 325,260 360,235 270,235" fill="url(#treadGrad)"/>
+    <polygon points="325,260 360,235 360,270 325,295" fill="url(#sideGrad)"/>
+  </g>
+
+  <!-- Step 3 -->
+  <g filter="url(#softShadow)">
+    <polygon points="200,330 290,330 290,295 200,295" fill="url(#riserGrad)"/>
+    <polygon points="200,295 290,295 325,270 235,270" fill="url(#treadGrad)"/>
+  </g>
+
+  <!-- Step 2 -->
+  <g filter="url(#softShadow)">
+    <polygon points="165,365 255,365 255,330 165,330" fill="url(#riserGrad)"/>
+    <polygon points="165,330 255,330 290,305 200,305" fill="url(#treadGrad)"/>
+  </g>
+
+  <!-- Step 1 (bottom) -->
+  <g filter="url(#softShadow)">
+    <polygon points="130,400 220,400 220,365 130,365" fill="url(#riserGrad)"/>
+    <polygon points="130,365 220,365 255,340 165,340" fill="url(#treadGrad)"/>
+  </g>
+
+  <!-- glow on top step -->
+  <ellipse cx="295" cy="235" rx="55" ry="12" fill="#a78bfa" opacity="0.3" filter="url(#glow)"/>
+
+  <!-- Flag pole -->
+  <rect x="291" y="150" width="5" height="90" rx="2.5" fill="url(#poleGrad)" filter="url(#glow)"/>
+
+  <!-- Flag -->
+  <polygon points="296,150 296,192 345,171" fill="url(#flagGrad)" filter="url(#glow)"/>
+
+  <!-- flag top glow dot -->
+  <circle cx="293.5" cy="150" r="6" fill="#c084fc" opacity="0.4" filter="url(#glow)"/>
+</svg>
