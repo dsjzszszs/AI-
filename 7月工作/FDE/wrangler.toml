@@ -1,0 +1,13 @@
+# FDE训练营 · Cloudflare Worker 配置
+# 部署前请修改以下内容：
+# 1. name - 你的 Worker 名称（自定义）
+# 2. database_id - 用 npx wrangler d1 create fde-signup 获取
+
+name = "fde-signup-api"
+main = "worker.js"
+compatibility_date = "2025-07-28"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "fde-signup"
+database_id = "你的D1数据库ID"  # 创建 D1 后替换这里

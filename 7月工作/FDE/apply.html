@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>报名 · FDE训练营</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* ---- apply page 专属 ---- */
+.apply-layout{max-width:520px;margin:0 auto}
+.apply-form-card{
+  background:var(--card-solid);border:1px solid var(--line);border-radius:18px;
+  padding:34px 30px;backdrop-filter:blur(6px);box-shadow:0 0 20px rgba(118,185,0,.06);
+}
+.apply-form-card h3{
+  font-size:22px;color:var(--neon);margin-bottom:8px;
+  font-family:"Microsoft YaHei",sans-serif;
+  text-shadow:0 0 12px rgba(118,185,0,.35);
+}
+.apply-form-card .sub{color:var(--mut);font-size:14px;margin-bottom:24px}
+.apply-form-card label{
+  display:block;font-size:14px;font-weight:600;margin:16px 0 6px;color:#cfe6c0;
+}
+.apply-form-card input,.apply-form-card select,.apply-form-card textarea{
+  width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;
+  font-size:15px;background:#0a0f0a;color:var(--ink);
+  font-family:"Microsoft YaHei",sans-serif;transition:.22s;
+}
+.apply-form-card input:focus,.apply-form-card select:focus,.apply-form-card textarea:focus{
+  outline:none;border-color:var(--brand);box-shadow:var(--glow);
+}
+.apply-form-card textarea{resize:vertical;min-height:90px}
+.apply-form-card .btn-wrap{margin-top:24px}
+.apply-form-card .btn-wrap .btn{width:100%;text-align:center;font-size:17px;padding:15px 30px}
+.apply-form-card .note{font-size:12px;color:var(--mut);margin-top:12px;text-align:center}
+.apply-form-card .error-msg{color:#f87171;font-size:13px;margin-top:6px;display:none}
+
+/* 右侧信息卡 */
+.apply-info-card{
+  background:linear-gradient(160deg,rgba(118,185,0,.08),rgba(7,11,7,.9));
+  border:1px solid var(--line);border-radius:18px;padding:28px 24px;
+  backdrop-filter:blur(6px);position:sticky;top:90px;
+}
+.apply-info-card h4{
+  font-size:17px;color:var(--neon);margin-bottom:18px;
+  font-family:"Microsoft YaHei",sans-serif;
+}
+.apply-info-card ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.apply-info-card li{
+  display:flex;align-items:flex-start;gap:10px;font-size:14px;color:#cfe6c0;line-height:1.55;
+}
+.apply-info-card li .dot{
+  flex-shrink:0;width:6px;height:6px;border-radius:50%;
+  background:var(--brand);margin-top:7px;box-shadow:0 0 8px rgba(118,185,0,.5);
+}
+
+/* 提交成功区域 */
+.success-view{display:none;text-align:center;padding:20px 0}
+.success-view .check{
+  width:68px;height:68px;border-radius:50%;
+  background:linear-gradient(135deg,var(--brand),var(--neon));
+  display:flex;align-items:center;justify-content:center;margin:0 auto 18px;
+  box-shadow:0 0 30px rgba(118,185,0,.5);
+}
+.success-view .check svg{width:32px;height:32px;color:#06120a}
+.success-view h3{font-size:24px;color:#eaffd0;margin-bottom:10px}
+.success-view .msg{font-size:15px;color:var(--mut);margin-bottom:28px;line-height:1.7}
+
+/* 微信区域 */
+.wx-block{
+  background:rgba(118,185,0,.06);border:1px solid rgba(118,185,0,.25);border-radius:16px;
+  padding:24px 20px;display:inline-block;margin-bottom:16px;
+}
+.wx-block .qr-img{
+  width:180px;height:180px;display:block;margin:0 auto 12px;
+  border-radius:10px;border:1px solid rgba(118,185,0,.2);
+  background:rgba(0,0,0,.2);
+}
+.wx-block .wx-text{font-size:14px;color:var(--neon);font-weight:600}
+.wx-block .wx-sub{font-size:12px;color:var(--mut);margin-top:4px}
+.wx-fallback{margin-top:14px}
+.wx-fallback a{color:var(--neon);text-decoration:underline;font-size:13px}
+.wx-fallback a:hover{color:#c8ff4d}
+
+/* 加载中 */
+.loading{display:none;text-align:center;padding:30px 0}
+.loading .spinner{
+  width:40px;height:40px;border:3px solid var(--line);
+  border-top-color:var(--neon);border-radius:50%;
+  animation:spin .8s linear infinite;margin:0 auto 16px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading p{color:var(--mut);font-size:14px}
+
+/* 响应式 */
+@media(max-width:880px){
+  .apply-layout{grid-template-columns:1fr;gap:24px}
+  .apply-info-card{position:static}
+}
+@media(max-width:480px){
+  .apply-form-card{padding:22px 18px}
+  .apply-form-card h3{font-size:19px}
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="wrap nav-in">
+    <a class="logo" href="index.html">FDE<span>训练营</span></a>
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">首页</a>
+      <a href="what.html">什么是FDE</a>
+      <a href="stages.html">三阶段</a>
+      <a href="courses.html">课程内容</a>
+      <a href="works.html">学员案例</a>
+      <a href="teacher.html">师资案例</a>
+      <a href="jobs.html">就业变现</a>
+      <a href="faq.html">常见问题</a>
+      <a href="apply.html" class="btn nav-cta active">抢免费名额</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="wrap">
+    <h1>抢占 <b>5 天免费体验课</b> 名额</h1>
+    <p>0 基础可学，每天 19:00 直播。填写信息，班主任带你进群开课。</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="apply-layout">
+
+      <!-- 左侧：表单 -->
+      <div class="apply-form-card">
+        <!-- 表单区域 -->
+        <div id="formArea">
+          <h3>填写报名信息</h3>
+          <p class="sub">名额有限，先到先得。信息仅用于课程安排，不会外泄。</p>
+
+          <form id="signupForm" novalidate>
+            <label for="name">姓名 <span style="color:#f87171">*</span></label>
+            <input type="text" id="name" name="name" placeholder="请输入真实姓名" required autocomplete="name">
+
+            <label for="phone">手机号 <span style="color:#f87171">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="请输入手机号" required autocomplete="tel">
+
+            <label for="goal">你想通过学习解决什么问题？</label>
+            <textarea id="goal" name="goal" placeholder="比如：想转行做 AI 方向 / 提升职场竞争力 / 学会用 AI 做副业……"></textarea>
+
+            <p class="error-msg" id="formError"></p>
+            <div class="btn-wrap">
+              <button type="submit" class="btn" id="submitBtn">提交报名，抢占名额</button>
+            </div>
+            <p class="note">提交即表示同意我们将以上信息用于课程安排与联系</p>
+          </form>
+        </div>
+
+        <!-- 加载中 -->
+        <div class="loading" id="loadingArea">
+          <div class="spinner"></div>
+          <p>正在提交报名信息……</p>
+        </div>
+
+        <!-- 提交成功 -->
+        <div class="success-view" id="successArea">
+          <div class="check">
+            <svg viewBox="0 0 32 32"><path d="M6 16l7 7L26 8" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>报名成功！</h3>
+          <p class="msg">名额已锁定，请务必 <b>扫码添加助教微信</b>，<br>备注你的<b>姓名</b>，班主任核对后拉你进群开课。</p>
+
+          <div class="wx-block">
+            <!-- QR code generated from enterprise WeChat link -->
+            <img class="qr-img"
+                 src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://work.weixin.qq.com/ca/cawcde1d0ba555c4da"
+                 alt="助教企业微信二维码"
+                 width="180" height="180"
+                 onerror="this.style.display='none';document.getElementById('wxFallback').style.display='block'">
+            <div class="wx-text">扫码添加助教微信</div>
+            <div class="wx-sub">备注你的姓名，班主任带你进群</div>
+          </div>
+
+          <div class="wx-fallback" id="wxFallback" style="display:none">
+            <a href="https://work.weixin.qq.com/ca/cawcde1d0ba555c4da" target="_blank" rel="noopener" class="btn">点击添加助教企业微信</a>
+            <p style="color:var(--mut);font-size:12px;margin-top:8px">扫码加载失败时请点击上方按钮</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">FDE训练营 · 用 Agent 应用吃上 AI 红利 | 公众号 / 视频号 / 客服微信占位 | &copy; 2026 版权信息占位</div></footer>
+<script src="script.js"></script>
+<script>
+(function(){
+  var form = document.getElementById('signupForm');
+  var formArea = document.getElementById('formArea');
+  var loadingArea = document.getElementById('loadingArea');
+  var successArea = document.getElementById('successArea');
+  var errorEl = document.getElementById('formError');
+  var submitBtn = document.getElementById('submitBtn');
+
+  // ====== 配置：Cloudflare Worker 端点 ======
+  // 部署 Worker 后，把下面的 URL 换成你的 Worker 地址
+  // 格式: https://fde-api.你的子域名.workers.dev/api/signup
+  var WORKER_URL = 'https://fde-signup-api.2254490468.workers.dev/api/signup';
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    errorEl.style.display = 'none';
+
+    // 前端校验
+    var name = document.getElementById('name').value.trim();
+    var phone = document.getElementById('phone').value.trim();
+    if(!name){showError('请输入姓名');return}
+    if(!phone){showError('请输入手机号');return}
+    if(!/^1[3-9]\d{9}$/.test(phone)){showError('请输入有效的手机号');return}
+
+    // 收集数据
+    var data = {
+      name: name,
+      phone: phone,
+      goal: document.getElementById('goal').value.trim()
+    };
+
+    // 显示加载
+    formArea.style.display = 'none';
+    loadingArea.style.display = 'block';
+
+    submitData(data);
+  });
+
+  function submitData(data){
+    // 如果没有配置 Worker 地址，跳过提交直接展示成功
+    if(!WORKER_URL){
+      setTimeout(showSuccess, 800);
+      return;
+    }
+
+    fetch(WORKER_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    })
+    .then(function(r){return r.json()})
+    .then(function(res){
+      if(res.ok){showSuccess()}
+      else{showRetry('提交失败，请重试')}
+    })
+    .catch(function(){
+      // 网络失败也展示成功（数据可能已到达）
+      showSuccess();
+    });
+  }
+
+  function showSuccess(){
+    loadingArea.style.display = 'none';
+    successArea.style.display = 'block';
+  }
+
+  function showRetry(msg){
+    loadingArea.style.display = 'none';
+    formArea.style.display = 'block';
+    showError(msg);
+  }
+
+  function showError(msg){
+    errorEl.textContent = msg;
+    errorEl.style.display = 'block';
+  }
+})();
+</script>
+</body>
+</html>
