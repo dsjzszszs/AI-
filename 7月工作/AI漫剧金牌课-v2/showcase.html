@@ -165,21 +165,18 @@ body{animation:fadeIn .5s ease}
 .works-marquee-track{
   display:flex;width:max-content;gap:12px;padding:4px 12px;
 }
-.works-marquee-track.right{animation:marqRight 40s linear infinite}
-.works-marquee-track.left{animation:marqLeft 40s linear infinite}
-.works-marquee:hover .works-marquee-track{animation-play-state:paused}
-.works-marquee-card{flex:0 0 240px;aspect-ratio:3/4}
-.works-marquee-card-inner{width:100%;height:100%}
-
+.works-marquee-track.right{animation:marqRight 80s linear infinite}
+.works-marquee-track.left{animation:marqLeft 80s linear infinite}
 @media(max-width:560px){
-  .works-marquee-card{flex:0 0 170px}
+  .works-marquee-track.right{animation-duration:50s}
+  .works-marquee-track.left{animation-duration:50s}
 }
-
-/* ── Video showcase ── */
-/* (removed) */
+.works-marquee:hover .works-marquee-track{animation-play-state:paused}
+.works-marquee-card{flex-shrink:0;height:320px}
+.works-marquee-card-inner{height:100%;background-size:cover;background-position:center}
 
 @media(max-width:560px){
-  .works-marquee-card{flex:0 0 150px}
+  .works-marquee-card{height:200px}
 }
 
 /* ═══════════════ SCREEN 3: TIMELINE ═══════════════ */
@@ -354,8 +351,8 @@ body{animation:fadeIn .5s ease}
   font-size:20px;font-weight:800;color:#1e293b;letter-spacing:-.3px;
 }
 .assets-img-block{
-  height:360px;position:relative;
-  background-size:cover;background-position:center;
+  width:100%;height:auto;position:relative;
+  background-size:contain;background-position:center;background-repeat:no-repeat;
 }
 /* 竖排标签 —— 图片左上角 */
 .assets-tabs-v{
@@ -371,11 +368,11 @@ body{animation:fadeIn .5s ease}
 }
 .assets-tab-v.active{background:rgba(255,255,255,.35);border-color:rgba(255,255,255,.55)}
 @media(max-width:960px){
-  .assets-img-block{height:280px}
+  .assets-img-block{/* aspect-ratio handled inline */}
 }
 @media(max-width:560px){
   .assets-text-block{padding:20px 24px;font-size:18px}
-  .assets-img-block{height:220px}
+  .assets-img-block{/* aspect-ratio handled inline */}
   .assets-tab-v{padding:5px 12px;font-size:11.5px}
 }
 
@@ -465,7 +462,7 @@ body{animation:fadeIn .5s ease}
 
 <!-- ═══════════════ NAV ═══════════════ -->
 <nav class="nav hero-nav" id="nav">
-  <a href="showcase.html" class="nav-brand">源码世界</a>
+  <a href="index.html" class="nav-brand">源码世界</a>
   <div class="nav-links">
     <a href="#course">课程内容</a>
     <a href="#works">学员作品</a>
@@ -565,7 +562,7 @@ body{animation:fadeIn .5s ease}
     <div class="section-desc">经验丰富的导师带你从零到一。</div>
   </div>
   <div class="teacher-showcase">
-    <img src="Jack.jpg" alt="导师 Jack" class="teacher-photo-img">
+    <img src="老师介绍-首页.png" alt="导师介绍" class="teacher-photo-img">
   </div>
   <div class="section-link-wrap"><a href="teacher.html" class="section-link">看更多信息 <span class="arr">→</span></a></div>
 </section>
@@ -656,17 +653,10 @@ body{animation:fadeIn .5s ease}
   <div class="assets-layout">
     <!-- Block 1 -->
     <div class="assets-text-block reveal">模块化课程大纲</div>
-    <div class="assets-img-block reveal" style="background-image:url('tu/基础入门.png');margin-bottom:24px">
-      <div class="assets-tabs-v">
-        <div class="assets-tab-v active">基础篇</div>
-        <div class="assets-tab-v">进阶篇</div>
-        <div class="assets-tab-v">实战篇</div>
-        <div class="assets-tab-v">商业篇</div>
-      </div>
-    </div>
+    <video class="assets-img-block reveal" src="课程大纲.mp4" autoplay loop muted playsinline style="width:100%;margin-bottom:24px;display:block"></video>
     <!-- Block 2 -->
     <div class="assets-text-block reveal reveal-d1">学员专属资源包</div>
-    <div class="assets-img-block reveal reveal-d1" style="background-image:url('tu/综合实战.png')"></div>
+    <div class="assets-img-block reveal reveal-d1" style="background-image:url('学员资源包.png');aspect-ratio:16/9"></div>
   </div>
 </section>
 
@@ -681,30 +671,20 @@ body{animation:fadeIn .5s ease}
   <div class="works-marquee-wrap">
     <div class="works-marquee">
       <div class="works-marquee-track right" id="marqRow1">
-        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#1a1a2e,#16213e)"></div></div>
-        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#2d1b69,#1a0533)"></div></div>
-        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#0f2027,#203a43)"></div></div>
-        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#1e293b,#334155)"></div></div>
-        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#3b0764,#581c87)"></div></div>
-        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#064e3b,#065f46)"></div></div>
-        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#450a0a,#7f1d1d)"></div></div>
-        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#1e1b4b,#312e81)"></div></div>
-        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#4a1942,#831843)"></div></div>
-        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#172554,#1e3a5f)"></div></div>
+        <div class="works-marquee-card" style="aspect-ratio:9/16"><div class="works-marquee-card-inner" style="background-image:url('学员作品/2.jpg')"></div></div>
+        <div class="works-marquee-card" style="aspect-ratio:16/9"><div class="works-marquee-card-inner" style="background-image:url('学员作品/11.jpg')"></div></div>
+        <div class="works-marquee-card" style="aspect-ratio:9/16"><div class="works-marquee-card-inner" style="background-image:url('学员作品/8.jpg')"></div></div>
+        <div class="works-marquee-card" style="aspect-ratio:960/544"><div class="works-marquee-card-inner" style="background-image:url('学员作品/13.jpg')"></div></div>
+        <div class="works-marquee-card" style="aspect-ratio:16/9"><div class="works-marquee-card-inner" style="background-image:url('学员作品/17.jpg')"></div></div>
       </div>
     </div>
     <div class="works-marquee">
       <div class="works-marquee-track left" id="marqRow2">
-        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#172554,#1e3a5f)"></div></div>
-        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#4a1942,#831843)"></div></div>
-        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#1e1b4b,#312e81)"></div></div>
-        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#450a0a,#7f1d1d)"></div></div>
-        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#064e3b,#065f46)"></div></div>
-        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#3b0764,#581c87)"></div></div>
-        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#1e293b,#334155)"></div></div>
-        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#0f2027,#203a43)"></div></div>
-        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#2d1b69,#1a0533)"></div></div>
-        <div class="works-marquee-card"><div class="works-marquee-card-inner" style="background:linear-gradient(135deg,#1a1a2e,#16213e)"></div></div>
+        <div class="works-marquee-card" style="aspect-ratio:9/16"><div class="works-marquee-card-inner" style="background-image:url('学员作品/9.jpg')"></div></div>
+        <div class="works-marquee-card" style="aspect-ratio:16/9"><div class="works-marquee-card-inner" style="background-image:url('学员作品/12.jpg')"></div></div>
+        <div class="works-marquee-card" style="aspect-ratio:16/9"><div class="works-marquee-card-inner" style="background-image:url('学员作品/16.jpg')"></div></div>
+        <div class="works-marquee-card" style="aspect-ratio:16/9"><div class="works-marquee-card-inner" style="background-image:url('学员作品/18.jpg')"></div></div>
+        <div class="works-marquee-card" style="aspect-ratio:16/9"><div class="works-marquee-card-inner" style="background-image:url('学员作品/19.jpg')"></div></div>
       </div>
     </div>
   </div>
@@ -727,7 +707,6 @@ body{animation:fadeIn .5s ease}
 <!-- ═══════════════ FOOTER ═══════════════ -->
 <footer class="footer">
   <div class="footer-links">
-    <a href="showcase.html">课程介绍</a>
     <a href="teacher.html">主讲老师</a>
     <a href="course.html">课程内容</a>
     <a href="cases.html">学员案例</a>
