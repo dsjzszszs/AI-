@@ -266,3 +266,28 @@ createCenterCarousel({containerId:'aiCarousel',trackId:'aiTrack',dotsId:'aiDots'
   updateDayUI();updateSlideUI();
 })();
 
+
+/* ============================================================
+ * 手机端「添加班主任企业微信」跳转修复
+ * 问题：微信内置浏览器与不少手机浏览器会拦截 target="_blank" 新窗口，
+ *       用户点了「抢免费名额 / 添加企业微信」看起来毫无反应。
+ * 方案：移动端一律去掉 target，改为当前窗口跳转（最稳，不会被弹窗拦截）。
+ * ============================================================ */
+(function(){
+  function isMobileUA(){
+    return /Android|iPhone|iPad|iPod|Mobile|HarmonyOS|MicroMessenger/i.test(navigator.userAgent)
+           || window.innerWidth <= 768;
+  }
+  function fixWxLinks(){
+    if(!isMobileUA()) return;
+    var as = document.querySelectorAll('a[href*="work.weixin.qq.com"]');
+    for(var i=0;i<as.length;i++){
+      as[i].removeAttribute('target');
+    }
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', fixWxLinks);
+  }else{
+    fixWxLinks();
+  }
+})();
