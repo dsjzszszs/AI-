@@ -72,6 +72,14 @@
 .story-card{background:rgba(255,255,255,0.62);backdrop-filter:blur(8px);border-radius:20px;border:1px solid rgba(59,130,246,0.12);transition:transform 0.35s ease,box-shadow 0.35s ease;overflow:hidden}.story-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(59,130,246,0.12)}.story-card .sc-img{width:100%;display:block;border-radius:20px}
 @media(max-width:1024px){.story-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.story-grid{grid-template-columns:1fr;gap:16px}}
+
+/* ===== 学员作品展示 Styles ===== */
+.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
+.work-card{background:rgba(255,255,255,0.62);backdrop-filter:blur(8px);border-radius:18px;border:1px solid rgba(59,130,246,0.12);overflow:hidden;transition:transform 0.35s ease,box-shadow 0.35s ease}
+.work-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(59,130,246,0.12)}
+.work-card .wc-img{width:100%;display:block;border-radius:18px}
+@media(max-width:768px){.work-grid{grid-template-columns:repeat(2,1fr);gap:14px}}
+@media(max-width:480px){.work-grid{grid-template-columns:1fr;gap:14px}}
 </style>
 </head>
 <body>
@@ -79,17 +87,31 @@
 <section class="page-section" id="storiesSection"><h1>学员经历分享</h1><p class="subtitle">真实学员故事，见证成长与蜕变</p>
 <div class="story-grid">
   <div class="story-card">
-    <img src="学员案例1.png" alt="学员案例1" class="sc-img">
+    <img src="学员案例1.webp" alt="学员案例1" class="sc-img">
   </div>
   <div class="story-card">
-    <img src="学员案例2.png" alt="学员案例2" class="sc-img">
+    <img src="学员案例2.webp" alt="学员案例2" class="sc-img">
   </div>
   <div class="story-card">
-    <img src="学员案例3.png" alt="学员案例3" class="sc-img">
+    <img src="学员案例3.webp" alt="学员案例3" class="sc-img">
   </div>
   <div class="story-card">
-    <img src="学员案例4.png" alt="学员案例4" class="sc-img">
+    <img src="学员案例4.webp" alt="学员案例4" class="sc-img">
   </div>
+</div>
+</section>
+<section class="page-section" id="worksSection"><h1>学员作品展示</h1><p class="subtitle">来自学员的真实AI视频剧作品</p>
+<div class="work-grid">
+  <div class="work-card"><img src="学员作品1.webp" alt="学员作品1" class="wc-img" loading="lazy"></div>
+  <div class="work-card"><img src="学员作品2.webp" alt="学员作品2" class="wc-img" loading="lazy"></div>
+  <div class="work-card"><img src="学员作品3.webp" alt="学员作品3" class="wc-img" loading="lazy"></div>
+  <div class="work-card"><img src="学员作品4.webp" alt="学员作品4" class="wc-img" loading="lazy"></div>
+  <div class="work-card"><img src="学员作品5.webp" alt="学员作品5" class="wc-img" loading="lazy"></div>
+  <div class="work-card"><img src="学员作品6.webp" alt="学员作品6" class="wc-img" loading="lazy"></div>
+  <div class="work-card"><img src="学员作品7.webp" alt="学员作品7" class="wc-img" loading="lazy"></div>
+  <div class="work-card"><img src="学员作品8.webp" alt="学员作品8" class="wc-img" loading="lazy"></div>
+  <div class="work-card"><img src="学员作品9.webp" alt="学员作品9" class="wc-img" loading="lazy"></div>
+  <div class="work-card"><img src="学员作品10.webp" alt="学员作品10" class="wc-img" loading="lazy"></div>
 </div>
 </section>
 <section class="page-section"><h1>往期学员作品</h1><p class="subtitle">看看学长学姐们的AI视频作品</p>
