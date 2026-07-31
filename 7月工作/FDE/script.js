@@ -181,7 +181,7 @@ createCenterCarousel({containerId:'aiCarousel',trackId:'aiTrack',dotsId:'aiDots'
   if(!sidebar||!slideImg)return;
 
   function pad(n){return n<10?'0'+n:''+n;}
-  function getSrc(d,s){return 'assets/ppt/day'+(d+1)+'/slide_'+pad(s+1)+'.jpg';}
+  function getSrc(d,s){return 'assets/ppt/day'+(d+1)+'/slide_'+pad(s+1)+'.webp';}
 
   function updateSlideUI(){
     var d=data[curDay];

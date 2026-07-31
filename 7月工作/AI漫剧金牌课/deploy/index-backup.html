@@ -706,12 +706,7 @@
     </section>
 
     <!-- FOOTER -->
-    <section class="fs-footer">
-      <div>
-        <div class="footer-brand">🎬 金牌AI视频剧</div>
-        <p>© 2026 金牌AI视频剧 · 用AI点亮创作梦想</p>
-      </div>
-    </section>
+    <div class="footer-spacer" style="height:56px"></div>
   </div>
 
   <!-- ==================== WEEK DETAIL PAGE ==================== -->
@@ -880,7 +875,7 @@
     document.getElementById('ivTitle').textContent = p.displayName;
     var imgs = '';
     for (var i = 1; i <= total; i++) {
-      var src = data.cwBase + '/pdf' + idx + '/page_' + String(i).padStart(3, '0') + '.jpg';
+      var src = data.cwBase + '/pdf' + idx + '/page_' + String(i).padStart(3, '0') + '.webp';
       imgs += '<img src="' + src + '" alt="第' + i + '页" loading="lazy" onclick="openFullscreen(this.src)">';
     }
     document.getElementById('ivPages').innerHTML = imgs;
@@ -970,7 +965,7 @@
     document.getElementById('mmCount').textContent = '共 ' + data.mindmap.length + ' 份';
     var imgs = '';
     for (var i = 0; i < data.mindmap.length; i++) {
-      var src = data.mmBase + '/page_' + String(i + 1).padStart(3, '0') + '.jpg';
+      var src = data.mmBase + '/page_' + String(i + 1).padStart(3, '0') + '.webp';
       imgs += '<img src="' + src + '" alt="' + data.mindmap[i].name + '" loading="lazy" onclick="openFullscreen(this.src)">';
     }
     document.getElementById('mmPages').innerHTML = imgs;
