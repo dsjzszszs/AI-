@@ -33,7 +33,7 @@ nav{
   background:rgba(255,255,255,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line);
 }
-.nav-in{max-width:1240px;margin:0 auto;padding:0 22px;height:62px;display:flex;align-items:center;justify-content:flex-end}
+.nav-in{max-width:1040px;margin:0 auto;padding:0 22px;height:58px;display:flex;align-items:center;justify-content:flex-end}
 .nav-links{display:flex;gap:26px}
 .nav-links a{color:var(--muted);text-decoration:none;font-size:14.5px;transition:color .2s}
 .nav-links a:hover{color:var(--blue)}
@@ -44,7 +44,7 @@ nav{
   background:linear-gradient(90deg,#0b2a44,#0284c7 45%,#059669);-webkit-background-clip:text;background-clip:text;color:transparent}
 
 /* 布局：内容 + 右侧导航 */
-.works-layout{display:grid;grid-template-columns:1fr 268px;gap:36px;align-items:start;padding:8px 22px 60px;max-width:1240px;margin:0 auto}
+.works-layout{display:grid;grid-template-columns:1fr 208px;gap:30px;align-items:start;padding:8px 22px 60px;max-width:1240px;margin:0 auto}
 .works-main{min-width:0}
 section.block{position:relative;padding:44px 0;border-top:1px solid rgba(14,165,233,.12);scroll-margin-top:86px}
 section.block:first-child{border-top:none;padding-top:20px}
@@ -197,13 +197,26 @@ section.block:first-child{border-top:none;padding-top:20px}
   .side-item .si-num{width:24px;height:24px;font-size:12px}
 }
 @media(max-width:820px){
+  .nav-in{justify-content:center;height:54px}
+  .nav-links{display:flex;gap:22px}
+  .nav-links a{font-size:14px}
+  .page-head{padding:96px 0 18px}
+  .works-layout{padding:0 14px 40px}
+  section.block{padding:36px 0}
+  .block-title{gap:10px;margin-bottom:18px}
+  .block-title .num{min-width:34px;height:34px;font-size:15px}
+  .part-title{margin:26px 0 14px;font-size:15.5px}
   .site-grid,.workflow-grid,.video-grid,.img-grid{grid-template-columns:1fr}
-  .site-shot{height:220px}
-  .workflow-card .shot{height:220px}
-  .img-card .shot{height:220px}
+  .site-shot{height:200px}
+  .workflow-card .shot{height:200px}
+  .img-card .shot{height:200px}
+  .slide-stage{aspect-ratio:4/3}
+  .slide-nav{width:38px;height:38px;font-size:19px}
+  .slide-nav.prev{left:8px}
+  .slide-nav.next{right:8px}
+  .site-body,.workflow-card .name,.video-card .name{padding:12px 16px}
   .zoom-btn{opacity:1}
-  .manual-frame iframe{height:460px}
-  .nav-links{display:none}
+  .card{padding:18px}
 }
 </style>
 </head>
