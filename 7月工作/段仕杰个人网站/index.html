@@ -15,7 +15,7 @@
   --font:"Microsoft YaHei","微软雅黑","PingFang SC",sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
 body{
   background:linear-gradient(180deg,#eef7ff 0%,#ffffff 48%,#edfdf6 100%);
   background-attachment:fixed;
@@ -56,7 +56,7 @@ nav{
 .nav-links a.active{color:var(--blue);font-weight:700}
 
 /* Hero */
-.hero{min-height:78vh;display:flex;flex-direction:column;justify-content:center;padding:110px 0 42px}
+.hero{min-height:auto;display:flex;flex-direction:column;justify-content:flex-start;padding:132px 0 64px}
 .hero-grid{display:grid;grid-template-columns:auto 1fr;gap:50px;align-items:center;justify-content:center}
 .hero h1{font-size:clamp(38px,6vw,58px);font-weight:800;letter-spacing:.02em;line-height:1.12}
 .hero h1 .grad{background:linear-gradient(92deg,#0369a1,#0284c7 40%,#059669 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -133,7 +133,7 @@ nav{
   .nav-links{display:flex;gap:22px}
   .nav-links a{font-size:14px}
   .hero-grid{grid-template-columns:1fr;justify-items:center;text-align:center}
-  .hero{min-height:auto;padding:100px 0 36px}
+  .hero{padding:106px 0 36px}
   .hero h1{font-size:40px}
   .info-line{font-size:13.5px;line-height:2}
   .info-line .sep{margin:0 8px}
