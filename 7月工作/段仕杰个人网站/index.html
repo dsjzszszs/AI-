@@ -29,9 +29,16 @@ body{
 .g3{width:520px;height:520px;bottom:-180px;left:28%;background:radial-gradient(circle,#cffafe66,transparent 70%)}
 
 .wrap{max-width:1020px;margin:0 auto;padding:0 22px}
-section{position:relative;padding:92px 0}
-.sec-title{font-size:clamp(24px,3.4vw,32px);font-weight:700;letter-spacing:.03em;line-height:1.25;
-  background:linear-gradient(90deg,#0b2a44,#0284c7 45%,#059669);-webkit-background-clip:text;background-clip:text;color:transparent}
+section{position:relative;padding:92px 0;scroll-margin-top:84px}
+.sec-title{
+  display:flex;align-items:center;min-height:44px;margin:0;
+  font-size:clamp(24px,3.4vw,32px);font-weight:700;letter-spacing:.03em;line-height:1;
+}
+.sec-title span{
+  display:inline-block;line-height:1;
+  background:linear-gradient(90deg,#0b2a44,#0284c7 45%,#059669);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
 
 /* 导航 */
 nav{
@@ -162,7 +169,7 @@ nav{
 
 <main>
   <section id="about" class="wrap">
-    <h2 class="sec-title">关于我</h2>
+    <h2 class="sec-title"><span>关于我</span></h2>
     <div class="card reveal" style="margin-top:28px">
       <p style="font-size:14.5px;color:#2d5678">
         段仕杰，23 岁，湖北工程学院 · 数据科学与大数据技术专业（全日制本科）。现于襄阳树帆教育科技有限公司武汉分公司担任 AI 磨课运营专员，
@@ -173,7 +180,7 @@ nav{
   </section>
 
   <section id="experience" class="wrap">
-    <h2 class="sec-title">工作经历</h2>
+    <h2 class="sec-title"><span>工作经历</span></h2>
     <div class="timeline">
       <div class="tl-item reveal">
         <div class="tl-head">
@@ -218,7 +225,7 @@ nav{
   </section>
 
   <section id="skills" class="wrap">
-    <h2 class="sec-title">个人技能</h2>
+    <h2 class="sec-title"><span>个人技能</span></h2>
     <div class="skills-grid">
       <div class="card skill-card reveal">
         <h3>AI 大模型与 Agent</h3>
@@ -240,7 +247,7 @@ nav{
   </section>
 
   <section id="education" class="wrap">
-    <h2 class="sec-title">教育背景</h2>
+    <h2 class="sec-title"><span>教育背景</span></h2>
     <div class="card edu-card reveal">
       <div>
         <div class="school">湖北工程学院</div>
@@ -251,7 +258,7 @@ nav{
   </section>
 
   <section id="contact" class="wrap">
-    <h2 class="sec-title">联系方式</h2>
+    <h2 class="sec-title"><span>联系方式</span></h2>
     <div class="contact-cards">
       <a class="card reveal" href="tel:19871927871">
         <div class="label">电话</div>
