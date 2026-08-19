@@ -74,14 +74,41 @@ nav{
 .site-body a{color:var(--green);font-size:13.5px;text-decoration:none;word-break:break-all}
 .site-body a:hover{text-decoration:underline}
 
+.part-title{font-size:17px;font-weight:700;color:#0b2a44;margin:40px 0 18px;display:flex;align-items:center;gap:10px}
+.part-title .pnum{
+  width:24px;height:24px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--blue),var(--green));color:#fff;font-size:13px;
+}
+.workflow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.workflow-card{
+  background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  backdrop-filter:blur(8px);box-shadow:0 4px 20px rgba(2,132,199,.05);
+  transition:transform .25s,border-color .25s,box-shadow .25s;
+}
+.workflow-card:hover{transform:translateY(-4px);border-color:rgba(2,132,199,.42);box-shadow:0 14px 34px rgba(2,132,199,.12)}
+.workflow-card .shot{height:280px;overflow:hidden;border-bottom:1px solid var(--line)}
+.workflow-card .shot img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.workflow-card .name{padding:14px 20px;font-size:15px;font-weight:600;color:#0b2a44}
+
+.video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.video-card{
+  background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  backdrop-filter:blur(8px);box-shadow:0 4px 20px rgba(2,132,199,.05);
+  transition:transform .25s,border-color .25s,box-shadow .25s;
+}
+.video-card:hover{transform:translateY(-4px);border-color:rgba(2,132,199,.42);box-shadow:0 14px 34px rgba(2,132,199,.12)}
+.video-card video{width:100%;display:block;background:#0b2a44;aspect-ratio:9/16;object-fit:contain}
+.video-card .name{padding:14px 20px;font-size:15px;font-weight:600;color:#0b2a44}
+
 footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:var(--muted);font-size:13px}
 
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
 .reveal.on{opacity:1;transform:none}
 
 @media(max-width:820px){
-  .site-grid{grid-template-columns:1fr}
+  .site-grid,.workflow-grid,.video-grid{grid-template-columns:1fr}
   .site-shot{height:220px}
+  .workflow-card .shot{height:220px}
   .nav-links{display:none}
 }
 </style>
@@ -106,7 +133,6 @@ footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:v
 <main>
   <section class="wrap">
     <div class="block-title reveal"><span class="num">1</span>网站展示</div>
-    <div class="block-sub reveal">点击截图可访问对应网站</div>
     <div class="site-grid">
       <div class="site-card reveal">
         <a class="site-shot" href="https://shufan-fde.pages.dev/" target="_blank" rel="noopener">
@@ -134,6 +160,60 @@ footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:v
           <h3>AI漫剧金牌课 v2</h3>
           <a href="https://shufan-ai-v2.pages.dev/" target="_blank" rel="noopener">shufan-ai-v2.pages.dev</a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="block-title reveal"><span class="num">2</span>MiniMax 本地部署</div>
+
+    <div class="part-title reveal"><span class="pnum">1</span>工作流展示</div>
+    <div class="workflow-grid">
+      <div class="workflow-card reveal">
+        <div class="shot"><img src="assets/workflow-wensheng.webp" alt="文生视频工作流" loading="lazy"></div>
+        <div class="name">文生视频工作流</div>
+      </div>
+      <div class="workflow-card reveal">
+        <div class="shot"><img src="assets/workflow-tusheng.webp" alt="图生视频工作流" loading="lazy"></div>
+        <div class="name">图生视频工作流</div>
+      </div>
+      <div class="workflow-card reveal">
+        <div class="shot"><img src="assets/workflow-duomotai.webp" alt="多模态生视频工作流" loading="lazy"></div>
+        <div class="name">多模态生视频工作流</div>
+      </div>
+    </div>
+
+    <div class="part-title reveal"><span class="pnum">2</span>成品展示</div>
+    <div class="video-grid">
+      <div class="video-card reveal">
+        <video controls preload="metadata" playsinline poster="assets/videos/qianli-jiangshan.webp">
+          <source src="assets/videos/qianli-jiangshan.mp4" type="video/mp4">
+        </video>
+        <div class="name">《千里江山图》里，藏着一整个大宋</div>
+      </div>
+      <div class="video-card reveal">
+        <video controls preload="metadata" playsinline poster="assets/videos/wangyue.webp">
+          <source src="assets/videos/wangyue.mp4" type="video/mp4">
+        </video>
+        <div class="name">望岳</div>
+      </div>
+      <div class="video-card reveal">
+        <video controls preload="metadata" playsinline poster="assets/videos/jiangxue.webp">
+          <source src="assets/videos/jiangxue.mp4" type="video/mp4">
+        </video>
+        <div class="name">江雪</div>
+      </div>
+      <div class="video-card reveal">
+        <video controls preload="metadata" playsinline poster="assets/videos/dengleyouyuan.webp">
+          <source src="assets/videos/dengleyouyuan.mp4" type="video/mp4">
+        </video>
+        <div class="name">登乐游原</div>
+      </div>
+      <div class="video-card reveal">
+        <video controls preload="metadata" playsinline poster="assets/videos/zhibo-xuanchuanpian.webp">
+          <source src="assets/videos/zhibo-xuanchuanpian.mp4" type="video/mp4">
+        </video>
+        <div class="name">直播宣传片</div>
       </div>
     </div>
   </section>
