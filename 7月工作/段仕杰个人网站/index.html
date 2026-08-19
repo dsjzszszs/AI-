@@ -93,12 +93,6 @@ nav{
 
 /* 技能 */
 .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:34px}
-.skill-icon{
-  width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;
-  font-family:var(--font);font-size:16px;font-weight:700;margin-bottom:14px;
-  background:linear-gradient(135deg,rgba(2,132,199,.12),rgba(5,150,105,.1));
-  border:1px solid rgba(2,132,199,.32);color:var(--green);
-}
 .skill-card h3{font-size:16.5px;margin-bottom:8px;color:#0b2a44}
 .skill-card p{font-size:14px;color:var(--muted)}
 
@@ -248,19 +242,19 @@ footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:v
   <section id="skills" class="wrap">
     <h2 class="sec-title">个人技能</h2>
     <div class="skills-grid">
-      <div class="card skill-card reveal"><div class="skill-icon">AI</div>
+      <div class="card skill-card reveal">
         <h3>AI 大模型与 Agent</h3>
         <p>熟练运用 ChatGPT、DeepSeek、Kimi3、GLM5.2、hy3 及 WorkBuddy、Codex、Reasonix 等 Agent 工具，能根据任务场景快速选型，发挥各模型在文本生成、深度推理、多模态等方面的优势。</p>
       </div>
-      <div class="card skill-card reveal"><div class="skill-icon">WF</div>
+      <div class="card skill-card reveal">
         <h3>多 Agent 协作工作流</h3>
         <p>独立设计并落地 Agent 工作流，已应用于 AI 日常办公、AI 视频生成、个人网站搭建、团队运营等场景，显著提升工作效率与内容产出质量。</p>
       </div>
-      <div class="card skill-card reveal"><div class="skill-icon">H3</div>
+      <div class="card skill-card reveal">
         <h3>MiniMax H3 视频生成</h3>
         <p>具备本地部署能力，可结合 ComfyUI 等节点式工具链搭建本地 AI 视频工作流，独立完成从素材处理到成片输出的生产链路，离线运行、数据可控、成本更低。</p>
       </div>
-      <div class="card skill-card reveal"><div class="skill-icon">PIPE</div>
+      <div class="card skill-card reveal">
         <h3>一体化内容生产链路</h3>
         <p>擅长将 DeepSeek、ChatGPT Image 2 与 MiniMax H3 组合：大模型完成脚本创作、提示词与分镜设计，H3 生成视频，实现从文案到成片的一站式 AI 制作。</p>
       </div>
