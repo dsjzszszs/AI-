@@ -42,7 +42,7 @@ section{position:relative;padding:58px 0;scroll-margin-top:84px}
 
 /* 导航 */
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:50;
+  position:sticky;top:0;left:0;right:0;z-index:50;
   background:rgba(255,255,255,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line);
 }
@@ -56,7 +56,7 @@ nav{
 .nav-links a.active{color:var(--blue);font-weight:700}
 
 /* Hero */
-.hero{min-height:auto;display:flex;flex-direction:column;justify-content:flex-start;padding:132px 0 64px}
+.hero{min-height:auto;display:flex;flex-direction:column;justify-content:flex-start;padding:64px 0 60px}
 .hero-grid{display:grid;grid-template-columns:auto 1fr;gap:50px;align-items:center;justify-content:center}
 .hero h1{font-size:clamp(38px,6vw,58px);font-weight:800;letter-spacing:.02em;line-height:1.12}
 .hero h1 .grad{background:linear-gradient(92deg,#0369a1,#0284c7 40%,#059669 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -133,7 +133,7 @@ nav{
   .nav-links{display:flex;gap:22px}
   .nav-links a{font-size:14px}
   .hero-grid{grid-template-columns:1fr;justify-items:center;text-align:center}
-  .hero{padding:106px 0 36px}
+  .hero{padding:48px 0 36px}
   .hero h1{font-size:40px}
   .info-line{font-size:13.5px;line-height:2}
   .info-line .sep{margin:0 8px}
